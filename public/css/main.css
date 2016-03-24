@@ -219,6 +219,38 @@ label, .radio label, .checkbox label, .help-block {
 	background-color: #3b4e60;
 }
 
+/*	Help Popover 	*/
+
+.help{
+	background-color: #fff;
+    border-radius: 6px;
+    color: #000;
+    display: inline-block;
+    font-size: 12px;
+    font-weight: bold;
+    height: 20px;
+    padding-top: 3px;
+    right: 0;
+    text-align: center;
+    vertical-align: middle;
+    width: 20px;
+    margin-top: -2px;
+}
+.help:hover{
+	background-color: orange;
+	color: white;
+	text-decoration: none;
+	transition: background-color 0.3s ease-in-out 0.3s, color 0.3s ease-in-out 0.3s;
+}
+.popover .arrow{
+	display: none;
+}
+.popover{
+	left:auto!important;
+	right:auto;
+	position: fixed;
+}
+
 /*	Misc	*/
 .note{
 	font-size: 12px;

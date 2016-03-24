@@ -1,5 +1,5 @@
-{% macro gpio_select(name,label,default,tip) %}
-<label for="{{name}}" class="tip" data-tip="{{tip}}">{{label}}</label>
+{% macro gpio_select(name,label,default,helpFiles) %}
+<label for="{{name}}">{{label}}{% if helpFiles %}{{helpModal(helpFiles,name)}}{% endif %}</label>
 <select name="{{name}}" id="{{name}}">
 	<option value="0" {% if default==0 %}selected{% endif %}>Disable</option>
 	<option value="7" {% if default==7 %}selected{% endif %}>Physical 7, BCM 4</option>
@@ -40,7 +40,7 @@
 {% endmacro %}
 <div class="alert alert-info">Setting changes will take effect immediately and does not require restart.</div>
 <form action="" method="post" class="edit-page" id="setup">
-	<h3>Printer Name</h3>
+	<h3>Printer Name{{helpModal("printer-name","Printer Name")}}</h3>
 	<div class="row">
 		<div class="col-md-12">
 			<input value="{{Name}}" name="Name" id="Name" placeholder="Printer Name">
@@ -52,16 +52,16 @@
 	<br>
 	<div class="row ZAxisPin_toggle">
 		<div class="col-md-6">
-			{{ gpio_select("DirectionPin","Direction Pin",DirectionPin,"Z-Axis Direction GPIO Pin") }}
+			{{ gpio_select("DirectionPin","Direction Pin",DirectionPin,"") }}
 		</div>
 		<div class="col-md-6">
-			{{ gpio_select("LimitPin","Endstop Switch - Top Limit",LimitPin,"Z-Axis Top Limit GPIO Pin") }}
+			{{ gpio_select("LimitPin","Endstop Switch - Top Limit",LimitPin,"") }}
 			<br>
 		</div>
 	</div>
 	<div class="row ZAxisPin_toggle">
 		<div class="col-md-6">
-			{{ gpio_select("EnablePin","Driver Enable Pin",EnablePin,"Driver Enable GPIO") }}
+			{{ gpio_select("EnablePin","Driver Enable Pin",EnablePin,"") }}
 		</div>
 		<div class="col-md-6">
 			<label for="EnablePinState">Enable Pin State</label>
@@ -102,7 +102,7 @@
 	</div>
 	<div class="row ShieldType_toggle">
 		<div class="col-md-3">
-			{{ gpio_select("WaitPin","Wait Pin",WaitPin,"Printing will be paused if this GPIO pin set HIGH") }}
+			{{ gpio_select("WaitPin","Wait Pin",WaitPin,"") }}
 		</div>
 		<div class="col-md-3">
 			<label for="ShieldUSBAddress" class="tip" data-tip="USB/Serial port path on linux">USB/Serial Port Path</label>
@@ -212,7 +212,7 @@
 			</select>
 		</div>
 		<div class="col-md-4">
-			{{ gpio_select("ShutterPin","Shutter GPIO",ShutterPin,"Shutter GPIO Pin") }}
+			{{ gpio_select("ShutterPin","Shutter GPIO",ShutterPin,"") }}
 			<br>
 		</div>
 	</div>
@@ -382,7 +382,7 @@
 	<h3>Hardware Fault Detection</h3>
 	<div class="row">
 		<div class="col-md-6">
-			{{ gpio_select("FaultPin","Stepper Driver Fault Detection Pin",FaultPin,"Connect GPIO to stepper driver's fault pin, If any fault detected, printer will be paused.") }}
+			{{ gpio_select("FaultPin","Stepper Driver Fault Detection Pin",FaultPin,"") }}
 		</div>
 		<div class="col-md-6 FaultPin_toggle">
 			<label for="FaultPinState">Fault Pin Default State</label>

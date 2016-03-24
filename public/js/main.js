@@ -20,13 +20,28 @@ $(function(){
 	blackout_image_init();
 	preview_init();
 	editable_table_init();
+	help_init();
 });
+
+function help_init(){
+	var response={};
+	$('#helpModal').modal({ show: false});
+	$("body").delegate(".help","click",function(e){
+		var t=$(this);
+		$('#helpModal .modal-title').html(t.prop("title"));
+			$.get("/help/"+t.data("files"), function(data){
+				$('#helpModal .modal-body').html(data);
+				$('#helpModal').modal('show');
+			});
+		e.preventDefault();
+	});
+}
 
 function editable_table_init(){
 	$(".edit-table").delegate(".name","change",function(){
 		var empty_is_available = false;
 		$(".edit-table .name").each(function(){
-			if ($(this).val()=="") {
+			if ($(this).val()==""){
 				empty_is_available = true;
 				return;
 			}

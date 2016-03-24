@@ -9,6 +9,11 @@
 		</div>
 	{% endif %}
 {% endmacro %}
+{% macro helpModal(helpFiles,title) %}
+	{% if helpFiles %}
+		<a href="#" class="help" title="{{title}}" data-files="{{helpFiles}}">?</a>
+	{% endif %}
+{% endmacro %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -46,8 +51,21 @@
 	<script src='/static/js/jquery.imgareaselect.dev.js'></script>
 	<script src='/static/js/favico-0.3.10.min.js'></script>
 	<script src='/static/js/main.js'></script>
-	<script src='/static/js/custom.js'></script>
 {% block tail %}
 {% endblock %}
+<div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel"></h4>
+      </div>
+      <div class="modal-body"></div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 </body>
 </html>
