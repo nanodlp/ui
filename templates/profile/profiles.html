@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Print Settings <a class="btn btn-default" href="/profile/add" role="button">Add Profile</a></h2>
+<table class="table table-striped table-bordered model-list">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Layer Thickness <sup>Micron</sup></th>
+                <th>Cure Time <sup>Second</sup></th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+
+        {% if profiles %}
+        {% for profile in profiles %}
+        <tr>
+                <td>{{profile.ProfileID}}</td>
+                <td>{{profile.Title}}</td>
+                <td>{{profile.Depth}}</td>
+                <td>{{profile.CureTime}}</td>
+                <td>
+                    <a class="btn btn-primary" href="/profile/edit/{{profile.ProfileID}}" title="Edit">Edit</a>
+                    <a class="btn btn-danger" href="/profile/delete/{{profile.ProfileID}}" onclick="return confirm('Are you sure you want to delete this profile?');"  title="Delete">Delete</a>
+                    <a class="btn btn-info" href="/profile/clone/{{profile.ProfileID}}" title="Clone">Clone</a>
+                    <a class="btn btn-success" href="/profile/Export/{{profile.ProfileID}}" title="Export">Export</a>
+                </td>
+        </tr>
+        {% endfor %}
+        {% else %}
+        <tr>
+            <td colspan="999">
+                <div class="text-center">
+                    No Profile
+                </div>
+            </td>
+        </tr>
+        {% endif %}
+    </table>
+    <br>
+    <a class="btn btn-success" href="/profile/Import" title="Import a Profile">Import a Profile</a>
+{% endblock %}

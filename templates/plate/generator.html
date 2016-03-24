@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="starter-template">
+	<div class="alert alert-danger" role="alert">Any change will result discard of previous calibration plate.</div>
+	<legend>{{h1}}</legend>
+	<form action="" method="post" class="edit-page">
+		<div class="row">
+			<div class="col-md-6">
+				<label for="ProfileID">Profile</label>
+				<select name="ProfileID" id="ProfileID">
+					{% for profile in profiles %}
+						<option value="{{profile.ProfileID}}" {% if profile.ProfileID == plate.ProfileID %}selected{% endif %}>{{profile.Title}}</option>
+					{% endfor %}
+				</select>
+			</div>
+			<div class="col-md-6">
+				<label for="Depth">Plate Depth <span class="label label-default">Millimeter</span></label>
+				<input value="3" name="Depth" id="Depth" value="{{generator.Depth}}" required>
+				<br>
+			</div>
+		</div>
+		<h3>Resin Calibration</h3>
+		<div class="row">
+			<div class="col-md-3">
+				<label for="CureTimes">Comma Separated Cure Times</label>
+				<input name="CureTimes" id="CureTimes" placeholder="eg. 3,4,5,2.5" pattern="[\d,.]*" value="{{generator.CureTimes}}">
+			</div>
+			<div class="col-md-3">
+				<label for="PillarSize">Pillar Width <span class="label label-default">Millimeter</span></label>
+				<input name="PillarSize" id="PillarSize" value="{{generator.PillarSize}}">
+			</div>
+			<div class="col-md-3">
+				<label for="PillarShear">Pillar Shear <span class="label label-default">Millimeter</span></label>
+				<input name="PillarShear" id="PillarShear" value="{{generator.PillarShear}}">
+			</div>
+			<!--<div class="col-md-3">
+				<label for="Shape">Pillar Shape</label>
+				<select name="Shape" id="Shape">
+					<option value="0">Circular</option>
+					<option value="1">Square</option>
+				</select>
+			</div>-->
+			<div class="col-md-3">
+				<label for="SupportSize" data-tip="Will be added to pillar size on base layers">Extend Pillars' Base Layers <span class="label label-default">Millimeter</span></label>
+				<input name="SupportSize" id="SupportSize" value="{{generator.SupportSize}}">
+			</div>
+		</div>
+		<h3>Rectangle for Resolution Measurement</h3>
+		<div class="row">
+			<div class="col-md-6">
+				<label for="BlockWidth">Width <span class="label label-default">Millimeter</span></label>
+				<input value="30" name="BlockWidth" id="BlockWidth" value="{{generator.BlockWidth}}">
+			</div>
+			<div class="col-md-6">
+				<label for="BlockHeight">Height <span class="label label-default">Millimeter</span></label>
+				<input value="5" name="BlockHeight" id="BlockHeight" value="{{generator.BlockHeight}}">
+			</div>
+		</div>
+		<br>
+		<button type="submit" class="btn btn-success">Generate</button>
+	</form>
+	<br>
+	<br>
+</div>
+{% endblock %}

@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Plates <a class="btn btn-default" href="/plate/add" role="button">ADD</a> <a class="btn btn-default" href="/plate/add-usb" role="button">Add From USB</a></h2>
+<table class="table table-striped table-bordered model-list" id="plates">
+	<thead>
+		<tr>
+			<th>ID</th>
+			<th>Name</th>
+			<th>Profile</th>
+			<th>Resin <sup>ml</sup></th>
+			<th>Stop Layers</th>
+			<th>Action</th>
+			<th>Printing</th>
+		</tr>
+	</thead>
+	{% if plates %}
+		{% for row in plates %}{% if row.PlateID != 0 %}
+			<tr>
+				<td>{{row.PlateID}}</td>
+				<td>{{row.Path}}</td>
+				<td>{{row.ProfileName}}</td>
+				<td>{{row.TotalSolidArea}}</td>
+				<td>{% if not row.StopLayers %}-{% endif %}{{row.StopLayers}}</td>
+				<td>
+					{% if row.Status==0 %}
+					<a class="btn btn-success" href="/plate/download/{{ row.PlateID }}" title="Download Plate">Download</a>
+					{% endif %}
+					<a class="btn btn-primary" href="/plate/edit/{{ row.PlateID }}" title="Edit Plate">Edit</a>
+					{% if row.PlateID != status.PlateID or status.Printing == false %}
+					<a class="btn btn-danger" href="/plate/delete/{{ row.PlateID }}" title="Delete Plate" onclick="return confirm('Are you sure you want to delete this plate?');">Delete</a>
+					{% endif %}
+					<br>
+					{% if row.BlackoutData!="" %}
+						<a class="btn btn-primary" href="/plate/cover/{{ row.PlateID }}">Modify Blackout</a>
+					{% else %}
+						<a class="btn btn-primary" href="/plate/cover/{{ row.PlateID }}">Add Blackout</a>
+					{% endif %}
+					<a class="btn btn-success" href="/plate/preview/{{ row.PlateID }}">Preview Layers</a>
+					{% if row.Status!=0 %}
+					<div class="alert alert-danger">Plate being processed...</div>
+					{% endif %}
+				</td>
+				<td>
+					{% if row.PlateID != status.PlateID or status.Printing == false %}
+						<form action="/printer/start/{{ row.PlateID }}" method="POST">
+							<div class="input-append">
+								<input id="appendedtext" name="LayerID" class="form-control compact-input" placeholder="Layer ID" value="{% if row.PlateID == status.PlateID %}{{status.ResumeID}}{% endif %}" type="text" size="3">
+								<span class="add-on"> of {{row.LayersCount}} Layers</span>
+								<button type="submit" class="btn btn-warning" value="Submit" onclick="return confirm('Are you sure you want to resume plate {{row.Path}} from layer ' + document.getElementById('appendedtext').value + '?');">Resume Printing</button>
+							</div>
+						</form>
+						<a class="btn btn-success" href="/printer/start/{{ row.PlateID }}" title="Auto play" onclick="return confirm('Are you sure you want to print plate {{row.Path}}?');">
+							Print From Start
+						</a>
+					{% else %}
+						<div class="input-append">
+							<a class="btn btn-danger" href="/printer/stop" title="stop" onclick="return confirm('Are you sure you want to stop printing?');">Stop</a>
+							<span class="add-on">Layer {{ status.ResumeID }} of {{row.LayersCount}}</span>
+						</div>
+					{% endif %}
+				</td>
+			</tr>
+		{% endif %}{% endfor %}
+	{% else %}
+		<tr>
+			<td colspan="999">
+				<div class="text-center">
+					No Plates
+				</div>
+			</td>
+		</tr>
+	{% endif %}
+
+	<tr>
+		<td>-</td>
+		<td>Calibration Plate</td>
+		<td>Rect: {{generator.BlockWidth}}*{{generator.BlockHeight}}*{{generator.Depth}}
+		<br>
+		Pillars: {{generator.PillarSize}}*{{generator.Depth}}
+		</td>
+		<td>-</td>
+		<td>-</td>
+		<td>
+			<a class="btn btn-primary" href="/plate/generator" title="Generate Calibration Plate">Generate</a>
+			<br>
+			<a class="btn btn-success" href="/plate/preview/0">Preview Layers</a>
+		</td>
+		<td>
+			{% if 0 != status.PlateID or status.Printing == false %}
+				{% if GeneratorRunning == false %}
+				<a class="btn btn-success" href="/printer/start/0" title="Auto play" onclick="return confirm('Are you sure you want to print calibration plate?');">
+					Print Calibration Plate
+				</a>
+				{% else %}
+				<div class="alert alert-danger">Calibration plate being generated...</div>
+				{% endif %}
+			{% else %}
+				<div class="input-append">
+					<a class="btn btn-danger" href="/printer/stop" title="stop" onclick="return confirm('Are you sure you want to stop printing?');">Stop</a>
+				</div>
+			{% endif %}
+		</td>
+	</tr>
+
+</table>
+<sub>Free Disk Space {{freeSpace}}MB</sub>
+{% endblock %}

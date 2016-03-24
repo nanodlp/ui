@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<form method="post" class="edit-page">
+	<div class="row">
+		<div class="col-md-4">
+		</div>
+		<div class="col-md-4">
+			<div class="alert alert-warning">
+				This process could takes few seconds up to few minutes depends on your internet connection.
+			</div>
+			<div class="alert alert-info">
+				To monitor process you could checkout the activity log. After completion Printer will be restarted.
+			</div>
+			<a href="/printer/upgrade/go" class="btn btn-danger">Continue</a>
+		</div>
+		<div class="col-md-4">
+		</div>
+	</div>
+</form>
+{% endblock %}

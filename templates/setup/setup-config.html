@@ -1,0 +1,413 @@
+{% macro gpio_select(name,label,default,tip) %}
+<label for="{{name}}" class="tip" data-tip="{{tip}}">{{label}}</label>
+<select name="{{name}}" id="{{name}}">
+	<option value="0" {% if default==0 %}selected{% endif %}>Disable</option>
+	<option value="7" {% if default==7 %}selected{% endif %}>Physical 7, BCM 4</option>
+	<option value="8" {% if default==8 %}selected{% endif %}>Physical 8, BCM 14</option>
+	<option value="10" {% if default==10 %}selected{% endif %}>Physical 10, BCM 15</option>
+	<option value="11" {% if default==11 %}selected{% endif %}>Physical 11, BCM 17</option>
+	<option value="12" {% if default==12 %}selected{% endif %}>Physical 12, BCM 18</option>
+	<option value="13" {% if default==13 %}selected{% endif %}>Physical 13, BCM 27</option>
+	<option value="15" {% if default==15 %}selected{% endif %}>Physical 15, BCM 22</option>
+	<option value="16" {% if default==16 %}selected{% endif %}>Physical 16, BCM 23</option>
+	<option value="18" {% if default==18 %}selected{% endif %}>Physical 18, BCM 24</option>
+	<option value="22" {% if default==22 %}selected{% endif %}>Physical 22, BCM 25</option>
+	<option value="29" {% if default==29 %}selected{% endif %}>Physical 29, BCM 5</option>
+	<option value="31" {% if default==31 %}selected{% endif %}>Physical 31, BCM 6</option>
+	<option value="32" {% if default==32 %}selected{% endif %}>Physical 32, BCM 12</option>
+	<option value="33" {% if default==33 %}selected{% endif %}>Physical 33, BCM 13</option>
+	<option value="36" {% if default==36 %}selected{% endif %}>Physical 36, BCM 16</option>
+	<option value="37" {% if default==37 %}selected{% endif %}>Physical 37, BCM 26</option>
+</select>
+{% endmacro %}
+{% macro speed_select(name,label,default) %}
+<label for="{{name}}">{{label}}</label>
+<select name="{{name}}" id="{{name}}">
+	<option value="300" {% if default==300 %}selected{% endif %}>300</option>
+	<option value="600" {% if default==600 %}selected{% endif %}>600</option>
+	<option value="1200" {% if default==1200 %}selected{% endif %}>1200</option>
+	<option value="2400" {% if default==2400 %}selected{% endif %}>2400</option>
+	<option value="4800" {% if default==4800 %}selected{% endif %}>4800</option>
+	<option value="9600" {% if default==9600 %}selected{% endif %}>9600</option>
+	<option value="14400" {% if default==14400 %}selected{% endif %}>14400</option>
+	<option value="19200" {% if default==19200 %}selected{% endif %}>19200</option>
+	<option value="28800" {% if default==28800 %}selected{% endif %}>28800</option>
+	<option value="38400" {% if default==38400 %}selected{% endif %}>38400</option>
+	<option value="57600" {% if default==57600 %}selected{% endif %}>57600</option>
+	<option value="115200" {% if default==115200 %}selected{% endif %}>115200</option>
+	<option value="250000" {% if default==250000 %}selected{% endif %}>250000</option>
+</select>
+{% endmacro %}
+<div class="alert alert-info">Setting changes will take effect immediately and does not require restart.</div>
+<form action="" method="post" class="edit-page" id="setup">
+	<h3>Printer Name</h3>
+	<div class="row">
+		<div class="col-md-12">
+			<input value="{{Name}}" name="Name" id="Name" placeholder="Printer Name">
+		</div>
+	</div>
+	<h3>Movement GPIOs</h3>
+	<div class="note">Does not required, if you are using separate controller</div>
+	{{ gpio_select("ZAxisPin","Step Pin for Z-Axis",ZAxisPin,"") }}
+	<br>
+	<div class="row ZAxisPin_toggle">
+		<div class="col-md-6">
+			{{ gpio_select("DirectionPin","Direction Pin",DirectionPin,"Z-Axis Direction GPIO Pin") }}
+		</div>
+		<div class="col-md-6">
+			{{ gpio_select("LimitPin","Endstop Switch - Top Limit",LimitPin,"Z-Axis Top Limit GPIO Pin") }}
+			<br>
+		</div>
+	</div>
+	<div class="row ZAxisPin_toggle">
+		<div class="col-md-6">
+			{{ gpio_select("EnablePin","Driver Enable Pin",EnablePin,"Driver Enable GPIO") }}
+		</div>
+		<div class="col-md-6">
+			<label for="EnablePinState">Enable Pin State</label>
+			<select name="EnablePinState" id="EnablePinState">
+				<option value="0" {% if EnablePinState==0 %}selected{% endif %}>Low</option>
+				<option value="1" {% if EnablePinState==1 %}selected{% endif %}>High</option>
+			</select>
+			<br>
+		</div>
+	</div>
+
+	<h3>3D Printer Board</h3>
+	<div class="note">Does not required, if you are using GPIOs to drive the printer</div>
+	<div class="row">
+		<div class="col-md-6">
+			<label for="ShieldType">Shield Connection</label>
+			<select name="ShieldType" id="ShieldType">
+				<option value="0" {% if ShieldType==0 %}selected{% endif %}>Disabled</option>
+				<option value="1" {% if ShieldType==1 %}selected{% endif %}>USB/Serial</option>
+				<option value="2" {% if ShieldType==2 %}selected{% endif %}>i2c</option>
+			</select>
+			<br>
+		</div>
+		<div class="col-md-3 ShieldType_toggle">
+			<label for="ShieldEncoding">Data Encoding</label>
+			<select name="ShieldEncoding" id="ShieldEncoding">
+				<option value="0" {% if ShieldEncoding==0 %}selected{% endif %}>Ascii</option>
+				<option value="1" {% if ShieldEncoding==1 %}selected{% endif %}>Binary</option>
+			</select>
+		</div>
+		<div class="col-md-3 ShieldType_toggle">
+			<label for="ShieldAxisMode">Shield Axis Direction</label>
+			<select name="ShieldAxisMode" id="ShieldAxisMode">
+				<option value="0" {% if ShieldAxisMode==0 %}selected{% endif %}>Zero at Bottom</option>
+				<option value="1" {% if ShieldAxisMode==1 %}selected{% endif %}>Zero at Top</option>
+			</select>
+		</div>
+	</div>
+	<div class="row ShieldType_toggle">
+		<div class="col-md-3">
+			{{ gpio_select("WaitPin","Wait Pin",WaitPin,"Printing will be paused if this GPIO pin set HIGH") }}
+		</div>
+		<div class="col-md-3">
+			<label for="ShieldUSBAddress" class="tip" data-tip="USB/Serial port path on linux">USB/Serial Port Path</label>
+			<input value="{{ShieldUSBAddress}}" name="ShieldUSBAddress" id="ShieldUSBAddress">
+		</div>
+		<div class="col-md-3">
+			{{ speed_select("ShieldSpeed","Baud Rate",ShieldSpeed) }}
+		</div>
+		<div class="col-md-3">
+			<label for="ShieldI2CAddress" class="tip" data-tip="To find out correct i2c address use i2cdetect command on Raspberry terminal">Ardiuno i2c Address <span class="label label-warning">Restart Required</span></label>
+			<input value="{{ShieldI2CAddress}}" name="ShieldI2CAddress" id="ShieldI2CAddress" type="number" min="0" max="127" required>
+			<br>
+		</div>
+	</div>
+	<div class="row ShieldType_toggle">
+		<div class="col-md-3">
+			<label for="ShieldBootup" class="tip" data-tip="Will run once just after boot up.">GCode - Bootup</label>
+			<textarea name="ShieldBootup" id="ShieldBootup">{{ShieldBootup}}</textarea>
+			<br>
+		</div>
+		<div class="col-md-3">
+			<label for="ShieldStart">GCode - Start of Print</label>
+			<textarea name="ShieldStart" id="ShieldStart">{{ShieldStart}}</textarea>
+		</div>
+		<div class="col-md-3">
+			<label for="SyscallStart" class="tip" data-tip="Run command and use result as gcode. eg. python start.py [[LayerNumber]]">Execute - Start of Print</label>
+			<input value="{{SyscallStart}}" name="SyscallStart" id="SyscallStart">
+			<br>
+		</div>
+		<div class="col-md-3">
+			<label for="SyscallFinish" class="tip" data-tip="Run command and use result as gcode. eg. python end.py [[LayerNumber]]">Execute - End of Print</label>
+			<input value="{{SyscallFinish}}" name="SyscallFinish" id="SyscallFinish">
+			<br>
+		</div>
+	</div>
+	<div class="row ShieldType_toggle">
+		<div class="col-md-3">
+			<label for="ShieldResume">GCode - Resume Print</label>
+			<textarea name="ShieldResume" id="ShieldResume">{{ShieldResume}}</textarea>
+			<br>
+			<label for="ShutterOpenGcode">Gcode - Shutter Open</label>
+			<textarea name="ShutterOpenGcode" id="ShutterOpenGcode">{{ShutterOpenGcode}}</textarea>
+			<br>
+		</div>
+		<div class="col-md-3">
+			<label for="ShieldFinish">GCode - End of Print</label>
+			<textarea name="ShieldFinish" id="ShieldFinish">{{ShieldFinish}}</textarea>
+			<br>
+			<label for="ShutterCloseGcode">Gcode - Shutter Close</label>
+			<textarea name="ShutterCloseGcode" id="ShutterCloseGcode">{{ShutterCloseGcode}}</textarea>
+			<br>
+		</div>
+		<div class="col-md-3">
+			<div class="note">Movement keywords:
+				<ul>
+					<li>[[LayerThickness]] <span class="label label-default">Millimeter</span></li>
+					<li>[[ZLiftDistance]] <span class="label label-default">Millimeter</span></li>
+					<li>[[LayerPosition]] Absolute layer position</li>
+					<li>[[CurrentPosition]]</li>
+					<li>[[GPIOWaitForLow]] and [[WaitForDoneMessage]]</li>
+					<li>[[PositionSet mm]] Position absolute update eg. [[PositionSet 22.1]]</li>
+					<li>[[PositionChange mm]] Position relative update eg. [[PositionChange -2.1]]</li></li>
+					<li>[[StopPosition]] Stop position from zero level</li>
+				</ul>
+				For more information, visit our <a href="http://www.nanodlp.com/forum/viewtopic.php?pid=134">gcode guide</a>.
+			</div>
+		</div>
+		<div class="col-md-3">
+			<div class="note">
+				Other Keywords:
+				<ul>
+					<li>[[GPIOHigh GPIO]] and [[GPIOLow GPIO]] eg. [[GPIOLow 12]]</li>
+					<li>[[Delay Seconds]] eg. [[Delay 1.23]]</li>
+					<li>[[ZSpeed]]</li>
+					<li>[[Pause]]</li>
+					<li>[[SyscallResult]]</li>
+					<li>[[LayerNumber]]</li>
+					<li>[[TotalSolidArea]]</li>
+					<li>[[LargestArea]]</li>
+				</ul>
+			</div>
+			<div class="note">
+				Supported Operations:
+				<ul>
+					<li>Math: + - * / ** () &lt; ></li>
+					<li>eg. {[[LayerThickness]]-[[ZLiftDistance]]}</li>
+					<li>Base 16 Binary Support. eg. \x00\xff</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<h3>Shutter</h3>
+	<label for="ShutterType">Shutter Type</label>
+	<select name="ShutterType" id="ShutterType">
+		<option value="0" {% if ShutterType==0 %}selected{% endif %}>Disabled</option>
+		<option value="1" {% if ShutterType==1 %}selected{% endif %}>Servo Motor</option>
+		<option value="2" {% if ShutterType==2 %}selected{% endif %}>True/False Signal</option>
+	</select>
+	<br>
+	<div class="row ShutterType_toggle">
+		<div class="col-md-4">
+			<label for="ShutterMode">Open Shutter</label>
+			<select name="ShutterMode" id="ShutterMode">
+				<option value="1" {% if ShutterMode==1 %}selected{% endif %}>Before Each Layer</option>
+				<option value="0" {% if ShutterMode==0 %}selected{% endif %}>Before Print</option>
+			</select>
+		</div>
+		<div class="col-md-4">
+			{{ gpio_select("ShutterPin","Shutter GPIO",ShutterPin,"Shutter GPIO Pin") }}
+			<br>
+		</div>
+	</div>
+	<div class="row ShutterType_toggle">
+		<div class="col-md-4">
+			<label for="ShutterOpen">Servo Pulse Width - Open Position <span class="label label-default">Millisecond</span></label>
+			<input value="{{ShutterOpen}}" name="ShutterOpen" id="ShutterOpen" type="number" min="500" max="2500" required>
+		</div>
+		<div class="col-md-4">
+			<label for="ShutterClose">Servo Pulse Width - Close Position <span class="label label-default">Millisecond</span></label>
+			<input value="{{ShutterClose}}" name="ShutterClose" id="ShutterClose" type="number" min="500" max="2500" required>
+		</div>
+		<div class="col-md-4">
+			<label for="ShutterSignalLength">Servo Signal Length <span class="label label-default">Millisecond</span></label>
+			<input value="{{ShutterSignalLength}}" name="ShutterSignalLength" id="ShutterSignalLength" type="number" min="100" max="2500" required>
+			<br>
+		</div>
+	</div>
+
+	<h3>Projector</h3>
+	<div class="row">
+		<div class="col-md-6">
+			<label for="ProjectorWidth">Projector Resolution Width</label>
+			<input value="{{ProjectorWidth}}" name="ProjectorWidth" id="ProjectorWidth" type="number" required>
+		</div>
+		<div class="col-md-6">
+			<label for="ProjectorHeight">Projector Resolution Height</label>
+			<input value="{{ProjectorHeight}}" name="ProjectorHeight" id="ProjectorHeight" type="number" required>
+			<br>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-6">
+			<label for="ProjectorType">Projector Connection</label>
+			<select name="ProjectorType" id="ProjectorType">
+				<option value="0" {% if ProjectorType==0 %}selected{% endif %}>Disabled</option>
+				<option value="1" {% if ProjectorType==1 %}selected{% endif %}>USB / Serial Port - Ascii</option>
+				<option value="2" {% if ProjectorType==2 %}selected{% endif %}>USB / Serial Port - Binary</option>
+			</select>
+			<br>
+		</div>
+		<div class="col-md-6">
+			<label for="ProjectorWarmup">Projector Warmup Time <span class="label label-default">Second</span></label>
+			<input value="{{ProjectorWarmup}}" name="ProjectorWarmup" id="ProjectorWarmup" type="number">
+		</div>
+	</div>
+	<div class="row ProjectorType_toggle">
+		<div class="col-md-3">
+			{{ speed_select("ProjectorSpeed","Baud Rate",ProjectorSpeed) }}
+		</div>
+		<div class="col-md-3">
+			<label for="ProjectorAddress" class="tip" data-tip="USB/Serial Port Address">USB/Serial Port Address</label>
+			<input value="{{ProjectorAddress}}" name="ProjectorAddress" id="ProjectorAddress" required>
+		</div>
+		<div class="col-md-3">
+			<label for="ProjectorOn" class="tip" data-tip="Send this command to the projector through Serial to USB convertor">Projector Turn On Command</label>
+			<input value="{{ProjectorOn}}" name="ProjectorOn" id="ProjectorOn" required>
+		</div>
+		<div class="col-md-3">
+			<label for="ProjectorOff" class="tip" data-tip="Send this command to the projector through Serial to USB convertor">Projector Turn Off Command</label>
+			<input value="{{ProjectorOff}}" name="ProjectorOff" id="ProjectorOff" required>
+			<br>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-6">
+			<label for="ProjectorOnSyscall" class="tip" data-tip="Command will run to turn the projector on. Suitable for sending command through infrared and HDMI-CEC">Execute to Turn Projector On</label>
+			<input value="{{ProjectorOnSyscall}}" name="ProjectorOnSyscall" id="ProjectorOnSyscall">
+		</div>
+		<div class="col-md-6">
+			<label for="ProjectorOffSyscall" class="tip" data-tip="Command will run to turn the projector off. Suitable for sending command through infrared and HDMI-CEC">Execute to Turn Projector Off</label>
+			<input value="{{ProjectorOffSyscall}}" name="ProjectorOffSyscall" id="ProjectorOffSyscall">
+		</div>
+	</div>
+
+	<h3>Platform / Resin</h3>
+	<div class="row">
+		<div class="col-md-3">
+			<label for="StopPositionMm" class="tip" data-tip="Platform position from zero point">Platform Wait Position <span class="label label-default">Millimeter</span></label>
+			<input value="{{StopPositionMm}}" name="StopPositionMm" id="StopPositionMm" type="number" step="0.001" required>
+		</div>
+		<div class="col-md-3">
+			<label for="ResinDistanceMm" class="tip" data-tip="Approximate resin level inside tank, use this value to adjust speed">Resin Depth <span class="label label-default">Millimeter</span></label>
+			<input value="{{ResinDistanceMm}}" name="ResinDistanceMm" id="ResinDistanceMm" type="number" step="0.001" required>
+		</div>
+	</div>
+
+	<h3>Speed</h3>
+	<div class="row">
+		<div class="col-md-3">
+			<label for="MaxSpeed">Max Speed <span class="label label-default">Micron/Second</span></label>
+			<input value="{{MaxSpeed}}" name="MaxSpeed" id="MaxSpeed" type="number" step="0.001" required>
+		</div>
+		<div class="col-md-3">
+			<label for="MinSpeed" class="tip" data-tip="Will be used for sections requiring slow speed such as movement inside resin">Min Speed </label>
+			<input value="{{MinSpeed}}" name="MinSpeed" id="MinSpeed" type="number" min="1" required>
+		</div>
+		<div class="col-md-3">
+			<label for="StartupSpeed" class="tip" data-tip="Speedup speed which motor will start acceleration">Motor Startup Speed</label>
+			<input value="{{StartupSpeed}}" name="StartupSpeed" id="StartupSpeed" type="number" min="1" required>
+		</div>
+	</div>
+
+	<h3>Actuator / Motor</h3>
+	<div class="row">
+		<div class="col-md-3">
+			<label for="MotorDegree" class="tip" data-tip="Stepper motor full step angle">Motor Step Angle</label>
+			<input value="{{MotorDegree}}" name="MotorDegree" id="MotorDegree" type="number" step="0.01" required>
+		</div>
+		<div class="col-md-3">
+			<label for="MicroStep" class="tip" data-tip="Microstepping value for Stepper driver, if you do not use any microstepping, put 1 as value">Microstep</label>
+			<input value="{{MicroStep}}" name="MicroStep" type="number" required>
+		</div>
+		<div class="col-md-3">
+			<label for="LeadscrewPitch" class="tip" data-tip="Distance travelled on each turn of Leadscrew">Leadscrew Pitch <span class="label label-default">Millimeter</span></label>
+			<input value="{{LeadscrewPitch}}" name="LeadscrewPitch" id="LeadscrewPitch" step="0.0001" type="number" required>
+		</div>
+		<div class="col-md-3">
+			<label for="ZAxisHeight" class="tip" data-tip="Not required if the printer equiped with endstop switch">Z-Axis Height <span class="label label-default">Pulse</span></label>
+			<input value="{{ZAxisHeight}}" name="ZAxisHeight" id="ZAxisHeight" type="number" required>
+		</div>
+	</div>
+
+	<h3>Camera Module</h3>
+	<div class="row">
+		<div class="col-md-3">
+			<label for="CameraFrequency">Camera Photo Frequency</label>
+			<select name="CameraFrequency" id="CameraFrequency">
+				<option value="0" {% if CameraFrequency==0 %}selected{% endif %}>Disabled</option>
+				<option value="-1" {% if CameraFrequency==-1 %}selected{% endif %}>Only Manually</option>
+				<option value="1" {% if CameraFrequency==1 %}selected{% endif %}>Once Per Layer</option>
+				<option value="2" {% if CameraFrequency==2 %}selected{% endif %}>Once Per 2 Layers</option>
+				<option value="3" {% if CameraFrequency==3 %}selected{% endif %}>Once Per 3 Layers</option>
+			</select>
+		</div>
+		<div class="col-md-3 CameraFrequency_toggle">
+			<label for="CameraStore" class="tip">Storage Mode</label>
+			<select name="CameraStore" id="CameraStore">
+				<option value="0" {% if CameraStore==0 %}selected{% endif %}>Only Last Image</option>
+				<option value="1" {% if CameraStore==1 %}selected{% endif %}>All Images</option>
+			</select>
+		</div>
+		<div class="col-md-6 CameraFrequency_toggle">
+			<label for="CameraCommand" class="tip">Camera Command</label>
+			<input value="{{CameraCommand}}" name="CameraCommand" id="CameraCommand" required>
+		</div>
+	</div>
+
+	<h3>LCD</h3>
+	<div class="row">
+		<div class="col-md-6">
+			<label for="LCDType">LCD Type <span class="label label-warning">Restart Required</span></label>
+			<select name="LCDType" id="LCDType">
+				<option value="0" {% if LCDType==0 %}selected{% endif %}>Not Available</option>
+				<option value="1" {% if LCDType==1 %}selected{% endif %}>16x2</option>
+			</select>
+		</div>
+		<div class="LCDType_toggle col-md-6">
+			<label for="LCDAdress" class="tip" data-tip="To find out correct i2c address use i2cdetect command on Raspberry terminal">i2c Address</label>
+			<input value="{{LCDAdress}}" name="LCDAdress" id="LCDAdress" type="number" min="0" max="127" required>
+		</div>
+	</div>
+
+	<h3>Physical Buttons</h3>
+	{{ gpio_select("ShutdownPin","Stop/Shutdown Physical GPIO",ShutdownPin,"") }}
+
+	<h3>Hardware Fault Detection</h3>
+	<div class="row">
+		<div class="col-md-6">
+			{{ gpio_select("FaultPin","Stepper Driver Fault Detection Pin",FaultPin,"Connect GPIO to stepper driver's fault pin, If any fault detected, printer will be paused.") }}
+		</div>
+		<div class="col-md-6 FaultPin_toggle">
+			<label for="FaultPinState">Fault Pin Default State</label>
+			<select name="FaultPinState" id="FaultPinState">
+				<option value="0" {% if FaultPinState==0 %}selected{% endif %}>Low</option>
+				<option value="1" {% if FaultPinState==1 %}selected{% endif %}>High</option>
+			</select>
+		</div>
+	</div>
+	<br>
+	<button type="submit" class="btn btn-success">Submit</button>
+</form>
+
+{% if inputs %}
+<form action="/setup/save-custom-inputs" method="post" class="edit-page">
+	<h3>Other Settings</h3>
+	<div class="row">
+		{% for input in inputs %}
+		<div class="col-md-3">
+			<label for="{{input.Name}}" class="tip">{{input.Title}}{% if input.Unit!="" %} <span class="label label-default">{{input.Unit}}</span>{% endif %}</label>
+			<input type="{% if input.Type==1 %}{{input.Type}}{% endif %}" value="{% for key, value in CustomValues %}{% if key==input.Name %}{{value}}{% endif %}{% endfor %}" name="{{input.Name}}" id="{{input.Name}}"{% if input.Type==1 %} min="{{input.Min}}" max="{{input.Max}}"{% endif %}>
+		</div>
+		{% endfor %}
+	</div>
+<br>
+<button type="submit" class="btn btn-success">Submit</button>
+</form>
+{% endif %}

@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block content %}
+{% macro customInputView(Name,Title,Note,Placeholder,Unit,Type,Min,Max) %}
+<tr>
+	<td>
+		<label>Name without space only characters</label>
+		<input name="Name" value="{{Name}}" class="name" placeholder="Name eg. ResinPumpAmount" pattern="[A-Za-z]{3,30}">
+		<br>
+		<label>Title</label>
+		<input name="Title" value="{{Title}}" placeholder="Title text">
+	</td>
+	<td>
+		<label>Note Text</label>
+		<input name="Note" value="{{Note}}" placeholder="Note text">
+		<br>
+		<label>Placeholder Text</label>
+		<input name="Placeholder" value="{{Placeholder}}" placeholder="Placeholder text">
+	</td>
+	<td>
+		<label>Value Type</label>
+		<select name="Type">
+			<option value="text" {% if Type=="text" %}selected{% endif %}>Text</option>
+			<option value="number" {% if Type=="number" %}selected{% endif %}>Number</option>
+		</select>
+		<br>
+		<label>Unit Text</label>
+		<input name="Unit" value="{{Unit}}" placeholder="Unit">
+	</td>
+	<td>
+		<label>Min for Number Input</label>
+		<input name="Min" value="{{Min}}" placeholder="Min" type="number">
+		<br>
+		<label>Max for Number Input</label>
+		<input name="Max" value="{{Max}}" placeholder="Max" type="number">
+	</td>
+	<td class="action"><a href="#" class="up">&#x2B06;</a><br><a href="#" class="down">&#x2B07;</a><br><a href="#" class="remove">&#x2716;</a></td>
+</tr>
+{% endmacro %}
+<div class="alert alert-success" role="alert">You can add additional inputs to setup page and they will be accessible as gcode keywords. eg. [[_ResinPumpAmount]]</div>
+<form action="/setup/custom-inputs" method="post" id="custom_inputs" class="edit-table edit-page">
+	<div class="row">
+		<div class="col-md-12">
+			<table width="100%">
+				<tr class="thead">
+					<th>Name</th>
+					<th>Details</th>
+					<th>Details</th>
+					<th>Details</th>
+					<th>Action</th>
+				</tr>
+				{% if inputs %}
+					{% for input in inputs %}
+						{{ customInputView(input.Name,input.Title,input.Note,input.Placeholder,input.Unit,input.Type,input.Min,input.Max) }}
+					{% endfor %}
+				{% endif %}
+				{{ customInputView("","","","","","","","") }}
+			</table>
+			<br>
+			<button type="submit" class="btn btn-success">Submit</button>
+		</div>
+	</div>
+</form>
+{% endblock %}

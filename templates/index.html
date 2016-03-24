@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="starter-template">
+	<audio id="buzzer" src="/static/alert.ogg" type="audio/ogg"></audio>
+	<div class="alert alert-danger hide" id="msg_box">Could not connect to the printer. Please, check your connection.</div>
+	<div id="image_wrapper" class="image_enlarge"></div>
+	<div id="layer_details">
+		<div class="key">Plate</div><div class="val last_path"></div><br>
+		<div class="key">Layer</div><div class="val last_location"></div><br>
+		<div class="key">Remaining</div><div class="val last_remaining"></div><br>
+		<div class="key">Module</div><div class="val last_module"></div><br>
+		<div class="key">Action</div><div class="val last_action"></div><br>
+	</div>
+	<div class="clear"></div>
+	<div id="photo_wrapper" class="image_enlarge"></div>
+	<div class="clear"></div>
+	<table id="stat">
+		<tr>
+			<td>CPU</td>
+			<td id="proc">{{stat.Proc}}</td>
+			<td>Memory</td>
+			<td id="mem">{{stat.Mem}}</td>
+		</tr>
+		<tr>
+			<td>Disk</td>
+			<td id="disk">{{stat.Disk}}</td>
+			<td>Uptime</td>
+			<td id="uptime">{{stat.Up}}</td>
+		</tr>
+	</table>
+	</table>
+	<div id="running">
+		<div class="progress progress-striped">
+		    <div style="width: 0%" class="progress-bar progress-bar-warning"></div>
+		</div>
+		<a class="btn btn-danger" href="/printer/stop" title="stop" onclick="return confirm('Are you sure you want to stop printing?');">Stop Print</a>
+		<a class="btn btn-info" href="/printer/pause">Pause Print</a>
+		{% if autoShutdown %}
+			<a class="btn btn-success" href="/printer/auto-shutdown/disable" alt="Disable shutdown after job completion">Disable Auto Shutdown</a>
+		{% else %}
+			<a class="btn btn-warning" href="/printer/auto-shutdown/enable" alt="Enable shutdown after job completion">Enable Auto Shutdown</a>
+		{% endif %}
+	</div>
+	<div id="idle">
+		<br>
+		<a id="resume" class="btn btn-warning" href="/printer/resume" onclick="return confirm('Are you sure you want to resume plate [[plate]] from layer [[last_layer]]?');">Resume Printing</a>
+		<a class="ajax btn btn-danger" href="/printer/off" name="type" data-confirm="Are you sure you want to power off the printer?">Power Off</a>
+		&nbsp; &nbsp; &nbsp;
+		<a class="ajax btn btn-danger" href="/printer/restart" title="stop" name="type" data-confirm="Are you sure you want to restart the printer?">Restart</a>
+	</div>
+	<div id="pause">
+		<br>
+		<a class="btn btn-danger" href="/printer/stop" onclick="return confirm('Are you sure you want to stop printing?');">Stop Print</a>
+		<a class="btn btn-info" href="/printer/unpause">Resume Print</a>
+	</div>
+	<div id="camera">
+		<a class="btn btn-success" href="/camera/take">Take Photo</a>
+	</div>
+	{{ buttonsView(buttons,"/") }}
+	<input id="search" placeholder="Search" class="form-control compact-input">
+	<h1>Application Log &nbsp; &nbsp; &nbsp; <a id="toggle_log" class="label label-default">Toggle Log</a></h1>
+	<div id="console_wrapper">
+		<div id="console">
+			<table class="search_target table table-striped table-hover">
+				<tr>
+					<th>Level</th>
+					<th>Layer</th>
+					<th>Time</th>
+					<th>Module</th>
+					<th>Details</th>
+				</tr>
+			</table>
+		</div>
+	</div>
+
+</div>
+{% endblock %}

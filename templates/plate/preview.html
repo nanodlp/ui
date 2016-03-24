@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+<legend>Preview Layers of Plate "{{plate.Path}}"</legend>
+<div class="row">
+    <div class="col-md-12">
+        {% if slicing %}
+            <div class="alert alert-info" role="alert">This plate still being processed, some layers` image still missing.</div>
+        {% endif %}
+        <div class="alert alert-success" role="alert">Layer <span id="current_layer">{{layerID}}</span>/{{plate.LayersCount}}</div>
+        <input type="range" max="{{plate.LayersCount}}" min="1" value="{{layerID}}" data-default="{{layerID}}" id="preview_range" autofocus>
+        <br>
+        <div id="preview">
+            <img src="/static/plates/{{plate.PlateID}}/{{layerID}}.png" data-path="/static/plates/{{plate.PlateID}}/">
+        </div>
+        <br><br><br>
+    </div>
+</div>
+{% endblock %}

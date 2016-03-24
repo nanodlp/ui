@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="starter-template">
+	<ul class="nav nav-tabs">
+		<li class="active"><a data-toggle="tab" href="#hardwareSection">Hardware Setup</a></li>
+		<li><a data-toggle="tab" href="#maskSection">Projector Mask</a></li>
+		<li><a data-toggle="tab" href="#buttonsSection">Customized Buttons</a></li>
+		<li><a data-toggle="tab" href="#passwordSection">Password Protection</a></li>
+		<li><a data-toggle="tab" href="#toolsSection">Tools</a></li>
+	</ul>
+	<br>
+	{% if msg %}
+		<div class="alert alert-danger" role="alert">{{msg}}</div>
+	{% endif %}
+	{% if printing %}
+		<div class="alert alert-warning" role="alert">Some critical settings such as type of shield and etc, will not take effect in the middle of print. To change them without restart, stop the print and submit this page again.</div>
+	{% endif %}
+	<div class="tab-content">
+		<div id="hardwareSection" class="tab-pane fade in active">
+		{% include "setup/setup-config.html" %}
+		</div>
+		<div id="maskSection" class="tab-pane fade">
+			<form action="/add-mask" method="post" class="edit-page" enctype="multipart/form-data">
+				{% if mask %}
+					<img src="{{mask}}" width="500">
+				{% endif %}
+					<label for="MaskFile">Mask file effects only SLC files uploaded after mask submit</label>
+					<input name="MaskFile" id="MaskFile" type="file" accept=".png,.jpg">
+					<br>
+					<button type="submit" class="btn btn-success" name="mask" value="add">Add Mask</button>
+					<button type="submit" class="btn btn-danger" name="mask" value="remove">Remove Mask</button>
+			</form>
+		</div>
+		<div id="buttonsSection" class="tab-pane fade">
+		{% include "setup/setup-buttons.html" %}
+		</div>
+		<div id="passwordSection" class="tab-pane fade">
+			<h3>Local Panel Password Protection</h3>
+			<form action="/add-protection" method="post" class="edit-page">
+				<div class="row">
+					<div class="col-md-3">
+						<label for="username">Username</label>
+						<input name="username">
+					</div>
+					<div class="col-md-3">
+						<label for="password">Password</label>
+						<input name="password" type="password">
+					</div>
+				</div>
+				<br>
+				<div class="note">To remove password protection, remove username from the input and submit</div>
+				<br>
+				<button type="submit" class="btn btn-success" name="user" value="add">Save</button>
+			</form>
+			<h3>Remote Access to the printer</h3>
+			<form action="/online-access" method="post" class="edit-page">
+				<div class="row">
+					<div class="col-md-3">
+						<label for="onlineKey">Online Access Key</label>
+						<input name="onlineKey" type="onlineKey">
+					</div>
+				</div>
+				<br>
+				<div class="note">To enable remote access to the printer, please enter random access key</div>
+				<br>
+				<button type="submit" class="btn btn-success" name="user" value="add">Save</button>
+			</form>
+		</div>
+		<div id="toolsSection" class="tab-pane fade">
+			<div class="alert alert-warning" role="alert">Any action will take effect immediately without page change.</div>
+			<a class="ajax btn btn-danger" href="/printer/force-stop" name="type" onclick="return confirm('Are you sure you want to force stop the printer?');">Force Stop</a>
+			<br>
+			<a class="ajax btn btn-danger" href="/printer/off" name="type" onclick="return confirm('Are you sure you want to power off the printer?');">Power Off Raspberry Pi</a>
+			<br>
+			<a class="ajax btn btn-danger" href="/printer/restart" title="stop" name="type" onclick="return confirm('Are you sure you want to restart the printer?');">Restart Raspberry Pi</a>
+			<br>
+			<a class="ajax btn btn-danger" href="/printer/terminate" name="type" onclick="return confirm('Are you sure you want to terminate nanoDLP and have access to terminal?');">Terminate nanoDLP</a>
+			<br>
+			<a class="ajax btn btn-danger" href="/printer/restore" name="type" onclick="return confirm('Are you sure you want to restore default settings and reboot printer?');">Restore Default machine/profiles/buttons Settings</a>
+		</div>
+	</div>
+	<br>
+	<br>
+	<br>
+	<br>
+</div>
+{% endblock %}

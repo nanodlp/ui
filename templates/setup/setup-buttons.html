@@ -1,0 +1,91 @@
+{% macro buttonView(name,position,color,syscall,gcode,confirmText,cond) %}
+<tr>
+	<td>
+		<input name="Name" value="{{name}}" class="name">
+		<select name="Color">
+			<option value="btn btn-success" {% if color=="btn btn-success" %}selected{% endif %}>Green</option>
+			<option value="btn btn-info" {% if color=="btn btn-info" %}selected{% endif %}>Blue</option>
+			<option value="btn btn-warning" {% if color=="btn btn-warning" %}selected{% endif %}>Orange</option>
+			<option value="btn btn-danger" {% if color=="btn btn-danger" %}selected{% endif %}>Red</option>
+		</select>
+	</td>
+	<td>
+		<select name="Position">
+			<option value="/" {% if position=="/" %}selected{% endif %}>Dashboard</option>
+			<option value="/z-calibration" {% if position=="/z-calibration" %}selected{% endif %}>Z-Axis Calibration</option>
+			<option value="/projector-calibration" {% if position=="/projector-calibration" %}selected{% endif %}>Projector Calibration</option>
+		</select>
+		<select name="Condition">
+			<option value="" {% if cond=="" %}selected{% endif %}>Anytime</option>
+			<option value="Idle" {% if cond=="Idle" %}selected{% endif %}>Idle</option>
+			<option value="Printing" {% if cond=="Printing" %}selected{% endif %}>Printing</option>
+		</select>
+	</td>
+	<td><input name="Syscall" value="{{syscall}}" placeholder="Program Path"></td>
+	<td><textarea name="Gcode">{{gcode}}</textarea></td>
+	<td><input name="ConfirmText" value="{{confirmText}}" placeholder="Optional confirmation dialog text"></td>
+	<td class="action"><a href="#" class="up">&#x2B06;</a><br><a href="#" class="down">&#x2B07;</a><br><a href="#" class="remove">&#x2716;</a></td>
+</tr>
+{% endmacro %}
+<form action="/buttons/save" method="post" id="buttons" class="edit-page edit-table">
+	<div class="row">
+		<div class="col-md-12">
+			<table>
+				<tr class="thead">
+					<th>Name / Color</th>
+					<th>Position / Condition</th>
+					<th>Syscall</th>
+					<th>Gcode</th>
+					<th>Confirmation Text</th>
+					<th>Action</th>
+				</tr>
+				{% if buttons %}
+					{% for button in buttons %}
+						{{ buttonView(button.Name,button.Position,button.Color,button.Syscall,button.Gcode,button.ConfirmText,button.Condition) }}
+					{% endfor %}
+				{% endif %}
+				{{ buttonView("",0,0,"","","","") }}
+			</table>
+			<br>
+			<button type="submit" class="btn btn-success">Submit</button>
+		</div>
+	</div>
+</form>
+<div class="row">
+	<div class="col-md-6">
+		<br>
+		<div class="note">
+		It is possible to call a program or script from shell and use the result as gcode.<br>
+		eg. python execute.py<br><br>
+
+		Usable keywords:
+			<ul>
+				<li>[[LayerNumber]]</li>
+				<li>[[LayerThickness]]</li>
+				<li>[[ZLiftDistance]]</li>
+				<li>[[ZSpeed]]</li>
+				<li>[[TotalSolidArea]]</li>
+				<li>[[LargestArea]]</li>
+				<li>[[SyscallResult]]</li>
+				<li>[[Delay Seconds]] eg. [[Delay 1.23]]</li>
+				<li>[[Pause]]</li>
+				<li>[[GPIOWaitForLow]] and [[WaitForDoneMessage]]</li>
+			</ul>
+		</div>
+	</div>
+	<div class="col-md-6">
+		<br>
+		<div class="note">
+		Supported math operations:
+			<ul>
+				<li>+ - * / ** () &lt; ></li>
+				<li>eg. {[[LayerThickness]]-[[ZLiftDistance]]}</li>
+			</ul>
+			Binary support:
+			<ul>
+				<li>It is possible to send binary codes using base 16 format.</li>
+				<li>eg. \x00\xff</li>
+			</ul>
+		</div>
+	</div>
+</div>

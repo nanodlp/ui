@@ -1,0 +1,33 @@
+<div class="navbar-header">
+    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </button>
+    <a href="/" class="navbar-brand"><img src="/static/logo.png" alt="NanoDLP"></a>
+</div>
+<div id="navbar" class="navbar-collapse collapse">
+    <ul class="nav navbar-nav">
+        <li><a href="/plates">Plates</a></li>
+        <li><a href="/z-calibration">Z Axis Calibration</a></li>
+        <li><a href="/projector-calibration">Projector Calibration</a></li>
+        <li><a href="/profiles">Printer Profiles</a></li>
+        <li><a href="/setup">Setup</a></li>
+        <li><a href="/term">Terminal</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+        <li>
+            {% if newBuild %}
+                <a href="/printer/upgrade">
+                    <span class="label label-info">New Version Available</span>
+                </a>
+            {% else %}
+                <a href="http://www.nanodlp.com">
+                    <small>Build <!--version--></small>
+                </a>
+            {% endif %}
+        </li>
+    </ul>
+</div>
+<!--/.nav-collapse -->

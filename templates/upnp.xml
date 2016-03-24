@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<root xmlns="urn:schemas-upnp-org:device-1-0">
+    <specVersion>
+        <major>1</major>
+        <minor>0</minor>
+    </specVersion>
+    <URLBase>http://{{IP}}:{{Port}}</URLBase>
+    <device>
+        <deviceType>urn:schemas-upnp-org:device:Basic:1</deviceType>
+        <friendlyName>NanoDLP {{name}}</friendlyName>
+        <manufacturer>NanoDLP</manufacturer>
+        <manufacturerURL>http://www.nanodlp.com/</manufacturerURL>
+        <modelDescription>NanoDLP 3D SLA Printer</modelDescription>
+        <modelName>NanoDLP 3D Printer</modelName>
+        <modelNumber>1.0.0</modelNumber>
+        <modelURL>http://www.nanodlp.com</modelURL>
+        <UDN>uuid:00000000-0000-0000-ab12-{{uuid}}</UDN>
+        <serialNumber>{{uuid}}</serialNumber>
+        <presentationURL>/</presentationURL>
+    </device>
+</root>

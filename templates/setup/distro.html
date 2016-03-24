@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+<form method="post" class="edit-page">
+	<div class="row">
+		<div class="col-md-2">
+		</div>
+		<div class="col-md-8">
+			<div class="alert alert-success">
+				Please, choose a distribution. Mask, default setting files and etc will be deployed.<br>
+				If you want to overwrite settings too, after restart go to setup page/tools tab and press `restore settings` button.
+			</div>
+			<a href="/printer/distro/generic" class="btn btn-danger">Change to "nanoDLP generic" Version</a><br>
+			<a href="/printer/distro/muve3d" class="btn btn-danger">Change to "mUVe3D" Version</a><br>
+		</div>
+		<div class="col-md-2">
+		</div>
+	</div>
+</form>
+{% endblock %}

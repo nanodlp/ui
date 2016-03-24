@@ -1,0 +1,53 @@
+{% macro buttonsView(buttons,page) %}
+	{% if buttons %}
+		<div class="custom-buttons">
+		{% for button in buttons %}
+			{% if button.Position==page %}
+				<a href="/button/press/{{button.ID}}" class="{{button.Color}} {{button.Condition}}"{% if button.ConfirmText!="" %} onclick="return confirm('{{button.ConfirmText}}');"{% endif %}>{{button.Name}}</a>
+			{% endif %}
+		{% endfor %}
+		</div>
+	{% endif %}
+{% endmacro %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<link rel="icon" href="/static/favicon.ico">
+
+	<!-- Bootstrap core CSS -->
+	<link href='/static/boot3/css/bootstrap.min.css' rel="stylesheet">
+
+	<!-- Custom styles for this template -->
+	<link href='/static/css/main.css' rel="stylesheet">
+	<title>{% if title %}{{ title }}{% endif %}</title>
+	{% block head %}
+	{% endblock %}
+</head>
+<body>
+	<!-- Fixed navbar -->
+	<nav class="navbar navbar-default navbar-fixed-top">
+		<div class="container">{% include "menu.html" %}</div>
+	</nav>
+
+	<div class="container">
+	{% block content %}
+	{% endblock %}
+	</div> <!-- /container -->
+
+
+	<script src='/static/boot3/js/jquery.min.js'></script>
+	<script src='/static/boot3/js/bootstrap.min.js'></script>
+	<script src='/static/js/jquery.imgareaselect.dev.js'></script>
+	<script src='/static/js/favico-0.3.10.min.js'></script>
+	<script src='/static/js/main.js'></script>
+	<script src='/static/js/custom.js'></script>
+{% block tail %}
+{% endblock %}
+</body>
+</html>

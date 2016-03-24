@@ -1,0 +1,7 @@
+build
+public/status.json
+db/*
+public/plates/*
+webserver*
+*.log
+*.sh

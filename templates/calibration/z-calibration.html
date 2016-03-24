@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row">
+	<div class="col-sm-6">
+		<legend>Platform Information</legend>
+		<!--ajax_result-->
+		<div class="ajax_result">
+			{% if msg %}
+			<div class="alert alert-info" role="alert">{{msg}}</div>
+			{% endif %}
+			<table width="100%" class="table table-striped table-hover">
+				<thead>
+					<tr>
+						<th>Height</th>
+						<th>Millimeter</th>
+						<th>Pulse</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>Zero Level</td>
+						<td>0</td>
+						<td>0</td>
+					</tr>
+					<tr class="success">
+						<td>Current</td>
+						<td><b>{{CurrentHeightMm}}</b></td>
+						<td><b>{{Status.CurrentHeight}}</b></td>
+					</tr>
+					<tr>
+						<td>End Level</td>
+						<td><b>{{ZAxisHeightMm}}</b></td>
+						<td><b>{{Config.ZAxisHeight}}</b></td>
+					</tr>
+				</tbody>
+			</table>
+			<br>
+			<a href="/z-axis/touch-limit" type="button" id="yPTen" class="btn btn-primary">Calibrate Zero Position ⇧</a>
+			<br>
+			<br>
+			<legend>Save Z Axis Calibration</legend>
+			<a href="/z-axis/calibrate" class="btn  btn-danger btn-lg" role="button" onclick="return confirm('Are you sure you want to set this height as bottom');">Measure Z-Axis Length ⇧ </a>
+		</div>
+		<!--ajax_result-->
+		<br><br>
+		{{ buttonsView(buttons,"/z-calibration") }}
+	</div>
+	<div class="col-sm-6">
+		<legend>Move</legend>
+		<div class="row calibration">
+			<div class="col-xs-6 right_link">
+				<a href="/z-axis/bottom" type="button" class="btn btn-danger btn-sm">Floor ⇩</a>
+				<a href="/z-axis/move/down/micron/50000" type="button" class="btn btn-warning btn-sm">50mm ⇩</a>
+				<a href="/z-axis/move/down/micron/10000" type="button" class="btn btn-warning btn-sm">10mm ⇩</a>
+				<a href="/z-axis/move/down/micron/1000" type="button" class="btn btn-warning btn-sm">1mm ⇩</a>
+				<a href="/z-axis/move/down/micron/500" type="button" class="btn btn-warning btn-sm">0.5mm ⇩</a>
+				<a href="/z-axis/move/down/micron/100" type="button" class="btn btn-warning btn-sm">0.1mm ⇩</a>
+				<a href="/z-axis/move/down/pulse/100" type="button" class="btn btn-warning btn-sm side_left">100 Pulse ⇩</a>
+				<a href="/z-axis/move/down/pulse/10" type="button" class="btn btn-warning btn-sm side_left">10 Pulse ⇩</a>
+				<a href="/z-axis/move/down/pulse/1" type="button" class="btn btn-warning btn-sm side_left">1 Pulse ⇩</a>
+			</div>
+			<div class="col-xs-6 left_link">
+				<a href="/z-axis/top" type="button" class="btn btn-primary btn-sm">Top ⇧</a>
+				<a href="/z-axis/move/up/micron/50000" type="button" class="btn btn-success btn-sm">50mm ⇧</a>
+				<a href="/z-axis/move/up/micron/10000" type="button" class="btn btn-success btn-sm">10mm ⇧</a>
+				<a href="/z-axis/move/up/micron/1000" type="button" class="btn btn-success btn-sm">1mm ⇧</a>
+				<a href="/z-axis/move/up/micron/500" type="button" class="btn btn-success btn-sm">0.5mm ⇧</a>
+				<a href="/z-axis/move/up/micron/100" type="button" class="btn btn-success btn-sm">0.1mm ⇧</a>
+				<a href="/z-axis/move/up/pulse/100" type="button" class="btn btn-success btn-sm side_right">100 Pulse ⇧</a>
+				<a href="/z-axis/move/up/pulse/10" type="button" class="btn btn-success btn-sm side_right">10 Pulse⇧</a>
+				<a href="/z-axis/move/up/pulse/1" type="button" class="btn btn-success btn-sm side_right">1 Pulse⇧</a>
+			</div>
+		</div>
+		<br>
+		<legend>Move to layer</legend>
+		<form class="edit-page" method="POST">
+			<fieldset>
+				<div class="control-group">
+					<label class="control-label" for="appendedtext">Plate</label>
+					<select name="ProfileID" required>
+			        {% for profile in profiles %}
+						<option value="{{profile.ProfileID}}">{{profile.Title}}</option>
+					{% endfor %}
+					</select>
+				</div>
+
+				<div class="control-group">
+					<label class="control-label">Layer</label>
+					<input id="appendedtext" name="LayerID" class="form-control" placeholder="Layer ID" type="text" required>
+					<br>
+					<br>
+					<div class="controls">
+						<button value="down" class="btn btn-danger">Move to Layer</button>
+					</div>
+				</div>
+
+			</fieldset>
+		</form>
+
+	</div>
+</div>
+{% endblock %}
