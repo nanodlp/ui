@@ -67,7 +67,7 @@
 			</form>
 		</div>
 		<div id="toolsSection" class="tab-pane fade">
-			<div class="alert alert-warning" role="alert">Any action will take effect immediately.</div>
+			<div class="alert alert-warning" role="alert">Any action will take effect immediately without page change.</div>
 			<a class="ajax btn btn-danger" ajax="/" href="/printer/force-stop" name="type" onclick="return confirm('Are you sure you want to force stop the printer?');">Force Stop</a>
 			<br>
 			<a class="ajax btn btn-danger" ajax="/" href="/printer/off" name="type" onclick="return confirm('Are you sure you want to power off the printer?');">Power Off Raspberry Pi</a>
@@ -77,6 +77,10 @@
 			<a class="ajax btn btn-danger" ajax="/" href="/printer/terminate" name="type" onclick="return confirm('Are you sure you want to terminate nanoDLP and have access to terminal?');">Terminate nanoDLP</a>
 			<br>
 			<a class="ajax btn btn-danger" ajax="/" href="/printer/restore" name="type" onclick="return confirm('Are you sure you want to restore default settings and reboot printer?');">Restore Default machine/profiles/buttons Settings</a>
+			<br>
+			<br>
+			<div class="alert alert-warning" role="alert">Filesystem expantion will run silently on background. And will restart rpi afterward. Please, do not change anything.</div>
+			<a class="ajax btn btn-danger" ajax="/" href="/printer/expand-fs" name="type" onclick="return confirm('Are you sure you want to expand filesystem?');">Expand Filesystem</a>
 		</div>
 	</div>
 	<br>
