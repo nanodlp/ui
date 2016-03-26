@@ -119,7 +119,7 @@ function inputs_init(){
 		}
 		$.ajax({
 			url: t.attr('href')
-		}).done(function(d){
+		}).always(function(d){
 			if (t.data("ajax")){
 				document.location.href = t.data("ajax");
 			}

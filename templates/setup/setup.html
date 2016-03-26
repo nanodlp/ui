@@ -68,19 +68,21 @@
 		</div>
 		<div id="toolsSection" class="tab-pane fade">
 			<div class="alert alert-warning" role="alert">Any action will take effect immediately without page change.</div>
-			<a class="ajax btn btn-danger" ajax="/" href="/printer/force-stop" name="type" onclick="return confirm('Are you sure you want to force stop the printer?');">Force Stop</a>
+			<a class="ajax btn btn-danger" data-ajax="/" href="/printer/force-stop" data-confirm="Are you sure you want to force stop the printer?">Force Stop</a>
 			<br>
-			<a class="ajax btn btn-danger" ajax="/" href="/printer/off" name="type" onclick="return confirm('Are you sure you want to power off the printer?');">Power Off Raspberry Pi</a>
+			<a class="ajax btn btn-danger" data-ajax="/" href="/printer/off" data-confirm="Are you sure you want to power off the printer?">Power Off Raspberry Pi</a>
 			<br>
-			<a class="ajax btn btn-danger" ajax="/" href="/printer/restart" title="stop" name="type" onclick="return confirm('Are you sure you want to restart the printer?');">Restart Raspberry Pi</a>
+			<a class="ajax btn btn-danger" data-ajax="/" href="/printer/restart" data-confirm="Are you sure you want to restart the printer?">Restart Raspberry Pi</a>
 			<br>
-			<a class="ajax btn btn-danger" ajax="/" href="/printer/terminate" name="type" onclick="return confirm('Are you sure you want to terminate nanoDLP and have access to terminal?');">Terminate nanoDLP</a>
+			<a class="ajax btn btn-danger" data-ajax="/" href="/printer/terminate" data-confirm="Are you sure you want to terminate nanoDLP and have access to terminal?">Terminate nanoDLP</a>
 			<br>
-			<a class="ajax btn btn-danger" ajax="/" href="/printer/restore" name="type" onclick="return confirm('Are you sure you want to restore default settings and reboot printer?');">Restore Default machine/profiles/buttons Settings</a>
+			<a class="ajax btn btn-danger" data-ajax="/" href="/printer/restore" data-confirm="Are you sure you want to restore default settings and reboot printer?">Restore Default machine/profiles/buttons Settings</a>
+			<br>
+			<a class="btn btn-danger" href="/printer/distro/change">Change Distribution</a>
 			<br>
 			<br>
 			<div class="alert alert-warning" role="alert">Filesystem expantion will run silently on background. And will restart rpi afterward. Please, do not change anything.</div>
-			<a class="ajax btn btn-danger" ajax="/" href="/printer/expand-fs" name="type" onclick="return confirm('Are you sure you want to expand filesystem?');">Expand Filesystem</a>
+			<a class="ajax btn btn-danger" data-ajax="/" href="/printer/expand-fs" data-confirm="Are you sure you want to expand filesystem?">Expand Filesystem</a>
 		</div>
 	</div>
 	<br>
