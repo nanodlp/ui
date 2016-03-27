@@ -1,5 +1,5 @@
 {% macro gpio_select(name,label,default,helpFiles) %}
-<label for="{{name}}">{{label}}{% if helpFiles %}{{helpModal(helpFiles,name)}}{% endif %}</label>
+<label for="{{name}}">{{label}}{% if helpFiles %}{{helpModal(helpFiles,label)}}{% endif %}</label>
 <select name="{{name}}" id="{{name}}">
 	<option value="0" {% if default==0 %}selected{% endif %}>Disable</option>
 	<option value="7" {% if default==7 %}selected{% endif %}>Physical 7, BCM 4</option>
@@ -48,20 +48,20 @@
 	</div>
 	<h3>Movement GPIOs</h3>
 	<div class="note">Does not required, if you are using separate controller</div>
-	{{ gpio_select("ZAxisPin","Step Pin for Z-Axis",ZAxisPin,"") }}
+	{{ gpio_select("ZAxisPin","Step Pin for Z-Axis",ZAxisPin,"z-axis-step-gpio,direct-control,gpio") }}
 	<br>
 	<div class="row ZAxisPin_toggle">
 		<div class="col-md-6">
-			{{ gpio_select("DirectionPin","Direction Pin",DirectionPin,"") }}
+			{{ gpio_select("DirectionPin","Direction Pin",DirectionPin,"z-axis-direction-gpio,direct-control,gpio") }}
 		</div>
 		<div class="col-md-6">
-			{{ gpio_select("LimitPin","Endstop Switch - Top Limit",LimitPin,"") }}
+			{{ gpio_select("LimitPin","Endstop Switch - Top Limit",LimitPin,"z-axis-endstop-gpio,direct-control,gpio") }}
 			<br>
 		</div>
 	</div>
 	<div class="row ZAxisPin_toggle">
 		<div class="col-md-6">
-			{{ gpio_select("EnablePin","Driver Enable Pin",EnablePin,"") }}
+			{{ gpio_select("EnablePin","Driver Enable Pin",EnablePin,"z-axis-enable-gpio,direct-control,gpio") }}
 		</div>
 		<div class="col-md-6">
 			<label for="EnablePinState">Enable Pin State</label>
