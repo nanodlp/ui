@@ -1,0 +1,11 @@
+USB / Serial ports usually listen at one of these address:<br>
+<pre>
+ /dev/ttyACM0
+ /dev/ttyACA0
+ /dev/ttyUSB0
+</pre>
+<br>
+<p>To find out correct address you can connect to Raspberry through SSH protocol using tools such as Putty. Run following command and take notes of available paths.</p>
+<pre>ls /dev/tty*</pre>
+<p>Connect your device to Raspberry Pi and type above command again. Additional path is belong to your device.
+</p>

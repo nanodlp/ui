@@ -1,5 +1,5 @@
 {% macro gpio_select(name,label,default,helpFiles) %}
-<label for="{{name}}">{{label}}{% if helpFiles %}{{helpModal(helpFiles,label)}}{% endif %}</label>
+<label for="{{name}}">{{label}}{% if helpFiles %}{{helpModal(helpFiles)}}{% endif %}</label>
 <select name="{{name}}" id="{{name}}">
 	<option value="0" {% if default==0 %}selected{% endif %}>Disable</option>
 	<option value="7" {% if default==7 %}selected{% endif %}>Physical 7, BCM 4</option>
@@ -40,7 +40,7 @@
 {% endmacro %}
 <div class="alert alert-info">Setting changes will take effect immediately and does not require restart.</div>
 <form action="" method="post" class="edit-page" id="setup">
-	<h3>Printer Name{{helpModal("printer-name","Printer Name")}}</h3>
+	<h3>Printer Name{{helpModal("printer-name")}}</h3>
 	<div class="row">
 		<div class="col-md-12">
 			<input value="{{Name}}" name="Name" id="Name" placeholder="Printer Name">
@@ -77,7 +77,7 @@
 	<div class="note">Does not required, if you are using GPIOs to drive the printer</div>
 	<div class="row">
 		<div class="col-md-6">
-			<label for="ShieldType">Shield Connection</label>
+			<label for="ShieldType">Shield Connection{{helpModal("shield-connection-type,shield")}}</label>
 			<select name="ShieldType" id="ShieldType">
 				<option value="0" {% if ShieldType==0 %}selected{% endif %}>Disabled</option>
 				<option value="1" {% if ShieldType==1 %}selected{% endif %}>USB/Serial</option>
@@ -86,7 +86,7 @@
 			<br>
 		</div>
 		<div class="col-md-3 ShieldType_toggle">
-			<label for="ShieldEncoding">Data Encoding</label>
+			<label for="ShieldEncoding">Data Encoding{{helpModal("shield-data-encoding,shield")}}</label>
 			<select name="ShieldEncoding" id="ShieldEncoding">
 				<option value="0" {% if ShieldEncoding==0 %}selected{% endif %}>Ascii</option>
 				<option value="1" {% if ShieldEncoding==1 %}selected{% endif %}>Binary</option>
@@ -102,10 +102,10 @@
 	</div>
 	<div class="row ShieldType_toggle">
 		<div class="col-md-3">
-			{{ gpio_select("WaitPin","Wait Pin",WaitPin,"") }}
+			{{ gpio_select("WaitPin","Wait Pin",WaitPin,"shield-wait-pin,shield,gpio") }}
 		</div>
 		<div class="col-md-3">
-			<label for="ShieldUSBAddress" class="tip" data-tip="USB/Serial port path on linux">USB/Serial Port Path</label>
+			<label for="ShieldUSBAddress">USB/Serial Port Path{{helpModal("shield-port-path,shield")}}</label>
 			<input value="{{ShieldUSBAddress}}" name="ShieldUSBAddress" id="ShieldUSBAddress">
 		</div>
 		<div class="col-md-3">
@@ -119,79 +119,44 @@
 	</div>
 	<div class="row ShieldType_toggle">
 		<div class="col-md-3">
-			<label for="ShieldBootup" class="tip" data-tip="Will run once just after boot up.">GCode - Bootup</label>
+			<label for="ShieldBootup">GCode - Bootup{{helpModal("gcode-bootup,gcode,shield,exec")}}</label>
 			<textarea name="ShieldBootup" id="ShieldBootup">{{ShieldBootup}}</textarea>
 			<br>
 		</div>
 		<div class="col-md-3">
-			<label for="ShieldStart">GCode - Start of Print</label>
+			<label for="ShieldStart">GCode - Start of Print{{helpModal("gcode-start,gcode,shield,exec")}}</label>
 			<textarea name="ShieldStart" id="ShieldStart">{{ShieldStart}}</textarea>
 		</div>
 		<div class="col-md-3">
-			<label for="SyscallStart" class="tip" data-tip="Run command and use result as gcode. eg. python start.py [[LayerNumber]]">Execute - Start of Print</label>
-			<input value="{{SyscallStart}}" name="SyscallStart" id="SyscallStart">
-			<br>
-		</div>
-		<div class="col-md-3">
-			<label for="SyscallFinish" class="tip" data-tip="Run command and use result as gcode. eg. python end.py [[LayerNumber]]">Execute - End of Print</label>
-			<input value="{{SyscallFinish}}" name="SyscallFinish" id="SyscallFinish">
-			<br>
-		</div>
-	</div>
-	<div class="row ShieldType_toggle">
-		<div class="col-md-3">
-			<label for="ShieldResume">GCode - Resume Print</label>
+			<label for="ShieldResume">GCode - Resume Print{{helpModal("gcode-start,gcode,shield,exec")}}</label>
 			<textarea name="ShieldResume" id="ShieldResume">{{ShieldResume}}</textarea>
-			<br>
-			<label for="ShutterOpenGcode">Gcode - Shutter Open</label>
-			<textarea name="ShutterOpenGcode" id="ShutterOpenGcode">{{ShutterOpenGcode}}</textarea>
 			<br>
 		</div>
 		<div class="col-md-3">
 			<label for="ShieldFinish">GCode - End of Print</label>
 			<textarea name="ShieldFinish" id="ShieldFinish">{{ShieldFinish}}</textarea>
 			<br>
+		</div>
+	</div>
+	<div class="row ShieldType_toggle">
+		<div class="col-md-3">
+			<label for="ShutterOpenGcode">Gcode - Shutter Open{{helpModal("gcode-shutter-open,gcode,shield,exec")}}</label>
+			<textarea name="ShutterOpenGcode" id="ShutterOpenGcode">{{ShutterOpenGcode}}</textarea>
+			<br>
+		</div>
+		<div class="col-md-3">
 			<label for="ShutterCloseGcode">Gcode - Shutter Close</label>
 			<textarea name="ShutterCloseGcode" id="ShutterCloseGcode">{{ShutterCloseGcode}}</textarea>
 			<br>
 		</div>
 		<div class="col-md-3">
-			<div class="note">Movement keywords:
-				<ul>
-					<li>[[LayerThickness]] <span class="label label-default">Millimeter</span></li>
-					<li>[[ZLiftDistance]] <span class="label label-default">Millimeter</span></li>
-					<li>[[LayerPosition]] Absolute layer position</li>
-					<li>[[CurrentPosition]]</li>
-					<li>[[GPIOWaitForLow]] and [[WaitForDoneMessage]]</li>
-					<li>[[PositionSet mm]] Position absolute update eg. [[PositionSet 22.1]]</li>
-					<li>[[PositionChange mm]] Position relative update eg. [[PositionChange -2.1]]</li></li>
-					<li>[[StopPosition]] Stop position from zero level</li>
-				</ul>
-				For more information, visit our <a href="http://www.nanodlp.com/forum/viewtopic.php?pid=134">gcode guide</a>.
-			</div>
+			<label for="SyscallStart">Execute - Start of Print{{helpModal("gcode-exec-start,exec,shield")}}</label>
+			<input value="{{SyscallStart}}" name="SyscallStart" id="SyscallStart">
+			<br>
 		</div>
 		<div class="col-md-3">
-			<div class="note">
-				Other Keywords:
-				<ul>
-					<li>[[GPIOHigh GPIO]] and [[GPIOLow GPIO]] eg. [[GPIOLow 12]]</li>
-					<li>[[Delay Seconds]] eg. [[Delay 1.23]]</li>
-					<li>[[ZSpeed]]</li>
-					<li>[[Pause]]</li>
-					<li>[[SyscallResult]]</li>
-					<li>[[LayerNumber]]</li>
-					<li>[[TotalSolidArea]]</li>
-					<li>[[LargestArea]]</li>
-				</ul>
-			</div>
-			<div class="note">
-				Supported Operations:
-				<ul>
-					<li>Math: + - * / ** () &lt; ></li>
-					<li>eg. {[[LayerThickness]]-[[ZLiftDistance]]}</li>
-					<li>Base 16 Binary Support. eg. \x00\xff</li>
-				</ul>
-			</div>
+			<label for="SyscallFinish">Execute - End of Print</label>
+			<input value="{{SyscallFinish}}" name="SyscallFinish" id="SyscallFinish">
 		</div>
 	</div>
 

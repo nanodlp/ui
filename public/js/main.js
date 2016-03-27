@@ -28,11 +28,14 @@ function help_init(){
 	$('#helpModal').modal({ show: false});
 	$("body").delegate(".help","click",function(e){
 		var t=$(this);
-		$('#helpModal .modal-title').html(t.prop("title"));
-			$.get("/help/"+t.data("files"), function(data){
-				$('#helpModal .modal-body').html(data);
-				$('#helpModal').modal('show');
-			});
+		// Extract title for modal dialog from parent tag of current help link
+		var title=$.trim(t.parent().text());
+		title = title.substring(0, title.length - 1);
+		$('#helpModal .modal-title').html(title);
+		$.get("/help/"+t.data("files"), function(data){
+			$('#helpModal .modal-body').html(data);
+			$('#helpModal').modal('show');
+		});
 		e.preventDefault();
 	});
 }

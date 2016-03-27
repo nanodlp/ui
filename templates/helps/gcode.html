@@ -1,0 +1,107 @@
+<br>
+<h4>GCODE Keywords</h4>
+<dl class="dl-horizontal small">
+	<dt>[[LayerThickness]]</dt>
+	<dd>Layer thickness in millimeter</dd>
+	<dt>[[ZLiftDistance]]</dt>
+	<dd>Amount of lift after layer print in millimeter</dd>
+	<dt>[[LayerThickness]]</dt>
+	<dd>Layer thickness in millimeter</dd>
+	<dt>[[LayerPosition]]</dt>
+	<dd>Absolute layer position in millimeter</dd>
+	<dt>[[CurrentPosition]]</dt>
+	<dd>Current position in millimeter</dd>
+	<dt>[[GPIOWaitForLow]]</dt>
+	<dd>Wait for <kbd>"wait pin"</kbd> GPIO to be LOW</dd>
+	<dt>[[WaitForDoneMessage]]</dt>
+	<dd>Wait for <kbd>Z_move_comp</kbd> message from RAMPS or similar boards</dd>
+	<dt>[[PositionSet mm]]</dt>
+	<dd>Update current absolute position <samp>eg. [[PositionSet 22.1]]</samp></dd>
+	<dt>[[PositionChange mm]]</dt>
+	<dd>Update relative position update <samp>eg. [[PositionChange -2.1]]</samp></dd>
+	<dt>[[StopPosition]]</dt>
+	<dd>Absolute stop position from zero level</dd>
+	<dt>[[GPIOHigh GPIO]]</dt>
+	<dd>Makes any GPIO HIGH <samp>eg. [[GPIOHigh 12]]</samp></dd>
+	<dt>[[GPIOLow GPIO]]</dt>
+	<dd>Makes any GPIO Low</dd>
+	<dt>[[Delay Seconds]]</dt>
+	<dd>Put delay <samp>eg. [[Delay 1.23]]</samp></dd>
+	<dt>[[ZSpeed]]</dt>
+	<dd>Speed in micron/second, calculated from startup/min/max/slow section speeds in setup page.</dd>
+	<dt>[[Pause]]</dt>
+	<dd>Pause the printer, require resume from dashboard to continue.</dd>
+	<dt>[[SyscallResult]]</dt>
+	<dd>If any GCODE box has paired with external execution. Result of execution could be used inside GCODE box.</dd>
+	<dt>[[LayerNumber]]</dt>
+	<dd>Current layer number</dd>
+	<dt>[[TotalSolidArea]]</dt>
+	<dd>Current layer's total solid area in mm^2</dd>
+	<dt>[[LargestArea]]</dt>
+	<dd>Current layer's largest solid area in mm^2</dd>
+</dl>
+<br>
+<h4>GCODE Operations</h4>
+<dl class="dl-horizontal small">
+	<dt>Math: + - * / ** () &lt; ></dt>
+	<dd>Calculating different values <samp>eg. G1 Z{[[LayerThickness]]-[[ZLiftDistance]]*[[LayerNumber]]}</samp></dd>
+	<dt>Conditionals: () &lt; ></dt>
+	<dd>Add conditionals to your math logic <samp>eg. G1 Z{([[LayerNumber]]&lt;30)*1+0.5} if current layer is less than 30 lift 1.5mm if not lift 0.5mm</samp></dd>
+	<dt>Base 16 Binary</dt>
+	<dd>To send binary codes to drivers / controllers you can use base 16 format <samp>eg. \x00\x00\xff</samp></dd>
+</dl>
+<br>
+
+<h4>Syncronizing Movements</h4>
+nanoDLP does not have knowledge of how much time it would takes to finish movement. There are couple of ways to counter the problem.<br>
+<br>
+<h5>1. Using [[Delay Seconds]] keyword</h5>
+It is possible to put delay after each movement. It is the most widely used method.
+<pre>
+G1 Z1.1
+[[Delay 1.5]]
+</pre>
+<br>
+
+<h5>2. Using [[GPIOWaitForLow]] keyword</h5>
+To syncronize movements nanoDLP waits for pin to be LOW. At the start of movement, controllers / drivers must make this pin HIGH and at the end of movement make it LOW. Maximum delay for detection is 1ms.
+<pre>
+G1 Z1.1
+[[GPIOWaitForLow]]
+</pre>
+<br>
+
+<h5>3. Using [[WaitForDoneMessage]] keyword</h5>
+Using patched <a href="https://github.com/kitprinter3d/grbl/tree/master/grbl-solidray">grbl</a> / <a href="https://github.com/mUVe3D/Marlin-mUVe1DLP-Running">marlin</a> firmwares you can achieve sync movements. After seeing this keyword nanoDLP will waits for <kbd>Z_move_comp</kbd> response from RAMPS.
+<pre>
+G1 Z1.1
+[[WaitForDoneMessage]]
+</pre>
+<br>
+
+<br>
+<h4>Crash Recovery</h4>
+Using right settings is key to crash recovery and using nanoDLP in full potential. A way to do this is to delegate positioning to nanoDLP.<br>
+Follow sample codes below to understand how to delegate positioning to nanoDLP. By doing so in addition to crash recovery, printer stop and other functions also will start working.<br>
+<br>
+Start of Print
+<pre>G90 ; Put positioning in absolute mode
+G28 ; Homing
+[[WaitForDoneMessage]] ; Wait until movement completed, require firmwares to patched for Z_move_comp, if you do not want to use patched firmware you can use [[Delay n.n]] instead
+[[PositionSet 0]] ; Set current position on nanodlp so it could be recovered in case of failure</pre>
+<br>
+Before Layer
+<pre>G1 Z[[LayerPosition]] ; Move to layer position
+[[WaitForDoneMessage]] ; Wait for the movement finished
+[[PositionSet [[LayerPosition]]]] ; Save layer position as the current position</pre>
+<br>
+After Layer
+<pre>G1 Z{[[LayerPosition]]+[[ZLiftDistance]]} ; Lift to wait position
+[[WaitForDoneMessage]] ; Wait for the movement finished
+[[PositionChange [[ZLiftDistance]]]] ; Again update position</pre>
+<br>
+Resume Print
+<pre>G90 ; Put positioning in absolute mode
+G92 Z[[CurrentPosition]] Y0 X0 ; System crashed so we need to recover current position from nanodlp and set it on RAMP
+G1 Z[[LayerPosition]] ; Move to layer position
+...</pre>

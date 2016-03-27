@@ -1,0 +1,9 @@
+<br>
+<h4>Executing External Programs</h4>
+You can call external programs in wide range of conditions. By doing so you can communicate with different programs. Also standard output of an execution will be stored in [[SyscallResult]] which could be used in the related Gcode box.<br>
+
+<pre>python /home/pi/printer/calculate_speed.py [[LayerNumber]] [[TotalSolidArea]]</pre>
+<br>
+<pre>G1 Z1 F[[SyscallResult]]</pre>
+<br>
+<p class="text-danger">Please, be aware as nanoDLP could not control external processes. Excessive use of the feature could crash nanoDLP due to high memory usage or stalled processes. As the matter of fact main reason for nanoDLP crashes is external program executions. So to increase reliability use this feature wisely.</p>
