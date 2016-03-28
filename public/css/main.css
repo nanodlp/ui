@@ -284,3 +284,6 @@ label, .radio label, .checkbox label, .help-block {
 #buttons input{
 	width:200px;
 }
+#helpModal .help{
+	display:none;
+}

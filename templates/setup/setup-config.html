@@ -161,7 +161,7 @@
 	</div>
 
 	<h3>Shutter</h3>
-	<label for="ShutterType">Shutter Type</label>
+	<label for="ShutterType">Shutter Type{{helpModal("shutter-type,gpio")}}</label>
 	<select name="ShutterType" id="ShutterType">
 		<option value="0" {% if ShutterType==0 %}selected{% endif %}>Disabled</option>
 		<option value="1" {% if ShutterType==1 %}selected{% endif %}>Servo Motor</option>
@@ -177,21 +177,21 @@
 			</select>
 		</div>
 		<div class="col-md-4">
-			{{ gpio_select("ShutterPin","Shutter GPIO",ShutterPin,"") }}
+			{{ gpio_select("ShutterPin","Shutter GPIO",ShutterPin,"gpio") }}
 			<br>
 		</div>
 	</div>
 	<div class="row ShutterType_toggle">
 		<div class="col-md-4">
-			<label for="ShutterOpen">Servo Pulse Width - Open Position <span class="label label-default">Millisecond</span></label>
+			<label for="ShutterOpen">Servo Pulse Width - Open Position <span class="label label-default">Microsecond</span>{{helpModal("servo-shutter")}}</label>
 			<input value="{{ShutterOpen}}" name="ShutterOpen" id="ShutterOpen" type="number" min="500" max="2500" required>
 		</div>
 		<div class="col-md-4">
-			<label for="ShutterClose">Servo Pulse Width - Close Position <span class="label label-default">Millisecond</span></label>
+			<label for="ShutterClose">Servo Pulse Width - Close Position <span class="label label-default">Microsecond</span>{{helpModal("servo-shutter")}}</label>
 			<input value="{{ShutterClose}}" name="ShutterClose" id="ShutterClose" type="number" min="500" max="2500" required>
 		</div>
 		<div class="col-md-4">
-			<label for="ShutterSignalLength">Servo Signal Length <span class="label label-default">Millisecond</span></label>
+			<label for="ShutterSignalLength">Servo Signal Length <span class="label label-default">Millisecond</span>{{helpModal("servo-shutter")}}</label>
 			<input value="{{ShutterSignalLength}}" name="ShutterSignalLength" id="ShutterSignalLength" type="number" min="100" max="2500" required>
 			<br>
 		</div>
