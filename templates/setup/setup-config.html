@@ -76,7 +76,7 @@
 	<h3>3D Printer Board</h3>
 	<div class="note">Does not required, if you are using GPIOs to drive the printer</div>
 	<div class="row">
-		<div class="col-md-6">
+		<div class="col-md-3">
 			<label for="ShieldType">Shield Connection{{helpModal("shield-connection-type,shield")}}</label>
 			<select name="ShieldType" id="ShieldType">
 				<option value="0" {% if ShieldType==0 %}selected{% endif %}>Disabled</option>
@@ -97,6 +97,13 @@
 			<select name="ShieldAxisMode" id="ShieldAxisMode">
 				<option value="0" {% if ShieldAxisMode==0 %}selected{% endif %}>Zero at Bottom</option>
 				<option value="1" {% if ShieldAxisMode==1 %}selected{% endif %}>Zero at Top</option>
+			</select>
+		</div>
+		<div class="col-md-3 ShieldType_toggle">
+			<label for="ShieldPositioning">Calibration Buttons Positioning</label>
+			<select name="ShieldPositioning" id="ShieldPositioning">
+				<option value="0" {% if ShieldPositioning==0 %}selected{% endif %}>Relative</option>
+				<option value="1" {% if ShieldPositioning==1 %}selected{% endif %}>Absolute</option>
 			</select>
 		</div>
 	</div>
