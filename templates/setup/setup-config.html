@@ -223,10 +223,18 @@
 				<option value="0" {% if ProjectorType==0 %}selected{% endif %}>Disabled</option>
 				<option value="1" {% if ProjectorType==1 %}selected{% endif %}>USB / Serial Port - Ascii</option>
 				<option value="2" {% if ProjectorType==2 %}selected{% endif %}>USB / Serial Port - Binary</option>
+				<option value="3" {% if ProjectorType==3 %}selected{% endif %}>Execution Only</option>
 			</select>
 			<br>
 		</div>
-		<div class="col-md-6">
+		<div class="col-md-3 ProjectorType_toggle">
+			<label for="ProjectorPowerCycle">Projector Power Cycle</label>
+			<select name="ProjectorPowerCycle" id="ProjectorPowerCycle">
+				<option value="0" {% if ProjectorPowerCycle==0 %}selected{% endif %}>On/Off on Start/End of Print</option>
+				<option value="1" {% if ProjectorPowerCycle==1 %}selected{% endif %}>On/Off on Start/Shutdown</option>
+			</select>
+		</div>
+		<div class="col-md-3 ProjectorType_toggle">
 			<label for="ProjectorWarmup">Projector Warmup Time <span class="label label-default">Second</span></label>
 			<input value="{{ProjectorWarmup}}" name="ProjectorWarmup" id="ProjectorWarmup" type="number">
 		</div>
@@ -249,7 +257,7 @@
 			<br>
 		</div>
 	</div>
-	<div class="row">
+	<div class="row ProjectorType_toggle">
 		<div class="col-md-6">
 			<label for="ProjectorOnSyscall" class="tip" data-tip="Command will run to turn the projector on. Suitable for sending command through infrared and HDMI-CEC">Execute to Turn Projector On</label>
 			<input value="{{ProjectorOnSyscall}}" name="ProjectorOnSyscall" id="ProjectorOnSyscall">
