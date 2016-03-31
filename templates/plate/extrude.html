@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="starter-template">
+	<div class="alert alert-success" role="alert">
+		<ul>
+			<li>Dimming and mask settings will take effect for the created layers.</li>
+			<li>Please, upload image with same width and height as your projectors native resolution.</li>
+			<li>Even-though it will process multi color images. To make dimming feature works correctly, use images containing grayscale colors.</li>
+			<li>This process could takes up to minute to complete depends of depth.</li>
+		</ul>
+	</div>
+	<legend>Plate Generator</legend>
+	<form action="" method="post" class="edit-page" enctype="multipart/form-data">
+		<div class="row">
+			<div class="col-md-4">
+				<label for="Path">Plate Name</label>
+				<input value="{{plate.Path}}" name="Path" id="Path" required>
+			</div>
+			<div class="col-md-4">
+				{% if paint %}
+				<img src="/static/plates/paint.png" width="100%">
+				{% else %}
+				<label for="ZipFile">PNG/JPEG File</label>
+				<input name="ZipFile" id="ZipFile" type="file" accept=".png,.jpg">
+				{% endif %}
+			</div>
+			<div class="col-md-4">
+				<label for="ProfileID">Profile</label>
+				<select name="ProfileID" id="ProfileID">
+					{% for profile in profiles %}
+						<option value="{{profile.ProfileID}}" {% if profile.ProfileID == plate.ProfileID %}selected{% endif %}>{{profile.Title}}</option>
+					{% endfor %}
+				</select>
+				<br>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-4">
+				<label for="Depth">Plate Depth <span class="label label-default">Millimeter</span></label>
+				<input value="3" name="Depth" id="Depth" value="{{generator.Depth}}" required>
+				<br>
+			</div>
+			<div class="col-md-4">
+				<label for="StopLayers">Stop Layers - Comma Seperated</label>
+				<input value="{{plate.StopLayers}}" name="StopLayers" id="StopLayers" pattern="[\d,]*">
+			</div>
+			<div class="col-md-4">
+				<label for="LowQualityLayerNumber">Number of Low Quality Layers</label>
+				<input value="{{plate.LowQualityLayerNumber}}{% if not plate.PlateID %}0{% endif %}" name="LowQualityLayerNumber" id="LowQualityLayerNumber" type="number" required>
+				<br>
+			</div>
+		</div>
+		<br>
+		<button type="submit" class="btn btn-success">Generate</button>
+	</form>
+	<br>
+	<br>
+</div>
+{% endblock %}

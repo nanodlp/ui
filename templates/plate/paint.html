@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width" />
+  <title>nanoDLP - Paint</title>
+  <link rel="icon" href="/static/favicon.ico">
+  <script type="text/javascript" src="/static/boot3/js/jquery.min.js"></script>
+</head>
+<body>
+  <div id="content">
+    <div class="content-box">
+      <!-- jQuery UI -->
+      <script type="text/javascript" src="/static/wpaint/lib/jquery.ui.core.1.10.3.min.js"></script>
+      <script type="text/javascript" src="/static/wpaint/lib/jquery.ui.widget.1.10.3.min.js"></script>
+      <script type="text/javascript" src="/static/wpaint/lib/jquery.ui.mouse.1.10.3.min.js"></script>
+      <script type="text/javascript" src="/static/wpaint/lib/jquery.ui.draggable.1.10.3.min.js"></script>
+
+      <!-- wColorPicker -->
+      <link rel="Stylesheet" type="text/css" href="/static/wpaint/lib/wColorPicker.min.css" />
+      <script type="text/javascript" src="/static/wpaint/lib/wColorPicker.min.js"></script>
+
+      <!-- wPaint -->
+      <link rel="Stylesheet" type="text/css" href="/static/wpaint/wPaint.min.css" />
+      <script type="text/javascript" src="/static/wpaint/wPaint.min.js"></script>
+      <script type="text/javascript" src="/static/wpaint/plugins/main/wPaint.menu.main.min.js"></script>
+      <script type="text/javascript" src="/static/wpaint/plugins/text/wPaint.menu.text.min.js"></script>
+      <script type="text/javascript" src="/static/wpaint/plugins/shapes/wPaint.menu.main.shapes.min.js"></script>
+      <script type="text/javascript" src="/static/wpaint/plugins/file/wPaint.menu.main.file.min.js"></script>
+
+      <div id="wPaint" style="position:relative; width:{{width}}px;height:{{height}}px;margin:5px auto 5px auto;"></div>
+      <script type="text/javascript">
+        var images=[];
+        function saveImg(image) {
+          var _this = this;
+
+          $.ajax({
+            type: 'POST',
+            url: '/plate/paint',
+            data: {image: image},
+            success: function (resp) {
+              document.location.href = "/plate/paint/add"
+            }
+          });
+        }
+
+        function loadImgBg () {
+
+          // internal function for displaying background images modal
+          // where images is an array of images (base64 or url path)
+          // NOTE: that if you can't see the bg image changing it's probably
+          // becasue the foregroud image is not transparent.
+          this._showFileModal('bg', images);
+        }
+
+        function loadImgFg () {
+
+          // internal function for displaying foreground images modal
+          // where images is an array of images (base64 or url path)
+          this._showFileModal('fg', images);
+        }
+
+        // init wPaint
+      $.extend($.fn.wPaint.defaults, {
+        mode:        'pencil',  // set mode
+        lineWidth:   '3',       // starting line width
+        fillStyle:   '#FFFFFF', // starting fill style
+        strokeStyle: '#FFFFFF'  // start stroke style
+      });
+        $('#wPaint').wPaint({
+          menuOffsetLeft: 20,
+          menuOffsetTop: 20,
+          saveImg: saveImg,
+          image:"/static/plates/paint.png",
+          path:"/static/wpaint/",
+          loadImgBg: loadImgBg,
+          loadImgFg: loadImgFg,
+          bg:"#000000"
+        });
+      </script>
+    </div>
+  </div>
+</body>
+</html>

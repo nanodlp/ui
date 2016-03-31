@@ -46,8 +46,8 @@
 		<a id="resume" class="btn btn-warning" href="/printer/resume" onclick="return confirm('Are you sure you want to resume plate [[plate]] from layer [[last_layer]]?');">Resume Printing</a>
 		{% if projectorPowerCycle==1 %}
 		<a class="ajax btn btn-warning" href="/projector/off" name="type" data-confirm="Are you sure you want to power off the projector?">Projector Off</a>
-		{% endif %}
 		&nbsp; &nbsp; &nbsp;
+		{% endif %}
 		<a class="ajax btn btn-danger" href="/printer/off" name="type" data-confirm="Are you sure you want to power off the printer?">Power Off</a>
 		<a class="ajax btn btn-danger" href="/printer/restart" title="stop" name="type" data-confirm="Are you sure you want to restart the printer?">Restart</a>
 	</div>
