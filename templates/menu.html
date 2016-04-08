@@ -18,6 +18,13 @@
     </ul>
     <ul class="nav navbar-nav navbar-right">
         <li>
+            {% if wifi!="" %}
+                <a href="/wifi"><span class="label label-success">{{wifi}}</span></a>
+            {% else %}
+                <a href="/wifi"><span class="label">Wi-Fi</span></a>
+            {% endif %}
+        </li>
+        <li>
             {% if newBuild %}
                 <a href="/printer/upgrade">
                     <span class="label label-info">New Version Available</span>

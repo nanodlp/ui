@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block content %}
+{% macro wirelessView(WifiSSID,WifiType,Quality) %}
+<form action="/wifi/connect" method="post">
+<tr>
+	<td>
+		<input name="WifiSSID" value="{{WifiSSID}}" class="WifiSSID" type="hidden">{{WifiSSID}}
+	</td>
+	<td>
+		<input name="WifiType" value="{{WifiType}}" class="WifiType" type="hidden">{{WifiType}}
+	</td>
+	<td>{% if WifiType!="" %}<input name="WifiPass" value="" placeholder="Wireless Password">{% endif %}</td>
+	<td>
+		{{Quality}}/70
+	</td>
+	<td><input type="submit" value="Connect" class="btn btn-success"></td>
+</tr>
+</form>
+{% endmacro %}
+<div class="row">
+	<div class="col-md-12 edit-table edit-page">
+		<div class="alert alert-warning" role="alert">Changing WiFi settings during printing could cause interruption.</div>
+		<table>
+			<tr class="thead">
+				<th>SSID</th>
+				<th>Authentication</th>
+				<th>Password</th>
+				<th>Quality</th>
+				<th>Connect</th>
+			</tr>
+			{% if networks %}
+				{% for network in networks %}
+					{% if network.ESSID!="" %}
+						{{ wirelessView(network.ESSID,network.SecurityProtocol,network.QualityLevel) }}
+					{% endif %}
+				{% endfor %}
+				<form action="/wifi/connect" method="post">
+				<tr>
+					<td>
+						<input name="WifiSSID" value="{{WifiSSID}}" class="WifiSSID" placeholder="Enter Hidden SSID">
+					</td>
+					<td>
+						<select name="WifiType">
+							<option value="" {% if WifiType=="" %}selected{% endif %}>No Encryption</option>
+							<option value="WEP" {% if WifiType=="WEP" %}selected{% endif %}>WEP</option>
+							<option value="WPA" {% if WifiType=="WPA" %}selected{% endif %}>WPA</option>
+						</select>
+					</td>
+					<td><input name="WifiPass" value="" placeholder="Wireless Password"></td>
+					<td>-/70</td>
+					<td><input type="submit" value="Connect" class="btn btn-success"></td>
+				</form>
+			{% else %}
+				<tr><td colspan="4">No wireless connection found</td></tr>
+			{% endif %}
+		</table>
+		<br>
+		{% if networks %}
+		<!--<a href="/wifi/terminate" class="btn btn-warning">Terminate WiFi Connection</a>-->
+		{% endif %}
+	</div>
+</div>
+{% endblock %}
