@@ -37,7 +37,7 @@
 				<form action="/wifi/connect" method="post">
 				<tr>
 					<td>
-						<input name="WifiSSID" value="{{WifiSSID}}" class="WifiSSID" placeholder="Enter Hidden SSID">
+						<input name="WifiSSID" class="WifiSSID" placeholder="Enter Hidden SSID">
 					</td>
 					<td>
 						<select name="WifiType">
@@ -51,13 +51,19 @@
 					<td><input type="submit" value="Connect" class="btn btn-success"></td>
 				</form>
 			{% else %}
-				<tr><td colspan="4">No wireless connection found</td></tr>
+				<tr><td colspan="5">No wireless connection found</td></tr>
 			{% endif %}
 		</table>
 		<br>
-		{% if networks %}
-		<!--<a href="/wifi/terminate" class="btn btn-warning">Terminate WiFi Connection</a>-->
-		{% endif %}
 	</div>
 </div>
+<div class="row">
+	<div class="col-md-12">
+		<form action="/wifi/connect" method="post">
+			<input name="WifiSSID" type="hidden">
+			<input type="submit" value="Terminate WiFi Connections" class="btn-warning">
+		</form>
+	</div>
+</div>
+
 {% endblock %}
