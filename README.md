@@ -1,16 +1,9 @@
 # nanoDLP UI
 nanoDLP user interface
 
-To run project on your PC you can extract one of files below to the project folder.
+To run the project on your PC:
 
-[Linux 32bit](http://www.nanodlp.com/download/nanodlp.ui.linux32bit.zip)
-
-[Windows 32bit](http://www.nanodlp.com/download/nanodlp.ui.win32bit.zip)
-
-Use command below to run
-
-./webserver
-
-To access the local development open following link on your browser
-
-[http://127.0.0.1:8080/](http://127.0.0.1:8080/)
+1. Clone this repo
+2. Download and extract [Linux 32bit](http://www.nanodlp.com/download/nanodlp.ui.linux32bit.zip) or [Windows 32bit](http://www.nanodlp.com/download/nanodlp.ui.win32bit.zip) zip file into cloned repo folder
+3. Run program by executing webserver.exe or ./webserver
+4. Open [http://127.0.0.1:8080/](http://127.0.0.1:8080/) link to access nanoDLP interface
