@@ -14,7 +14,7 @@
 				<input value="{{profile.Title}}" name="Title" id="Title" required>
 			</div>
 			<div class="col-md-6">
-				<label for="XYRes" class="tip" data-tip="Printer's X/Y resolution, size of each pixelon X and Y axis in micron.<br>Effected by projector's native resolution and distance between projector and tank">X/Y Resolution <span class="label label-default">Micron</span></label>
+				<label for="XYRes">X/Y Resolution <span class="label label-default">Micron</span>{{helpModal("xy-resolution")}}</label>
 				<input value="{{profile.XYRes}}" name="XYRes" id="XYRes" step="0.01" type="number" required>
 			</div>
 		</div>
@@ -47,6 +47,10 @@
 			<div class="col-md-3">
 				<label for="TopWait">Wait After Lift <span class="label label-default">Second</span></label>
 				<input value="{{profile.TopWait}}"  name="TopWait" id="TopWait" step="0.01" type="number" required>
+			</div>
+			<div class="col-md-6">
+				<label for="DynamicCureTime">Dynamic Cure Time <span class="label label-default">Second</span>{{helpModal("dynamic-curetime")}}</label>
+				<textarea name="DynamicCureTime" id="DynamicCureTime">{{profile.DynamicCureTime}}</textarea>
 			</div>
 		</div>
 
@@ -92,7 +96,7 @@
 				<input value="{{profile.ZStepWait}}" name="ZStepWait" id="ZStepWait" type="number" min="1" required>
 			</div>
 			<div class="col-md-3">
-				<label for="SlowSectionHeight" class="tip" data-tip="Make movements slower from the first layer till required distance">Slow Section Height <span class="label label-default">mm</span></label>
+				<label for="SlowSectionHeight" class="tip" data-tip="Make movements slower from the first layer till required distance">Slow Section Height <span class="label label-default">Millimeter</span></label>
 				<input value="{{profile.SlowSectionHeight}}" name="SlowSectionHeight" id="SlowSectionHeight" step="0.001" type="number" required>
 			</div>
 			<div class="col-md-3">
@@ -121,10 +125,10 @@
 			</div>
 		</div>
 
-		<h3>Pixel Dimming</h3>
+		<h3>Pixel Dimming{{helpModal("dimming")}}</h3>
 		<div class="row">
 			<div class="col-md-3">
-				<label for="PixelDiming">Pixel Dimming</label>
+				<label for="PixelDiming">Dimming Type</label>
 				<select name="PixelDiming" id="PixelDiming">
 					<option value="0" {% if profile.PixelDiming==0 %}selected{% endif %}>Off</option>
 					<option value="1" {% if profile.PixelDiming==1 %}selected{% endif %}>Checkerboard</option>
@@ -148,56 +152,18 @@
 		<h3>GCode</h3>
 		<div class="row">
 			<div class="col-md-6">
-				<label for="SyscallBeforeLayer" class="tip" data-tip="Run command and use result as gcode. eg. python before.py [[LayerNumber]]">Execute Before Each Layer</label>
+				<label for="SyscallBeforeLayer">Execute Before Each Layer{{helpModal("exec")}}</label>
 				<input value="{{profile.SyscallBeforeLayer}}" name="SyscallBeforeLayer" id="SyscallBeforeLayer">
 				<br>
-				<label for="ShieldBeforeLayer">Before Each Layer</label>
+				<label for="ShieldBeforeLayer">Before Each Layer{{helpModal("gcode,shield,exec")}}</label>
 				<textarea name="ShieldBeforeLayer" id="ShieldBeforeLayer">{{profile.ShieldBeforeLayer}}</textarea>
-				<br>
-				<label for="SyscallAfterLayer" class="tip" data-tip="Run command and use result as gcode. eg. python before.py [[LayerNumber]]">Execute After Each Layer</label>
+			</div>
+			<div class="col-md-6">
+				<label for="SyscallAfterLayer">Execute After Each Layer{{helpModal("exec")}}</label>
 				<input value="{{profile.SyscallAfterLayer}}" name="SyscallAfterLayer" id="SyscallAfterLayer">
 				<br>
-				<label for="ShieldAfterLayer">After Each Layer</label>
+				<label for="ShieldAfterLayer">After Each Layer{{helpModal("gcode,shield,exec")}}</label>
 				<textarea name="ShieldAfterLayer" id="ShieldAfterLayer">{{profile.ShieldAfterLayer}}</textarea>
-			</div>
-			<div class="col-md-3">
-				<div class="note">Movement keywords:
-					<ul>
-						<li>[[LayerThickness]] <span class="label label-default">Millimeter</span></li>
-						<li>[[ZLiftDistance]] <span class="label label-default">Millimeter</span></li>
-						<li>[[LayerPosition]] Absolute layer position</li>
-						<li>[[CurrentPosition]]</li>
-						<li>[[GPIOWaitForLow]] and [[WaitForDoneMessage]]</li>
-						<li>[[PositionSet mm]] Position absolute update eg. [[PositionSet 22.1]]</li>
-						<li>[[PositionChange mm]] Position relative update eg. [[PositionChange -2.1]]</li></li>
-						<li>[[StopPosition]] Stop position from zero level</li>
-					</ul>
-					For more information, visit our <a href="http://www.nanodlp.com/forum/viewtopic.php?pid=134">online gcode guide</a>.
-				</div>
-			</div>
-			<div class="col-md-3">
-				<div class="note">
-					Other Keywords:
-					<ul>
-						<li>[[GPIOHigh GPIO]] and [[GPIOLow GPIO]] eg. [[GPIOLow 12]]</li>
-						<li>[[Delay Seconds]] eg. [[Delay 1.23]]</li>
-						<li>[[ZSpeed]]</li>
-						<li>[[Pause]]</li>
-						<li>[[SyscallResult]]</li>
-						<li>[[LayerNumber]]</li>
-						<li>[[TotalSolidArea]]</li>
-						<li>[[LargestArea]]</li>
-					</ul>
-				</div>
-				<br>
-				<div class="note">
-					Supported Operations:
-					<ul>
-						<li>Math: + - * / ** () &lt; ></li>
-						<li>eg. {[[LayerThickness]]-[[ZLiftDistance]]}</li>
-						<li>Base 16 Binary Support. eg. \x00\xff</li>
-					</ul>
-				</div>
 			</div>
 		</div>
 		<br>

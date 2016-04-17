@@ -1,0 +1,26 @@
+The result of equations in this box will be used as value for cure time. Cure time need to be in second.
+<h4>Usable Keywords</h4>
+<dl class="dl-horizontal small">
+	<dt>[[LayerPosition]]</dt>
+	<dd>Absolute layer position in millimeter</dd>
+	<dt>[[CurrentPosition]]</dt>
+	<dd>Current position in millimeter</dd>
+	<dt>[[LayerNumber]]</dt>
+	<dd>Current layer number</dd>
+	<dt>[[TotalSolidArea]]</dt>
+	<dd>Current layer's total solid area in mm^2</dd>
+	<dt>[[LargestArea]]</dt>
+	<dd>Current layer's largest solid area in mm^2</dd>
+</dl>
+<br>
+<h4>Math Operations</h4>
+<dl class="dl-horizontal small">
+	<dt>Math: + - * / **</dt>
+	<dd>Calculating different values <samp>{5-[[LayerPosition]]*0.1}</samp> for each millimeter increase in height of piece decrease cure time for 0.1 second</dd>
+	<dt>Conditionals: () &lt; ></dt>
+	<dd>Add conditionals to your math logic <samp>{([[LayerNumber]]&lt;5)*15+5}</samp> if current layer is less than 5, cure time must be 20 seconds not 5 seconds.</dd>
+</dl>
+<p class="text-danger">By using this feature, any cure times including burn-in layers cure time will be ignored.</p>
+<p class="text-warning">
+If the cure time value become negative, result will be discarded and normal cure time will be used.
+</p>
