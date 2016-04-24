@@ -314,7 +314,10 @@ function update_timeline(){
 		last_value('last_location', current_layer_id + " of " +last_value('layers_count'));
 		var remaining_time = Math.round((last_value('layers_count')-current_layer_id)*last_value('layer_time')/60);
 		var total_time = Math.round(last_value('layers_count')*last_value('layer_time')/60);
-		last_value('last_remaining', remaining_time + " of " + total_time + " Mins");
+		var est = new Date();
+		est.setMinutes(est.getMinutes() + remaining_time);
+		var eta=("0" + est.getHours()).slice(-2) + ":" + ("0" + est.getMinutes()).slice(-2);
+		last_value('last_remaining', remaining_time + " of " + total_time + " Mins (ETA " + eta+")");
 		if (percentage!=current_percentage) {
 			favicon.badge(current_percentage);
 			percentage=current_percentage;
