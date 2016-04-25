@@ -13,9 +13,16 @@
 				<label for="Title" class="tip" data-tip="Name of the profile">Title</label>
 				<input value="{{profile.Title}}" name="Title" id="Title" required>
 			</div>
-			<div class="col-md-6">
+			<div class="col-md-3">
 				<label for="XYRes">X/Y Resolution <span class="label label-default">Micron</span>{{helpModal("xy-resolution")}}</label>
 				<input value="{{profile.XYRes}}" name="XYRes" id="XYRes" step="0.01" type="number" required>
+			</div>
+			<div class="col-md-3">
+				<label for="IgnoreMask">Mask File</label>
+				<select name="IgnoreMask" id="IgnoreMask">
+					<option value="0" {% if profile.IgnoreMask==0 %}selected{% endif %}>Use, If Available</option>
+					<option value="1" {% if profile.IgnoreMask==1 %}selected{% endif %}>Ignore</option>
+				</select>
 			</div>
 		</div>
 
