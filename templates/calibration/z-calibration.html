@@ -35,12 +35,18 @@
 				</tbody>
 			</table>
 			{% if ZAxisPin %}
-			<br>
-			<a href="/z-axis/touch-limit" type="button" id="yPTen" class="btn btn-primary">Calibrate Zero Position ⇧</a>
-			<br>
-			<br>
-			<legend>Save Z Axis Calibration</legend>
-			<a href="/z-axis/calibrate" class="btn  btn-danger btn-lg" role="button" onclick="return confirm('Are you sure you want to set this height as bottom');">Measure Z-Axis Length ⇧ </a>
+				<br>
+				<a href="/z-axis/touch-limit" type="button" class="btn btn-primary">Calibrate Zero Position ⇧</a>
+				<br>
+				<br>
+				<legend>Save Z Axis Calibration</legend>
+				<a href="/z-axis/calibrate" class="btn  btn-danger btn-lg" role="button" onclick="return confirm('Are you sure you want to set this height as bottom');">Measure Z-Axis Length ⇧ </a>
+				<br>
+				<br>
+				{% if ZAxisEnable>0 %}
+					<a href="/z-axis/enable/1" type="button" class="btn btn-success">Enable Motor</a> &nbsp;
+					<a href="/z-axis/enable/0" type="button" class="btn btn-warning">Disable Motor</a>
+				{% endif %}
 			{% endif %}
 		</div>
 		<!--ajax_result-->
