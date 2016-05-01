@@ -231,8 +231,9 @@
 		<div class="col-md-3 ProjectorType_toggle">
 			<label for="ProjectorPowerCycle">Projector Power Cycle</label>
 			<select name="ProjectorPowerCycle" id="ProjectorPowerCycle">
-				<option value="0" {% if ProjectorPowerCycle==0 %}selected{% endif %}>On/Off on Start/End of Print</option>
-				<option value="1" {% if ProjectorPowerCycle==1 %}selected{% endif %}>On/Off on Start/Shutdown</option>
+				<option value="0" {% if ProjectorPowerCycle==0 %}selected{% endif %}>Power-Up on Start/Power-Down on Stop</option>
+				<option value="1" {% if ProjectorPowerCycle==1 %}selected{% endif %}>Power-Up on Start/Power-Down on Shutdown</option>
+				<option value="2" {% if ProjectorPowerCycle==2 %}selected{% endif %}>Power-Up on Start/Power-Down on Last Layer</option>
 			</select>
 		</div>
 		<div class="col-md-3 ProjectorType_toggle">
@@ -272,7 +273,7 @@
 	<h3>Platform / Resin</h3>
 	<div class="row">
 		<div class="col-md-3">
-			<label for="StopPositionMm" class="tip" data-tip="Platform position from zero point">Platform Wait Position <span class="label label-default">Millimeter</span></label>
+			<label for="StopPositionMm" class="tip" data-tip="Platform position from zero point, -1 to ignore">Platform Wait Position <span class="label label-default">Millimeter</span></label>
 			<input value="{{StopPositionMm}}" name="StopPositionMm" id="StopPositionMm" type="number" step="0.001" required>
 		</div>
 		<div class="col-md-3">
