@@ -8,6 +8,7 @@
                 <th>Title</th>
                 <th>Layer Thickness <sup>Micron</sup></th>
                 <th>Cure Time <sup>Second</sup></th>
+                <th>Default</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -20,10 +21,17 @@
                 <td>{{profile.Depth}}</td>
                 <td>{{profile.CureTime}}</td>
                 <td>
+                    {% if defaultProfile==profile.ProfileID %}
+                    Current Default
+                    {% else %}
+                    <a class="btn btn-success" href="/profile/default/{{profile.ProfileID}}" title="Make Default">Make Default</a>
+                    {% endif %}
+                </td>
+                <td>
                     <a class="btn btn-primary" href="/profile/edit/{{profile.ProfileID}}" title="Edit">Edit</a>
                     <a class="btn btn-danger" href="/profile/delete/{{profile.ProfileID}}" onclick="return confirm('Are you sure you want to delete this profile?');"  title="Delete">Delete</a>
                     <a class="btn btn-info" href="/profile/clone/{{profile.ProfileID}}" title="Clone">Clone</a>
-                    <a class="btn btn-success" href="/profile/Export/{{profile.ProfileID}}" title="Export">Export</a>
+                    <a class="btn btn-success" href="/profile/export/{{profile.ProfileID}}" title="Export">Export</a>
                 </td>
         </tr>
         {% endfor %}

@@ -1,7 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="starter-template">
+	{% if !mute %}
 	<audio id="buzzer" src="/static/alert.ogg" type="audio/ogg"></audio>
+	{% else %}
+	<span id="buzzer"></span>
+	{% endif %}
 	<div class="alert alert-danger hide" id="msg_box">Could not connect to the printer. Please, check your connection.</div>
 	<div id="image_wrapper" class="image_enlarge"></div>
 	<div id="layer_details">
@@ -27,7 +31,6 @@
 			<td>Uptime</td>
 			<td id="uptime">{{stat.Up}}</td>
 		</tr>
-	</table>
 	</table>
 	<div id="running">
 		<div class="progress progress-striped">

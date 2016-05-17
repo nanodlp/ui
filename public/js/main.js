@@ -21,7 +21,15 @@ $(function(){
 	preview_init();
 	editable_table_init();
 	help_init();
+	resume_init();
 });
+
+function resume_init(){
+	$("body").delegate(".resume","click",function(e){
+		var t=$(this);
+		return confirm(t.data("confirm").replace("[LayerID]",t.parent().find("#appendedtext").val()));
+	});
+}
 
 function help_init(){
 	var response={};
@@ -205,7 +213,9 @@ function update_status(){
 	}).done(function(data){
 		update_status.problem = 0;
 		$('#msg_box').addClass("hide");
-		if (update_status.running && data['Printing']==0) $("#buzzer")[0].play();
+		if (update_status.running && data['Printing']==0 && $("audio#buzzer").length>0) {
+			$("audio#buzzer")[0].play();
+		}
 		update_status.running = data['Printing'];
 		update_platform_photo(data['Camera']);
 		if (!data['Printing']){

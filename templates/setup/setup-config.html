@@ -376,6 +376,16 @@
 			</select>
 		</div>
 	</div>
+
+	<h3>Various Functions</h3>
+	<label for="Mute">Play Sound After Print Stop</label>
+	<select name="Mute" id="Mute">
+		<option value="0" {% if Mute==0 %}selected{% endif %}>Enable</option>
+		<option value="1" {% if Mute==1 %}selected{% endif %}>Disable</option>
+	</select>
+
+	<input value="{{DefaultProfile}}" name="DefaultProfile" type="hidden">
+
 	<br>
 	<button type="submit" class="btn btn-success">Submit</button>
 </form>

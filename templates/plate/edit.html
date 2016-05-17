@@ -18,7 +18,7 @@
 				<label for="ProfileID">Profile</label>
 				<select name="ProfileID" id="ProfileID">
 					{% for profile in profiles %}
-						<option value="{{profile.ProfileID}}" {% if profile.ProfileID == plate.ProfileID %}selected{% endif %}>{{profile.Title}}</option>
+						<option value="{{profile.ProfileID}}" {% if (defaultProfile == profile.ProfileID) %}selected{% endif %}>{{profile.Title}}</option>
 					{% endfor %}
 				</select>
 				<br>
@@ -27,8 +27,8 @@
 		<div class="row">
 			{% if not plate.PlateID %}
 			<div class="col-md-3">
-				<label for="ZipFile">SLC, SVG or Zip (PNG Files)</label>
-				<input name="ZipFile" id="ZipFile" type="file" accept=".zip,.slc,.svg" {% if not plate.PlateID %}required{% endif %}>
+				<label for="ZipFile">STL, SLC, SVG or Zip (PNG Files)</label>
+				<input name="ZipFile" id="ZipFile" type="file" accept=".zip,.slc,.svg,.stl" {% if not plate.PlateID %}required{% endif %}>
 			</div>
 			<div class="col-md-3">
 				<label for="AutoCenter">SLC/SVG Auto Center</label>

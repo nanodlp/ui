@@ -46,7 +46,7 @@
 							<div class="input-append">
 								<input id="appendedtext" name="LayerID" class="form-control compact-input" placeholder="Layer ID" value="{% if row.PlateID == status.PlateID %}{{status.ResumeID}}{% endif %}" type="text" size="3">
 								<span class="add-on"> of {{row.LayersCount}} Layers</span>
-								<button type="submit" class="btn btn-warning" value="Submit" onclick="return confirm('Are you sure you want to resume plate {{row.Path}} from layer ' + document.getElementById('appendedtext').value + '?');">Resume Printing</button>
+								<button type="submit" class="btn btn-warning resume" data-confirm='Are you sure you want to resume plate {{row.Path}} from layer [LayerID]?' value="Submit">Resume Printing</button>
 							</div>
 						</form>
 						<a class="btn btn-success" href="/printer/start/{{ row.PlateID }}" title="Auto play" onclick="return confirm('Are you sure you want to print plate {{row.Path}}?');">
