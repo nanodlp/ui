@@ -217,7 +217,7 @@
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-md-6">
+		<div class="col-md-3">
 			<label for="ProjectorType">Projector Control Type</label>
 			<select name="ProjectorType" id="ProjectorType">
 				<option value="0" {% if ProjectorType==0 %}selected{% endif %}>Disabled</option>
@@ -229,16 +229,16 @@
 			<br>
 		</div>
 		<div class="col-md-3 ProjectorType_toggle">
-			<label for="ProjectorPowerCycle">Projector Power Cycle</label>
-			<select name="ProjectorPowerCycle" id="ProjectorPowerCycle">
-				<option value="0" {% if ProjectorPowerCycle==0 %}selected{% endif %}>Power-Up on Start/Power-Down on Stop</option>
-				<option value="1" {% if ProjectorPowerCycle==1 %}selected{% endif %}>Power-Up on Start/Power-Down on Shutdown</option>
-				<option value="2" {% if ProjectorPowerCycle==2 %}selected{% endif %}>Power-Up on Start/Power-Down on Last Layer</option>
-			</select>
-		</div>
-		<div class="col-md-3 ProjectorType_toggle">
 			<label for="ProjectorWarmup">Projector Warmup Time <span class="label label-default">Second</span></label>
 			<input value="{{ProjectorWarmup}}" name="ProjectorWarmup" id="ProjectorWarmup" type="number">
+		</div>
+		<div class="col-md-3 ProjectorType_toggle">
+			<label for="ProjectorLampQuery">Query Lamp Hours{{helpModal("lamp-query")}}</label>
+			<input value="{{ProjectorLampQuery}}" name="ProjectorLampQuery" id="ProjectorLampQuery">
+		</div>
+		<div class="col-md-3 ProjectorType_toggle">
+			<label for="ProjectorLampEffect">Lamp Brightness Decrease <span class="label label-default">Percentage</span>{{helpModal("lamp-effect")}}</label>
+			<input value="{{ProjectorLampEffect}}" name="ProjectorLampEffect" id="ProjectorLampEffect" step="0.01" type="number">
 		</div>
 	</div>
 	<div class="row ProjectorType_toggle">
@@ -261,10 +261,18 @@
 	</div>
 	<div class="row ProjectorType_toggle">
 		<div class="col-md-6">
+			<label for="ProjectorPowerCycle">Projector Power Cycle</label>
+			<select name="ProjectorPowerCycle" id="ProjectorPowerCycle">
+				<option value="0" {% if ProjectorPowerCycle==0 %}selected{% endif %}>Power-Up on Start/Power-Down on Stop</option>
+				<option value="1" {% if ProjectorPowerCycle==1 %}selected{% endif %}>Power-Up on Start/Power-Down on Shutdown</option>
+				<option value="2" {% if ProjectorPowerCycle==2 %}selected{% endif %}>Power-Up on Start/Power-Down on Last Layer</option>
+			</select>
+		</div>
+		<div class="col-md-3">
 			<label for="ProjectorOnSyscall" class="tip" data-tip="Command will run to turn the projector on. Suitable for sending command through infrared and HDMI-CEC">Execute to Turn Projector On</label>
 			<input value="{{ProjectorOnSyscall}}" name="ProjectorOnSyscall" id="ProjectorOnSyscall">
 		</div>
-		<div class="col-md-6">
+		<div class="col-md-3">
 			<label for="ProjectorOffSyscall" class="tip" data-tip="Command will run to turn the projector off. Suitable for sending command through infrared and HDMI-CEC">Execute to Turn Projector Off</label>
 			<input value="{{ProjectorOffSyscall}}" name="ProjectorOffSyscall" id="ProjectorOffSyscall">
 		</div>

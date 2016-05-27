@@ -27,11 +27,11 @@
 		<div class="row">
 			{% if not plate.PlateID %}
 			<div class="col-md-3">
-				<label for="ZipFile">STL, SLC, SVG or Zip (PNG Files)</label>
+				<label for="ZipFile">Binary STL, SLC, SVG or Zip (PNG Files)</label>
 				<input name="ZipFile" id="ZipFile" type="file" accept=".zip,.slc,.svg,.stl" {% if not plate.PlateID %}required{% endif %}>
 			</div>
 			<div class="col-md-3">
-				<label for="AutoCenter">SLC/SVG Auto Center</label>
+				<label for="AutoCenter">STL/SLC/SVG Auto Center{{helpModal("auto-center")}}</label>
 				<select name="AutoCenter" id="AutoCenter">
 					<option value="1">Enable</option>
 					<option value="0">Disable</option>
@@ -39,11 +39,11 @@
 			</div>
 			{% endif %}
 			<div class="col-md-3">
-				<label for="StopLayers">Stop Layers - Comma Seperated</label>
+				<label for="StopLayers">Stop Layers{{helpModal("stop-layers")}}</label>
 				<input value="{{plate.StopLayers}}" name="StopLayers" id="StopLayers" pattern="[\d,]*">
 			</div>
 			<div class="col-md-3">
-				<label for="LowQualityLayerNumber">Number of Low Quality Layers</label>
+				<label for="LowQualityLayerNumber">Number of Low Quality Layers{{helpModal("low-quality-layers")}}</label>
 				<input value="{{plate.LowQualityLayerNumber}}{% if not plate.PlateID %}0{% endif %}" name="LowQualityLayerNumber" id="LowQualityLayerNumber" type="number" required>
 				<br>
 			</div>
