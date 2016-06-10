@@ -20,16 +20,30 @@
 	<div class="clear"></div>
 	<table id="stat">
 		<tr>
-			<td>CPU</td>
-			<td id="proc">{{stat.Proc}}</td>
-			<td>Memory</td>
-			<td id="mem">{{stat.Mem}}</td>
+			<td width="60px">CPU</td>
+			<td width="40px" id="proc">{{stat.Proc}}</td>
+			<td width="60px">Processes</td>
+			<td width="40px" id="proc_numb">{{stat.ProcNumb}}</td>
+			<td width="60px">CPU Temp</td>
+			<td width="40px" id="temp">{{stat.Temp}}</td>
+		</tr>
+		<tr>
+			<td colspan=2 id="proc_chart" class="spark"><canvas></canvas></td>
+			<td colspan=2 id="proc_numb_chart" class="spark"><canvas></canvas></td>
+			<td colspan=2 id="temp_chart" class="spark"><canvas></canvas></td>
 		</tr>
 		<tr>
 			<td>Disk</td>
 			<td id="disk">{{stat.Disk}}</td>
+			<td>Memory</td>
+			<td id="mem">{{stat.Mem}}</td>
 			<td>Uptime</td>
 			<td id="uptime">{{stat.Up}}</td>
+		</tr>
+		<tr>
+			<td colspan=2 id="disk_chart" class="spark"><canvas></canvas></td>
+			<td colspan=2 id="mem_chart" class="spark"><canvas></canvas></td>
+			<td colspan=2 id="uptime_chart" class="spark"><canvas></canvas></td>
 		</tr>
 	</table>
 	<div id="running">
@@ -63,7 +77,6 @@
 		<a class="btn btn-success" href="/camera/take">Take Photo</a>
 	</div>
 	{{ buttonsView(buttons,"/") }}
-	<input id="search" placeholder="Search" class="form-control compact-input">
 	<h1>Application Log &nbsp; &nbsp; &nbsp; <a id="toggle_log" class="label label-default">Toggle Log</a></h1>
 	<div id="console_wrapper">
 		<div id="console">

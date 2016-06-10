@@ -39,16 +39,33 @@
 			<form action="/add-protection" method="post" class="edit-page">
 				<div class="row">
 					<div class="col-md-3">
-						<label for="username">Username</label>
+						<label for="username">Username for Admin</label>
 						<input name="username">
 					</div>
 					<div class="col-md-3">
-						<label for="password">Password</label>
+						<label for="password">Password for Admin</label>
 						<input name="password" type="password">
+						<br>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3">
+						<label for="viewUsername">Username for Dashboard</label>
+						<input name="viewUsername">
+					</div>
+					<div class="col-md-3">
+						<label for="viewPassword">Password for Dashboard</label>
+						<input name="viewPassword" type="password">
 					</div>
 				</div>
 				<br>
-				<div class="note">To remove password protection, remove username from the input and submit</div>
+				<div class="note">
+					<ul>
+						<li>Admin has access to all functions including dashboard</li>
+						<li>Empty username for dashboard makes dashboard accessible to everyone without authentication</li>
+						<li>To remove password protection, remove username from the input and submit</li>
+					</ul>
+				</div>
 				<br>
 				<button type="submit" class="btn btn-success" name="user" value="add">Save</button>
 			</form>

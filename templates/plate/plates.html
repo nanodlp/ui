@@ -37,7 +37,7 @@
 					{% endif %}
 					<a class="btn btn-success" href="/plate/preview/{{ row.PlateID }}">Preview Layers</a>
 					{% if row.Status!=0 %}
-					<div class="alert alert-danger">Plate being processed...</div>
+					<div class="alert alert-danger">Plate #{{ row.PlateID }} being processed...</div>
 					{% endif %}
 				</td>
 				<td>

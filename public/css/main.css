@@ -42,11 +42,13 @@ input:focus,textarea:focus,select:focus{
 #console .raw{
 	font-size: 12px;
 }
-#search{
-	float: right;
+.spark canvas{
+	display: inline-block;
+	width: 80px;
+	height: 16px;
 }
 #image_wrapper img,#photo_wrapper img,#image_wrapper,#photo_wrapper{
-	width:400px;
+	width: 400px;
 	height: 225px;
 	position: relative;
 }
@@ -74,7 +76,7 @@ input:focus,textarea:focus,select:focus{
 	display:none;
 }
 #stat{
-	width:205px;
+	width:305px;
 	position: absolute;
 	right: 0;
 	margin-top: 25px;

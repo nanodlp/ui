@@ -75,9 +75,7 @@ function editable_table_init(){
 }
 
 function inputs_init(){
-	$("html").delegate("#search",'keyup change',function(e) {
-		search_table();
-	}).delegate(".image_enlarge",'click',function(){
+	$("html").delegate(".image_enlarge",'click',function(){
 		if ($(this).hasClass('enlarged')) {
 			$(this).removeClass('enlarged');
 		} else {
@@ -245,10 +243,7 @@ function update_status(){
 				$("#running,.Printing").slideDown();
 			}
 		}
-		$("#proc").html(data['Proc']);
-		$("#disk").html(data['Disk']);
-		$("#mem").html(data['Mem']);
-		$("#uptime").html(data['Up']);
+		change_stats(data,['proc','disk','mem','uptime','proc_numb','temp']);
 		update_timeline();
 		current_status_display();
 	}).fail(function() {
@@ -260,9 +255,27 @@ function update_status(){
 	});
 }
 
+var charts_data=[];
+
+function change_stats(data,keys){
+	$.each(keys,function(k,v){
+		if (!charts_data[v]){
+			charts_data[v]=[];
+		}
+		$("#"+v).html(data[v]);
+		charts_data[v+"_counter"]++;
+		if (parseFloat(data[v]) != charts_data[v][charts_data[v].length-1]||charts_data[v].length<2||charts_data[v+"_counter"]>30){
+			charts_data[v+"_counter"]=0;
+			charts_data[v].push(parseFloat(data[v]));
+			if (charts_data[v].length>120) charts_data[v].shift();
+			$("#"+v+"_chart").sparkline(charts_data[v], {"width": '80px',"height":"16px", "fillColor":false,"minSpotColor":false,"maxSpotColor":false,'lineColor':'#5bc0de'});
+		}
+	});
+}
+
 display_console_log.prev_data='';
 function display_console_log(){
-	if ($("#console")[0].getBoundingClientRect()['y']<0 || prev_search != "") return;
+	if ($("#console")[0].getBoundingClientRect()['y']<0) return;
 	var last_time=-1;
 	var table='';
 	var image='';
@@ -391,19 +404,6 @@ function last_value(key,val){
 	if (!last_value.values[key]) last_value.values[key]='';
 	if (val) last_value.values[key]=val;
 	return last_value.values[key];
-}
-
-var search_prevent='',prev_search='';
-function search_table(){
-	var search=$("#search").val();
-	prev_search = search;
-	$('.search_target tbody tr').each(function(){
-		if ($(this).html().replace(/(<([^>]+)>)/ig," ").indexOf(search)==-1){
-			$(this).hide();
-		} else {
-			$(this).show();
-		}
-	});
 }
 
 var last_platform_photo_key='';
