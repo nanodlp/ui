@@ -27,7 +27,7 @@
 		<div class="row">
 			{% if not plate.PlateID %}
 			<div class="col-md-3">
-				<label for="ZipFile">Binary STL, SLC, SVG or Zip (PNG Files)</label>
+				<label for="ZipFile">STL, SLC, SVG or Zip (PNG Files)</label>
 				<input name="ZipFile" id="ZipFile" type="file" accept=".zip,.slc,.svg,.stl" {% if not plate.PlateID %}required{% endif %}>
 			</div>
 			<div class="col-md-3">

@@ -289,3 +289,7 @@ label, .radio label, .checkbox label, .help-block {
 #helpModal .help{
 	display:none;
 }
+#jqstooltip{
+	background-color: transparent;
+	border:0;
+}

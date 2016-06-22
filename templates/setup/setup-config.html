@@ -218,10 +218,12 @@
 	</div>
 	<div class="row">
 		<div class="col-md-3">
-			<label for="ProjectorType">Projector Control Type</label>
+			<label for="ProjectorType">Projector Communication Type{{helpModal("projector-control")}}</label>
 			<select name="ProjectorType" id="ProjectorType">
 				<option value="0" {% if ProjectorType==0 %}selected{% endif %}>Disabled</option>
-				<option value="1" {% if ProjectorType==1 %}selected{% endif %}>USB / Serial Port - Ascii</option>
+				<option value="1" {% if ProjectorType==1 %}selected{% endif %}>USB / Serial Port - ASCII (\r\n)</option>
+				<option value="5" {% if ProjectorType==5 %}selected{% endif %}>USB / Serial Port - ASCII (\r)</option>
+				<option value="6" {% if ProjectorType==6 %}selected{% endif %}>USB / Serial Port - ASCII (\n)</option>
 				<option value="2" {% if ProjectorType==2 %}selected{% endif %}>USB / Serial Port - Binary</option>
 				<option value="4" {% if ProjectorType==4 %}selected{% endif %}>HDMI Power On/Off - Standby Mode</option>
 				<option value="3" {% if ProjectorType==3 %}selected{% endif %}>Execution Only</option>

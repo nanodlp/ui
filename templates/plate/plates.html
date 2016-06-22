@@ -22,6 +22,9 @@
 				<td>{{row.TotalSolidArea}}</td>
 				<td>{% if not row.StopLayers %}-{% endif %}{{row.StopLayers}}</td>
 				<td>
+					{% if row.Corrupted==true %}
+					<div class="alert alert-danger">This plate is corrupted.</div><br>
+					{% endif %}
 					{% if row.Status==0 %}
 					<a class="btn btn-success" href="/plate/download/{{ row.PlateID }}" title="Download Plate">Download</a>
 					{% endif %}
