@@ -26,41 +26,6 @@
 			</div>
 		</div>
 
-		<h3>Normal Layers</h3>
-		<div class="row">
-			<div class="col-md-3">
-			<label for="Depth">Layer Thickness <span class="label label-default">Micron</span></label>
-			<input value="{{profile.Depth}}" name="Depth" id="Depth" step="1" type="number" required>
-			</div>
-			<div class="col-md-3">
-				<label for="CureTime">Cure Time <span class="label label-default">Second</span></label>
-				<input value="{{profile.CureTime}}" name="CureTime" id="CureTime" step="0.01" type="number" required>
-			</div>
-			<div class="col-md-3">
-				<label for="WaitBeforePrint" class="tip">Wait Before Print <span class="label label-default">Second</span></label>
-				<input value="{{profile.WaitBeforePrint}}"  name="WaitBeforePrint" id="WaitBeforePrint" step="0.01" type="number" required>
-			</div>
-			<div class="col-md-3">
-				<label for="WaitAfterPrint">Wait After Print <span class="label label-default">Second</span></label>
-				<input value="{{profile.WaitAfterPrint}}"  name="WaitAfterPrint" id="WaitAfterPrint" step="0.01" type="number" required>
-				<br>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-3">
-				<label for="WaitHeight" class="tip" data-tip="Separation distance">Lift After Print <span class="label label-default">Millimeter</span></label>
-				<input value="{{profile.WaitHeight}}"  name="WaitHeight" id="WaitHeight" step="0.001" type="number" required>
-			</div>
-			<div class="col-md-3">
-				<label for="TopWait">Wait After Lift <span class="label label-default">Second</span></label>
-				<input value="{{profile.TopWait}}"  name="TopWait" id="TopWait" step="0.01" type="number" required>
-			</div>
-			<div class="col-md-6">
-				<label for="DynamicCureTime">Dynamic Cure Time <span class="label label-default">Second</span>{{helpModal("dynamic-curetime")}}</label>
-				<textarea name="DynamicCureTime" id="DynamicCureTime">{{profile.DynamicCureTime}}</textarea>
-			</div>
-		</div>
-
 		<h3>Burn-in Layers</h3>
 		<div class="row">
 			<div class="col-md-3">
@@ -93,6 +58,45 @@
 			<div class="col-md-3">
 				<label for="SupportTopWait">Wait After Lift <span class="label label-default">Second</span></label>
 				<input value="{{profile.SupportTopWait}}" name="SupportTopWait" step="0.01" id="SupportTopWait" type="number" required>
+			</div>
+		</div>
+
+		<h3>Normal Layers</h3>
+		<div class="row">
+			<div class="col-md-3">
+			<label for="Depth">Layer Thickness <span class="label label-default">Micron</span></label>
+			<input value="{{profile.Depth}}" name="Depth" id="Depth" step="0.001" type="number" required>
+			</div>
+			<div class="col-md-3">
+				<label for="CureTime">Cure Time <span class="label label-default">Second</span></label>
+				<input value="{{profile.CureTime}}" name="CureTime" id="CureTime" step="0.01" type="number" required>
+			</div>
+			<div class="col-md-3">
+				<label for="WaitBeforePrint" class="tip">Wait Before Print <span class="label label-default">Second</span></label>
+				<input value="{{profile.WaitBeforePrint}}"  name="WaitBeforePrint" id="WaitBeforePrint" step="0.01" type="number" required>
+			</div>
+			<div class="col-md-3">
+				<label for="WaitAfterPrint">Wait After Print <span class="label label-default">Second</span></label>
+				<input value="{{profile.WaitAfterPrint}}"  name="WaitAfterPrint" id="WaitAfterPrint" step="0.01" type="number" required>
+				<br>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-3">
+				<label for="WaitHeight" class="tip" data-tip="Separation distance">Lift After Print <span class="label label-default">Millimeter</span></label>
+				<input value="{{profile.WaitHeight}}"  name="WaitHeight" id="WaitHeight" step="0.001" type="number" required>
+			</div>
+			<div class="col-md-3">
+				<label for="TopWait">Wait After Lift <span class="label label-default">Second</span></label>
+				<input value="{{profile.TopWait}}"  name="TopWait" id="TopWait" step="0.01" type="number" required>
+			</div>
+			<div class="col-md-3">
+				<label for="DynamicCureTime">Dynamic Cure Time <span class="label label-default">Second</span>{{helpModal("dynamic-curetime")}}</label>
+				<textarea name="DynamicCureTime" id="DynamicCureTime">{{profile.DynamicCureTime}}</textarea>
+			</div>
+			<div class="col-md-3">
+				<label for="DynamicSpeed">Dynamic Speed<span class="label label-default">Micron/Second</span>{{helpModal("dynamic-speed")}}</label>
+				<textarea name="DynamicSpeed" id="DynamicSpeed">{{profile.DynamicSpeed}}</textarea>
 			</div>
 		</div>
 

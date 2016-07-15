@@ -1,4 +1,4 @@
-The result of equations will be used as value for cure time. Cure time need to be in second.
+The result of equations be used as value for pulsing speed for direct control during printing.
 <h4>Usable Keywords</h4>
 <dl class="dl-horizontal small">
 	<dt>[[LayerPosition]]</dt>
@@ -20,5 +20,5 @@ The result of equations will be used as value for cure time. Cure time need to b
 	<dt>Conditionals: () &lt; ></dt>
 	<dd>Add conditionals to your math logic <samp>{([[LayerNumber]]&lt;5)*15+5}</samp> if current layer is less than 5, cure time must be 20 seconds not 5 seconds.</dd>
 </dl>
-<p class="text-danger">By using this feature, any cure times including burn-in layers cure time will be ignored.</p>
-<p class="text-warning">If the cure time value become negative, result will be discarded and normal cure time will be used.</p>
+<p class="text-danger">By using this feature, any speed setting for direct control including slow section speed will be ignored during printing.</p>
+<p class="text-warning">If the value become negative, result will be discarded and normal speed will be used.</p>

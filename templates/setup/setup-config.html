@@ -46,6 +46,7 @@
 			<input value="{{Name}}" name="Name" id="Name" placeholder="Printer Name">
 		</div>
 	</div>
+
 	<h3>Movement GPIOs</h3>
 	<div class="note">Does not required, if you are using separate controller</div>
 	{{ gpio_select("ZAxisPin","Step Pin for Z-Axis",ZAxisPin,"z-axis-step-gpio,direct-control,gpio") }}
@@ -387,15 +388,21 @@
 		</div>
 	</div>
 
-	<h3>Various Functions</h3>
-	<label for="Mute">Play Sound After Print Stop</label>
-	<select name="Mute" id="Mute">
-		<option value="0" {% if Mute==0 %}selected{% endif %}>Enable</option>
-		<option value="1" {% if Mute==1 %}selected{% endif %}>Disable</option>
-	</select>
-
+	<h3>Various Settings</h3>
+	<div class="row">
+		<div class="col-md-6">
+			<label for="Port">TCP Port To Listen <span class="label label-warning">Restart Required</span></label>
+			<input value="{{Port}}" name="Port" id="Port" placeholder="TCP Port To Listen" min="80" max="65535" type="number">
+		</div>
+		<div class="col-md-6">
+			<label for="Mute">Play Sound After Print Stop</label>
+			<select name="Mute" id="Mute">
+				<option value="0" {% if Mute==0 %}selected{% endif %}>Enable</option>
+				<option value="1" {% if Mute==1 %}selected{% endif %}>Disable</option>
+			</select>
+		</div>
+	</div>
 	<input value="{{DefaultProfile}}" name="DefaultProfile" type="hidden">
-
 	<br>
 	<button type="submit" class="btn btn-success">Submit</button>
 </form>

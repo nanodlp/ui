@@ -226,7 +226,7 @@ label, .radio label, .checkbox label, .help-block {
 .help{
 	background-color: #fff;
     border-radius: 6px;
-    color: #000;
+    color: #000!important;
     display: inline-block;
     font-size: 12px;
     font-weight: bold;
@@ -237,6 +237,7 @@ label, .radio label, .checkbox label, .help-block {
     vertical-align: middle;
     width: 20px;
     margin-top: -2px;
+    text-decoration: none!important;
 }
 .help:hover{
 	background-color: orange;

@@ -2,9 +2,9 @@
 {% block content %}
 <form method="post" class="edit-page">
 	<div class="row">
-		<div class="col-md-4">
+		<div class="col-md-2">
 		</div>
-		<div class="col-md-4">
+		<div class="col-md-8">
 			<div class="alert alert-warning">
 				This process could takes few seconds up to few minutes depends on your internet connection.
 				<br>
@@ -13,9 +13,11 @@
 			<div class="alert alert-info">
 				To monitor process you could checkout the activity log. After completion Printer will be restarted.
 			</div>
-			<a href="/printer/upgrade/go" class="btn btn-danger">Continue</a>
+			<a href="/printer/upgrade/go/stable" class="btn btn-success">Upgrade to the latest stable version</a>
+			<br>
+			<a href="/printer/upgrade/go/beta" class="btn btn-danger">Upgrade to the beta version</a>
 		</div>
-		<div class="col-md-4">
+		<div class="col-md-2">
 		</div>
 	</div>
 </form>

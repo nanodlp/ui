@@ -308,11 +308,12 @@ function display_console_log(){
 			if (row['time']) {
 				last_value('module',row['module']);
 				last_value('msg',row['msg']);
+				row['msg']=(row['msg']).replace(/\u21B5$/,"");
 				formated+='<td>'+row['level']+'</td>';
 				formated+='<td>'+row['Layer']+'</td>';
 				formated+='<td>'+last_value('time',row['time'])+'</td>';
 				formated+='<td>'+row['module']+'</td>';
-				formated+='<td>'+row['msg']+'</td>';
+				formated+='<td>'+(row['msg']).replace(/\u21B5/g,"<br>")+'</td>';
 				table='<tr class="log">'+formated+'</tr>'+table;
 			} else if (v.length>10){
 				table='<tr class="log raw"><td>UNKNOWN</td><td colspan=6>'+v+'</td></tr>'+table;
