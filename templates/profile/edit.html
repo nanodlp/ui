@@ -15,7 +15,7 @@
 			</div>
 			<div class="col-md-3">
 				<label for="XYRes">X/Y Resolution <span class="label label-default">Micron</span>{{helpModal("xy-resolution")}}</label>
-				<input value="{{profile.XYRes}}" name="XYRes" id="XYRes" step="0.01" type="number" required>
+				<input value="{{profile.XYRes}}" name="XYRes" id="XYRes" step="0.01" type="number" min="1" required>
 			</div>
 			<div class="col-md-3">
 				<label for="IgnoreMask">Mask File</label>

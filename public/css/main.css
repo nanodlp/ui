@@ -72,14 +72,11 @@ input:focus,textarea:focus,select:focus{
 	white-space: nowrap;
 	font-size: medium;
 }
-#running,#idle,.hide,#pause{
+#running,#idle,.hide,#pause,.progress{
 	display:none;
 }
 #stat{
-	width:305px;
-	position: absolute;
-	right: 0;
-	margin-top: 25px;
+	float: right;
 }
 .starter-template{
 	position: relative;

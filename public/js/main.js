@@ -219,7 +219,7 @@ function update_status(){
 		if (!data['Printing']){
 			last_value('last_location','Not Printing');
 			last_value('last_remaining','-');
-			$("#running,#pause,.Printing").slideUp();
+			$("#running,#pause,.Printing,.progress").slideUp();
 			$("#idle,.Idle").slideDown();
 			$('#resume').hide();
 			if (data['PlateID'] && data['LayerID']>1 && data['LayersCount'] > 1 + data['LayerID']) {
@@ -238,9 +238,9 @@ function update_status(){
 			image_display(data['PlateID'],data['LayerID'],data['Covered']);
 			if (data['Pause']) {
 				$("#pause").slideDown();
-				$("#running,.Printing").slideUp();
+				$("#running,.Printing,.progress").slideUp();
 			}else{
-				$("#running,.Printing").slideDown();
+				$("#running,.Printing,.progress").slideDown();
 			}
 		}
 		change_stats(data,['proc','disk','mem','uptime','proc_numb','temp']);
