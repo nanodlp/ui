@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block js %}
+<script src='/static/js/mask.js'></script>
+{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+    	<h2>Mask Generation Wizard</h2>
+    </div>
+</div>
+<form action="/mask/generate" method="post" id="mask_form">
+	<input name="focus" id="focused_input" type="hidden">
+	<div class="row edit-page">
+		<div class="col-md-3">
+			<label for="WidthPoints">Number of Points in Width</label>
+			<input value="10" name="WidthPoints" id="WidthPoints" class="grid_input" type="number" min="1" required>
+		</div>
+		<div class="col-md-3">
+			<label for="HeightPoints">Number of Points in Height</label>
+			<input value="5" name="HeightPoints" id="HeightPoints" class="grid_input" type="number" min="1" required>
+		</div>
+		<div class="col-md-3">
+			<label for="PointSize">Measurement Point Width</label>
+			<input value="100" name="PointSize" id="PointSize" class="grid_input" type="number" min="1" required>
+		</div>
+		<div class="col-md-3">
+			<label>Display Mask</label><br>
+			<button id="preview" class="btn btn-success">Preview</button>
+			<br>
+			<br>
+		</div>
+	</div>
+	<div class="row edit-page">
+		<div class="col-md-12">
+			<h4>Mask Grid</h4>
+		</div>
+	</div>
+	<div class="row edit-page">
+		<div class="col-md-12" id="mask_grid">
+		</div>
+	</div>
+	<div class="row edit-page">
+		<div class="col-md-12">
+			<br>
+			<a id="save" class="btn btn-danger" href="/projector-calibration">Save Mask</a>
+		</div>
+	</div>
+</form>
+{% endblock %}

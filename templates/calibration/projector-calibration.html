@@ -43,11 +43,18 @@
 		<br>
 		<a href="/projector/on" class="btn btn-primary">Projector Turn On</a><br><br>
 		<a href="/projector/off" class="btn btn-primary">Projector Turn Off</a><br><br>
-		<a href="/shutter/open" class="btn btn-primary">Shutter Open</a><br><br>
-		<a href="/shutter/close" class="btn btn-primary">Shutter Close</a><br><br>
 		<!--<a href="/projector/auto" class="btn btn-success">Auto Calibration</a><br><br>-->
 	</div>
-	<div class="col-md-9">
+    <div class="col-md-3">
+		<br>
+		<a href="/shutter/open" class="btn btn-primary">Shutter Open</a><br><br>
+		<a href="/shutter/close" class="btn btn-primary">Shutter Close</a><br><br>
+    </div>
+    <div class="col-md-3">
+    	<br>
+    	<a href="/mask/form" class="btn btn-success">Mask Generator</a>
+    </div>
+	<div class="col-md-3">
 		<br>
 		{{ buttonsView(buttons,"/projector-calibration") }}
 	</div>
