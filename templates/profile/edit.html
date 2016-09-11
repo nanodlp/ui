@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "../base.html" %}
 {% block content %}
 <div class="starter-template">
 	{% if msg %}
@@ -27,6 +27,14 @@
 			<div class="col-md-3">
 				<label for="Color">Color {{helpModal("color")}}</label>
 				<input value="{{profile.Color}}" name="Color" id="Color" type="color">
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-12">
+				<br>
+				<label for="Desc">Description</label>
+				<textarea name="Desc" id="Desc">{{profile.Desc}}</textarea>
 			</div>
 		</div>
 

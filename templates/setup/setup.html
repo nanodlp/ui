@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "../base.html" %}
 {% block content %}
 <div class="starter-template">
 	<ul class="nav nav-tabs">
@@ -17,7 +17,7 @@
 	{% endif %}
 	<div class="tab-content">
 		<div id="hardwareSection" class="tab-pane fade in active">
-		{% include "setup/setup-config.html" %}
+		{% include "setup-config.html" %}
 		</div>
 		<div id="maskSection" class="tab-pane fade">
 			<form action="/add-mask" method="post" class="edit-page" enctype="multipart/form-data">
@@ -32,7 +32,7 @@
 			</form>
 		</div>
 		<div id="buttonsSection" class="tab-pane fade">
-		{% include "setup/setup-buttons.html" %}
+		{% include "setup-buttons.html" %}
 		</div>
 		<div id="passwordSection" class="tab-pane fade">
 			<h3>Local Panel Password Protection</h3>

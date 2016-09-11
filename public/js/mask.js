@@ -3,12 +3,18 @@ $(function(){
 	grid_draw();
 });
 
+var grid_render_val="";
 function grid_render(focus){
 	$("#focused_input").val(focus.attr("name"));
+	var data = $("#mask_form").serialize();
+	if (grid_render_val==data) {
+		return;
+	}
+	grid_render_val=data;
 	$.ajax({
   		type:"POST",
   		url:"/mask/grid",
-  		data:$("#mask_form").serialize()
+  		data:data
   	});
 }
 
@@ -28,7 +34,7 @@ function grid_draw(){
 		grid+="<tr>";
 		for (var j = 0; j < w; j++) {
 			grid+="<td>";
-			grid+="<input class='point' type='number' name='p_"+i+"_"+j+"' value='1'>";
+			grid+="<input class='point' type='number' name='p_"+i+"_"+j+"' min='0' max='255' value='255' required>";
 		}
 	}
 	grid+="</table>";
@@ -38,7 +44,7 @@ function grid_draw(){
 function grid_init(){
 	$("body").delegate(".grid_input","change",function(e){
 		grid_draw();
-	}).delegate(".point","focus",function(e){
+	}).delegate(".point","focus keyup change",function(e){
 		grid_render($(this));
 	}).delegate("#preview","click",function(e){
 		preview_mask("preview");

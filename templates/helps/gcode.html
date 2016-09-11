@@ -44,7 +44,15 @@
 	<dt>[[LampHours]]</dt>
 	<dd>The projector's lamp hours</dd>
 	<dt>[[Projector Command]]</dt>
-	<dd>Send any command to the projector <samp>[[Projector \x01\x02\x03 On]]</samp></dd>
+	<dd>Send any command to the projector <samp>eg. [[Projector \x01\x02\x03 On]]</samp></dd>
+	<dt>[[Net URL]]</dt>
+	<dd>Send get request to specified URL without waiting for the result <samp>eg. [[Net http://example.com/api]]</samp></dd>
+	<dt>[[NetReturn URL]]</dt>
+	<dd>Send get request to specified URL and send the result to RAMPS <samp>eg. [[NetReturn http://127.0.0.1/gcode?layer=[[LayerNumber]]]]</samp></dd>
+	<dt>[[Exec Command]]</dt>
+	<dd>Run external command without waiting for the result <samp>eg. [[Exec python my_python_script.py]]</samp></dd>
+	<dt>[[ExecReturn Command]]</dt>
+	<dd>Run external command and send the result to RAMPS <samp>eg. [[ExecReturn python my_python_script.py]]</samp></dd>
 </dl>
 <br>
 <h4>GCODE Operations</h4>

@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "../base.html" %}
 {% block content %}
 <h2>Print Settings <a class="btn btn-default" href="/profile/add" role="button">Add Profile</a></h2>
 <table class="table table-striped table-bordered model-list">
@@ -46,5 +46,5 @@
         {% endif %}
     </table>
     <br>
-    <a class="btn btn-success" href="/profile/Import" title="Import a Profile">Import a Profile</a>
+    <a class="btn btn-success" href="/profile/import" title="Import a Profile">Import a Profile</a>
 {% endblock %}

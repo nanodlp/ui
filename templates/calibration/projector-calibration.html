@@ -1,60 +1,80 @@
-{% extends "base.html" %}
+{% extends "../base.html" %}
 {% block content %}
 <div class="row">
-		<div class="col-md-3">
-			<div class="box">
-				<img src="/static/general/calibration-1920x1080.png" style="width: 240px;" >
-				<div class="caption">
-					<h3>Projector Calibration</h3>
-					<p><a href="/projector/display/calibration-1920x1080.png" class="btn btn-primary">Display</a> <a href="/projector/blank" class="btn">Close</a></p>
-				</div>
+	<div class="col-md-3">
+		<div class="box">
+			<img src="/static/general/calibration.png" style="width: 240px;" >
+			<div class="caption">
+				<h3>Dynamic Calibration</h3>
+				<p><a href="/projector/generate/calibration" class="btn btn-primary">Display</a> <a href="/projector/blank" class="btn">Close</a></p>
 			</div>
 		</div>
-		<div class="col-md-3">
-			<div class="box">
-				<img src="/static/general/calibration-red-1920x1080.png" style="width: 240px;" >
-				<div class="caption">
-					<h3>Projector Calibration</h3>
-					<p><a href="/projector/display/calibration-red-1920x1080.png" class="btn btn-primary">Display</a> <a href="/projector/blank" class="btn">Close</a></p>
-				</div>
+	</div>
+	<div class="col-md-3">
+		<div class="box">
+			<img src="/static/general/calibration-red.png" style="width: 240px;" >
+			<div class="caption">
+				<h3>Dynamic Red Calib.</h3>
+				<p><a href="/projector/generate/calibration-red" class="btn btn-primary">Display</a> <a href="/projector/blank" class="btn">lose</a></p>
 			</div>
 		</div>
-		<div class="col-md-3">
-			<div class="box">
-				<img src="/static/general/boundaries-1920x1080.png" style="width: 240px;" >
-				<div class="caption">
-					<h3>Projector Boundaries</h3>
-					<p><a href="/projector/display/boundaries-1920x1080.png" class="btn btn-primary">Display</a> <a href="/projector/blank" class="btn">Close</a></p>
-				</div>
+	</div>
+	<div class="col-md-3">
+		<div class="box">
+			<img src="/static/general/boundaries.png" style="width: 240px;" >
+			<div class="caption">
+				<h3>Boundaries</h3>
+				<p><a href="/projector/generate/boundaries" class="btn btn-primary">Display</a> <a href="/projector/blank" class="btn">Close</a></p>
 			</div>
 		</div>
-        <div class="col-md-3">
-			<div class="box">
-				<img src="/static/general/white-1920x1080.png" style="width: 240px;" >
-				<div class="caption">
-					<h3>Full White</h3>
-					<p><a href="/projector/display/white-1920x1080.png" class="btn btn-primary">Display</a> <a href="/projector/blank" class="btn">Close</a></p>
-				</div>
+	</div>
+       <div class="col-md-3">
+		<div class="box">
+			<img src="/static/general/white.png" style="width: 240px;" >
+			<div class="caption">
+				<h3>Full White</h3>
+				<p><a href="/projector/generate/white" class="btn btn-primary">Display</a> <a href="/projector/blank" class="btn">Close</a></p>
 			</div>
 		</div>
+	</div>
 </div>
 <div class="row">
-    <div class="col-md-3">
+	<div class="col-md-3">
 		<br>
-		<a href="/projector/on" class="btn btn-primary">Projector Turn On</a><br><br>
-		<a href="/projector/off" class="btn btn-primary">Projector Turn Off</a><br><br>
-		<!--<a href="/projector/auto" class="btn btn-success">Auto Calibration</a><br><br>-->
+		<br>
+		<div class="box">
+			<img src="/static/general/calibration-1920x1080.png" style="width: 100%;" >
+			<div class="caption">
+				<h3>FullHD Calibration</h3>
+				<p><a href="/projector/display/calibration-1920x1080.png" class="btn btn-primary">Display</a> <a href="/projector/blank" class="btn">Close</a></p>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-3">
+		<br>
+		<br>
+		<div class="box">
+			<img src="/static/general/calibration-red-1920x1080.png" style="width: 100%;" >
+			<div class="caption">
+				<h3>FullHD Red Calib.</h3>
+				<p><a href="/projector/display/calibration-red-1920x1080.png" class="btn btn-primary">Display</a> <a href="/projector/blank" class="btn">Close</a></p>
+			</div>
+		</div>
 	</div>
     <div class="col-md-3">
 		<br>
+		<br>
+		<br>
+		<a href="/projector/on" class="btn btn-primary">Projector Turn On</a><br><br>
+		<a href="/projector/off" class="btn btn-primary">Projector Turn Off</a><br><br>
 		<a href="/shutter/open" class="btn btn-primary">Shutter Open</a><br><br>
 		<a href="/shutter/close" class="btn btn-primary">Shutter Close</a><br><br>
-    </div>
-    <div class="col-md-3">
-    	<br>
+	</div>
+	<div class="col-md-2">
+		<br>
+		<br>
+		<br>
     	<a href="/mask/form" class="btn btn-success">Mask Generator</a>
-    </div>
-	<div class="col-md-3">
 		<br>
 		{{ buttonsView(buttons,"/projector-calibration") }}
 	</div>

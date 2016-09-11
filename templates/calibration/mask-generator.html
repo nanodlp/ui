@@ -1,11 +1,11 @@
-{% extends "base.html" %}
+{% extends "../base.html" %}
 {% block js %}
 <script src='/static/js/mask.js'></script>
 {% endblock %}
 {% block content %}
 <div class="row">
     <div class="col-md-12">
-    	<h2>Mask Generation Wizard</h2>
+    	<h2>Mask Generation Wizard{{helpModal("mask-generation")}}</h2>
     </div>
 </div>
 <form action="/mask/generate" method="post" id="mask_form">
