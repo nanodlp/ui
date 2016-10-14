@@ -196,7 +196,7 @@ label, .radio label, .checkbox label, .help-block {
 	width: 100%;
 }
 .edit-page textarea{
-	height: auto;
+	height: 133px;
 }
 .edit-page input[type="file"]{
 	padding: 0;

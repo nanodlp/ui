@@ -176,13 +176,13 @@
 		<div class="row">
 			<div class="col-md-12">
 				<label for="SyscallBeforeLayer">Syscall Before Each Layer{{helpModal("exec")}}</label>
-				<textarea name="SyscallBeforeLayer" id="SyscallBeforeLayer">{{profile.SyscallBeforeLayer}}</textarea>
+				<input name="SyscallBeforeLayer" id="SyscallBeforeLayer" value="{{profile.SyscallBeforeLayer}}">
 				<br>
 				<label for="ShieldBeforeLayer">GCODE Before Each Layer{{helpModal("gcode,shield,exec")}}</label>
 				<textarea name="ShieldBeforeLayer" id="ShieldBeforeLayer">{{profile.ShieldBeforeLayer}}</textarea>
                 <br>
 				<label for="SyscallAfterLayer">Syscall After Each Layer{{helpModal("exec")}}</label>
-				<textarea name="SyscallAfterLayer" id="SyscallAfterLayer">{{profile.SyscallAfterLayer}}</textarea>
+				<input name="SyscallAfterLayer" id="SyscallAfterLayer" value="{{profile.SyscallAfterLayer}}">
 				<br>
 				<label for="ShieldAfterLayer">GCODE After Each Layer{{helpModal("gcode,shield,exec")}}</label>
 				<textarea name="ShieldAfterLayer" id="ShieldAfterLayer">{{profile.ShieldAfterLayer}}</textarea>

@@ -400,6 +400,13 @@
 				<option value="0" {% if Mute==0 %}selected{% endif %}>Enable</option>
 				<option value="1" {% if Mute==1 %}selected{% endif %}>Disable</option>
 			</select>
+			<br>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<label for="LoopSleep">Sleep Time <span class="label label-warning">Experimental (Do not change)</span></label>
+			<input value="{{LoopSleep}}" name="LoopSleep" id="LoopSleep" min="1000" max="1000000000" type="number">
 		</div>
 	</div>
 	<input value="{{DefaultProfile}}" name="DefaultProfile" type="hidden">
