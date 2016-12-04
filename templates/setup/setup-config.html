@@ -35,7 +35,6 @@
 	<option value="38400" {% if default==38400 %}selected{% endif %}>38400</option>
 	<option value="57600" {% if default==57600 %}selected{% endif %}>57600</option>
 	<option value="115200" {% if default==115200 %}selected{% endif %}>115200</option>
-	<option value="250000" {% if default==250000 %}selected{% endif %}>250000</option>
 </select>
 {% endmacro %}
 <div class="alert alert-info">Setting changes will take effect immediately and does not require restart.</div>
@@ -44,6 +43,18 @@
 	<div class="row">
 		<div class="col-md-12">
 			<input value="{{Name}}" name="Name" id="Name" placeholder="Printer Name">
+			<br>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-6">
+			<label for="SyscallStart">Execute - Start of Print{{helpModal("gcode-exec-start,exec")}}</label>
+			<input value="{{SyscallStart}}" name="SyscallStart" id="SyscallStart">
+			<br>
+		</div>
+		<div class="col-md-6">
+			<label for="SyscallFinish">Execute - Print Stop{{helpModal("gcode-exec-start,exec")}}</label>
+			<input value="{{SyscallFinish}}" name="SyscallFinish" id="SyscallFinish">
 		</div>
 	</div>
 
@@ -127,45 +138,42 @@
 	</div>
 	<div class="row ShieldType_toggle">
 		<div class="col-md-3">
-			<label for="ShieldBootup">GCode - Bootup{{helpModal("gcode-bootup,gcode,shield,exec")}}</label>
+			<label for="ShieldBootup">Bootup Gcode{{helpModal("gcode-bootup,vars,math,gcode,shield,exec")}}</label>
 			<textarea name="ShieldBootup" id="ShieldBootup">{{ShieldBootup}}</textarea>
 			<br>
 		</div>
 		<div class="col-md-3">
-			<label for="ShieldStart">GCode - Start of Print{{helpModal("gcode-start,gcode,shield,exec")}}</label>
+			<label for="ShieldStart">Start of Print Gcode{{helpModal("gcode-start,vars,math,gcode,shield,exec")}}</label>
 			<textarea name="ShieldStart" id="ShieldStart">{{ShieldStart}}</textarea>
 		</div>
 		<div class="col-md-3">
-			<label for="ShieldResume">GCode - Resume Print{{helpModal("gcode-start,gcode,shield,exec")}}</label>
+			<label for="ShieldResume">Resume Print Gcode{{helpModal("gcode-start,vars,math,gcode,shield,exec")}}</label>
 			<textarea name="ShieldResume" id="ShieldResume">{{ShieldResume}}</textarea>
 			<br>
 		</div>
 		<div class="col-md-3">
-			<label for="ShieldFinish">GCode - End of Print</label>
+			<label for="ShieldFinish">Print Stop Gcode</label>
 			<textarea name="ShieldFinish" id="ShieldFinish">{{ShieldFinish}}</textarea>
 			<br>
 		</div>
 	</div>
 	<div class="row ShieldType_toggle">
 		<div class="col-md-3">
-			<label for="ShutterOpenGcode">Gcode - Shutter Open{{helpModal("gcode-shutter-open,gcode,shield,exec")}}</label>
+			<label for="ShutterOpenGcode">Shutter Open Gcode{{helpModal("gcode-shutter-open,vars,math,gcode,shield,exec")}}</label>
 			<textarea name="ShutterOpenGcode" id="ShutterOpenGcode">{{ShutterOpenGcode}}</textarea>
 			<br>
 		</div>
 		<div class="col-md-3">
-			<label for="ShutterCloseGcode">Gcode - Shutter Close</label>
+			<label for="ShutterCloseGcode">Shutter Close Gcode</label>
 			<textarea name="ShutterCloseGcode" id="ShutterCloseGcode">{{ShutterCloseGcode}}</textarea>
 			<br>
 		</div>
 		<div class="col-md-3">
-			<label for="SyscallStart">Execute - Start of Print{{helpModal("gcode-exec-start,exec,shield")}}</label>
-			<input value="{{SyscallStart}}" name="SyscallStart" id="SyscallStart">
+			<label for="ManualMoveGcode">Manual Movement Gcode Template</label>
+			<textarea name="ManualMoveGcode" id="ManualMoveGcode">{{ManualMoveGcode}}</textarea>
 			<br>
 		</div>
-		<div class="col-md-3">
-			<label for="SyscallFinish">Execute - End of Print</label>
-			<input value="{{SyscallFinish}}" name="SyscallFinish" id="SyscallFinish">
-		</div>
+
 	</div>
 
 	<h3>Shutter</h3>
@@ -207,14 +215,22 @@
 
 	<h3>Projector</h3>
 	<div class="row">
-		<div class="col-md-6">
+		<div class="col-md-3">
 			<label for="ProjectorWidth">Projector Resolution Width</label>
 			<input value="{{ProjectorWidth}}" name="ProjectorWidth" id="ProjectorWidth" type="number" required>
 		</div>
-		<div class="col-md-6">
+		<div class="col-md-3">
 			<label for="ProjectorHeight">Projector Resolution Height</label>
 			<input value="{{ProjectorHeight}}" name="ProjectorHeight" id="ProjectorHeight" type="number" required>
 			<br>
+		</div>
+		<div class="col-md-3">
+			<label for="DisplayID" class="tip" data-tip="Raspberry Pi Display Output Number">Display Display Number</label>
+			<input value="{{DisplayID}}" name="DisplayID" id="DisplayID">
+		</div>
+		<div class="col-md-3">
+			<label for="XYRes">X/Y Resolution <span class="label label-default">Micron</span>{{helpModal("xy-resolution")}}</label>
+			<input value="{{profile.XYRes}}" name="XYRes" id="XYRes" step="0.001" type="number" min="1" required>
 		</div>
 	</div>
 	<div class="row">
@@ -401,12 +417,6 @@
 				<option value="1" {% if Mute==1 %}selected{% endif %}>Disable</option>
 			</select>
 			<br>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-md-12">
-			<label for="LoopSleep">Sleep Time <span class="label label-warning">Experimental (Do not change)</span></label>
-			<input value="{{LoopSleep}}" name="LoopSleep" id="LoopSleep" min="1000" max="1000000000" type="number">
 		</div>
 	</div>
 	<input value="{{DefaultProfile}}" name="DefaultProfile" type="hidden">

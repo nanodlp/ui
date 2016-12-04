@@ -1,0 +1,10 @@
+<br>
+<h4>GCODE Operations</h4>
+<dl class="dl-horizontal small">
+	<dt>Math: + - * / ** () &lt; ></dt>
+	<dd>Calculating different values <samp>eg. G1 Z{[[LayerThickness]]-[[ZLiftDistance]]*[[LayerNumber]]}</samp></dd>
+	<dt>Conditionals: () &lt; ></dt>
+	<dd>Add conditionals to your math logic <samp>eg. G1 Z{([[LayerNumber]]&lt;30)*1+0.5} if current layer is less than 30 lift 1.5mm if not lift 0.5mm</samp></dd>
+	<dt>Base 16 Binary</dt>
+	<dd>To send binary codes to drivers / controllers you can use base 16 format <samp>eg. \x00\x00\xff</samp></dd>
+</dl>

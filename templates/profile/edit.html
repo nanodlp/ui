@@ -14,8 +14,8 @@
 				<input value="{{profile.Title}}" name="Title" id="Title" required>
 			</div>
 			<div class="col-md-3">
-				<label for="XYRes">X/Y Resolution <span class="label label-default">Micron</span>{{helpModal("xy-resolution")}}</label>
-				<input value="{{profile.XYRes}}" name="XYRes" id="XYRes" step="0.01" type="number" min="1" required>
+				<label for="XYRes">X/Y Resolution Override <span class="label label-default">Micron</span>{{helpModal("xy-resolution")}}</label>
+				<input value="{{profile.XYRes}}" name="XYRes" id="XYRes" step="0.001" type="number" min="1">
 			</div>
 			<div class="col-md-3">
 				<label for="IgnoreMask">Mask File</label>
@@ -102,13 +102,21 @@
 				<label for="TopWait">Wait After Lift <span class="label label-default">Second</span></label>
 				<input value="{{profile.TopWait}}"  name="TopWait" id="TopWait" step="0.01" type="number" required>
 			</div>
+		</div>
+
+		<h3>Dynamic Calculation</h3>
+		<div class="row">
 			<div class="col-md-3">
-				<label for="DynamicCureTime">Dynamic Cure Time <span class="label label-default">Second</span>{{helpModal("dynamic-curetime")}}</label>
+				<label for="DynamicCureTime">Dynamic Cure Time <span class="label label-default">Second</span>{{helpModal("dynamic-curetime,vars,math")}}</label>
 				<textarea name="DynamicCureTime" id="DynamicCureTime">{{profile.DynamicCureTime}}</textarea>
 			</div>
 			<div class="col-md-3">
-				<label for="DynamicSpeed">Dynamic Speed<span class="label label-default">Micron/Second</span>{{helpModal("dynamic-speed")}}</label>
+				<label for="DynamicSpeed">Dynamic Speed <span class="label label-default">Micron/Second</span>{{helpModal("dynamic-speed,vars,math")}}</label>
 				<textarea name="DynamicSpeed" id="DynamicSpeed">{{profile.DynamicSpeed}}</textarea>
+			</div>
+			<div class="col-md-3">
+				<label for="DynamicLift">Dynamic Lift <span class="label label-default">Millimeter</span>{{helpModal("dynamic-lift,vars,math")}}</label>
+				<textarea name="DynamicLift" id="DynamicLift">{{profile.DynamicLift}}</textarea>
 			</div>
 		</div>
 
@@ -174,21 +182,39 @@
 
 		<h3>GCode</h3>
 		<div class="row">
-			<div class="col-md-12">
+			<div class="col-md-6">
 				<label for="SyscallBeforeLayer">Syscall Before Each Layer{{helpModal("exec")}}</label>
 				<input name="SyscallBeforeLayer" id="SyscallBeforeLayer" value="{{profile.SyscallBeforeLayer}}">
 				<br>
-				<label for="ShieldBeforeLayer">GCODE Before Each Layer{{helpModal("gcode,shield,exec")}}</label>
+				<label for="ShieldBeforeLayer">GCODE Before Each Layer{{helpModal("vars,math,gcode,shield,exec")}}</label>
 				<textarea name="ShieldBeforeLayer" id="ShieldBeforeLayer">{{profile.ShieldBeforeLayer}}</textarea>
                 <br>
+            </div>
+			<div class="col-md-6">
 				<label for="SyscallAfterLayer">Syscall After Each Layer{{helpModal("exec")}}</label>
 				<input name="SyscallAfterLayer" id="SyscallAfterLayer" value="{{profile.SyscallAfterLayer}}">
 				<br>
-				<label for="ShieldAfterLayer">GCODE After Each Layer{{helpModal("gcode,shield,exec")}}</label>
+				<label for="ShieldAfterLayer">GCODE After Each Layer{{helpModal("vars,math,gcode,shield,exec")}}</label>
 				<textarea name="ShieldAfterLayer" id="ShieldAfterLayer">{{profile.ShieldAfterLayer}}</textarea>
 			</div>
 		</div>
-		<br>
+		<div class="row">
+			<div class="col-md-4">
+				<label for="ShieldStart">Override Start of Print GCode{{helpModal("gcode-start,vars,math,gcode,shield,exec")}}</label>
+				<textarea name="ShieldStart" id="ShieldStart">{{ShieldStart}}</textarea>
+			</div>
+			<div class="col-md-4">
+				<label for="ShieldResume">Override Resume Print GCode{{helpModal("gcode-start,vars,math,gcode,shield,exec")}}</label>
+				<textarea name="ShieldResume" id="ShieldResume">{{ShieldResume}}</textarea>
+				<br>
+			</div>
+			<div class="col-md-4">
+				<label for="ShieldFinish">Override Print Stop GCode</label>
+				<textarea name="ShieldFinish" id="ShieldFinish">{{ShieldFinish}}</textarea>
+				<br>
+			</div>
+		</div>
+
 		<button type="submit" class="btn btn-success">Submit</button>
 	</form>
 	<br>

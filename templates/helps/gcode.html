@@ -1,54 +1,35 @@
 <br>
-<h4>GCODE Keywords</h4>
+<h4>Dynamic Variables</h4>
 <dl class="dl-horizontal small">
-	<dt>[[LayerThickness]]</dt>
-	<dd>Layer thickness in millimeter</dd>
+	<dt>[[ZSpeed]]</dt>
+	<dd>Speed in micron/second, calculated from startup/min/max/slow section speeds in setup page. The result of dynamic speed will be used.</dd>
 	<dt>[[ZLiftDistance]]</dt>
-	<dd>Amount of lift after layer print in millimeter</dd>
-	<dt>[[LayerThickness]]</dt>
-	<dd>Layer thickness in millimeter</dd>
-	<dt>[[LayerPosition]]</dt>
-	<dd>Absolute layer position in millimeter</dd>
-	<dt>[[CurrentPosition]]</dt>
-	<dd>Current position in millimeter</dd>
-	<dt>[[GPIOWaitForLow]]</dt>
-	<dd>Wait for <kbd>"wait pin"</kbd> GPIO to be LOW</dd>
-	<dt>[[WaitForDoneMessage]]</dt>
-	<dd>Wait for <kbd>Z_move_comp</kbd> message from RAMPS or similar boards</dd>
+	<dd>Amount of lift after layer print in millimeter. The result of dynamic lifting will be used.</dd>
+	<dt>[[SyscallResult]]</dt>
+	<dd>If any GCODE box has paired with external execution. Result of execution could be used inside GCODE box.</dd>
+</dl>
+<br>
+
+<h4>Control Keywords</h4>
+<dl class="dl-horizontal small">
 	<dt>[[PositionSet mm]]</dt>
 	<dd>Update current absolute position <samp>eg. [[PositionSet 22.1]]</samp></dd>
 	<dt>[[PositionChange mm]]</dt>
 	<dd>Update relative position update <samp>eg. [[PositionChange -2.1]]</samp></dd>
-	<dt>[[StopPosition]]</dt>
-	<dd>Absolute stop position from zero level</dd>
-	<dt>[[GPIOHigh GPIO]]</dt>
-	<dd>Makes any GPIO HIGH <samp>eg. [[GPIOHigh 12]]</samp></dd>
-	<dt>[[GPIOLow GPIO]]</dt>
-	<dd>Makes any GPIO Low</dd>
+</dl>
+<br>
+<h4>Action Keywords</h4>
+<dl class="dl-horizontal small">
 	<dt>[[Delay Seconds]]</dt>
 	<dd>Put delay <samp>eg. [[Delay 1.23]]</samp></dd>
-	<dt>[[ZSpeed]]</dt>
-	<dd>Speed in micron/second, calculated from startup/min/max/slow section speeds in setup page.</dd>
+	<dt>[[WaitForDoneMessage]]</dt>
+	<dd>Wait for <kbd>Z_move_comp</kbd> message from RAMPS or similar boards</dd>
 	<dt>[[Pause]]</dt>
 	<dd>Pause the printer, require resume from dashboard to continue.</dd>
-	<dt>[[SyscallResult]]</dt>
-	<dd>If any GCODE box has paired with external execution. Result of execution could be used inside GCODE box.</dd>
-	<dt>[[LayerNumber]]</dt>
-	<dd>Current layer number</dd>
-	<dt>[[TotalNumberOfLayers]]</dt>
-	<dd>Total number of the plate layers</dd>
-	<dt>[[TotalSolidArea]]</dt>
-	<dd>Current layer's total solid area in mm^2</dd>
-	<dt>[[LargestArea]]</dt>
-	<dd>Current layer's largest solid area in mm^2</dd>
-	<dt>[[SmallestArea]]</dt>
-	<dd>Current layer's smallest solid area in mm^2</dd>
-	<dt>[[AreaCount]]</dt>
-	<dd>Current layer's total number of solid areas</dd>
-	<dt>[[LampHours]]</dt>
-	<dd>The projector's lamp hours</dd>
-	<dt>[[Projector Command]]</dt>
-	<dd>Send any command to the projector <samp>eg. [[Projector \x01\x02\x03 On]]</samp></dd>
+</dl>
+<br>
+<h4>Communication Keywords</h4>
+<dl class="dl-horizontal small">
 	<dt>[[Net URL]]</dt>
 	<dd>Send get request to specified URL without waiting for the result <samp>eg. [[Net http://example.com/api]]</samp></dd>
 	<dt>[[NetReturn URL]]</dt>
@@ -59,15 +40,18 @@
 	<dd>Run external command and send the result to RAMPS <samp>eg. [[ExecReturn python my_python_script.py]]</samp></dd>
 </dl>
 <br>
-<h4>GCODE Operations</h4>
+<h4>Hardware Keywords</h4>
 <dl class="dl-horizontal small">
-	<dt>Math: + - * / ** () &lt; ></dt>
-	<dd>Calculating different values <samp>eg. G1 Z{[[LayerThickness]]-[[ZLiftDistance]]*[[LayerNumber]]}</samp></dd>
-	<dt>Conditionals: () &lt; ></dt>
-	<dd>Add conditionals to your math logic <samp>eg. G1 Z{([[LayerNumber]]&lt;30)*1+0.5} if current layer is less than 30 lift 1.5mm if not lift 0.5mm</samp></dd>
-	<dt>Base 16 Binary</dt>
-	<dd>To send binary codes to drivers / controllers you can use base 16 format <samp>eg. \x00\x00\xff</samp></dd>
+	<dt>[[GPIOWaitForLow]]</dt>
+	<dd>Wait for <kbd>"wait pin"</kbd> GPIO to be LOW</dd>
+	<dt>[[Projector Command]]</dt>
+	<dd>Send any command to the projector <samp>eg. [[Projector \x01\x02\x03 On]]</samp></dd>
+	<dt>[[GPIOHigh GPIO]]</dt>
+	<dd>Makes any GPIO HIGH <samp>eg. [[GPIOHigh 12]]</samp></dd>
+	<dt>[[GPIOLow GPIO]]</dt>
+	<dd>Makes any GPIO Low</dd>
 </dl>
+
 <br>
 
 <h4>Syncronizing Movements</h4>
