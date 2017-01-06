@@ -1,6 +1,10 @@
 {% extends "../base.html" %}
 {% block content %}
-<h2>Plates <a class="btn btn-default" href="/plate/add" role="button">ADD</a> <a class="btn btn-default" href="/plate/add-usb" role="button">Add From USB</a></h2>
+<h2>Plates <a class="btn btn-default" href="/plate/add" role="button">ADD</a>
+{% if os == "linux" %}
+<a class="btn btn-default" href="/plate/add-usb" role="button">Add From USB</a>
+{% endif %}
+</h2>
 <table class="table table-striped table-bordered model-list" id="plates">
 	<thead>
 		<tr>
@@ -29,17 +33,26 @@
 					<a class="btn btn-success" href="/plate/download/{{ row.PlateID }}" title="Download Plate">Download</a>
 					{% endif %}
 					<a class="btn btn-primary" href="/plate/edit/{{ row.PlateID }}" title="Edit Plate">Edit</a>
+
+					{% if row.Processed==true %}
+					<a class="btn btn-warning" href="/plate/regenerate/{{ row.PlateID }}" title="Recreate Layers" onclick="return confirm('Are you sure you want to regenerate this plate\'s layers?');">Recreate</a>
+					{% endif %}
+
 					{% if row.PlateID != status.PlateID or status.Printing == false %}
 					<a class="btn btn-danger" href="/plate/delete/{{ row.PlateID }}" title="Delete Plate" onclick="return confirm('Are you sure you want to delete this plate?');">Delete</a>
 					{% endif %}
+
 					<br>
 					{% if row.BlackoutData!="" %}
 						<a class="btn btn-primary" href="/plate/cover/{{ row.PlateID }}">Modify Blackout</a>
 					{% else %}
 						<a class="btn btn-primary" href="/plate/cover/{{ row.PlateID }}">Add Blackout</a>
 					{% endif %}
-					<a class="btn btn-success" href="/plate/preview/{{ row.PlateID }}">Preview Layers</a>
-					{% if row.Status!=0 %}
+					<a class="btn btn-success" href="/plate/preview/{{ row.PlateID }}">Layers</a>
+					{% if row.Type=="stl" %}
+						<a class="btn btn-success" href="/plate/3d/{{ row.PlateID }}">3D</a>
+					{% endif %}
+					{% if row.Processed==false %}
 					<div class="alert alert-danger">Plate #{{ row.PlateID }} being processed...</div>
 					{% endif %}
 				</td>

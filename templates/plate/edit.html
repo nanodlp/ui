@@ -4,9 +4,6 @@
 	{% if msg %}
 		<div class="alert alert-danger" role="alert">{{msg}}</div>
 	{% endif %}
-	{% if plate.PlateID %}
-		<div class="alert alert-danger" role="alert">Changing profile would not effect already converted frames and for the active plate would take effect until stop/start.</div>
-	{% endif %}
 	<legend>{{h1}}</legend>
 	<form action="" method="post" class="edit-page" enctype="multipart/form-data">
 		<div class="row">

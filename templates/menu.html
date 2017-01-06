@@ -18,17 +18,25 @@
     </ul>
     <ul class="nav navbar-nav navbar-right">
         <li>
-            {% if wifi!="" %}
-                <a href="/wifi"><span class="label label-success">{{wifi}}</span></a>
-            {% else %}
-                <a href="/wifi"><span class="label">Wi-Fi</span></a>
+            {% if arch=="arm" %}
+                {% if wifi!="" %}
+                    <a href="/wifi"><span class="label label-success">{{wifi}}</span></a>
+                {% else %}
+                    <a href="/wifi"><span class="label">Wi-Fi</span></a>
+                {% endif %}
             {% endif %}
         </li>
         <li>
             {% if newBuild %}
-                <a href="/printer/upgrade">
-                    <span class="label label-info">New Version Available</span>
-                </a>
+                {% if arch=="arm" %}
+                    <a href="/printer/upgrade">
+                        <span class="label label-info">New Version Available</span>
+                    </a>
+                {% else %}
+                    <a href="http://www.nanodlp.com">
+                        <span class="label label-info">New Version Available</span>
+                    </a>
+                {% endif %}
             {% else %}
                 <a href="http://www.nanodlp.com">
                     <small>Build <!--version--></small>

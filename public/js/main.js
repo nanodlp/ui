@@ -22,6 +22,7 @@ $(function(){
 	editable_table_init();
 	help_init();
 	resume_init();
+	three_init();
 });
 
 function resume_init(){

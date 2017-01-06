@@ -89,21 +89,23 @@
 			<div class="alert alert-warning" role="alert">Any action will take effect immediately without page change.</div>
 			<a class="ajax btn btn-danger" data-ajax="/" href="/printer/force-stop" data-confirm="Are you sure you want to force stop the printer?">Force Stop</a>
 			<br>
-			<a class="ajax btn btn-danger" data-ajax="/" href="/printer/off" data-confirm="Are you sure you want to power off the printer?">Power Off Raspberry Pi</a>
+			<a class="ajax btn btn-danger" data-ajax="/" href="/printer/off" data-confirm="Are you sure you want to power off the printer?">Power Off</a>
 			<br>
-			<a class="ajax btn btn-danger" data-ajax="/" href="/printer/restart" data-confirm="Are you sure you want to restart the printer?">Restart Raspberry Pi</a>
+			<a class="ajax btn btn-danger" data-ajax="/" href="/printer/restart" data-confirm="Are you sure you want to restart the printer?">Restart</a>
 			<br>
 			<a class="ajax btn btn-danger" data-ajax="/" href="/printer/terminate" data-confirm="Are you sure you want to terminate nanoDLP and have access to terminal?">Terminate nanoDLP</a>
 			<br>
-			<a class="ajax btn btn-danger" data-ajax="/" href="/printer/restore" data-confirm="Are you sure you want to restore default settings and reboot printer?">Restore Default machine/profiles/buttons Settings</a>
-			<br>
-			<a class="btn btn-danger" href="/printer/distro/change">Change Distribution</a>
-			<br>
-			<a class="btn btn-danger" href="/printer/upgrade">Upgrade nanoDLP</a>
-			<br>
-			<br>
-			<div class="alert alert-warning" role="alert">Filesystem expantion will run silently on background. And will restart rpi afterward. Please, do not change anything.</div>
-			<a class="ajax btn btn-danger" data-ajax="/" href="/printer/expand-fs" data-confirm="Are you sure you want to expand filesystem?">Expand Filesystem</a>
+			{% if arch=="arm" %}
+				<a class="ajax btn btn-danger" data-ajax="/" href="/printer/restore" data-confirm="Are you sure you want to restore default settings and reboot printer?">Restore Default machine/profiles/buttons Settings</a>
+				<br>
+				<a class="btn btn-danger" href="/printer/distro/change">Change Distribution</a>
+				<br>
+				<a class="btn btn-danger" href="/printer/upgrade">Upgrade nanoDLP</a>
+				<br>
+				<br>
+				<div class="alert alert-warning" role="alert">Filesystem expantion will run silently on background. And will restart rpi afterward. Please, do not change anything.</div>
+				<a class="ajax btn btn-danger" data-ajax="/" href="/printer/expand-fs" data-confirm="Are you sure you want to expand filesystem?">Expand Filesystem</a>
+			{% endif %}
 		</div>
 	</div>
 	<br>

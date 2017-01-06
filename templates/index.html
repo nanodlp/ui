@@ -39,13 +39,21 @@
 			</div>
 			<div id="idle">
 				<br>
-				<a id="resume" class="btn btn-warning" href="/printer/resume" onclick="return confirm('Are you sure you want to resume plate [[plate]] from layer [[last_layer]]?');">Resume Printing</a>
-				{% if projectorPowerCycle==1 %}
-				<a class="ajax btn btn-warning" href="/projector/off" name="type" data-confirm="Are you sure you want to power off the projector?">Projector Off</a>
-				&nbsp; &nbsp; &nbsp;
+				{% if cast==false %}
+					<a class="btn btn-success" href="/printer/cast" onclick="return confirm('Are you sure you want to start display? It will automatically select second display to display layer.');">Start Display</a>
+					&nbsp; &nbsp; &nbsp;
 				{% endif %}
-				<a class="ajax btn btn-danger" href="/printer/off" name="type" data-confirm="Are you sure you want to power off the printer?">Power Off</a>
-				<a class="ajax btn btn-danger" href="/printer/restart" title="stop" name="type" data-confirm="Are you sure you want to restart the printer?">Restart</a>
+				<a id="resume" class="btn btn-warning" href="/printer/resume" onclick="return confirm('Are you sure you want to resume plate [[plate]] from layer [[last_layer]]?');">Resume Printing</a>
+
+				{% if projectorPowerCycle==1 %}
+					<a class="ajax btn btn-warning" href="/projector/off" name="type" data-confirm="Are you sure you want to power off the projector?">Projector Off</a>
+					&nbsp; &nbsp; &nbsp;
+				{% endif %}
+
+				{% if arch=="arm" %}
+					<a class="ajax btn btn-danger" href="/printer/off" name="type" data-confirm="Are you sure you want to power off the printer?">Power Off</a>
+					<a class="ajax btn btn-danger" href="/printer/restart" title="stop" name="type" data-confirm="Are you sure you want to restart the printer?">Restart</a>
+				{% endif %}
 			</div>
 			<div id="pause">
 				<br>
@@ -58,34 +66,36 @@
 			{{ buttonsView(buttons,"/") }}
 		</div>
 		<div class="col-md-6">
-			<table id="stat">
-				<tr>
-					<td width="60px">CPU</td>
-					<td width="40px" id="proc">{{stat.Proc}}</td>
-					<td width="60px">Proc</td>
-					<td width="40px" id="proc_numb">{{stat.ProcNumb}}</td>
-					<td width="60px">Temp</td>
-					<td width="40px" id="temp">{{stat.Temp}}</td>
-				</tr>
-				<tr>
-					<td colspan=2 id="proc_chart" class="spark"><canvas></canvas></td>
-					<td colspan=2 id="proc_numb_chart" class="spark"><canvas></canvas></td>
-					<td colspan=2 id="temp_chart" class="spark"><canvas></canvas></td>
-				</tr>
-				<tr>
-					<td>Disk</td>
-					<td id="disk">{{stat.Disk}}</td>
-					<td>Memory</td>
-					<td id="mem">{{stat.Mem}}</td>
-					<td>Uptime</td>
-					<td id="uptime">{{stat.Up}}</td>
-				</tr>
-				<tr>
-					<td colspan=2 id="disk_chart" class="spark"><canvas></canvas></td>
-					<td colspan=2 id="mem_chart" class="spark"><canvas></canvas></td>
-					<td colspan=2 id="" class="spark"><canvas></canvas></td>
-				</tr>
-			</table>
+			{% if os=="linux" %}
+				<table id="stat">
+					<tr>
+						<td width="60px">CPU</td>
+						<td width="40px" id="proc">{{stat.Proc}}</td>
+						<td width="60px">Proc</td>
+						<td width="40px" id="proc_numb">{{stat.ProcNumb}}</td>
+						<td width="60px">Temp</td>
+						<td width="40px" id="temp">{{stat.Temp}}</td>
+					</tr>
+					<tr>
+						<td colspan=2 id="proc_chart" class="spark"><canvas></canvas></td>
+						<td colspan=2 id="proc_numb_chart" class="spark"><canvas></canvas></td>
+						<td colspan=2 id="temp_chart" class="spark"><canvas></canvas></td>
+					</tr>
+					<tr>
+						<td>Disk</td>
+						<td id="disk">{{stat.Disk}}</td>
+						<td>Memory</td>
+						<td id="mem">{{stat.Mem}}</td>
+						<td>Uptime</td>
+						<td id="uptime">{{stat.Up}}</td>
+					</tr>
+					<tr>
+						<td colspan=2 id="disk_chart" class="spark"><canvas></canvas></td>
+						<td colspan=2 id="mem_chart" class="spark"><canvas></canvas></td>
+						<td colspan=2 id="" class="spark"><canvas></canvas></td>
+					</tr>
+				</table>
+			{% endif %}
 		</div>
 	</div>
 	<h1>Application Log &nbsp; &nbsp; &nbsp; <a id="toggle_log" class="label label-default">Toggle Log</a></h1>

@@ -9,13 +9,9 @@
 	<div class="alert alert-warning">Resolution and color changes would not effect existing plates.</div>
 	<form action="" method="post" class="edit-page">
 		<div class="row">
-			<div class="col-md-3">
+			<div class="col-md-6">
 				<label for="Title" class="tip" data-tip="Name of the profile">Title</label>
 				<input value="{{profile.Title}}" name="Title" id="Title" required>
-			</div>
-			<div class="col-md-3">
-				<label for="XYRes">X/Y Resolution Override <span class="label label-default">Micron</span>{{helpModal("xy-resolution")}}</label>
-				<input value="{{profile.XYRes}}" name="XYRes" id="XYRes" step="0.001" type="number" min="1">
 			</div>
 			<div class="col-md-3">
 				<label for="IgnoreMask">Mask File</label>
@@ -26,7 +22,11 @@
 			</div>
 			<div class="col-md-3">
 				<label for="Color">Color {{helpModal("color")}}</label>
-				<input value="{{profile.Color}}" name="Color" id="Color" type="color">
+				{% if profile.Color %}
+					<input value="{{profile.Color}}" name="Color" id="Color" type="color">
+				{% else %}
+					<input value="#ffffff" name="Color" id="Color" type="color">
+				{% endif %}
 			</div>
 		</div>
 
@@ -198,23 +198,39 @@
 				<textarea name="ShieldAfterLayer" id="ShieldAfterLayer">{{profile.ShieldAfterLayer}}</textarea>
 			</div>
 		</div>
+		<h3>Override Machine Level Settings</h3>
 		<div class="row">
 			<div class="col-md-4">
 				<label for="ShieldStart">Override Start of Print GCode{{helpModal("gcode-start,vars,math,gcode,shield,exec")}}</label>
-				<textarea name="ShieldStart" id="ShieldStart">{{ShieldStart}}</textarea>
+				<textarea name="ShieldStart" id="ShieldStart">{{profile.ShieldStart}}</textarea>
 			</div>
 			<div class="col-md-4">
 				<label for="ShieldResume">Override Resume Print GCode{{helpModal("gcode-start,vars,math,gcode,shield,exec")}}</label>
-				<textarea name="ShieldResume" id="ShieldResume">{{ShieldResume}}</textarea>
+				<textarea name="ShieldResume" id="ShieldResume">{{profile.ShieldResume}}</textarea>
 				<br>
 			</div>
 			<div class="col-md-4">
 				<label for="ShieldFinish">Override Print Stop GCode</label>
-				<textarea name="ShieldFinish" id="ShieldFinish">{{ShieldFinish}}</textarea>
+				<textarea name="ShieldFinish" id="ShieldFinish">{{profile.ShieldFinish}}</textarea>
 				<br>
 			</div>
 		</div>
+		<div class="row">
+			<div class="col-md-3">
+				<label for="XYRes">Override X/Y Resolution <span class="label label-default">Percentage</span></label>
+				<input value="{{profile.XYRes}}" name="XYRes" id="XYRes" step="0.001" type="number">
+			</div>
+			<div class="col-md-3">
+				<label for="XYResPerc">X/Y Model Size Modifier <span class="label label-default">Percentage</span></label>
+				<input value="{{profile.XYResPerc}}" name="XYResPerc" id="XYResPerc" step="0.001" type="number">
+			</div>
+			<div class="col-md-6">
+				<label for="ZResPerc">Z Model Size Modifier <span class="label label-default">Percentage</span></label>
+				<input value="{{profile.ZResPerc}}" name="ZResPerc" id="ZResPerc" step="0.001" type="number">
+			</div>
+		</div>
 
+		<br>
 		<button type="submit" class="btn btn-success">Submit</button>
 	</form>
 	<br>

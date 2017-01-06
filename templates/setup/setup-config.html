@@ -58,32 +58,34 @@
 		</div>
 	</div>
 
-	<h3>Movement GPIOs</h3>
-	<div class="note">Does not required, if you are using separate controller</div>
-	{{ gpio_select("ZAxisPin","Step Pin for Z-Axis",ZAxisPin,"z-axis-step-gpio,direct-control,gpio") }}
-	<br>
-	<div class="row ZAxisPin_toggle">
-		<div class="col-md-6">
-			{{ gpio_select("DirectionPin","Direction Pin",DirectionPin,"z-axis-direction-gpio,direct-control,gpio") }}
+	{% if arch=="arm" %}
+		<h3>Movement GPIOs</h3>
+		<div class="note">Does not required, if you are using separate controller</div>
+		{{ gpio_select("ZAxisPin","Step Pin for Z-Axis",ZAxisPin,"z-axis-step-gpio,direct-control,gpio") }}
+		<br>
+		<div class="row ZAxisPin_toggle">
+			<div class="col-md-6">
+				{{ gpio_select("DirectionPin","Direction Pin",DirectionPin,"z-axis-direction-gpio,direct-control,gpio") }}
+			</div>
+			<div class="col-md-6">
+				{{ gpio_select("LimitPin","Endstop Switch - Top Limit",LimitPin,"z-axis-endstop-gpio,direct-control,gpio") }}
+				<br>
+			</div>
 		</div>
-		<div class="col-md-6">
-			{{ gpio_select("LimitPin","Endstop Switch - Top Limit",LimitPin,"z-axis-endstop-gpio,direct-control,gpio") }}
-			<br>
+		<div class="row ZAxisPin_toggle">
+			<div class="col-md-6">
+				{{ gpio_select("EnablePin","Driver Enable Pin",EnablePin,"z-axis-enable-gpio,direct-control,gpio") }}
+			</div>
+			<div class="col-md-6">
+				<label for="EnablePinState">Enable Pin State</label>
+				<select name="EnablePinState" id="EnablePinState">
+					<option value="0" {% if EnablePinState==0 %}selected{% endif %}>Low</option>
+					<option value="1" {% if EnablePinState==1 %}selected{% endif %}>High</option>
+				</select>
+				<br>
+			</div>
 		</div>
-	</div>
-	<div class="row ZAxisPin_toggle">
-		<div class="col-md-6">
-			{{ gpio_select("EnablePin","Driver Enable Pin",EnablePin,"z-axis-enable-gpio,direct-control,gpio") }}
-		</div>
-		<div class="col-md-6">
-			<label for="EnablePinState">Enable Pin State</label>
-			<select name="EnablePinState" id="EnablePinState">
-				<option value="0" {% if EnablePinState==0 %}selected{% endif %}>Low</option>
-				<option value="1" {% if EnablePinState==1 %}selected{% endif %}>High</option>
-			</select>
-			<br>
-		</div>
-	</div>
+	{% endif %}
 
 	<h3>3D Printer Board</h3>
 	<div class="note">Does not required, if you are using GPIOs to drive the printer</div>
@@ -93,7 +95,9 @@
 			<select name="ShieldType" id="ShieldType">
 				<option value="0" {% if ShieldType==0 %}selected{% endif %}>Disabled</option>
 				<option value="1" {% if ShieldType==1 %}selected{% endif %}>USB/Serial</option>
-				<option value="2" {% if ShieldType==2 %}selected{% endif %}>i2c</option>
+				{% if arch=="arm" %}
+					<option value="2" {% if ShieldType==2 %}selected{% endif %}>i2c</option>
+				{% endif %}
 			</select>
 			<br>
 		</div>
@@ -112,7 +116,7 @@
 			</select>
 		</div>
 		<div class="col-md-3 ShieldType_toggle">
-			<label for="ShieldPositioning">Calibration Buttons Positioning</label>
+			<label for="ShieldPositioning">Movement Positioning</label>
 			<select name="ShieldPositioning" id="ShieldPositioning">
 				<option value="0" {% if ShieldPositioning==0 %}selected{% endif %}>Relative</option>
 				<option value="1" {% if ShieldPositioning==1 %}selected{% endif %}>Absolute</option>
@@ -121,20 +125,22 @@
 	</div>
 	<div class="row ShieldType_toggle">
 		<div class="col-md-3">
-			{{ gpio_select("WaitPin","Wait Pin",WaitPin,"shield-wait-pin,shield,gpio") }}
-		</div>
-		<div class="col-md-3">
 			<label for="ShieldUSBAddress">USB/Serial Port Path{{helpModal("shield-port-path,shield")}}</label>
 			<input value="{{ShieldUSBAddress}}" name="ShieldUSBAddress" id="ShieldUSBAddress">
 		</div>
 		<div class="col-md-3">
 			{{ speed_select("ShieldSpeed","Baud Rate",ShieldSpeed) }}
 		</div>
-		<div class="col-md-3">
-			<label for="ShieldI2CAddress" class="tip" data-tip="To find out correct i2c address use i2cdetect command on Raspberry terminal">Ardiuno i2c Address <span class="label label-warning">Restart Required</span></label>
-			<input value="{{ShieldI2CAddress}}" name="ShieldI2CAddress" id="ShieldI2CAddress" type="number" min="0" max="127" required>
-			<br>
-		</div>
+		{% if arch=="arm" %}
+			<div class="col-md-3">
+				{{ gpio_select("WaitPin","Wait Pin",WaitPin,"shield-wait-pin,shield,gpio") }}
+			</div>
+			<div class="col-md-3">
+				<label for="ShieldI2CAddress" class="tip" data-tip="To find out correct i2c address use i2cdetect command on Raspberry terminal">Ardiuno i2c Address <span class="label label-warning">Restart Required</span></label>
+				<input value="{{ShieldI2CAddress}}" name="ShieldI2CAddress" id="ShieldI2CAddress" type="number" min="0" max="127" required>
+				<br>
+			</div>
+		{% endif %}
 	</div>
 	<div class="row ShieldType_toggle">
 		<div class="col-md-3">
@@ -176,42 +182,47 @@
 
 	</div>
 
-	<h3>Shutter</h3>
-	<label for="ShutterType">Shutter Type{{helpModal("shutter-type,gpio")}}</label>
-	<select name="ShutterType" id="ShutterType">
-		<option value="0" {% if ShutterType==0 %}selected{% endif %}>Disabled</option>
-		<option value="1" {% if ShutterType==1 %}selected{% endif %}>Servo Motor</option>
-		<option value="2" {% if ShutterType==2 %}selected{% endif %}>True/False Signal</option>
-	</select>
-	<br>
-	<div class="row ShutterType_toggle">
-		<div class="col-md-4">
-			<label for="ShutterMode">Open Shutter</label>
-			<select name="ShutterMode" id="ShutterMode">
-				<option value="1" {% if ShutterMode==1 %}selected{% endif %}>Before Each Layer</option>
-				<option value="0" {% if ShutterMode==0 %}selected{% endif %}>Before Print</option>
-			</select>
+	{% if arch=="arm" %}
+		<h3>Shutter</h3>
+		<label for="ShutterType">Shutter Type{{helpModal("shutter-type,gpio")}}</label>
+		<select name="ShutterType" id="ShutterType">
+			<option value="0" {% if ShutterType==0 %}selected{% endif %}>Disabled</option>
+			<option value="1" {% if ShutterType==1 %}selected{% endif %}>Servo Motor</option>
+			<option value="2" {% if ShutterType==2 %}selected{% endif %}>True/False Signal</option>
+		</select>
+		<br>
+	{% endif %}
+
+	{% if arch=="arm" %}
+		<div class="row ShutterType_toggle">
+			<div class="col-md-4">
+				<label for="ShutterMode">Open Shutter</label>
+				<select name="ShutterMode" id="ShutterMode">
+					<option value="1" {% if ShutterMode==1 %}selected{% endif %}>Before Each Layer</option>
+					<option value="0" {% if ShutterMode==0 %}selected{% endif %}>Before Print</option>
+				</select>
+			</div>
+			<div class="col-md-4">
+				{{ gpio_select("ShutterPin","Shutter GPIO",ShutterPin,"gpio") }}
+				<br>
+			</div>
 		</div>
-		<div class="col-md-4">
-			{{ gpio_select("ShutterPin","Shutter GPIO",ShutterPin,"gpio") }}
-			<br>
+		<div class="row ShutterType_toggle">
+			<div class="col-md-4">
+				<label for="ShutterOpen">Servo Pulse Width - Open Position <span class="label label-default">Microsecond</span>{{helpModal("servo-shutter")}}</label>
+				<input value="{{ShutterOpen}}" name="ShutterOpen" id="ShutterOpen" type="number" min="500" max="2500" required>
+			</div>
+			<div class="col-md-4">
+				<label for="ShutterClose">Servo Pulse Width - Close Position <span class="label label-default">Microsecond</span>{{helpModal("servo-shutter")}}</label>
+				<input value="{{ShutterClose}}" name="ShutterClose" id="ShutterClose" type="number" min="500" max="2500" required>
+			</div>
+			<div class="col-md-4">
+				<label for="ShutterSignalLength">Servo Signal Length <span class="label label-default">Millisecond</span>{{helpModal("servo-shutter")}}</label>
+				<input value="{{ShutterSignalLength}}" name="ShutterSignalLength" id="ShutterSignalLength" type="number" required>
+				<br>
+			</div>
 		</div>
-	</div>
-	<div class="row ShutterType_toggle">
-		<div class="col-md-4">
-			<label for="ShutterOpen">Servo Pulse Width - Open Position <span class="label label-default">Microsecond</span>{{helpModal("servo-shutter")}}</label>
-			<input value="{{ShutterOpen}}" name="ShutterOpen" id="ShutterOpen" type="number" min="500" max="2500" required>
-		</div>
-		<div class="col-md-4">
-			<label for="ShutterClose">Servo Pulse Width - Close Position <span class="label label-default">Microsecond</span>{{helpModal("servo-shutter")}}</label>
-			<input value="{{ShutterClose}}" name="ShutterClose" id="ShutterClose" type="number" min="500" max="2500" required>
-		</div>
-		<div class="col-md-4">
-			<label for="ShutterSignalLength">Servo Signal Length <span class="label label-default">Millisecond</span>{{helpModal("servo-shutter")}}</label>
-			<input value="{{ShutterSignalLength}}" name="ShutterSignalLength" id="ShutterSignalLength" type="number" required>
-			<br>
-		</div>
-	</div>
+	{% endif %}
 
 	<h3>Projector</h3>
 	<div class="row">
@@ -230,7 +241,7 @@
 		</div>
 		<div class="col-md-3">
 			<label for="XYRes">X/Y Resolution <span class="label label-default">Micron</span>{{helpModal("xy-resolution")}}</label>
-			<input value="{{profile.XYRes}}" name="XYRes" id="XYRes" step="0.001" type="number" min="1" required>
+			<input value="{{XYRes}}" name="XYRes" id="XYRes" step="0.001" type="number" min="1" required>
 		</div>
 	</div>
 	<div class="row">
@@ -242,7 +253,9 @@
 				<option value="5" {% if ProjectorType==5 %}selected{% endif %}>USB / Serial Port - ASCII (\r)</option>
 				<option value="6" {% if ProjectorType==6 %}selected{% endif %}>USB / Serial Port - ASCII (\n)</option>
 				<option value="2" {% if ProjectorType==2 %}selected{% endif %}>USB / Serial Port - Binary</option>
-				<option value="4" {% if ProjectorType==4 %}selected{% endif %}>HDMI Power On/Off - Standby Mode</option>
+				{% if arch=="arm" %}
+					<option value="4" {% if ProjectorType==4 %}selected{% endif %}>HDMI Power On/Off - Standby Mode</option>
+				{% endif %}
 				<option value="3" {% if ProjectorType==3 %}selected{% endif %}>Execution Only</option>
 			</select>
 			<br>
@@ -345,64 +358,70 @@
 		</div>
 	</div>
 
-	<h3>Camera Module</h3>
-	<div class="row">
-		<div class="col-md-3">
-			<label for="CameraFrequency">Camera Photo Frequency</label>
-			<select name="CameraFrequency" id="CameraFrequency">
-				<option value="0" {% if CameraFrequency==0 %}selected{% endif %}>Disabled</option>
-				<option value="-1" {% if CameraFrequency==-1 %}selected{% endif %}>Only Manually</option>
-				<option value="1" {% if CameraFrequency==1 %}selected{% endif %}>Once Per Layer</option>
-				<option value="2" {% if CameraFrequency==2 %}selected{% endif %}>Once Per 2 Layers</option>
-				<option value="3" {% if CameraFrequency==3 %}selected{% endif %}>Once Per 3 Layers</option>
-				<option value="5" {% if CameraFrequency==5 %}selected{% endif %}>Once Per 5 Layers</option>
-				<option value="10" {% if CameraFrequency==10 %}selected{% endif %}>Once Per 10 Layers</option>
-			</select>
+	{% if arch=="arm" %}
+		<h3>Camera Module</h3>
+		<div class="row">
+			<div class="col-md-3">
+				<label for="CameraFrequency">Camera Photo Frequency</label>
+				<select name="CameraFrequency" id="CameraFrequency">
+					<option value="0" {% if CameraFrequency==0 %}selected{% endif %}>Disabled</option>
+					<option value="-1" {% if CameraFrequency==-1 %}selected{% endif %}>Only Manually</option>
+					<option value="1" {% if CameraFrequency==1 %}selected{% endif %}>Once Per Layer</option>
+					<option value="2" {% if CameraFrequency==2 %}selected{% endif %}>Once Per 2 Layers</option>
+					<option value="3" {% if CameraFrequency==3 %}selected{% endif %}>Once Per 3 Layers</option>
+					<option value="5" {% if CameraFrequency==5 %}selected{% endif %}>Once Per 5 Layers</option>
+					<option value="10" {% if CameraFrequency==10 %}selected{% endif %}>Once Per 10 Layers</option>
+				</select>
+			</div>
+			<div class="col-md-3 CameraFrequency_toggle">
+				<label for="CameraStore" class="tip">Storage Mode</label>
+				<select name="CameraStore" id="CameraStore">
+					<option value="0" {% if CameraStore==0 %}selected{% endif %}>Only Last Image</option>
+					<option value="1" {% if CameraStore==1 %}selected{% endif %}>All Images</option>
+				</select>
+			</div>
+			<div class="col-md-6 CameraFrequency_toggle">
+				<label for="CameraCommand" class="tip">Camera Command</label>
+				<input value="{{CameraCommand}}" name="CameraCommand" id="CameraCommand" required>
+			</div>
 		</div>
-		<div class="col-md-3 CameraFrequency_toggle">
-			<label for="CameraStore" class="tip">Storage Mode</label>
-			<select name="CameraStore" id="CameraStore">
-				<option value="0" {% if CameraStore==0 %}selected{% endif %}>Only Last Image</option>
-				<option value="1" {% if CameraStore==1 %}selected{% endif %}>All Images</option>
-			</select>
-		</div>
-		<div class="col-md-6 CameraFrequency_toggle">
-			<label for="CameraCommand" class="tip">Camera Command</label>
-			<input value="{{CameraCommand}}" name="CameraCommand" id="CameraCommand" required>
-		</div>
-	</div>
+	{% endif %}
 
-	<h3>LCD</h3>
-	<div class="row">
-		<div class="col-md-6">
-			<label for="LCDType">LCD Type <span class="label label-warning">Restart Required</span></label>
-			<select name="LCDType" id="LCDType">
-				<option value="0" {% if LCDType==0 %}selected{% endif %}>Not Available</option>
-				<option value="1" {% if LCDType==1 %}selected{% endif %}>16x2</option>
-			</select>
+	{% if arch=="arm" %}
+		<h3>LCD</h3>
+		<div class="row">
+			<div class="col-md-6">
+				<label for="LCDType">LCD Type <span class="label label-warning">Restart Required</span></label>
+				<select name="LCDType" id="LCDType">
+					<option value="0" {% if LCDType==0 %}selected{% endif %}>Not Available</option>
+					<option value="1" {% if LCDType==1 %}selected{% endif %}>16x2</option>
+				</select>
+			</div>
+			<div class="LCDType_toggle col-md-6">
+				<label for="LCDAdress" class="tip" data-tip="To find out correct i2c address use i2cdetect command on Raspberry terminal">i2c Address</label>
+				<input value="{{LCDAdress}}" name="LCDAdress" id="LCDAdress" type="number" min="0" max="127" required>
+			</div>
 		</div>
-		<div class="LCDType_toggle col-md-6">
-			<label for="LCDAdress" class="tip" data-tip="To find out correct i2c address use i2cdetect command on Raspberry terminal">i2c Address</label>
-			<input value="{{LCDAdress}}" name="LCDAdress" id="LCDAdress" type="number" min="0" max="127" required>
-		</div>
-	</div>
 
-	<h3>Physical Buttons</h3>
-	{{ gpio_select("ShutdownPin","Stop/Shutdown Physical GPIO",ShutdownPin,"") }}
+		<h3>Physical Buttons</h3>
+		{{ gpio_select("ShutdownPin","Stop/Shutdown Physical GPIO",ShutdownPin,"") }}
+	{% endif %}
 
-	<h3>Hardware Fault Detection</h3>
-	<div class="row">
-		<div class="col-md-6">
-			{{ gpio_select("FaultPin","Stepper Driver Fault Detection Pin",FaultPin,"") }}
+	{% if arch=="arm" %}
+		<h3>Hardware Fault Detection</h3>
+		<div class="row">
+			<div class="col-md-6">
+				{{ gpio_select("FaultPin","Stepper Driver Fault Detection Pin",FaultPin,"") }}
+			</div>
+			<div class="col-md-6 FaultPin_toggle">
+				<label for="FaultPinState">Fault Pin Default State</label>
+				<select name="FaultPinState" id="FaultPinState">
+					<option value="0" {% if FaultPinState==0 %}selected{% endif %}>Low</option>
+					<option value="1" {% if FaultPinState==1 %}selected{% endif %}>High</option>
+				</select>
+			</div>
 		</div>
-		<div class="col-md-6 FaultPin_toggle">
-			<label for="FaultPinState">Fault Pin Default State</label>
-			<select name="FaultPinState" id="FaultPinState">
-				<option value="0" {% if FaultPinState==0 %}selected{% endif %}>Low</option>
-				<option value="1" {% if FaultPinState==1 %}selected{% endif %}>High</option>
-			</select>
-		</div>
-	</div>
+	{% endif %}
 
 	<h3>Various Settings</h3>
 	<div class="row">

@@ -8,13 +8,11 @@
 		{% endfor %}
 		</div>
 	{% endif %}
-{% endmacro %}
-{% macro helpModal(helpFiles,title) %}
+{% endmacro %}{% macro helpModal(helpFiles,title) %}
 	{% if helpFiles %}
 		<a href="#" class="help" data-files="{{helpFiles}}">?</a>
 	{% endif %}
-{% endmacro %}
-<!DOCTYPE html>
+{% endmacro %}<!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -51,7 +49,11 @@
 	<script src='/static/js/jquery.imgareaselect.dev.js'></script>
 	<script src='/static/js/favico-0.3.10.min.js'></script>
 	<script src='/static/js/jquery.sparkline.min.js'></script>
+	<script src='/static/js/three.min.js'></script>
+	<script src='/static/js/three.orbital.js'></script>
+	<script src='/static/js/three.stl.js'></script>
 	<script src='/static/js/main.js'></script>
+	<script src='/static/js/three.js'></script>
 	{% block js %}
 	{% endblock %}
 {% block tail %}
