@@ -1,5 +1,5 @@
 # nanoDLP UI
-nanoDLP user interface
+nanoDLP user interface. Due to lack of contributions, repo does not get update.
 
 To run the project on your PC:
 
