@@ -28,7 +28,12 @@ $(function(){
 function resume_init(){
 	$("body").delegate(".resume","click",function(e){
 		var t=$(this);
-		return confirm(t.data("confirm").replace("[LayerID]",t.parent().find("#appendedtext").val()));
+		var layer=parseInt( t.parent().find("#appendedtext").val() );
+		var message=t.data("confirm-new");
+		if( layer > 0 ){
+			message=t.data("confirm-resume").replace("[LayerID]",layer);
+		}
+		return confirm(message);
 	});
 }
 

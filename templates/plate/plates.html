@@ -8,7 +8,6 @@
 <table class="table table-striped table-bordered model-list" id="plates">
 	<thead>
 		<tr>
-			<th>ID</th>
 			<th>Name</th>
 			<th>Profile</th>
 			<th>Resin <sup>ml</sup></th>
@@ -20,7 +19,6 @@
 	{% if plates %}
 		{% for row in plates %}{% if row.PlateID != 0 %}
 			<tr>
-				<td>{{row.PlateID}}</td>
 				<td>{{row.Path}}</td>
 				<td>{{row.ProfileName}}</td>
 				<td>{{row.TotalSolidArea}}</td>
@@ -52,27 +50,25 @@
 					{% if row.Type=="stl" %}
 						<a class="btn btn-success" href="/plate/3d/{{ row.PlateID }}">3D</a>
 					{% endif %}
-					{% if row.Processed==false %}
-					<div class="alert alert-danger">Plate #{{ row.PlateID }} being processed...</div>
-					{% endif %}
 				</td>
 				<td>
 					{% if row.PlateID != status.PlateID or status.Printing == false %}
 						<form action="/printer/start/{{ row.PlateID }}" method="POST">
 							<div class="input-append">
-								<input id="appendedtext" name="LayerID" class="form-control compact-input" placeholder="Layer ID" value="{% if row.PlateID == status.PlateID %}{{status.ResumeID}}{% endif %}" type="text" size="3">
+								<input id="appendedtext" name="LayerID" class="form-control compact-input" placeholder="Layer ID" value="{% if row.PlateID == status.PlateID %}{{status.ResumeID}}{% else %}0{% endif %}" type="text" size="3">
 								<span class="add-on"> of {{row.LayersCount}} Layers</span>
-								<button type="submit" class="btn btn-warning resume" data-confirm='Are you sure you want to resume plate {{row.Path}} from layer [LayerID]?' value="Submit">Resume Printing</button>
+								<button type="submit" class="btn btn-success resume" data-confirm-resume='Are you sure you want to resume plate {{row.Path}} from layer [LayerID]?' data-confirm-new='Are you sure you want to print plate {{row.Path}}?' value="Submit">Print [from layer]</button>
 							</div>
 						</form>
-						<a class="btn btn-success" href="/printer/start/{{ row.PlateID }}" title="Auto play" onclick="return confirm('Are you sure you want to print plate {{row.Path}}?');">
-							Print From Start
-						</a>
 					{% else %}
 						<div class="input-append">
 							<a class="btn btn-danger" href="/printer/stop" title="stop" onclick="return confirm('Are you sure you want to stop printing?');">Stop</a>
 							<span class="add-on">Layer {{ status.ResumeID }} of {{row.LayersCount}}</span>
 						</div>
+					{% endif %}
+
+					{% if row.Processed==false %}
+					<div class="alert alert-danger">Plate #{{ row.PlateID }} being processed...</div>
 					{% endif %}
 				</td>
 			</tr>
@@ -88,7 +84,6 @@
 	{% endif %}
 
 	<tr>
-		<td>-</td>
 		<td>Plate Generator</td>
 		<td colspan="3">Create 3D shapes by repeating an image frame</td>
 		<td>
@@ -100,7 +95,6 @@
 	</tr>
 
 	<tr>
-		<td>-</td>
 		<td>Calibration Plate{{helpModal("calibration-plate")}}</td>
 		<td>Rect: {{generator.BlockWidth}}*{{generator.BlockHeight}}*{{generator.Depth}}
 		<br>
