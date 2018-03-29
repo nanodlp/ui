@@ -19,14 +19,14 @@
 {% endmacro %}
 <div class="row">
 	<div class="col-md-12 edit-table edit-page">
-		<div class="alert alert-warning" role="alert">Changing WiFi settings during printing could cause interruption.</div>
+		<div class="alert alert-warning" role="alert" translate>Changing the WiFi settings during printing could cause interruption.</div>
 		<table>
 			<tr class="thead">
-				<th>SSID</th>
-				<th>Authentication</th>
-				<th>Password</th>
-				<th>Quality</th>
-				<th>Connect</th>
+				<th translate>SSID</th>
+				<th translate>Authentication</th>
+				<th translate>Password</th>
+				<th translate>Quality</th>
+				<th translate>Connect</th>
 			</tr>
 			{% if networks %}
 				{% for network in networks %}
@@ -41,9 +41,9 @@
 					</td>
 					<td>
 						<select name="WifiType">
-							<option value="" {% if WifiType=="" %}selected{% endif %}>No Encryption</option>
-							<option value="WEP" {% if WifiType=="WEP" %}selected{% endif %}>WEP</option>
-							<option value="WPA" {% if WifiType=="WPA" %}selected{% endif %}>WPA</option>
+							<option value="" {% if WifiType=="" %}selected{% endif %} translate>No Encryption</option>
+							<option value="WEP" {% if WifiType=="WEP" %}selected{% endif %} translate>WEP</option>
+							<option value="WPA" {% if WifiType=="WPA" %}selected{% endif %} translate>WPA</option>
 						</select>
 					</td>
 					<td><input name="WifiPass" value="" placeholder="Wireless Password"></td>
@@ -51,7 +51,7 @@
 					<td><input type="submit" value="Connect" class="btn btn-success"></td>
 				</form>
 			{% else %}
-				<tr><td colspan="5">No wireless connection found</td></tr>
+				<tr><td colspan="5" translate>No wireless connection found</td></tr>
 			{% endif %}
 		</table>
 		<br>
@@ -61,7 +61,7 @@
 	<div class="col-md-12">
 		<form action="/wifi/connect" method="post">
 			<input name="WifiSSID" type="hidden">
-			<input type="submit" value="Terminate WiFi Connections" class="btn-warning">
+			<button type="submit" class="btn-warning" translate>Terminate WiFi Connections</button>
 		</form>
 	</div>
 </div>

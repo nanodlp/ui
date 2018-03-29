@@ -1,0 +1,292 @@
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<link rel="icon" href="favicon.ico">
+
+	<!-- Bootstrap core CSS -->
+	<link href='boot3/css/bootstrap.min.css' rel="stylesheet">
+
+	<!-- Custom styles for this template -->
+	<link href='css/support.css' rel="stylesheet">
+	<title>NanoDLP 3D Manual Support Placement</title>
+</head>
+<body>
+	<div id="view_3d"></div>
+	<div id="control" class="support">
+		<a href="#" class="mode selected" data-mode="layout">Layout View</a>
+		<a href="#" class="mode" data-mode="support">Support View</a>
+		<a href="#" class="mode" data-mode="plate">Plate View</a>
+		<a href="#" id="export">Download STL</a>
+		<a href="#" id="save" onclick="return confirm('Are you sure you want to add current view as a plate?');">Add as Plate</a>
+		<a href="#" id="exit">Exit</a>
+	</div>
+	<input id="slider" type="range" min="0" max="100" step="0.1" value="100" orient="vertical">
+	<div id="items" class="support"></div>
+
+	<div id="tools_box" class="support">
+		<div id="layout_box">
+			<input type="file" id="support_file" accept=".stl">
+			<div class="clear"></div>
+			<br>
+			<input placeholder="Height of Pieces" id="start_height">
+			<input type="button" value="Move" id="model_elevate" class="btn-success">
+			<br>
+			<br>
+			<input type="button" value="Object Reset" id="object-reset" class="btn-success">
+			<div class="clear"></div>
+			<br>
+		</div>
+		<div id="support_box">
+			<div id="support_types">
+			</div>
+			<br>
+			<input type="button" value="Add Support Type" id="new_support" class="btn-success">
+			<br>
+			<br>
+			<input placeholder="Max Distance" id="max_dist">
+			<input placeholder="Diameter" id="weaver_dia">
+			<input type="button" value="Weave Supports" class="btn-success" id="weaver">
+			<div class="clear"></div>
+			<br>
+
+			<input type="button" value="Unify Supports" id="unify_base" class="btn-success">
+			<div class="clear"></div>
+		</div>
+		<div id="plate_box">
+			<input type="file" id="plate_file" accept=".stl" multiple="multiple">
+			<div class="clear"></div>
+			<br>
+			<input type="button" value="Rotate" id="rotate_btn" class="btn-success">
+			<div class="clear"></div>
+			<br>
+			<input placeholder="Objects Margin mm" id="gap">
+			<input type="button" value="Arrange" id="pack_btn" class="btn-success">
+			<br>
+		</div>
+		<br>
+		<table id="perspective_buttons">
+			<tr>
+				<td></td>
+				<td><input type="button" value="Top" data-x="0" data-y="0" data-z="300" data-reset="true" class="cam-change btn-info"></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td><input type="button" value="Left" data-x="200" data-y="0" data-z="20" class="cam-change btn-info"></td>
+				<td><input type="button" value="Front" data-x="0" data-y="200" data-z="20" data-reset="true" class="cam-change btn-info"></td>
+				<td><input type="button" value="Right" data-x="-200" data-y="0" data-z="20" class="cam-change btn-info"></td>
+			</tr>
+			<tr>
+				<td><input type="button" value="Reset" class="cam-reset btn-success"></td>
+				<td><input type="button" value="Bottom" data-x="0" data-y="50" data-z="-150" data-reset="true" class="cam-change btn-info"></td>
+				<td></td>
+			</tr>
+		</table>
+		<div class="clear"></div>
+		<br>
+
+		<div id="resize">
+			<table>
+				<tr>
+					<td>Width</td>
+					<td>Height</td>
+					<td>Length</td>
+				</tr>
+				<tr>
+					<td><input id="resize_width" type="number" step="any"></td>
+					<td><input id="resize_height" type="number" step="any"></td>
+					<td><input id="resize_length" type="number" step="any"></td>
+				</tr>
+			</table>
+			<label>
+				<input type="checkbox" id="resize_ratio">
+				&nbsp; Keep Ratio
+			</label>
+			<div class="clear"></div>
+			<input type="button" value="Resize" id="resize_button" class="btn-warning">
+		</div>
+		<div class="clear"></div>
+		<br>
+		<input type="button" value="Toggle Grid" class="btn-success" id="toggle_grid">
+		<div class="clear"></div>
+		<br>
+		<input type="button" value="Help" class="btn-success guide">
+		<div class="clear"></div>
+		<br>
+		<input type="button" value="Reset Default" id="reset" class="btn-danger">
+
+	</div>
+	<div id="support_add_box">
+		<form id="support_add">
+			<a href="#" id="support_close">&#x2716;</a>
+			<div class="form-group">
+				<label for="name">Name:</label>
+				<input name="name" placeholder="Name" class="form-control" required></td>
+			</div>
+			<div class="form-group">
+				<label for="type">Support Type:</label>
+				<select name="type" class="form-control toggle_master">
+					<option value="0">Model to Floor</option>
+					<option value="1">Bridge</option>
+				</select>
+			</div>
+			<div class="form-group type_0">
+				<label for="head_dia">Head Radius:</label>
+				<input class="form-control" name="head_dia" placeholder="Head Radius" type="number" step="0.1">
+			</div>
+			<div class="form-group type_0">
+				<label for="head_len">Head Length:</label>
+				<input class="form-control" name="head_len" placeholder="Head Length" type="number" step="0.1">
+			</div>
+			<div class="form-group type_0">
+				<label for="head_type">Head Type:</label>
+				<select class="form-control" name="head_type">
+					<option value="0">Cone</option>
+					<option value="1">Sphere</option>
+				</select>
+			</div>
+			<div class="form-group">
+				<label for="head_len">Head Peneteration:</label>
+				<input class="form-control" name="penetration" placeholder="Peneteration" type="number" step="0.1">
+			</div>
+			<div class="form-group type_0">
+				<label for="head_len">Base Radius:</label>
+				<input class="form-control" name="base_dia" placeholder="Base Radius" type="number" step="0.1">
+			</div>
+			<div class="form-group type_0">
+				<label for="head_len">Base Depth:</label>
+				<input class="form-control" name="base_len" placeholder="Base Depth" type="number" step="0.1">
+			</div>
+			<div class="form-group">
+				<label for="head_len">Body Radius:</label>
+				<input class="form-control" name="body_dia" placeholder="Body Radius" required type="number" step="0.1">
+			</div>
+			<div class="clear"></div>
+			<div class="form-group only_new">
+				<br>
+				<input class="form-control btn-warning" type="submit" value="Save">
+			</div>
+			<div class="form-group">
+				<br>
+				<input class="form-control btn-success" type="submit" value="Add">
+			</div>
+			<div class="form-group only_new">
+				<br>
+				<input class="form-control btn-danger" type="submit" value="Remove">
+			</div>
+			<div class="clear"></div>
+		</form>
+		<canvas id="support_preview" width="500px" height="40"></canvas>
+	</div>
+	<div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title" id="myModalLabel">3D Support Generator User Guide</h4>
+	      </div>
+	      <div class="modal-body">
+	      		<h4>Open a new Model</h4>
+	      		<ul>
+	      			<li>Supports both ASCII and Binary STL files.</li>
+	      			<li>STL files does not transmitted to the server and full processed on your browser.</li>
+	      			<li>Use browse button to load a model or drag drop it to your browser display.</li>
+	      		</ul>
+	      		<br>
+	      		<h4>Layout View</h4>
+	      		On this view you can rotate the model or elevate it.
+				<br>
+				<br>
+				<dl class="dl-horizontal small">
+					<dt>Rotate Model</dt>
+					<dd>Press and hold left click on the model and move the mouse.</dd>
+					<dt>Rotate Camera</dt>
+					<dd>Press and hold left click on the empty area of the viewport and move the mouse.</dd>
+					<dt>Move Camera</dt>
+					<dd>Press and hold right click and move the mouse.</dd>
+					<dt>Zoom In/Out</dt>
+					<dd>Use mouse wheel.</dd>
+					<dt>Elevate Model</dt>
+					<dd>Enter number on the left input and press move button.</dd>
+				</dl>
+				<br>
+				<h4>Support View</h4>
+				You can add new supports to the model and define support types.
+				<br>
+				<br>
+				<dl class="dl-horizontal small">
+					<dt>Add Support Types</dt>
+					<dd>On the left box you can define new support types.</dd>
+					<dt>Preview Support</dt>
+					<dd>For the model to floor support type, if any support has been selected by mouse, any changes on the support add form will effect the selected support details in realtime.</dd>
+					<dt>Add Support</dt>
+					<dd>Click on the model to add support, for some support types you need to click on two places.</dd>
+					<dt>Remove Support</dt>
+					<dd>
+						<ul>
+							<li>Click on support name on right of screen.</li>
+							<li>Click on support and press delete button.</li>
+							<li>Pressing delete button alone will remove supports in reverse order, one by one.</li>
+						</ul>
+					</dd>
+					<dt>Cancel Two Stage Supports</dt>
+					<dd>Press ESC key to cancel two stage supports such as bridges.</dd>
+				</dl>
+				<h4>Plate View</h4>
+				Arrange models on a plate.
+				<br>
+				<br>
+				<dl class="dl-horizontal small">
+					<dt>Clone Model</dt>
+					<dd>Clicking C on front of model will duplicate the model.</dd>
+					<dt>Rotate Model</dt>
+					<dd>After selecting model, keep CTRL button down mouse movement will cause 2D rotation.</dd>
+					<dt>Add Model w. Support</dt>
+					<dd>If your models already have support, you can add them directly in this mode.</dd>
+				</dl>
+				<h4>Possible Workflow</h4>
+				<br>
+				<ol>
+					<li>Layout View: Load model</li>
+					<li>Layout View: Rotate model</li>
+					<li>Support View: Add supports</li>
+					<li>Plate View: Move model around</li>
+					<li>Go to step one and repeat the process</li>
+					<li>If you have models with supports, you can directly include them in Plate View.</li>
+				</ol>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+	<script src='boot3/js/jquery.min.js'></script>
+	<script src='boot3/js/bootstrap.min.js'></script>
+	<script src='js/three.min.js'></script>
+	<script src='js/TrackballControls.js'></script>
+	<script src='js/three.dragcontrols.js'></script>
+	<script src='js/STLBinaryExporter.js'></script>
+	<script src='js/FileSaver.min.js'></script>
+	<script src='js/c.js'></script>
+
+	<!--<script src='js/loader.js'></script>
+	<script src='js/stl.js'></script>
+	<script src='js/three.js'></script>
+	<script src='js/pack.js'></script>
+	<script src='js/export.js'></script>
+	<script src='js/support.js'></script>
+	<script src='js/floor.js'></script>
+	<script src='js/layout.js'></script>
+	<script src='js/slider.js'></script>
+	<script src='js/supportTypes.js'></script>
+	<script src='js/model.js'></script>
+	<script src='js/resize.js'></script>
+	<script src='js/weaver.js'></script>-->
+</body>
+</html>

@@ -1,0 +1,21 @@
+<h4>Versión de Raspberry Pi / Linux</h4>
+Los puertos USB/Serie normalmente escuchan una de estas direcciones:<br>
+<pre>
+ /dev/ttyACM0
+ /dev/ttyACA0
+ /dev/ttyUSB0
+</pre>
+<br>
+<p>Para averiguar la dirección correcta, puedes conectarte a la Raspberry a través del protocolo SSH usando herramientas como Putty. Ejecuta el siguiente comando y anota las rutas disponibles.</p>
+<pre>ls /dev/tty*</pre>
+<p>Conecta tu dispositivo a la Raspberry Pi y vuelve a escribir el comando anterior. La ruta adicional pertenece a tu dispositivo.
+</p>
+<br>
+<h4>Versión de Windows</h4>
+Introduce la dirección del puerto COM de la RAMPS.<br>
+Pasos para encontrar el puerto COM correcto en Windows:
+<ol>
+	<li>Abre el cuadro de diálogo "Ejecutar" presionando y manteniendo presionada la tecla de Windows, luego presiona la tecla R ("Ejecutar").</li>
+	<li>Escribe devmgmt.msc y presiona enter.</li>
+	<li>Consulta la sección de Puertos en el Administrador de Dispositivos.</li>
+</ol>

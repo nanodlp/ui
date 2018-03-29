@@ -1,0 +1,13 @@
+A causa di vincoli di prestazioni su alcune schede di sviluppo come Raspberry Pi, l'affettatore a distanza potrebbe essere sostanzialmente utilizzato per accelerare il processo e gestire file 3D pi&ugrave grandi.
+<br><br>
+Questa funzione delega il taglio a un'altra installazione di NanoDLP. Se questo campo non &eacuto riempito, il computer che carica una nuova piastra verr&agrave sottoposto a scansione per l'installazione attiva di NanoDLP (solo sulla porta 8080) e verr&agrave utilizzata come affettatrice predefinita per i sistemi ARM. Se la porta TCP IP: &egrave stata specificata per il NanoDLP remoto, il sistema cercher&agrave di utilizzarlo come affettatore a distanza.<br><br>
+<h4>Come funziona Slicer remoto: (esempio)</h4>
+<ol>
+	<li>NanoDLP &egrave installato sul Raspberry Pi e sul computer Windows utilizzato dall'utente.</li>
+	<li>Una nuova piastra viene caricata sul Raspberry Pi.</li>
+	<li>Il Raspberry Pi con NanoDLP rileva l'installazione attiva di NanoDLP nel computer Windows dell'utente.</li>
+	<li>Il Raspberry Pi trasferisce i dati richiesti a Windows.</li>
+	<li>NanoDLP su Windows avvia il processo.</li>
+	<li>NanoDLP su Raspberry Pi ottiene l'aggiornamento dello stato dalla versione di Windows. E aspetta che l'affettutura venga completata.</li>
+	<li>NanoDLP su Raspberry Pi raccoglie i dati preparati.</li>
+</ol>

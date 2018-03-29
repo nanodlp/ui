@@ -2,18 +2,19 @@
 {% block content %}
 <div class="starter-template">
 	<ul class="nav nav-tabs">
-		<li class="active"><a data-toggle="tab" href="#hardwareSection">Hardware Setup</a></li>
-		<li><a data-toggle="tab" href="#maskSection">Projector Mask</a></li>
-		<li><a data-toggle="tab" href="#buttonsSection">Customized Buttons</a></li>
-		<li><a data-toggle="tab" href="#passwordSection">Password Protection</a></li>
-		<li><a data-toggle="tab" href="#toolsSection">Tools</a></li>
+		<li class="active"><a data-toggle="tab" href="#hardwareSection" translate>Hardware Setup</a></li>
+		<li><a data-toggle="tab" href="#maskSection" translate>Projector Mask</a></li>
+		<li><a data-toggle="tab" href="#buttonsSection" translate>Customized Buttons</a></li>
+		<li><a data-toggle="tab" href="#passwordSection" translate>Password Protection</a></li>
+		<li><a data-toggle="tab" href="#toolsSection" translate>Tools</a></li>
+		<li><a href="/help" translate>Help</a></li>
 	</ul>
 	<br>
 	{% if msg %}
 		<div class="alert alert-danger" role="alert">{{msg}}</div>
 	{% endif %}
 	{% if printing %}
-		<div class="alert alert-warning" role="alert">Some critical settings such as type of shield and etc, will not take effect in the middle of print. To change them without restart, stop the print and submit this page again.</div>
+		<div class="alert alert-warning" role="alert" translate>Some critical settings such as type of the shield and etc, will not take effect in the middle of printing. To change those settings without restart, stop printing and submit this page again.</div>
 	{% endif %}
 	<div class="tab-content">
 		<div id="hardwareSection" class="tab-pane fade in active">
@@ -21,90 +22,100 @@
 		</div>
 		<div id="maskSection" class="tab-pane fade">
 			<form action="/add-mask" method="post" class="edit-page" enctype="multipart/form-data">
-				{% if mask %}
-					<img src="{{mask}}" width="500">
-				{% endif %}
-					<label for="MaskFile">Mask file effects only SLC/SVG files uploaded after mask submit</label>
-					<input name="MaskFile" id="MaskFile" type="file" accept=".png,.jpg">
+					{% if mask %}
+						<img src="{{mask}}?" width="500">
+					{% endif %}
+					<label for="MaskFile" translate>Mask file effects only STL/SLC/SVG files uploaded after mask submit</label>
+					<input class="form-control" name="MaskFile" id="MaskFile" type="file" accept=".png,.jpg">
 					<br>
-					<button type="submit" class="btn btn-success" name="mask" value="add">Add Mask</button>
-					<button type="submit" class="btn btn-danger" name="mask" value="remove">Remove Mask</button>
+					<button type="submit" class="btn btn-success" name="mask" value="add" translate>Add Mask</button>
+					<button type="submit" class="btn btn-danger" name="mask" value="remove" translate>Remove Mask</button>
 			</form>
 		</div>
 		<div id="buttonsSection" class="tab-pane fade">
 		{% include "setup-buttons.html" %}
 		</div>
 		<div id="passwordSection" class="tab-pane fade">
-			<h3>Local Panel Password Protection</h3>
+			<h3 translate>Local Panel Password Protection</h3>
 			<form action="/add-protection" method="post" class="edit-page">
 				<div class="row">
 					<div class="col-md-3">
-						<label for="username">Username for Admin</label>
-						<input name="username">
+						<label for="username" translate>Username for Admin</label>
+						<input name="username" class="form-control">
 					</div>
 					<div class="col-md-3">
-						<label for="password">Password for Admin</label>
-						<input name="password" type="password">
+						<label for="password" translate>Password for Admin</label>
+						<input name="password" type="password" class="form-control">
 						<br>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-3">
-						<label for="viewUsername">Username for Dashboard</label>
-						<input name="viewUsername">
+						<label for="viewUsername" translate>Username for Dashboard</label>
+						<input name="viewUsername" class="form-control">
 					</div>
 					<div class="col-md-3">
-						<label for="viewPassword">Password for Dashboard</label>
-						<input name="viewPassword" type="password">
+						<label for="viewPassword" translate>Password for Dashboard</label>
+						<input name="viewPassword" type="password" class="form-control">
 					</div>
 				</div>
 				<br>
 				<div class="note">
 					<ul>
-						<li>Admin has access to all functions including dashboard</li>
-						<li>Empty username for dashboard makes dashboard accessible to everyone without authentication</li>
-						<li>To remove password protection, remove username from the input and submit</li>
+						<li translate>Admin has access to all functions including the dashboard.</li>
+						<li translate>Empty username for dashboard, makes the dashboard accessible to everyone without authentication.</li>
+						<li translate>To remove the password protection, remove the username from the input and submit.</li>
 					</ul>
 				</div>
 				<br>
-				<button type="submit" class="btn btn-success" name="user" value="add">Save</button>
+				<button type="submit" class="btn btn-success" name="user" value="add" translate>Save</button>
 			</form>
-			<h3>Remote Access to the printer</h3>
+			<h3 translate>Remote Access to the printer</h3>
 			<form action="/online-access" method="post" class="edit-page">
 				<div class="row">
 					<div class="col-md-3">
-						<label for="onlineKey">Online Access Key</label>
-						<input name="onlineKey" type="onlineKey">
+						<label for="onlineKey" translate>Online Access Key</label>
+						<input name="onlineKey" type="onlineKey" class="form-control">
 					</div>
 				</div>
 				<br>
-				<div class="note">To enable remote access to the printer, please enter random access key</div>
+				<div class="note" translate>To enable the remote access to the printer, please enter random access key</div>
 				<br>
-				<button type="submit" class="btn btn-success" name="user" value="add">Save</button>
+				<button type="submit" class="btn btn-success" name="user" value="add" translate>Save</button>
 			</form>
 		</div>
 		<div id="toolsSection" class="tab-pane fade">
-			<a class="btn btn-success" href="/debug">Debug Info</a>
+			<a class="btn btn-success" href="/setup/export" translate>Export Machine Settings File</a>
 			<br>
-			<div class="alert alert-warning" role="alert">Any action will take effect immediately without page change.</div>
-			<a class="ajax btn btn-danger" data-ajax="/" href="/printer/force-stop" data-confirm="Are you sure you want to force stop the printer?">Force Stop</a>
+			<a class="btn btn-success" href="/import" title="Import Machine File" translate>Import Machine Settings</a>
 			<br>
-			<a class="ajax btn btn-danger" data-ajax="/" href="/printer/off" data-confirm="Are you sure you want to power off the printer?">Power Off</a>
+			<a class="btn btn-success" href="/debug" translate>Debug Info</a>
 			<br>
-			<a class="ajax btn btn-danger" data-ajax="/" href="/printer/restart" data-confirm="Are you sure you want to restart the printer?">Restart</a>
+			<div class="alert alert-warning" role="alert" translate>Any of the following actions will take effect immediately after click, without changing the page.</div>
+			<a class="ajax btn btn-danger" data-ajax="/" href="/printer/force-stop" data-confirm="stop-confirm" translate>Force Stop</a>
+			<translate class="hide" id="stop-confirm">Are you sure you want to force stop the printer?</translate>
 			<br>
-			<a class="ajax btn btn-danger" data-ajax="/" href="/printer/terminate" data-confirm="Are you sure you want to terminate nanoDLP and have access to terminal?">Terminate nanoDLP</a>
+			<a class="ajax btn btn-danger" data-ajax="/" href="/printer/off" data-confirm="poweroff-confirm" translate>Power Off</a>
+			<translate class="hide" id="poweroff-confirm">Are you sure you want to power off the printer?</translate>
+			<br>
+			<a class="ajax btn btn-danger" data-ajax="/" href="/printer/restart" data-confirm="restart-confirm" translate>Restart</a>
+			<translate class="hide" id="restart-confirm">Are you sure you want to restart the printer?</translate>
+			<br>
+			<a class="ajax btn btn-danger" data-ajax="/" href="/printer/terminate" data-confirm="terminate-confirm" translate>Terminate nanoDLP</a>
+			<translate class="hide" id="terminate-confirm">Are you sure you want to terminate nanoDLP and have access to terminal?</translate>
 			<br>
 			{% if arch=="arm" %}
-				<a class="ajax btn btn-danger" data-ajax="/" href="/printer/restore" data-confirm="Are you sure you want to restore default settings and reboot printer?">Restore Default machine/profiles/buttons Settings</a>
+				<a class="ajax btn btn-danger" data-ajax="/" href="/printer/restore" data-confirm="restore-confirm" translate>Restore Default Settings of Machine/Profiles/Buttons</a>
+				<translate class="hide" id="restore-confirm">Are you sure you want to restore the default settings and reboot the printer?</translate>
 				<br>
-				<a class="btn btn-danger" href="/printer/distro/change">Change Distribution</a>
+				<a class="btn btn-danger" href="/printer/distro/change" translate>Change Distribution</a>
 				<br>
-				<a class="btn btn-danger" href="/printer/upgrade">Upgrade nanoDLP</a>
+				<a class="btn btn-danger" href="/printer/upgrade" translate>Upgrade nanoDLP</a>
 				<br>
 				<br>
-				<div class="alert alert-warning" role="alert">Filesystem expantion will run silently on background. And will restart rpi afterward. Please, do not change anything.</div>
-				<a class="ajax btn btn-danger" data-ajax="/" href="/printer/expand-fs" data-confirm="Are you sure you want to expand filesystem?">Expand Filesystem</a>
+				<div class="alert alert-warning" role="alert" translate>Filesystem expantion will run silently in background, and will restart the Raspberry Pi afterward. Please do not change anything.</div>
+				<a class="ajax btn btn-danger" data-ajax="/" href="/printer/expand-fs" data-confirm="expand-confirm" translate>Expand Filesystem</a>
+				<translate class="hide" id="expand-confirm">Are you sure you want to expand filesystem?</translate>
 			{% endif %}
 		</div>
 	</div>

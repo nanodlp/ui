@@ -48,12 +48,30 @@ input:focus,textarea:focus,select:focus{
 	height: 16px;
 }
 #image_wrapper img,#photo_wrapper img,#image_wrapper,#photo_wrapper{
-	width: 400px;
-	height: 225px;
+	max-width: 400px;
+	max-height: 225px;
 	position: relative;
 }
 #image_wrapper{
 	float: left;
+	width: 400px;
+	height: 225px;
+}
+.enlarged{
+	position: absolute!important;
+	left:0;
+	top:0;
+	z-index: 1000;
+}
+#image_wrapper.enlarged img{
+	width: auto;
+	max-width: none;
+	height: auto;
+	max-height: none;
+	display: block;
+	margin: 0 auto;
+	z-index: 1000;
+	top: 0;
 }
 #photo_wrapper,#camera{
 	display: none;
@@ -97,7 +115,7 @@ input:focus,textarea:focus,select:focus{
 /* 	Projector Calibration Page 	*/
 .box{
 	padding: 10px;
-	background-color: #4e5d6c;
+	border: 1px solid;
 }
 
 /* 	Terminal Page 	*/
@@ -121,8 +139,12 @@ img#blackout_overlay{
 	left:0;
 	opacity:0.7;
 }
-#blackout_image img,#preview img{
+#blackout_image img{
 	width: 100%;
+}
+#preview img{
+	max-width: 100%;
+	max-height: 800px;
 }
 .imgareaselect-selection{
 	background-color: blue;
@@ -130,20 +152,6 @@ img#blackout_overlay{
 }
 .imgareaselect-handle{
 	background-color: blue;
-}
-.enlarged{
-	position: absolute!important;
-	left:0;
-	top:0;
-	z-index: 1000;
-}
-.enlarged img{
-	width: auto!important;
-	height: auto!important;
-	display: block;
-	margin: 0 auto;
-	z-index: 1000;
-	top: 0;
 }
 
 /*  Plates Page */
@@ -155,6 +163,9 @@ img#blackout_overlay{
 	padding: 5px 10px;
     background-color: #444;
     font-size: 13px;
+}
+#plates a{
+	text-decoration:none;
 }
 
 /*  Bootstrap Hacks */
@@ -180,19 +191,14 @@ label, .radio label, .checkbox label, .help-block {
 }
 
 /* 	Edit Page 	*/
-.edit-page input,.edit-page select,.edit-page textarea{
-	background-color: #ffffff;
+.edit-page input,.edit-page select,.edit-page textarea,#search{
 	background-image: none;
-	border: 1px solid transparent;
 	border-radius: 0;
-	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
-	color: #2b3e50;
 	display: block;
 	font-size: 15px;
 	height: 39px;
 	line-height: 1.42857;
 	padding: 8px 16px;
-	transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
 	width: 100%;
 }
 .edit-page textarea{
@@ -214,14 +220,13 @@ label, .radio label, .checkbox label, .help-block {
 .edit-table table{
 	width: 100%;
 }
-.edit-table tr:nth-child(even){
-	background-color: #3b4e60;
-}
 
 /*	Help Popover 	*/
-
+.modal-dialog{
+	z-index: 5000;
+}
 .help{
-	background-color: #fff;
+	background-color: rgba(255, 255, 255,0.5);
     border-radius: 6px;
     color: #000!important;
     display: inline-block;
@@ -241,6 +246,28 @@ label, .radio label, .checkbox label, .help-block {
 	color: white;
 	text-decoration: none;
 	transition: background-color 0.3s ease-in-out 0.3s, color 0.3s ease-in-out 0.3s;
+}
+.regen{
+	background: none;
+	color: red!important;
+	border: none;
+}
+.color-code{
+    position: absolute;
+    right: 15px;
+    opacity: 0.5;
+}
+.color_1{
+	background-color: #d9534f;
+}
+.color_2{
+	background-color: #f0ad4e;
+}
+.color_3{
+	background-color: #337ab7;
+}
+.color_4{
+	background-color: #777;
 }
 .popover .arrow{
 	display: none;
@@ -298,4 +325,61 @@ input:focus {
 	border-color: #66afe9;
 	outline: 0;
 	box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+}
+.formula_keyword{
+	width:185px;
+	float:left;
+	margin-top:10px;
+}
+.formula_keyword input{
+	width: 100px;
+}
+#search{
+	width: 200px;
+	float: right;
+	margin: 21px 0 15px;
+}
+.notice{
+	color: orange;
+}
+dl{
+	margin-bottom:0;
+}
+#details{
+	display:none;
+}
+.split#details{
+    float: left;
+    width: 30%;
+    display:block;
+}
+.split#preview{
+    float: right;
+    width: 70%;
+}
+/* 	Stat 	*/
+.stat-bar {
+    padding: 0;
+    display: table;
+    width: 100%;
+    overflow: hidden;
+    margin-top: 10px;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+	user-select: none;
+	font-size: 10px;
+}
+.stat-bar .part {
+    display: block;
+    line-height: 21px;
+    overflow: hidden;
+	float: left;
+	text-align: center;
+	white-space: nowrap;
+	width: 0;
+}
+.progress{
+	margin: 10px 0;
 }

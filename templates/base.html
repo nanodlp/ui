@@ -1,19 +1,25 @@
-{% macro buttonsView(buttons,page) %}
-	{% if buttons %}
-		<div class="custom-buttons">
-		{% for button in buttons %}
-			{% if button.Position==page %}
-				<a href="/button/press/{{button.ID}}" class="{{button.Color}} {{button.Condition}}"{% if button.ConfirmText!="" %} onclick="return confirm('{{button.ConfirmText}}');"{% endif %}>{{button.Name}}</a>
-			{% endif %}
-		{% endfor %}
-		</div>
-	{% endif %}
-{% endmacro %}{% macro helpModal(helpFiles,title) %}
-	{% if helpFiles %}
-		<a href="#" class="help" data-files="{{helpFiles}}">?</a>
-	{% endif %}
-{% endmacro %}<!DOCTYPE html>
+{% macro buttonsView(buttons,page) %} {% if buttons %}
+<div class="custom-buttons">
+	{% for button in buttons %} {% if button.Position==page %}
+	<a href="/button/press/{{button.ID}}" class="{{button.Color}} {{button.Condition}}" {% if button.ConfirmText!="" %} onclick="return confirm('{{button.ConfirmText}}');"
+	  {% endif %}>{{button.Name}}</a>
+	{% endif %} {% endfor %}
+</div>
+{% endif %} {% endmacro %}{% macro helpModal(helpFiles,title) %} {% if helpFiles %}
+<a href="#" class="help" data-files="{{helpFiles}}" translate>?</a>
+{% endif %} {% endmacro %}{% macro formulaModal(title) %}
+<a href="#" class="help" data-files="formula" data-run="true" translate>F</a>
+{% endmacro %}{% macro importance(ramps,direct) %}
+<div class="color-code">
+	<a href="#" class="help color_{{ramps}}" data-files="importance" data-run="true" translate>R</a>
+	<a href="#" class="help color_{{direct}}" data-files="importance" data-run="true" translate>D</a>
+</div>
+{% endmacro %}{% macro regenerateRequired() %}
+<a href="#" class="help regen" data-files="regenerate-required">⟲</a>
+{% endmacro %}
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta charset="utf-8">
@@ -24,24 +30,24 @@
 	<link rel="icon" href="/static/favicon.ico">
 
 	<!-- Bootstrap core CSS -->
-	<link href='/static/boot3/css/bootstrap.min.css' rel="stylesheet">
+	<link href='/static/boot3/css/bootstrap.{{theme}}.min.css' rel="stylesheet">
 
 	<!-- Custom styles for this template -->
 	<link href='/static/css/main.css' rel="stylesheet">
 	<title>{% if title %}{{ title }}{% endif %}</title>
-	{% block head %}
-	{% endblock %}
+	{% block head %} {% endblock %}
 </head>
-<body>
+
+<body data-lang="{{lang}}">
 	<!-- Fixed navbar -->
 	<nav class="navbar navbar-default navbar-fixed-top">
 		<div class="container">{% include "menu.html" %}</div>
 	</nav>
 
 	<div class="container">
-	{% block content %}
-	{% endblock %}
-	</div> <!-- /container -->
+		{% block content %} {% endblock %}
+	</div>
+	<!-- /container -->
 
 
 	<script src='/static/boot3/js/jquery.min.js'></script>
@@ -49,28 +55,29 @@
 	<script src='/static/js/jquery.imgareaselect.dev.js'></script>
 	<script src='/static/js/favico-0.3.10.min.js'></script>
 	<script src='/static/js/jquery.sparkline.min.js'></script>
-	<script src='/static/js/three.min.js'></script>
-	<script src='/static/js/three.orbital.js'></script>
-	<script src='/static/js/three.stl.js'></script>
 	<script src='/static/js/main.js'></script>
+	<script src='/static/js/formula.js'></script>
+	<script src='/static/js/slicer.js'></script>
+	<script src='/static/js/preview.js'></script>
 	<script src='/static/js/three.js'></script>
-	{% block js %}
-	{% endblock %}
-{% block tail %}
-{% endblock %}
-<div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel"></h4>
-      </div>
-      <div class="modal-body"></div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
+	<script src='/static/js/po.js'></script>
+	{% block js %} {% endblock %} {% block tail %} {% endblock %}
+	<div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel"></h4>
+				</div>
+				<div class="modal-body"></div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal" translate>Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
+
 </html>

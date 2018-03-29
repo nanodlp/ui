@@ -1,0 +1,90 @@
+<br>
+<h4>Operazioni GCODE</h4>
+<dl class="dl-horizontal small">
+	<dt>Operatori Matematici: + - * / ** () &lt; > %</dt>
+	<dd>Calcolano valori diversi <samp>es. G1 Z{[[LayerThickness]]-[[ZLiftDistance]]*[[LayerNumber]]}</samp></dd>
+	<dt>Funzioni Matematiche</dt>
+	<dd>Restituiscono il valore pi&ugrave grande es. G1 Z{3.2*max([[LayerNumber]],[[TotalNumberOfLayers]]-[[LayerNumber]])}</dd>
+	<dt>Condizionali: () &lt; ></dt>
+	<dd>Aggiungere condizionali alla logica matematica<samp>es. G1 Z{([[LayerNumber]]&lt;30)*1+0.5} se lo strato attuale &egrave inferiore a 30 sale di 1.5mm senn&ograve solleva di 0.5mm</samp></dd>
+	<dt>Binario a base 16</dt>
+	<dd>Per inviare codici binari ai driver/controller &egrave possibile utilizzare il formato in base 16 <samp>es. \x00\x00\xff</samp></dd>
+</dl>
+<br>
+<h4>Operatori di matematica supportati</h4>
+<dl class="dl-horizontal small">
+	<dt>=</dt>
+	<dd>assegnazione</dd>
+	<dt>+</dt>
+	<dd>addizione</dd>
+	<dt>-</dt>
+	<dd>sottrazione</dd>
+	<dt>/</dt>
+	<dd>divisione</dd>
+	<dt>*</dt>
+	<dd>moltiplicazione</dd>
+	<dt>**</dt>
+	<dd>quantit&agrave</dd>
+	<dt>%</dt>
+	<dd>resto</dd>
+	<dt>&</dt>
+	<dd>bit a bit and</dd>
+	<dt>|</dt>
+	<dd>bit a bit or</dd>
+	<dt>^</dt>
+	<dd>bit a bit xor</dd>
+	<dt>&lt;&lt;</dt>
+	<dd>bit a bit superiore a sinistra</dd>
+	<dt>></dt>
+	<dd>bit a bit superiore a destra</dd>
+	<dt>~</dt>
+	<dd>bit a bit not</dd>
+	<dt>==</dt>
+	<dd>uguale</dd>
+	<dt>!=</dt>
+	<dd>non uguale</dd>
+	<dt>></dt>
+	<dd>pi&ugrave grande di</dd>
+	<dt>>=</dt>
+	<dd>maggiore o uguale</dd>
+	<dt>&lt;</dt>
+	<dd>minore di</dd>
+	<dt><=</dt>
+	<dd>minore o uguale</dd>
+</dl>
+<br>
+<h4>Funzioni di matematica supportate</h4>
+<dl class="dl-horizontal small">
+	<dt>abs</dt>
+	<dd>Restituisce il valore assoluto di un dato numero</dd>
+	<dt>acos</dt>
+	<dd>Restituisce l'arcocoseno di un dato numero, in radianti</dd>
+	<dt>sin</dt>
+	<dd>Restituisce il seno di un dato numero</dd>
+	<dt>cos</dt>
+	<dd>Restituisce il coseno di un dato numero</dd>
+	<dt>tan</dt>
+	<dd>Restituisce la tangente di un dato numero</dd>
+	<dt>asin</dt>
+	<dd>Restituisce l'arcocoseno di un dato numero</dd>
+	<dt>acos</dt>
+	<dd>Restituisce l'arcocoseno di un dato numero</dd>
+	<dt>atan</dt>
+	<dd>Restituisce l'arcotangente di un dato numero</dd>
+	<dt>ceil</dt>
+	<dd>Restituisce l'intero maggiore o uguale a un dato numero</dd>
+	<dt>floor</dt>
+	<dd>Restituisce l'intero minore o uguale a un dato numero</dd>
+	<dt>log</dt>
+	<dd>Restituisce il logaritmo naturale di un dato numero</dd>
+	<dt>max</dt>
+	<dd>Restituisce il pi&ugrave grande dei due numeri indicati</dd>
+	<dt>min</dt>
+	<dd>Restituisce il pi&ugrave piccolo dei due numeri indicati</dd>
+	<dt>sqrt</dt>
+	<dd>Restituisce la radice quadrata di un dato numero</dd>
+	<dt>rand</dt>
+	<dd>Restituisce un float casuale tra 0.0 e 1.0</dd>
+	<dt>fact</dt>
+	<dd>Restituisce il fattoriale di un determinato numero</dd>
+</dl>

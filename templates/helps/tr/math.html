@@ -1,0 +1,88 @@
+<br>
+<h4>GCODE İşlemleri</h4>
+<dl class="dl-horizontal small">
+	<dt>Matematik Operatörleri: + - * / ** () &lt; > %</dt>
+	<dd>Farklı değer hesaplama <samp>örneğin. G1 Z{[[LayerThickness]]-[[ZLiftDistance]]*[[LayerNumber]]}</samp></dd>
+	<dt>Matematik İşlevleri</dt>
+	<dd>En büyük değere geri dön örneğin. G1 Z{3.2*max([[LayerNumber]],[[TotalNumberOfLayers]]-[[LayerNumber]])}</dd>
+	<dt>Koşullular: () &lt; ></dt>
+	<dd>Matematik mantığına koşullar ekle <samp>örneğin. G1 Z{([[LayerNumber]]&lt;30)*1+0.5} eğer akım tabakası 30'dan az ise 1,5 mm yükselt değilse 0.5 mm yükselt</samp></dd>
+	<dt>İkili 16lık taban</dt>
+	<dd>Binary kodları Sürücülere/denetleyicilere göndermek için 16'lık taban formatını kullanabilirsiniz<samp>örneğin. \x00\x00\xff</samp></dd>
+</dl>
+<br>
+<h4>Desteklenen Matematik Operatörleri</h4>
+<dl class="dl-horizontal small">
+	<dt>=</dt>
+	<dd>atama</dd>
+	<dt>+</dt>
+	<dd>toplama</dd>
+	<dt>-</dt>
+	<dd>çıkarma</dd>
+	<dt>/</dt>
+	<dd>bölme</dd>
+	<dt>*</dt>
+	<dd>çarpma</dd>
+	<dt>**</dt>
+	<dd>üst</dd>
+	<dt>%</dt>
+	<dd>kalan</dd>
+	<dt>&</dt>
+	<dd>bitsel ve</dd>
+	<dt>|</dt>
+	<dd>bitsel veya</dd>
+	<dt>^</dt>
+	<dd>bitsel xor</dd>
+	<dt>&lt;&lt;</dt>
+	<dd>bitsel sola kaydırma</dd>
+	<dt>></dt>
+	<dd>bitsel sağa kaydırma</dd>
+	<dt>~</dt>
+	<dd>bitsel not</dd>
+	<dt>==</dt>
+	<dd>eşit</dd>
+	<dt>!=</dt>
+	<dd>eşit değil</dd>
+	<dt>></dt>
+	<dd>den büyük</dd>
+	<dt>>=</dt>
+	<dd>büyük veya eşit</dd>
+	<dt>&lt;</dt>
+	<dd>daha küçük</dd>
+	<dt><=</dt>
+	<dd>küçük veya eşit</dd>
+</dl>
+<br>
+<h4>Desteklenen Matematik İşlevleri</h4>
+<dl class="dl-horizontal small">
+	<dt>abs</dt>
+	<dd>Belirli bir sayının mutlak değerini döndürür</dd>
+	<dt>acos</dt>
+	<dd>Belirli bir sayıyı arccos radyan cinsinden döndürür</dd>
+	<dt>sin</dt>
+	<dd>Belirli bir sayının sinüsünü döndürür</dd>
+	<dt>cos</dt>
+	<dd>Belirli bir sayının kosinüsünü döndürür</dd>
+	<dt>tan</dt>
+	<dd>Belirli bir sayının tanjantını döndürür</dd>
+	<dt>asin</dt>
+	<dd>Belirli bir sayının arksinüsünü döndürür</dd>
+	<dt>atan</dt>
+	<dd>Belirli bir sayının arktanjantını döndürür</dd>
+	<dt>ceil</dt>
+	<dd>Fonksiyon, belirli bir sayıya eşit veya daha büyük olan en küçük tam sayıyı döndürür</dd>
+	<dt>floor</dt>
+	<dd>Belirli bir sayıya eşit veya daha küçük en büyük tam sayıyı döndürür</dd>
+	<dt>log</dt>
+	<dd>Belirli bir sayının doğal logaritmasını döndürür</dd>
+	<dt>max</dt>
+	<dd>Verilen iki sayıdan daha büyük olanı döndürür</dd>
+	<dt>min</dt>
+	<dd>Verilen iki sayıdan daha küçük olanı döndürür</dd>
+	<dt>sqrt</dt>
+	<dd>Belirli bir sayının karekökünü döndürür</dd>
+	<dt>rand</dt>
+	<dd>0.0 ile 1.0 arasında rasgele bir ondalıklı sayı döndürür</dd>
+	<dt>fact</dt>
+	<dd>Belirli bir sayının faktöryelini döndürür</dd>
+</dl>

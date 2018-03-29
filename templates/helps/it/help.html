@@ -1,0 +1,92 @@
+{% extends "../../base.html" %}
+{% block content %}
+<div class="row">
+	<div class="col-sm-12 terminal">
+		<legend>Troubleshooting</legend>
+
+		<h4>Problemi di immagine</h4>
+
+		<b>Nessuna Immagine</b>
+		<p>
+			<ul>
+				<li>Raspberry Pi: Modalit&agrave errata HDMI, modifica il file config.txt.</li>
+				<li>Versione Desktop: Il display non viene avviato dal pannello di controllo.</li>
+				<li>Errore nel numero dello Schermo.</li>
+				<li>Nero od un colore vicino al nero &egrave stato scelto come colore di rendering dello strato.</li>
+			</ul>
+		</p>
+
+		<br>
+		<b>L'Immagine &egrave Capovolta</b>
+		<p>
+			<ul>
+				<li>Raspberry Pi: modifica il file config.txt.
+					<ul>
+						<li>90 degrees - display_rotate=1</li>
+						<li>180 degrees - display_rotate=2</li>
+						<li>270 degrees - display_rotate=3</li>
+						<li>horizontal flip - display_rotate=0x10000</li>
+						<li>vertical flip - display_rotate=0x20000</li>
+					</ul>
+				</li>
+				<li>Proiettore: &Egrave possibile correggere le impostazioni dell'immagine utilizzando le opzioni del proiettore.</li>
+			</ul>
+		</p>
+
+		<br>
+		<h4>Problemi di Stampa</h4>
+
+		<b>Problemi nelle dimensioni X/Y</b>
+		<p>
+			<ul>
+				<li>La risoluzione del proiettore sulla pagina di configurazione &egrave errata.</li>
+				<li>La risoluzione X/Y sulla pagina di configurazione &egrave errata.</li>
+				<li>La Sostituzione di risoluzione X/Y sulla pagina del profilo di stampa non &egrave corretto.</li>
+				<li>La Modifica della risoluzione X/Y sulla pagina del profilo di stampa non &egrave corretto.</li>
+			</ul>
+		</p>
+
+		<br>
+		<h4>Problemi di movimento</h4>
+
+		<b>La distanza di movimento &egrave sbagliata</b>
+		<p>
+			<ul>
+				<li>RAMPS: Modalit&agrave di posizionamento errata nella pagina di Configurazione (Relativa / Assoluta)</li>
+				<li>Controllo Diretto: I dettagli dell'asse Z sono errati nella pagina di configurazione.</li>
+				<li>Controllo Diretto: Il movimento &egrave troppo veloce, i passi vengono saltati. Cambiare la velocit&agrave di movimento.</li>
+			</ul>
+		</p>
+
+		<b>La direzione di movimento &egrave sbagliata</b>
+		<p>
+			<ul>
+				<li>Cambiare la direzione dell'asse dalla pagina di configurazione</li>
+			</ul>
+		</p>
+
+
+		<br>
+		<h4>Problemi con affettatrice</h4>
+
+		<b>Parti aggiunte o mancanti su uno strato</b>
+		<p>
+			<ul>
+				<li>Il file STL di origine ha problemi, condividerlo in modo da poter analizzare se riusciremo a risolvere il problema o no.</li>
+			</ul>
+		</p>
+
+		<br>
+		<h4>Problemi con NanoDLP</h4>
+
+		<b>Il programma si blocca o si riavvia</b>
+		<p>
+			<ul>
+				<li>Vai alla pagina di configurazione / tabella Strumenti e premi il bottone di debug per salvare i file di log contenenti il blocco del sistema, e condividilo con noi.</li>
+				<li>In alcuni casi gli incidenti sono relativi a problemi di alimentazione. Assicurarsi che l'alimentazione sia affidabile e abbastanza potente.</li>
+			</ul>
+		</p>
+
+	</div>
+</div>
+{% endblock %}

@@ -5,8 +5,8 @@
 		<div class="box">
 			<img src="/static/general/calibration.png" style="width: 240px;" >
 			<div class="caption">
-				<h3>Dynamic Calibration</h3>
-				<p><a href="/projector/generate/calibration" class="btn btn-primary">Display</a> <a href="/projector/blank" class="btn">Close</a></p>
+				<h3 translate>Dynamic Calibration</h3>
+				<p><a href="/projector/generate/calibration" class="btn btn-primary" translate>Display</a> <a href="/projector/blank" class="btn" translate>Close</a></p>
 			</div>
 		</div>
 	</div>
@@ -14,8 +14,8 @@
 		<div class="box">
 			<img src="/static/general/calibration-red.png" style="width: 240px;" >
 			<div class="caption">
-				<h3>Dynamic Red Calib.</h3>
-				<p><a href="/projector/generate/calibration-red" class="btn btn-primary">Display</a> <a href="/projector/blank" class="btn">lose</a></p>
+				<h3 translate>Dynamic Red Calib.</h3>
+				<p><a href="/projector/generate/calibration-red" class="btn btn-primary" translate>Display</a> <a href="/projector/blank" class="btn" translate>Close</a></p>
 			</div>
 		</div>
 	</div>
@@ -23,8 +23,8 @@
 		<div class="box">
 			<img src="/static/general/boundaries.png" style="width: 240px;" >
 			<div class="caption">
-				<h3>Boundaries</h3>
-				<p><a href="/projector/generate/boundaries" class="btn btn-primary">Display</a> <a href="/projector/blank" class="btn">Close</a></p>
+				<h3 translate>Boundaries</h3>
+				<p><a href="/projector/generate/boundaries" class="btn btn-primary" translate>Display</a> <a href="/projector/blank" class="btn" translate>Close</a></p>
 			</div>
 		</div>
 	</div>
@@ -32,12 +32,61 @@
 		<div class="box">
 			<img src="/static/general/white.png" style="width: 240px;" >
 			<div class="caption">
-				<h3>Full White</h3>
-				<p><a href="/projector/generate/white" class="btn btn-primary">Display</a> <a href="/projector/blank" class="btn">Close</a></p>
+				<h3 translate>Full White</h3>
+				<p><a href="/projector/generate/white" class="btn btn-primary" translate>Display</a> <a href="/projector/blank" class="btn" translate>Close</a></p>
 			</div>
 		</div>
 	</div>
 </div>
+<div class="row">
+    <div class="col-md-6">
+		<br>
+		<br>
+		<div class="box edit-page">
+			<div class="caption">
+				<h3 translate>Barrel Distortion</h3>
+			</div>
+			<form method="post" action="/projector/generate/barrel" class="ajax-post">
+				<label>
+					<translate>Barrel Factor</translate>
+					<input name="BarrelFactor" value="{{barrelFactor}}" class="form-control" type="number" step="0.001">
+				</label>
+				<br><br>
+				<label>
+					<translate>Barrel's Center X</translate>
+					<input name="BarrelX" value="{{barrelX}}" class="form-control" type="number">
+				</label>
+				<label>
+					<translate>Barrel's Center Y</translate>
+					<input name="BarrelY" value="{{barrelY}}" class="form-control" type="number">
+				</label>
+				<br>
+				<br>
+				<p><button type="submit" class="btn btn-primary" translate>Display</button> <a href="/projector/blank" class="btn" translate>Close</a></p>
+
+		</div>
+    </div>
+    <div class="col-md-3">
+		<br>
+		<br>
+		<br>
+		<a href="/projector/on" class="btn btn-primary" translate>Projector Turn On</a><br><br>
+		<a href="/projector/off" class="btn btn-primary" translate>Projector Turn Off</a><br><br>
+		<a href="/shutter/open" class="btn btn-primary" translate>Shutter Open</a><br><br>
+		<a href="/shutter/close" class="btn btn-primary" translate>Shutter Close</a><br><br>
+	</div>
+	<div class="col-md-3">
+		<br>
+		<br>
+		<br>
+    	<a href="/mask/form" class="btn btn-success" translate>Mask Generator</a><br><br>
+    	<a href="/projector/lamp" class="btn btn-primary" translate>Update Lamp Hours</a>
+    	&nbsp; &nbsp; {{lampHours}}<translate>Hours</translate><br><br>
+		<br>
+		{{ buttonsView(buttons,"/projector-calibration") }}
+	</div>
+</div>
+{% if width==1920 && height==1080 && build=="microlay" %}
 <div class="row">
 	<div class="col-md-3">
 		<br>
@@ -45,40 +94,11 @@
 		<div class="box">
 			<img src="/static/general/calibration-1920x1080.png" style="width: 100%;" >
 			<div class="caption">
-				<h3>FullHD Calibration</h3>
-				<p><a href="/projector/display/calibration-1920x1080.png" class="btn btn-primary">Display</a> <a href="/projector/blank" class="btn">Close</a></p>
+				<h3 translate>FullHD Calibration</h3>
+				<p><a href="/projector/display/general***calibration-1920x1080.png" class="btn btn-primary" translate>Display</a> <a href="/projector/blank" class="btn" translate>Close</a></p>
 			</div>
 		</div>
-	</div>
-	<div class="col-md-3">
-		<br>
-		<br>
-		<div class="box">
-			<img src="/static/general/calibration-red-1920x1080.png" style="width: 100%;" >
-			<div class="caption">
-				<h3>FullHD Red Calib.</h3>
-				<p><a href="/projector/display/calibration-red-1920x1080.png" class="btn btn-primary">Display</a> <a href="/projector/blank" class="btn">Close</a></p>
-			</div>
-		</div>
-	</div>
-    <div class="col-md-3">
-		<br>
-		<br>
-		<br>
-		<a href="/projector/on" class="btn btn-primary">Projector Turn On</a><br><br>
-		<a href="/projector/off" class="btn btn-primary">Projector Turn Off</a><br><br>
-		<a href="/shutter/open" class="btn btn-primary">Shutter Open</a><br><br>
-		<a href="/shutter/close" class="btn btn-primary">Shutter Close</a><br><br>
-	</div>
-	<div class="col-md-2">
-		<br>
-		<br>
-		<br>
-    	<a href="/mask/form" class="btn btn-success">Mask Generator</a><br><br>
-    	<a href="/projector/lamp" class="btn btn-primary">Update Lamp Hours</a>
-    	&nbsp; &nbsp; {{LampHours}}Hours<br><br>
-		<br>
-		{{ buttonsView(buttons,"/projector-calibration") }}
 	</div>
 </div>
+{% endif %}
 {% endblock %}

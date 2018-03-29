@@ -5,34 +5,38 @@
 {% block content %}
 <div class="row">
     <div class="col-md-12">
-    	<h2>Mask Generation Wizard{{helpModal("mask-generation")}}</h2>
+    	<h2><translate>Mask Generation Wizard</translate>{{helpModal("mask-generation")}}</h2>
     </div>
 </div>
 <form action="/mask/generate" method="post" id="mask_form">
 	<input name="focus" id="focused_input" type="hidden">
 	<div class="row edit-page">
-		<div class="col-md-3">
-			<label for="WidthPoints">Number of Points in Width</label>
-			<input value="10" name="WidthPoints" id="WidthPoints" class="grid_input" type="number" min="1" required>
+		<div class="col-md-2">
+			<label for="WidthPoints" translate>Number of Points in Width</label>
+			<input value="10" name="WidthPoints" id="WidthPoints" class="grid_input form-control" type="number" min="1" required>
+		</div>
+		<div class="col-md-2">
+			<label for="HeightPoints" translate>Number of Points in Height</label>
+			<input value="5" name="HeightPoints" id="HeightPoints" class="grid_input form-control" type="number" min="1" required>
 		</div>
 		<div class="col-md-3">
-			<label for="HeightPoints">Number of Points in Height</label>
-			<input value="5" name="HeightPoints" id="HeightPoints" class="grid_input" type="number" min="1" required>
+			<label for="PointSize"><translate>Measurement Point Width</translate> <span class="label label-default" translate>Millimeter</span></label>
+			<input value="100" name="PointSize" id="PointSize" class="grid_input form-control" type="number" min="1" required>
 		</div>
 		<div class="col-md-3">
-			<label for="PointSize">Measurement Point Width</label>
-			<input value="100" name="PointSize" id="PointSize" class="grid_input" type="number" min="1" required>
+			<label for="Color"><translate>Light Source Color</translate> {{helpModal("color")}}</label>
+			<input class="form-control" value="#ffffff" name="Color" id="Color" type="color">
 		</div>
-		<div class="col-md-3">
-			<label>Display Mask</label><br>
-			<button id="preview" class="btn btn-success">Preview</button>
+		<div class="col-md-2">
+			<label translate>Display Mask</label><br>
+			<button id="preview" class="btn btn-success" translate>Preview</button>
 			<br>
 			<br>
 		</div>
 	</div>
 	<div class="row edit-page">
 		<div class="col-md-12">
-			<h4>Mask Grid</h4>
+			<h4 translate>Mask Grid</h4>
 		</div>
 	</div>
 	<div class="row edit-page">
@@ -40,10 +44,65 @@
 		</div>
 	</div>
 	<div class="row edit-page">
-		<div class="col-md-12">
+		<div class="col-md-2">
 			<br>
-			<a id="save" class="btn btn-danger" href="/projector-calibration">Save Mask</a>
+			<label for="reset" translate>Reset Grid Values</label><br>
+			<button id="reset" class="btn btn-warning" href="#" translate>Reset Grid</button>
+		</div>
+		<div class="col-md-2">
+			<br>
+			<label for="BluringRadius"><translate>Bluring Radius</translate> <span class="label label-default" translate>Pixel</span></label>
+			<input value="30" name="BluringRadius" id="BluringRadius" type="number" min="1" class="form-control" required>
+		</div>
+		<div class="col-md-2">
+			<br>
+			<label for="save" translate>Update Mask File</label><br>
+			<button id="save" class="btn btn-danger" href="/projector-calibration" translate>Save Mask</button>
+			<br>
+			<br>
+		</div>
+		<div class="col-md-2">
+			<br>
+			<label for="MeasureMode"><translate>Measurement Mode</translate></label>
+			<select name="MeasureMode" id="MeasureMode" class="form-control">
+				<option value="0" translate>Highlight Point</option>
+				<option value="1" translate>Only Display Point</option>
+			</select>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-4">
+			<div class="box">
+				<h4 translate>Grid Preview</h4>
+				<div id="grid-preview"><img src='/static/plates/grid.png?' width='100%'></div>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="box">
+				<h4 translate>Mask Preview</h4>
+				<div id="mask-preview"><img src='/static/plates/maskPreview.png?' width='100%'></div>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="box">
+				<h4 translate>Final Mask</h4>
+				<div id="mask"><img src='/static/plates/mask.png?' width='100%'></div>
+			</div>
+		</div>
+	</div>	
+	<div class="row edit-page">
+		<div class="col-md-6">
+			<br>
+			<label for="mask_csv" translate>Import Comma Separated Values</label><br>
+			<textarea style="height:100px" id="mask_csv" class="form-control"></textarea>
+		</div>
+		<div class="col-md-6">
+			<br>
+			<label for="export_csv" translate>Export Comma Separated Values</label><br>
+			<textarea style="height:100px" id="export_csv" class="form-control"></textarea>
+			<br>
 		</div>
 	</div>
 </form>
+
 {% endblock %}

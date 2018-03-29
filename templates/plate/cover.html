@@ -1,10 +1,10 @@
 {% extends "../base.html" %}
 {% block content %}
-<legend>Cover Platform</legend>
+<legend translate>Blackout Platform</legend>
 <div class="row">
     <div class="col-md-10">
-        <div class="alert alert-success" role="alert">You can partially cover part of the plate to prevent further damage to PDMS and resin waste. <span id="current_layer">{{layerID}}</span>/{{plate.LayersCount}}</div>
-        <input type="range" max="{{plate.LayersCount}}" min="1" value="{{layerID}}" data-default="{{layerID}}" id="range_layer_id">
+        <div class="alert alert-success" role="alert"><translate>You can partially select and cover some sections of the plate to prevent further damage to PDMS and resin waste.</translate> <span id="current_layer">{{layerID}}</span>/{{plate.LayersCount}}</div>
+        <input type="range" max="{{plate.LayersCount}}" min="1" value="{{layerID}}" data-default="{{layerID}}" id="range_layer_id" class="form-control">
         <br>
         <div id="blackout_image" data-width="{{width}}" data-height="{{height}}">
             <img src="/static/plates/{{plate.PlateID}}/{{layerID}}.png" data-path="/static/plates/{{plate.PlateID}}/">
@@ -13,22 +13,23 @@
     </div>
 
     <div class="col-md-2">
-        <input type="checkbox" id="partial_image"> Display Partial Images
+        <input type="checkbox" id="partial_image" translate> Display Partial Images
         <br>
         <br>
         <form method="post">
             <table style="width:100%" id="blackout_table" data-blackout='{{plate.BlackoutData}}'>
                 <tr>
-                    <th>Cover Section</th>
-                    <th>Remove</th>
+                    <th translate>Selected Covers</th>
+                    <th translate>Remove</th>
                 </tr>
             </table>
             <br>
             <br>
-            <a class="btn btn-success add_blackout" href="#">Add Selection</a>
+            <a class="btn btn-success add_blackout" href="#" translate>Add Selection</a>
             <br>
             <br>
-            <input type="submit" name="submit" value="Save" class="btn btn-warning" onclick="return confirm('Are you sure you want to save covered sections?');">
+            <input type="submit" name="submit" value="Save" class="btn btn-warning ask" data-ask="submit-confirm">
+            <translate class="hide" id="submit-confirm">Are you sure you want to save the covered sections?</translate>
         </form>
     </div>
 </div>

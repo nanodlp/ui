@@ -52,4 +52,4 @@ function redraw() {
 	requestAnimationFrame(redraw);
 	renderer.render(scene, camera);
 	controls.update();
-}
+}	

@@ -6,12 +6,14 @@
 	<dt>[[ZLiftDistance]]</dt>
 	<dd>Amount of lift after layer print in millimeter. The result of dynamic lifting will be used.</dd>
 	<dt>[[SyscallResult]]</dt>
-	<dd>If any GCODE box has paired with external execution. Result of execution could be used inside GCODE box.</dd>
+	<dd>If any GCODE box has paired with external execution, the result of execution could be used inside the GCODE box.</dd>
 </dl>
 <br>
 
 <h4>Control Keywords</h4>
 <dl class="dl-horizontal small">
+	<dt>[[LayerChange layer]]</dt>
+	<dd>Change current layer <samp>eg. [[LayerChange 22.1]]</samp></dd>
 	<dt>[[PositionSet mm]]</dt>
 	<dd>Update current absolute position <samp>eg. [[PositionSet 22.1]]</samp></dd>
 	<dt>[[PositionChange mm]]</dt>
@@ -20,20 +22,30 @@
 <br>
 <h4>Action Keywords</h4>
 <dl class="dl-horizontal small">
+	<dt>[[DisplayLayer LayerID]]</dt>
+	<dd>Display any layer from current plate <samp>eg. [[DisplayLayer 10]]</samp></dd>
+	<dt>[[Blank]]</dt>
+	<dd>Make screen blank</dd>
+	<dt>[[LayerSkip Value]]</dt>
+	<dd>For the positive values it skips a layer <samp>eg. [[LayerSkip 1]]</samp><br><br>
+		It skips any remaining gcode and layer tasks, and starts the next layer.<br><br>
+		The more advanced use case example: <samp>[[LayerSkip ((100>[[TotalSolidArea]])*(1-[[SkippedLayers]])*([[LayerNumber]]>3))]]</samp><br>
+		The gcode above would cause layers to be skipped after the first 3 layers if a layer before the current one has not been skipped and the difference between the previous and the current layer is less than 100 pixels.
+	</dd>
 	<dt>[[Delay Seconds]]</dt>
 	<dd>Put delay <samp>eg. [[Delay 1.23]]</samp></dd>
 	<dt>[[WaitForDoneMessage]]</dt>
 	<dd>Wait for <kbd>Z_move_comp</kbd> message from RAMPS or similar boards</dd>
 	<dt>[[Pause]]</dt>
-	<dd>Pause the printer, require resume from dashboard to continue.</dd>
+	<dd>Pause the printer, requires resume from dashboard to continue.</dd>
 </dl>
 <br>
 <h4>Communication Keywords</h4>
 <dl class="dl-horizontal small">
 	<dt>[[Net URL]]</dt>
-	<dd>Send get request to specified URL without waiting for the result <samp>eg. [[Net http://example.com/api]]</samp></dd>
+	<dd>Send get request to the specified URL without waiting for the result <samp>eg. [[Net http://example.com/api]]</samp></dd>
 	<dt>[[NetReturn URL]]</dt>
-	<dd>Send get request to specified URL and send the result to RAMPS <samp>eg. [[NetReturn http://127.0.0.1/gcode?layer=[[LayerNumber]]]]</samp></dd>
+	<dd>Send get request to the specified URL and send the result to RAMPS <samp>eg. [[NetReturn http://127.0.0.1/gcode?layer=[[LayerNumber]]]]</samp></dd>
 	<dt>[[Exec Command]]</dt>
 	<dd>Run external command without waiting for the result <samp>eg. [[Exec python my_python_script.py]]</samp></dd>
 	<dt>[[ExecReturn Command]]</dt>
@@ -55,7 +67,7 @@
 <br>
 
 <h4>Syncronizing Movements</h4>
-nanoDLP does not have knowledge of how much time it would takes to finish movement. There are couple of ways to counter the problem.<br>
+nanoDLP does not have knowledge of how much time it would take to finish a movement. There are a couple of ways to solve this problem.<br>
 <br>
 <h5>1. Using [[Delay Seconds]] keyword</h5>
 It is possible to put delay after each movement. It is the most widely used method.
@@ -74,7 +86,7 @@ G1 Z1.1
 <br>
 
 <h5>3. Using [[WaitForDoneMessage]] keyword</h5>
-Using patched <a href="https://github.com/kitprinter3d/grbl/tree/master/grbl-solidray">grbl</a> / <a href="https://github.com/mUVe3D/Marlin-mUVe1DLP-Running">marlin</a> firmwares you can achieve sync movements. After seeing this keyword nanoDLP will waits for <kbd>Z_move_comp</kbd> response from RAMPS.
+By using the patched <a href="https://github.com/kitprinter3d/grbl/tree/master/grbl-solidray">grbl</a> / <a href="https://github.com/mUVe3D/Marlin-mUVe1DLP-Running">marlin</a> firmwares you can achieve sync movements. After seeing this keyword nanoDLP will wait for <kbd>Z_move_comp</kbd> response from RAMPS.
 <pre>
 G1 Z1.1
 [[WaitForDoneMessage]]
@@ -83,23 +95,23 @@ G1 Z1.1
 
 <br>
 <h4>Crash Recovery</h4>
-Using right settings is key to crash recovery and using nanoDLP in full potential. A way to do this is to delegate positioning to nanoDLP.<br>
-Follow sample codes below to understand how to delegate positioning to nanoDLP. By doing so in addition to crash recovery, printer stop and other functions also will start working.<br>
+Using the right settings is the key to crash recovery and to benefit from nanoDLP in full potential. A way to do this is to delegate positioning to nanoDLP.<br>
+Follow the sample codes below to understand how to delegate positioning to nanoDLP. By doing so in addition to crash recovery, printer stop and other functions also will start working.<br>
 <br>
 Start of Print
 <pre>G90 ; Put positioning in absolute mode
 G28 ; Homing
-[[WaitForDoneMessage]] ; Wait until movement completed, require firmwares to patched for Z_move_comp, if you do not want to use patched firmware you can use [[Delay n.n]] instead
+[[WaitForDoneMessage]] ; Wait until movement is completed, it requires firmwares to get patched for Z_move_comp, if you do not want to use patched firmware you can use [[Delay n.n]] instead
 [[PositionSet 0]] ; Set current position on nanodlp so it could be recovered in case of failure</pre>
 <br>
 Before Layer
 <pre>G1 Z[[LayerPosition]] ; Move to layer position
-[[WaitForDoneMessage]] ; Wait for the movement finished
+[[WaitForDoneMessage]] ; Wait for the movement to get finished
 [[PositionSet [[LayerPosition]]]] ; Save layer position as the current position</pre>
 <br>
 After Layer
 <pre>G1 Z{[[LayerPosition]]+[[ZLiftDistance]]} ; Lift to wait position
-[[WaitForDoneMessage]] ; Wait for the movement finished
+[[WaitForDoneMessage]] ; Wait for the movement to get finished
 [[PositionChange [[ZLiftDistance]]]] ; Again update position</pre>
 <br>
 Resume Print

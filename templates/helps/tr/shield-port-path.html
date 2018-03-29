@@ -1,0 +1,21 @@
+<h4>Raspberry Pi / Linux Sürümü</h4>
+USB/Seri portlar genellikle aşağıdaki adreslerden birini dinler:<br>
+<pre>
+ /dev/ttyACM0
+ /dev/ttyACA0
+ /dev/ttyUSB0
+</pre>
+<br>
+<p>Doğru adresi bulmak için Putty gibi araçları kullanarak SSH protokolü sayesinde Raspberry'ye bağlanabilirsiniz. Aşağıdaki komutu çalıştırınız ve mevcut yolların notlarını alın.</p>
+<pre>ls /dev/tty*</pre>
+<p>Cihazınızı Raspberry Pi'ye bağlayın ve yukarıdaki komutu tekrar deneyin.İlave yol cihazınıza aittir.
+</p>
+<br>
+<h4>Windows Sürümü</h4>
+RAMPS COM port adresini giriniz.<br>
+Windows'ta ki doğru COM portunu bulmak için gereken adımlar:
+<ol>
+	<li>Windows tuşuna basılı tutarak ardından R tuşuna basın "Çalıştır" iletişim kutusunu açınız("Çalıştır").</li>
+	<li>Devmgmt.msc yazın ve enter tuşuna basınız.</li>
+	<li>Aygıt yöneticisinin Portlar bölümüne bakınız.</li>
+</ol>

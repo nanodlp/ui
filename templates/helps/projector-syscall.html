@@ -1,0 +1,14 @@
+Command will run to turn the projector on. Suitable for sending command through infrared and HDMI-CEC
+<br>
+You can find some example, they may not compatible with your display
+<br>
+<dl class="dl-horizontal small">
+	<dt>To cut the signal</dt>
+	<dd>/opt/vc/bin/tvservice -o</dd>
+	<dt>To restore the signal</dt>
+	<dd>/opt/vc/bin/tvservice -p</dd>
+	<dt>Turns off the display</dt>
+	<dd>echo "standby 0" | cec-client -s</dd>
+	<dt>Turns on the display</dt>
+	<dd>echo "on 0" | cec-client -s</dd>
+</dl>

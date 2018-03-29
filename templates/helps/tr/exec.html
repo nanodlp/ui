@@ -1,0 +1,9 @@
+<br>
+<h4>Harici Programları Uygulama</h4>
+Harici programları geniş bir yelpazede arayabilirsiniz.Böylece farklı programlarla iletişim kurabilirsiniz. Ayrıca, uygulama işleminin standart çıktısı ilgili Gcode kutusunda kullanılabilen [[SyscallResult]] içinde saklanır.<br>
+
+<pre>python /home/pi/printer/calculate_speed.py [[LayerNumber]] [[TotalSolidArea]]</pre>
+<br>
+<pre>G1 Z1 F[[SyscallResult]]</pre>
+<br>
+<p class="text-danger">Lütfen, nanoDLP'nin harici işleri denetleyemediğini unutmayın.  Bu özelliğin aşırı kullanılması, yüksek bellek kullanımını veya duraklatılmış işlemler nedeniyle nanoDLP'yi çökertebilir. Aslında nanoDLP'nin çökmesine neden olan ana neden, harici program yürütmeleridir bu nedenle güvenilirliği artırmak için bu özelliği akıllıca kullanınız.</p>

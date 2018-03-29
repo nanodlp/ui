@@ -1,0 +1,13 @@
+Debido a las limitaciones de rendimiento en algunas placas de desarrollo como Raspberry Pi, la Cortadora Remota podría usarse para acelerar el proceso sustancialmente y manejar archivos 3D más grandes.
+<br><br>
+Esta función delega la opción de cortar a otra instalación de NanoDLP. Si este campo no se rellena, el equipo que cargue un nuevo molde será escaneado por la instalación activa de NanoDLP (solo en el puerto 8080) y será utilizado como Cortadora por defecto para los sistemas ARM. Si se especificó un puerto remoto (TCP IP:Puerto) para NanoDLP, el sistema intentará usarlo como Cortadora Remota.<br><br>
+<h4>Cómo funciona la Cortadora Remota: (ejemplo)</h4>
+<ol>
+	<li>NanoDLP instalado en una Raspberry Pi y un equipo con Windows utilizado por el usuario.</li>
+	<li>Un nuevo Molde cargado a la Raspberry Pi.</li>
+	<li>El NanoDLP de la Raspberry Pi detecta la instalación activa de NanoDLP en el equipo Windows de los usuarios.</li>
+	<li>La Raspberry Pi transfiere los datos requeridos a Windows.</li>
+	<li>NanoDLP en Windows comienza el proceso.</li>
+	<li>NanoDLP en Raspberry Pi obtiene la actualización de estado de la versión de Windows y espera hasta que se completa el corte.</li>
+	<li>NanoDLP en Raspberry Pi recopila los datos preparados.</li>
+</ol>

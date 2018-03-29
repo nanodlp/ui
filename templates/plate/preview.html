@@ -1,14 +1,37 @@
 {% extends "../base.html" %}
 {% block content %}
-<legend>Preview Layers of Plate "{{plate.Path}}"</legend>
+<legend><translate>Preview Layers of Plate</translate> "{{plate.Path}}" <button id="preview_layer" class="btn btn-danger" data-confirm="display-confirm" translate>Display Layer</button> <button id="toggle_details" class="btn btn-info" translate>Toggle Details</button> <button id="preview_previous" class="btn btn-success">&#x3C;</button> <button id="preview_next" class="btn btn-success">&#x3E;</button></legend>
+<translate class="hide" id="display-confirm">Are you sure you want to display the current layer on the main Projector/LCD unit of the printer?</translate>
 <div class="row">
     <div class="col-md-12">
         {% if slicing %}
-            <div class="alert alert-info" role="alert">This plate still being processed, some layers` image still missing.</div>
+            <div class="alert alert-info" role="alert" translate>This plate is still being processed, the image of some layers is still missing.</div>
         {% endif %}
-        <div class="alert alert-success" role="alert">Layer <span id="current_layer">{{layerID}}</span>/{{plate.LayersCount}}</div>
-        <input type="range" max="{{plate.LayersCount}}" min="1" value="{{layerID}}" data-default="{{layerID}}" id="preview_range" autofocus>
+        <input type="range" max="{{plate.LayersCount}}" min="1" value="{{layerID}}" data-plate="{{plate.PlateID}}" data-default="{{layerID}}" class="form-control" id="preview_range" autofocus>
         <br>
+        <div id="details" class="small alert">
+            <dl class="small dl-horizontal">
+                <dt translate>Layer</dt><dd><span id="current_layer">{{layerID}}</span>/{{plate.LayersCount}}</dd>
+                <dt translate>Area Count</dt><dd><span id="AreaCount"></span></dd>
+                <dt translate>Total Solid Area</dt><dd><span id="TotalSolidArea"></span></dd>
+                <dt translate>Largest Area</dt><dd><span id="LargestArea"></span></dd>
+                <dt translate>Smallest Area</dt><dd><span id="SmallestArea"></span></dd>
+                <!--<dt translate>Pixel Difference</dt><dd><span id="PixDiff"></span></dd>-->
+                <dt translate>Boundry - X</dt><dd><span id="MinX"></span> - <span id="MaxX"></span></dd>
+                <dt translate>Boundry - Y</dt><dd><span id="MinY"></span> - <span id="MaxY"></span></dd>
+            </dl>
+            <hr>
+            <dl class="small dl-horizontal">
+                <dt translate>Move to Layer</dt><dd></dd>
+                <dt translate>Gcode Before</dt><dd><span id="beforeGcode"></span></dd>
+                <dt translate>Wait Before</dt><dd><span id="waitBeforePrint"></span></dd>
+                <dt translate>Cure Layer</dt><dd><span id="cureTime"></span></dd>
+                <dt translate>Wait After</dt><dd><span id="waitAfterPrint"></span></dd>
+                <dt translate>Gcode After</dt><dd><span id="afterGcode"></span></dd>
+                <dt translate>Move to Position</dt><dd></dd>
+                <dt translate>Wait</dt><dd><span id="afterLiftWait"></span></dd>
+            </dl>
+        </div>
         <div id="preview">
             <img src="/static/plates/{{plate.PlateID}}/{{layerID}}.png" data-path="/static/plates/{{plate.PlateID}}/">
         </div>

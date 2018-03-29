@@ -1,0 +1,14 @@
+Raspberry Pi gibi bazı geliştirme kartlarında performans kısıtlamaları nedeniyle uzak bölme makinesi, esasen işlemi hızlandırmak ve daha büyük 3D dosyaları ele almak için kullanılabilir.
+
+<br><br>
+Bu foksiyon bölme işlemini başka bir NanoDLP'ye kurar. Bu alan dolu değilse, yeni bir tabaka yükleyen bilgisayar aktif NanoDLP kurulumu için taranacak (yalnızca 8080 portunda) ve ARM sistemleri için varsayılan dilimleyiciyi kullanılacaktır. Uzak NanoDLP için TCP IP: Port belirli ise, sistem uzak dilimleyiciyi kullanmaya çalışacaktır.<br><br>
+<h4>Uzak dilimleyici nasıl çalışır?: (örneğin)</h4>
+<ol>
+	<li>Raspberry Pi ve Windows(işletim sistemi) bilgisayarda yüklü olan NanoDLP kullanıcı tarafından kullanılıyor.</li>
+	<li>Raspberry Pi'ye yeni bir tabaka yüklendi.</li>
+	<li>Raspberry Pi NanoDLP, kullanıcıların Windows bilgisayarında belirli etkin NanoDLP yüklemesi tespit eder.</li>
+	<li>Raspberry Pi, Windows'a gerekli verileri aktarır.</li>
+	<li>Windows'daki NanoDLP işlenmeye başlar.</li>
+	<li>Raspberry Pi üzerindeki NanoDLP, Windows sürümünden durum güncellemesi alır. Dilimleme tamamlanıncaya kadar bekleyin.</li>
+	<li>Raspberry Pi üzerine NanoDLP hazırlanmış verileri alır.</li>
+</ol>

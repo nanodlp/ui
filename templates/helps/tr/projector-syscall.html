@@ -1,0 +1,14 @@
+Projektörü açmak sırasında komutlar çalışacaktır.Kızılötesi ve HDMI-CEC sayesinde komut gönderimi uygundur
+<br>
+Bazı örneklerini bulabilirsiniz, bunların ekranınızla uyumlu olmaması mümkündür.
+<br>
+<dl class="dl-horizontal small">
+	<dt>Sinyali kesmek için</dt>
+	<dd>/opt/vc/bin/tvservice -o</dd>
+	<dt>Sinyali geri yüklemek için</dt>
+	<dd>/opt/vc/bin/tvservice -p</dd>
+	<dt>Ekranı kapatır</dt>
+	<dd>echo "standby 0" | cec-client -s</dd>
+	<dt>Ekranı açar</dt>
+	<dd>echo "on 0" | cec-client -s</dd>
+</dl>

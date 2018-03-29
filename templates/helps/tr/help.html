@@ -1,0 +1,92 @@
+{% extends "../base.html" %}
+{% block content %}
+<div class="row">
+	<div class="col-sm-12 terminal">
+		<legend>Sorun Giderme</legend>
+
+		<h4>Resim Konuları</h4>
+
+		<b>Resim yok</b>
+		<p>
+			<ul>
+				<li>Raspberry Pi: Yanlış HDMI modu, config.txt dosyasını düzenleyiniz.</li>
+				<li>Desktop Version: Ekran gösterge tablosundan başlatılmadı.</li>
+				<li>Yanlış gösterge yok.</li>
+				<li>Siyah veya siyaha yakın renk, katman oluşturma rengi olarak seçildi.</li>
+			</ul>
+		</p>
+
+		<br>
+		<b>Resim ters çevirildi</b>
+		<p>
+			<ul>
+				<li>Raspberry Pi: config.txt dosyasını düzenle.
+					<ul>
+						<li>90 derece - display_rotate=1</li>
+						<li>180 derece - display_rotate=2</li>
+						<li>270 derece - display_rotate=3</li>
+						<li>yatay çevir - display_rotate=0x10000</li>
+						<li>dikey çevir - display_rotate=0x20000</li>
+					</ul>
+				</li>
+				<li>Projector: Projektör seçeneklerini kullanarak görüntü sıkışmasını düzeltebilirsiniz.</li>
+			</ul>
+		</p>
+
+		<br>
+		<h4>Yazdırma Konuları</h4>
+
+		<b>X/Y Boyutunda yazdır</b>
+		<p>
+			<ul>
+				<li>Kurulum sayfasındaki projektör çözünürlüğü yanlıştır.</li>
+				<li>Kurulum sayfasındaki X/Y çözünütlüğü yalıştır.</li>
+				<li>Profil sayfasındaki X/Y çözünürlüğü geçersizdir.</li>
+				<li>Profil sayfasındaki X/Y çözünürlüğü değiştirmek yanlıştır.</li>
+			</ul>
+		</p>
+
+		<br>
+		<h4>Movement Issues</h4>
+
+		<b>Movement distance is wrong</b>
+		<p>
+			<ul>
+				<li>RAMPS: Wrong positioning mode from the setup page (Relative/Absolute)</li>
+				<li>Direct Control: Z-Axis details are wrong on the setup page.</li>
+				<li>Direct Control: Movement is too fast, steps get skipped. Change movement speed.</li>
+			</ul>
+		</p>
+
+		<b>Hareket yönü yanlış</b>
+		<p>
+			<ul>
+				<li>Kurulum sayfasından eksen yönünü değiştirmek</li>
+			</ul>
+		</p>
+
+
+		<br>
+		<h4>Bölücü Sorunları</h4>
+
+		<b>Katmandaki eksik veya ek parçalar</b>
+		<p>
+			<ul>
+				<li>Kaynak STL dosyasında sorun oluştu, sorunu ele alıp analiz edebilmemiz için paylaşınız.</li>
+			</ul>
+		</p>
+
+		<br>
+		<h4>NanoDLP Sorunları</h4>
+
+		<b>Program çöküyor veya yeniden başlatılıyor</b>
+		<p>
+			<ul>
+				<li>Setup page/tools sayfasına gidin ve çöküşe ait günlük dosyalarını kaydetmek için hata ayıklama düğmesine basınız ve bizimle paylaşınız.</li>
+				<li>Bazı durumlarda çökmeler güç kaynağı sorunlarıyla ilgilidir. Güç kaynağının güvenilir ve yeterince güçlü olduğundan emin olunuz.</li>
+			</ul>
+		</p>
+
+	</div>
+</div>
+{% endblock %}

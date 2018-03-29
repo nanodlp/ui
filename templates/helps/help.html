@@ -1,0 +1,92 @@
+{% extends "../base.html" %}
+{% block content %}
+<div class="row">
+	<div class="col-sm-12 terminal">
+		<legend>Troubleshooting</legend>
+
+		<h4>Image Issues</h4>
+
+		<b>No Picture</b>
+		<p>
+			<ul>
+				<li>Raspberry Pi: Wrong HDMI mode, edit config.txt file.</li>
+				<li>Desktop Version: Display is not started from dashboard.</li>
+				<li>Wrong display no.</li>
+				<li>Black or color close to black has been chosen as layer rendering color.</li>
+			</ul>
+		</p>
+
+		<br>
+		<b>Image is flipped</b>
+		<p>
+			<ul>
+				<li>Raspberry Pi: edit config.txt file.
+					<ul>
+						<li>90 degrees - display_rotate=1</li>
+						<li>180 degrees - display_rotate=2</li>
+						<li>270 degrees - display_rotate=3</li>
+						<li>horizontal flip - display_rotate=0x10000</li>
+						<li>vertical flip - display_rotate=0x20000</li>
+					</ul>
+				</li>
+				<li>Projector: You can correct image flipping issue using projector options.</li>
+			</ul>
+		</p>
+
+		<br>
+		<h4>Print Issues</h4>
+
+		<b>Print dimension issue on X/Y</b>
+		<p>
+			<ul>
+				<li>Projector resolution on setup page is wrong.</li>
+				<li>X/Y resolution on setup page is wrong.</li>
+				<li>Override X/Y Resolution on profile page is wrong.</li>
+				<li>Modify x/y resolution on profile page is wrong.</li>
+			</ul>
+		</p>
+
+		<br>
+		<h4>Movement Issues</h4>
+
+		<b>Movement distance is wrong</b>
+		<p>
+			<ul>
+				<li>RAMPS: Wrong positioning mode from the setup page (Relative/Absolute)</li>
+				<li>Direct Control: Z-Axis details are wrong on the setup page.</li>
+				<li>Direct Control: Movement is too fast, steps get skipped. Change movement speed.</li>
+			</ul>
+		</p>
+
+		<b>Movement direction is wrong</b>
+		<p>
+			<ul>
+				<li>Change axis direction from the setup page</li>
+			</ul>
+		</p>
+
+
+		<br>
+		<h4>Slicer Issues</h4>
+
+		<b>Missing or additional parts on a layer</b>
+		<p>
+			<ul>
+				<li>Source STL file has issue, share it so we could analyse if we could handle the problem or not.</li>
+			</ul>
+		</p>
+
+		<br>
+		<h4>NanoDLP Issues</h4>
+
+		<b>Program crashes or reboot</b>
+		<p>
+			<ul>
+				<li>Go to setup page / tools tab and press debug button to save log files belong to the crash, and share it with us.</li>
+				<li>In some cases crashes are related to power supply issues. Make sure the power supply is reliable and powerful enough.</li>
+			</ul>
+		</p>
+
+	</div>
+</div>
+{% endblock %}

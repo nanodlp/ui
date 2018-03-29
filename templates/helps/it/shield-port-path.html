@@ -1,0 +1,21 @@
+<h4>Versione Raspberry Pi / Linux</h4>
+Le porte USB/Seriali si trovano normalmente su uno di questi indirizzi:<br>
+<pre>
+ /dev/ttyACM0
+ /dev/ttyACA0
+ /dev/ttyUSB0
+</pre>
+<br>
+<p>Per scoprire l'indirizzo corretto &egrave possibile connettersi a Raspberry tramite protocollo SSH utilizzando strumenti come Putty. Eseguire il seguente comando e prendere appunti dei percorsi disponibili.</p>
+<pre>ls /dev/tty*</pre>
+<p>Collegare il dispositivo a Raspberry Pi e digitare nuovamente il comando precedente. Il percorso aggiuntivo appartiene al dispositivo.
+</p>
+<br>
+<h4>Versione Windows</h4>
+Inserisci l'indirizzo della porta COM corrispondente a RAMPS.<br>
+Procedura per trovare la porta COM corretta su Windows:
+<ol>
+	<li>Aprire la finestra di dialogo "Esegui" tenendo premuto il tasto Windows, quindi premere il tasto R ("Esegui").</li>
+	<li>Digita devmgmt.msc e premi enter.</li>
+	<li>Controlla la sezione Porte della gestione periferiche.</li>
+</ol>

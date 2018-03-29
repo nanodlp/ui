@@ -1,0 +1,121 @@
+<br>
+<h4>Variables Dinámicas</h4>
+<dl class="dl-horizontal small">
+	<dt>[[ZSpeed]]</dt>
+	<dd>Velocidad en micrones/segundo, calculada a partir de las velocidades de las secciones de Inicio/Mín./Máx./Lenta en la página de configuración. Se usará el resultado de la velocidad dinámica.</dd>
+	<dt>[[ZLiftDistance]]</dt>
+	<dd>Cantidad de elevación en milímetros después de la impresión de una capa. Se usará el resultado de elevación dinámico.</dd>
+	<dt>[[SyscallResult]]</dt>
+	<dd>Si cualquier caja de código GCODE se ha emparejado con una ejecución externa, el resultado de la ejecución podría usarse dentro de la caja de código GCODE.</dd>
+</dl>
+<br>
+
+<h4>Control de Comandos</h4>
+<dl class="dl-horizontal small">
+	<dt>[[LayerChange layer]]</dt>
+	<dd>Cambiar la Capa Actual <samp>ej. [[LayerChange 22.1]]</samp></dd>
+	<dt>[[PositionSet mm]]</dt>
+	<dd>Actualizar la Posición Absoluta actual <samp>ej. [[PositionSet 22.1]]</samp></dd>
+	<dt>[[PositionChange mm]]</dt>
+	<dd>Actualización de Posición Relativa <samp>ej. [[PositionChange -2.1]]</samp></dd>
+</dl>
+<br>
+<h4>Comandos de Acción</h4>
+<dl class="dl-horizontal small">
+	<dt>[[DisplayLayer LayerID]]</dt>
+	<dd>Muestra cualquier capa del molde actual <samp>ej. [[DisplayLayer 10]]</samp></dd>
+	<dt>[[Blank]]</dt>
+	<dd>Hacer pantalla en blanco</dd>
+	<dt>[[LayerSkip Value]]</dt>
+	<dd>Para los valores positivos se salta una capa <samp>ej. [[LayerSkip 1]]</samp><br><br>
+		Se salta cualquier tarea restante de GCODE y de capa, y comienza la siguiente capa.<br><br>
+		Ejemplo de caso de uso más avanzado: <samp>[[LayerSkip ((100>[[PixDiff]])*(1-[[SkippedLayers]])*([[LayerNumber]]>3))]]</samp><br>
+		El GCODE anterior provocaría que se saltasen las capas después de las 3 primeras si una capa anterior a la actual no se hubiese omitido y la diferencia entre la capa anterior y la actual fuese menos de 100 píxeles.
+	</dd>
+	<dt>[[Delay Seconds]]</dt>
+	<dd>Añadir Retraso <samp>ej. [[Delay 1.23]]</samp></dd>
+	<dt>[[WaitForDoneMessage]]</dt>
+	<dd>Esperar por <kbd>Z_move_comp</kbd> el mensaje de la RAMPS o placas similares.</dd>
+	<dt>[[Pause]]</dt>
+	<dd>Pausar la impresora, requiere reanudar desde el Panel de Control para continuar.</dd>
+</dl>
+<br>
+<h4>Comandos de Comunicación</h4>
+<dl class="dl-horizontal small">
+	<dt>[[Net URL]]</dt>
+	<dd>Enviar una solicitud de obtención a la URL especificada sin esperar por el resultado <samp>ej. [[Net http://example.com/api]]</samp></dd>
+	<dt>[[NetReturn URL]]</dt>
+	<dd>Enviar una solicitud de obtención a la URL especificada y enviar el resultado a la RAMPS <samp>ej. [[NetReturn http://127.0.0.1/gcode?layer=[[LayerNumber]]]]</samp></dd>
+	<dt>[[Exec Command]]</dt>
+	<dd>Ejecuta un comando externo sin esperar por el resultado <samp>ej. [[Exec python my_python_script.py]]</samp></dd>
+	<dt>[[ExecReturn Command]]</dt>
+	<dd>Ejecuta un comando externo y envía el resultado a la RAMPS <samp>ej. [[ExecReturn python my_python_script.py]]</samp></dd>
+</dl>
+<br>
+<h4>Comandos de Hardware</h4>
+<dl class="dl-horizontal small">
+	<dt>[[GPIOWaitForLow]]</dt>
+	<dd>Esperar a que <kbd>"wait pin"</kbd> GPIO sea BAJO</dd>
+	<dt>[[Projector Command]]</dt>
+	<dd>Enviar cualquier comando al proyector <samp>ej. [[Projector \x01\x02\x03 On]]</samp></dd>
+	<dt>[[GPIOHigh GPIO]]</dt>
+	<dd>Hace que cualquier GPIO sea ALTO <samp>ej. [[GPIOHigh 12]]</samp></dd>
+	<dt>[[GPIOLow GPIO]]</dt>
+	<dd>Hace que cualquier GPIO sea BAJO</dd>
+</dl>
+
+<br>
+
+<h4>Sincronización de Movimientos</h4>
+nanoDLP no tiene conocimiento de cuánto tiempo le llevaría terminar un movimiento. Hay un par de formas de resolver este problema.<br>
+<br>
+<h5>1. Usando el comando [[Delay Seconds]]</h5>
+Es posible añadir un retraso después de cada movimiento. Es el método más utilizado.
+<pre>
+G1 Z1.1
+[[Delay 1.5]]
+</pre>
+<br>
+
+<h5>2. Usando el comando [[GPIOWaitForLow]]</h5>
+Para sincronizar movimientos, nanoDLP espera a que el pin sea BAJO. Al comienzo del movimiento, los controladores/drivers deben hacer que este pin sea ALTO y al final del movimiento hacerlo BAJO. La demora máxima para la detección es de 1 ms.
+<pre>
+G1 Z1.1
+[[GPIOWaitForLow]]
+</pre>
+<br>
+
+<h5>3. Empleando el comando [[WaitForDoneMessage]]</h5>
+Usando Firmwares Parcheados <a href="https://github.com/kitprinter3d/grbl/tree/master/grbl-solidray">grbl</a> / <a href="https://github.com/mUVe3D/Marlin-mUVe1DLP-Running">marlin</a> puedes lograr movimientos de sincronización. Después de leer este comando, nanoDLP esperará <kbd>Z_move_comp</kbd> la respuesta de la RAMPS.
+<pre>
+G1 Z1.1
+[[WaitForDoneMessage]]
+</pre>
+<br>
+
+<br>
+<h4>Recuperación tras Bloqueo</h4>
+Usar la configuración correcta es la clave para la Recuperación tras el Bloqueo y beneficiarse de nanoDLP en todo su potencial. Una forma de hacerlo es delegar el posicionamiento a nanoDLP.<br>
+Sigue los siguientes códigos de ejemplo  para comprender cómo delegar el posicionamiento a nanoDLP. Al hacerlo, además de la Recuperación tras Bloqueo, también la detención de la impresora y otras funciones comenzarán a funcionar.<br>
+<br>
+Inicio de Impresión
+<pre>G90 ; Coloca el posicionamiento en modo absoluto
+G28 ; Guiado
+[[WaitForDoneMessage]] ; Espera hasta que se complete el movimiento, requiere parchear el firmware para Z_move_comp, si no quieres usar el firmware parcheado, puedes usar [[Delay n.n]] en su lugar
+[[PositionSet 0]] ; Establece la posición actual en nanoDLP para que pueda recuperarse en caso de error</pre>
+<br>
+Antes de la Capa
+<pre>G1 Z[[LayerPosition]] ; Moverse a la Posición de Capa
+[[WaitForDoneMessage]] ; Esperar a que el movimiento termine
+[[PositionSet [[LayerPosition]]]] ; Guardar la posición de la capa como posición actual</pre>
+<br>
+Después de la Capa
+<pre>G1 Z{[[LayerPosition]]+[[ZLiftDistance]]} ; Elevarse a la posición de espera
+[[WaitForDoneMessage]] ; Esperar a que el movimiento termine
+[[PositionChange [[ZLiftDistance]]]] ; Posición de actualización de nuevo</pre>
+<br>
+Reanudar Impresión
+<pre>G90 ; Colocar el posicionamiento en modo absoluto
+G92 Z[[CurrentPosition]] Y0 X0 ; El sistema se bloqueó, por lo que necesitamos recuperar la posición actual de nanoDLP y configurarlo en laRAMP
+G1 Z[[LayerPosition]] ; Mover a la posición de capa
+...</pre>

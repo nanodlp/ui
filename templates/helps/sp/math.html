@@ -1,0 +1,90 @@
+<br>
+<h4>Operaciones con GCODE</h4>
+<dl class="dl-horizontal small">
+	<dt>Operadores Matemáticos: + - * / ** () &lt; > %</dt>
+	<dd>Cálculo de Diferentes Valores <samp>ej. G1 Z{[[LayerThickness]]-[[ZLiftDistance]]*[[LayerNumber]]}</samp></dd>
+	<dt>Funciones Matemáticas</dt>
+	<dd>Devolver el Valor Mayor ej. G1 Z{3.2*max([[LayerNumber]],[[TotalNumberOfLayers]]-[[LayerNumber]])}</dd>
+	<dt>Condicionales: () &lt; ></dt>
+	<dd>Añadir Condicionales a tu Lógica Matemática <samp>ej. G1 Z{([[LayerNumber]]&lt;30)*1+0.5} Si el valor de la capa es menor de 30, elevar 1.5mm si no, elevar 0.5mm</samp></dd>
+	<dt>Binario en Base 16</dt>
+	<dd>Para enviar códigos binarios a drivers/controladores, puedes usar el formato base 16 <samp>ej. \x00\x00\xff</samp></dd>
+</dl>
+<br>
+<h4>Operadores Matemáticos Soportados</h4>
+<dl class="dl-horizontal small">
+	<dt>=</dt>
+	<dd>asignación</dd>
+	<dt>+</dt>
+	<dd>suma</dd>
+	<dt>-</dt>
+	<dd>resta</dd>
+	<dt>/</dt>
+	<dd>división</dd>
+	<dt>*</dt>
+	<dd>multiplicación</dd>
+	<dt>**</dt>
+	<dd>cantidad</dd>
+	<dt>%</dt>
+	<dd>resto</dd>
+	<dt>&</dt>
+	<dd>bit a bit AND</dd>
+	<dt>|</dt>
+	<dd>bit a bit OR</dd>
+	<dt>^</dt>
+	<dd>bit a bit XOR</dd>
+	<dt>&lt;&lt;</dt>
+	<dd>bit a bit MAYÚSCULAS izquierdo</dd>
+	<dt>></dt>
+	<dd>bit a bit MAYÚSCULAS derecho</dd>
+	<dt>~</dt>
+	<dd>bit a bit NOT</dd>
+	<dt>==</dt>
+	<dd>igual</dd>
+	<dt>!=</dt>
+	<dd>no igual</dd>
+	<dt>></dt>
+	<dd>mayor que</dd>
+	<dt>>=</dt>
+	<dd>mayor que o igual</dd>
+	<dt>&lt;</dt>
+	<dd>menor que</dd>
+	<dt><=</dt>
+	<dd>menor que o igual</dd>
+</dl>
+<br>
+<h4>Funciones Matemáticas Soportadas</h4>
+<dl class="dl-horizontal small">
+	<dt>abs</dt>
+	<dd>Devuelve el valor absoluto de un número determinado</dd>
+	<dt>acos</dt>
+	<dd>Devuelve el arcocoseno de un número dado, en radianes</dd>
+	<dt>sin</dt>
+	<dd>Devuelve el seno de un número determinado</dd>
+	<dt>cos</dt>
+	<dd>Devuelve el coseno de un número dado</dd>
+	<dt>tan</dt>
+	<dd>Devuelve la tangente de un número dado</dd>
+	<dt>asin</dt>
+	<dd>Devuelve el arcoseno de un número dado</dd>
+	<dt>acos</dt>
+	<dd>Devuelve el arcoseno de un número dado</dd>
+	<dt>atan</dt>
+	<dd>Devuelve el arcotangente de un número dado</dd>
+	<dt>ceil</dt>
+	<dd>La función devuelve el entero más pequeño mayor o igual que un número dado</dd>
+	<dt>floor</dt>
+	<dd>Devuelve el entero más grande menor o igual a un número dado</dd>
+	<dt>log</dt>
+	<dd>Devuelve el logaritmo natural de un número dado</dd>
+	<dt>max</dt>
+	<dd>Devuelve el mayor de dos números dados</dd>
+	<dt>min</dt>
+	<dd>Devuelve el menor de los dos números dados</dd>
+	<dt>sqrt</dt>
+	<dd>Devuelve la raíz cuadrada de un número dado</dd>
+	<dt>rand</dt>
+	<dd>Devuelve un decimal aleatorio entre 0.0 y 1.0</dd>
+	<dt>fact</dt>
+	<dd>Devuelve el factorial de un número dado</dd>
+</dl>

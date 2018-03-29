@@ -6,62 +6,91 @@
 	{% else %}
 	<span id="buzzer"></span>
 	{% endif %}
+	<div class="alert alert-danger hide" id="msg_box" translate>Could not connect to the printer. Please check your connection.</div>
+	<div class="Idle">
+		<br>
+		<div class="text-info box" translate>The 3D printer is idle. You can use 'Plates' page to start printing.</div>
+		<br>
+	</div>
 	<div class="row">
 		<div class="col-md-12">
-			<div class="alert alert-danger hide" id="msg_box">Could not connect to the printer. Please, check your connection.</div>
-			<div id="image_wrapper" class="image_enlarge"></div>
-			<div id="layer_details">
-				<div class="key">Plate</div><div class="val last_path"></div><br>
-				<div class="key">Layer</div><div class="val last_location"></div><br>
-				<div class="key">Remaining</div><div class="val last_remaining"></div><br>
-				<div class="key">Module</div><div class="val last_module"></div><br>
-				<div class="key">Action</div><div class="val last_action"></div><br>
+			<div class="Printing">
+				<div id="image_wrapper" class="image_enlarge"></div>
+				<div id="layer_details">
+					<div class="key" translate>Plate</div><div class="val last_path"></div><br>
+					<div class="key" translate>Layer</div><div class="val last_location"></div><br>
+					<div class="key" translate>Remaining</div><div class="val last_remaining"></div><br>
+					<div class="key" translate>Module</div><div class="val last_module"></div><br>
+					<div class="key" translate>Action</div><div class="val last_action"></div><br>
+				</div>
+				<div class="clear"></div>
 			</div>
-			<div class="clear"></div>
 			<div id="photo_wrapper" class="image_enlarge"></div>
 			<div class="clear"></div>
-			<div class="progress progress-striped">
-			    <div style="width: 0%" class="progress-bar progress-bar-warning"></div>
+			<div class="Printing">
+				<div class="progress progress-striped">
+					<div style="width: 0%" class="progress-bar progress-bar-warning"></div>
+				</div>
+				<div class="stat-bar progress">		
+					<div class="part" id="MoveTo" style="background-color:rgba(174,77,86,255);" translate>To Layer</div>
+					<div class="part" id="GcodeBefore" style="background-color:rgba(176,116,132,255);" translate>Gcode Before</div>
+					<div class="part" id="WaitBefore" style="background-color:rgba(103,164,117,255);" translate>Wait Before</div>
+					<div class="part" id="DisplayLayer" style="background-color:rgba(48,120,93,255);" translate>Cure Layer</div>
+					<div class="part" id="WaitAfter" style="background-color:rgba(188,174,56,255);" translate>Wait After</div>
+					<div class="part" id="GcodeAfter" style="background-color:rgba(18,143,149,255);" translate>Gcode After</div>
+					<div class="part" id="MoveToWait" style="background-color:rgba(146,153,196,255);" translate>Lift</div>
+					<div class="part" id="WaitAfterLift" style="background-color:rgba(158,142,87,255);" translate>Lift Wait</div>
+				</div>
 			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">	
 		</div>
 	</div>
 
 	<div class="row">
 		<div class="col-md-6">
 			<div id="running">
-				<a class="btn btn-danger" href="/printer/stop" title="stop" onclick="return confirm('Are you sure you want to stop printing?');">Stop Print</a>
-				<a class="btn btn-info" href="/printer/pause">Pause Print</a>
+				<a class="btn btn-danger ask" href="/printer/stop" title="stop" data-ask="stop-confirm" translate>Stop Print</a>
+				<translate class="hide" id="stop-confirm">Are you sure you want to stop printing? It will stop after the current layer is completed. If you want to abort the current layer, go to the `Setup` page, click on `Tools` tab and click the `Force Stop` button.</translate>
+				<a class="btn btn-info" href="/printer/pause" translate>Pause Print</a>
 				{% if autoShutdown %}
-					<a class="btn btn-success" href="/printer/auto-shutdown/disable" alt="Disable shutdown after job completion">Disable Auto Shutdown</a>
+					<a class="btn btn-success" href="/printer/auto-shutdown/disable" alt="Disable shutdown after job completion" translate>Disable Auto Shutdown</a>
 				{% else %}
-					<a class="btn btn-warning" href="/printer/auto-shutdown/enable" alt="Enable shutdown after job completion">Enable Auto Shutdown</a>
+					<a class="btn btn-warning" href="/printer/auto-shutdown/enable" alt="Enable shutdown after job completion" translate>Enable Auto Shutdown</a>
 				{% endif %}
 			</div>
 			<div id="idle">
 				<br>
 				{% if cast==false %}
-					<a class="btn btn-success" href="/printer/cast" onclick="return confirm('Are you sure you want to start display? It will automatically select second display to display layer.');">Start Display</a>
+					<translate class="hide" id="display-confirm">Are you sure you want to start the display? It will automatically select the second display.</translate>
+					<a class="btn btn-success ask" href="/printer/cast" data-ask="display-confirm" translate>Start Display</a>
 					&nbsp; &nbsp; &nbsp;
 				{% endif %}
-				<a id="resume" class="btn btn-warning" href="/printer/resume" onclick="return confirm('Are you sure you want to resume plate [[plate]] from layer [[last_layer]]?');">Resume Printing</a>
+				<a id="resume" class="btn btn-warning" href="/printer/resume" onclick="return confirm('Are you sure you want to resume plate [[plate]] from layer [[last_layer]]?');" translate>Resume Printing</a>
 
 				{% if projectorPowerCycle==1 %}
-					<a class="ajax btn btn-warning" href="/projector/off" name="type" data-confirm="Are you sure you want to power off the projector?">Projector Off</a>
+					<a class="ajax btn btn-warning" href="/projector/off" name="type" data-confirm="projectoroff-confirm" translate>Projector Off</a>
 					&nbsp; &nbsp; &nbsp;
+					<translate class="hide" id="projectoroff-confirm">Are you sure you want to power off the projector?</translate>
 				{% endif %}
 
 				{% if arch=="arm" %}
-					<a class="ajax btn btn-danger" href="/printer/off" name="type" data-confirm="Are you sure you want to power off the printer?">Power Off</a>
-					<a class="ajax btn btn-danger" href="/printer/restart" title="stop" name="type" data-confirm="Are you sure you want to restart the printer?">Restart</a>
+					<a class="ajax btn btn-danger" href="/printer/off" name="type" data-confirm="poweroff-confirm" translate>Power Off</a>
+					<translate class="hide" id="poweroff-confirm">Are you sure you want to power off the printer?</translate>
+					<a class="ajax btn btn-danger" href="/printer/restart" title="stop" name="type" data-confirm="restart-confirm" translate>Restart</a>
+					<translate class="hide" id="restart-confirm">Are you sure you want to restart the printer?</translate>
 				{% endif %}
 			</div>
 			<div id="pause">
 				<br>
-				<a class="btn btn-danger" href="/printer/stop" onclick="return confirm('Are you sure you want to stop printing?');">Stop Print</a>
-				<a class="btn btn-info" href="/printer/unpause">Resume Print</a>
+				<a class="btn btn-danger ask" href="/printer/stop" data-ask="stop-confirm" translate>Stop Print</a>
+				<translate class="hide" id="stop-confirm">Are you sure you want to stop printing?</translate>
+				<a class="btn btn-info" href="/printer/unpause" translate>Resume Print</a>
 			</div>
 			<div id="camera">
-				<a class="btn btn-success" href="/camera/take">Take Photo</a>
+				<a class="btn btn-success" href="/camera/take" translate>Take Photo</a>
 			</div>
 			{{ buttonsView(buttons,"/") }}
 		</div>
@@ -69,11 +98,11 @@
 			{% if os=="linux" %}
 				<table id="stat">
 					<tr>
-						<td width="60px">CPU</td>
+						<td width="60px" translate>CPU</td>
 						<td width="40px" id="proc">{{stat.Proc}}</td>
-						<td width="60px">Proc</td>
+						<td width="60px" translate>Proc</td>
 						<td width="40px" id="proc_numb">{{stat.ProcNumb}}</td>
-						<td width="60px">Temp</td>
+						<td width="60px" translate>Temp</td>
 						<td width="40px" id="temp">{{stat.Temp}}</td>
 					</tr>
 					<tr>
@@ -82,11 +111,11 @@
 						<td colspan=2 id="temp_chart" class="spark"><canvas></canvas></td>
 					</tr>
 					<tr>
-						<td>Disk</td>
+						<td translate>Disk</td>
 						<td id="disk">{{stat.Disk}}</td>
-						<td>Memory</td>
+						<td translate>Memory</td>
 						<td id="mem">{{stat.Mem}}</td>
-						<td>Uptime</td>
+						<td translate>Uptime</td>
 						<td id="uptime">{{stat.Up}}</td>
 					</tr>
 					<tr>
@@ -98,16 +127,16 @@
 			{% endif %}
 		</div>
 	</div>
-	<h1>Application Log &nbsp; &nbsp; &nbsp; <a id="toggle_log" class="label label-default">Toggle Log</a></h1>
+	<h1><span translate>Application Log</span> &nbsp; &nbsp; &nbsp; <a id="toggle_log" class="label label-default" translate>Toggle Log</a></h1>
 	<div id="console_wrapper">
 		<div id="console">
 			<table class="search_target table table-striped table-hover">
 				<tr>
-					<th>Level</th>
-					<th>Layer</th>
-					<th>Time</th>
-					<th>Module</th>
-					<th>Details</th>
+					<th translate>Level</th>
+					<th translate>Layer</th>
+					<th translate>Time</th>
+					<th translate>Module</th>
+					<th translate>Details</th>
 				</tr>
 			</table>
 		</div>

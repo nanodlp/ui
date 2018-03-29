@@ -1,0 +1,13 @@
+Due to performance constrains on some development boards such as Raspberry Pi, remote slicer could be used to speed up process substantially and handle larger 3D files.
+<br><br>
+This function delegate slicing to another NanoDLP installation. If this field not filled, computer uploading a new plate will be scanned for active NanoDLP  installation (only on port 8080) and will be used as default slicer for ARM systems. If TCP IP:Port specified for remote NanoDLP, system will try to use it as remote slicer.<br><br>
+<h4>How remote Slicer works: (example)</h4>
+<ol>
+	<li>NanoDLP installed on Raspberry Pi and Windows computer being used by user.</li>
+	<li>A new plate uploaded to Raspberry Pi.</li>
+	<li>Raspberry Pi NanoDLP detects active NanoDLP installation on users's Windows computer.</li>
+	<li>Raspberry Pi transfer required data to Windows.</li>
+	<li>NanoDLP on Windows start processing.</li>
+	<li>NanoDLP on Raspberry Pi get status update from Windows version. And wait until slicing get completed.</li>
+	<li>NanoDLP on Raspberry Pi fetch prepared data.</li>
+</ol>

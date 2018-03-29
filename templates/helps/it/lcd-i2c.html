@@ -1,0 +1,23 @@
+&Egrave necessario impostare due valori per fare funzionare il display LCD.<br>
+Per il bus i2c di solito il percorso corretto su Raspberry Pi &egrave /dev/i2c-1<br>
+Per l'indirizzo i2c &eacuto possibile controllare dettagli tecnici dell'LCD o eseguire il comando i2cdetect sul Raspberry Pi tramite SSH. <br>
+<br>
+<pre>
+root@nanodlp:/# i2cdetect -y 1
+     0  1  2  3  4  5  6  7  8  9  a  b  c  d  e  f
+00:          -- -- -- -- -- -- -- -- -- -- -- -- --
+10: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+20: -- -- -- -- -- -- -- 27 -- -- -- -- -- -- -- --
+30: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+40: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+50: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+60: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+70: -- -- -- -- -- -- -- --
+</pre>
+<br>
+&Egrave necessario convertire il valore esadecimale in valore decimale.
+<br>
+Ad esempio, il valore esadecimale 27 &eacuto pari a 39. &Eacuto necessario utilizzare 39 come indirizzo.
+<br>
+<br>
+Se /dev/i2c-1 non &egrave corretto &egrave possibile cercare diversi bus tramite -y modificando il comando i2cdetect.

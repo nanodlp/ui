@@ -1,0 +1,92 @@
+{% extends "../../base.html" %}
+{% block content %}
+<div class="row">
+	<div class="col-sm-12 terminal">
+		<legend>Solución de Problemas</legend>
+
+		<h4>Problemas de Imagen</h4>
+
+		<b>Sin Imagen</b>
+		<p>
+			<ul>
+				<li>Raspberry Pi: Modo HDMI incorrecto, edita el archivo config.txt.</li>
+				<li>Versión de Escritorio: La Pantalla no se inicia desde el Panel de Control.</li>
+				<li>Número de Pantalla incorrecto.</li>
+				<li>El negro o un color próximo al negro ha sido elegido como color de renderizado de capa.</li>
+			</ul>
+		</p>
+
+		<br>
+		<b>Imagen volteada</b>
+		<p>
+			<ul>
+				<li>Raspberry Pi: edita el archivo config.txt.
+					<ul>
+						<li>90 degrees - display_rotate=1</li>
+						<li>180 degrees - display_rotate=2</li>
+						<li>270 degrees - display_rotate=3</li>
+						<li>horizontal flip - display_rotate=0x10000</li>
+						<li>vertical flip - display_rotate=0x20000</li>
+					</ul>
+				</li>
+				<li>Proyector: puedes corregir el problema del volteo de la imagen usando las opciones del proyector.</li>
+			</ul>
+		</p>
+
+		<br>
+		<h4>Problemas de Impresión</h4>
+
+		<b>Problema en la Dimensión X/Y</b>
+		<p>
+			<ul>
+				<li>La Resolución del Proyector en la página de configuración es incorrecta.</li>
+				<li>La Resolución X/Y en la página de configuración es incorrecta.</li>
+				<li>El valor para Anular la Resolución X/Y en la página del perfil es incorrecto.</li>
+				<li>El valor para Modificar la Resolución X/Y en la página del perfil es incorrecto.</li>
+			</ul>
+		</p>
+
+		<br>
+		<h4>Problemas de Movimiento</h4>
+
+		<b>Distancia de Movimiento Incorrecta</b>
+		<p>
+			<ul>
+				<li>RAMPS: Modo de posicionamiento incorrecto en la página de configuración (Relativo/Absoluto)</li>
+				<li>Control Directo: Los detalles del Eje-Z en la página de configuración son incorrectos.</li>
+				<li>ontrol Directo: El movimiento es demasiado rápido, los pasos se omiten. Cambia la velocidad de movimiento.</li>
+			</ul>
+		</p>
+
+		<b>Dirección de Movimiento Incorecta</b>
+		<p>
+			<ul>
+				<li>Cambia la dirección del eje desde la página de configuración</li>
+			</ul>
+		</p>
+
+
+		<br>
+		<h4>Problemas con la Cortadora</h4>
+
+		<b>Partes perdidas o adicionales en una capa</b>
+		<p>
+			<ul>
+				<li>El archivo fuente STL tiene problemas, compártelo para que podamos analizar si podemos resolver el problema o no.</li>
+			</ul>
+		</p>
+
+		<br>
+		<h4>Problemas NanoDLP</h4>
+
+		<b>El programa se bloquea o se reinicia</b>
+		<p>
+			<ul>
+				<li>Ve a la Página de Configuración/Herramientas y presiona el botón de depuración para guardar los archivos de registro relativos al bloqueo, y compártelos con nosotros.</li>
+				<li>En algunos casos, los bloqueos están relacionados con problemas de alimentación. Asegúrate de que la fuente de alimentación sea fiable y lo suficientemente potente.</li>
+			</ul>
+		</p>
+
+	</div>
+</div>
+{% endblock %}
