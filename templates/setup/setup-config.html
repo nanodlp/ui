@@ -38,10 +38,19 @@
 {% endmacro %}
 <div class="alert alert-info" translate>Setting changes will take effect immediately and does not require restart.</div>
 <form action="" method="post" class="edit-page" id="setup">
-	<h3><translate>Printer Name</translate>{{helpModal("printer-name")}}</h3>
+	<h3><translate>Printer Settings</translate></h3>
 	<div class="row">
-		<div class="col-md-12">
+		<div class="col-md-6">
+			<label for="Name">{{importance(3,3)}} <translate>Printer Name</translate>{{helpModal("printer-name")}}</label>
 			<input class="form-control" value="{{Name}}" name="Name" id="Name">
+			<br>
+		</div>
+		<div class="col-md-6">
+			<label for="PrinterType">{{importance(1,3)}} <translate>Type</translate></label>
+			<select class="form-control" name="PrinterType" id="PrinterType">
+				<option value="0" {% if PrinterType==0 %}selected{% endif %} translate>Projector / LCD</option>
+				<option value="1" {% if PrinterType==1 %}selected{% endif %} translate>Laser</option>
+			</select>
 			<br>
 		</div>
 	</div>
@@ -55,6 +64,7 @@
 				<option value="sp" {% if Lang=="sp" %}selected{% endif %} translate>Spanish</option>
 				<option value="chn" {% if Lang=="chn" %}selected{% endif %} translate>Chinese</option>
 				<option value="tr" {% if Lang=="tr" %}selected{% endif %} translate>Turkish</option>
+				<option value="ru" {% if Lang=="ru" %}selected{% endif %} translate>Russian</option>
 			</select>
 			<br>
 		</div>
@@ -84,7 +94,7 @@
 	<h3 translate>Movement GPIOs</h3>
 	<div class="note" translate>Not required, if you are using a separate controller.</div>
 	<div class="row">
-		<div class="col-md-6">			
+		<div class="col-md-3">			
 			<label for="ZAxisPin">{{importance(4,1)}} <translate>Step GPIO for Z-Axis</translate>{{helpModal("z-axis-step-gpio,direct-control,gpio")}}</label>
 			{{ gpio_select("ZAxisPin",ZAxisPin) }}
 		</div>
@@ -96,6 +106,13 @@
 		<div class="col-md-3 ZAxisPin_toggle">
 			<label for="EnablePin">{{importance(4,3)}} <translate>DirectiDriver Enable GPIO</translate>{{helpModal("z-axis-enable-gpio,direct-control,gpio")}}</label>
 			{{ gpio_select("EnablePin",EnablePin) }}
+		</div>
+		<div class="col-md-3 ZAxisPin_toggle">
+			<label for="LimitPinMode">{{importance(4,1)}} <translate>Endstop Switch - Default State</translate>{{helpModal("z-axis-endstop-gpio,direct-control,gpio")}}</label>
+			<select class="form-control" name="LimitPinMode" id="LimitPinMode">
+				<option value="0" {% if LimitPinMode==0 %}selected{% endif %} translate>High</option>
+				<option value="1" {% if LimitPinMode==1 %}selected{% endif %} translate>Low</option>
+			</select>
 		</div>
 	</div>
 	<div class="row ZAxisPin_toggle">
@@ -154,22 +171,6 @@
 			</select>
 		</div>
 		<div class="col-md-3 ShieldType_toggle">
-			<label for="ShieldAxisMode">{{importance(1,4)}}<translate>Shield Axis Direction</translate></label>
-			<select class="form-control" name="ShieldAxisMode" id="ShieldAxisMode">
-				<option value="0" {% if ShieldAxisMode==0 %}selected{% endif %} translate>Zero at Bottom</option>
-				<option value="1" {% if ShieldAxisMode==1 %}selected{% endif %} translate>Zero at Top</option>
-			</select>
-		</div>
-		<div class="col-md-3 ShieldType_toggle">
-			<label for="ShieldPositioning">{{importance(1,4)}}<translate>Movement Positioning</translate></label>
-			<select class="form-control" name="ShieldPositioning" id="ShieldPositioning">
-				<option value="0" {% if ShieldPositioning==0 %}selected{% endif %} translate>Relative</option>
-				<option value="1" {% if ShieldPositioning==1 %}selected{% endif %} translate>Absolute</option>
-			</select>
-		</div>
-	</div>
-	<div class="row ShieldType_toggle">
-		<div class="col-md-3">
 			<label for="ShieldUSBAddress">{{importance(1,4)}}<translate>USB/Serial Port Address</translate>{{helpModal("shield-port-path,shield")}}</label>
 			<input class="form-control" value="{{ShieldUSBAddress}}" name="ShieldUSBAddress" id="ShieldUSBAddress" list="devices">
 			<datalist id="devices">
@@ -179,9 +180,26 @@
 			</datalist>
 			<br>
 		</div>
+		<div class="col-md-3 ShieldType_toggle">
+			<label for="ShieldPositioning">{{importance(1,4)}}<translate>Movement Positioning</translate></label>
+			<select class="form-control" name="ShieldPositioning" id="ShieldPositioning">
+				<option value="0" {% if ShieldPositioning==0 %}selected{% endif %} translate>Relative</option>
+				<option value="1" {% if ShieldPositioning==1 %}selected{% endif %} translate>Absolute</option>
+			</select>			
+		</div>
+	</div>
+	<div class="row ShieldType_toggle">
+		<div class="col-md-3">
+			<label for="ShieldAxisMode">{{importance(1,4)}}<translate>Shield Axis Direction</translate></label>
+			<select class="form-control" name="ShieldAxisMode" id="ShieldAxisMode">
+				<option value="0" {% if ShieldAxisMode==0 %}selected{% endif %} translate>Zero at Bottom</option>
+				<option value="1" {% if ShieldAxisMode==1 %}selected{% endif %} translate>Zero at Top</option>
+			</select>
+		</div>
 		<div class="col-md-3">
 			{{importance(1,4)}}
 			{{ speed_select("ShieldSpeed","Baud Rate",ShieldSpeed) }}
+			<br>
 		</div>
 		{% if arch=="arm" %}
 			<div class="col-md-3">				
@@ -196,33 +214,44 @@
 			</div>
 		{% endif %}
 	</div>
+	<h3 translate>Codes</h3>
 	<div class="row">
 		<div class="col-md-3">
-			<label for="ShieldBootup">{{importance(3,4)}}<translate>Bootup Gcode</translate>{{helpModal("gcode-bootup,vars,math,gcode,shield,exec")}} {{formulaModal()}}</label>
+			<label for="ShieldBootup">{{importance(3,4)}}<translate>Bootup Code</translate>{{helpModal("gcode-bootup,vars,math,gcode,shield,exec")}} {{formulaModal()}}</label>
 			<textarea class="form-control" name="ShieldBootup" id="ShieldBootup">{{ShieldBootup}}</textarea>
 			<br>
 		</div>
 		<div class="col-md-3">
-			<label for="ShieldStart">{{importance(2,4)}}<translate>Start of Print Gcode</translate>{{helpModal("gcode-start,vars,math,gcode,shield,exec")}} {{formulaModal()}}</label>
+			<label for="ShieldStart">{{importance(2,4)}}<translate>Start of Print Code</translate>{{helpModal("gcode-start,vars,math,gcode,shield,exec")}} {{formulaModal()}}</label>
 			<textarea class="form-control" name="ShieldStart" id="ShieldStart">{{ShieldStart}}</textarea>
 		</div>
 		<div class="col-md-3">
-			<label for="ShieldResume">{{importance(3,4)}}<translate>Resume Print Gcode</translate>{{helpModal("gcode-start,vars,math,gcode,shield,exec")}} {{formulaModal()}}</label>
+			<label for="ShieldResume">{{importance(3,4)}}<translate>Resume Print Code</translate>{{helpModal("gcode-start,vars,math,gcode,shield,exec")}} {{formulaModal()}}</label>
 			<textarea class="form-control" name="ShieldResume" id="ShieldResume">{{ShieldResume}}</textarea>
 			<br>
 		</div>
 		<div class="col-md-3">
-			<label for="ShieldFinish">{{importance(3,4)}}<translate>Print Stop Gcode</translate> {{formulaModal()}}</label>
+			<label for="ShieldFinish">{{importance(3,4)}}<translate>Print Stop Code</translate> {{formulaModal()}}</label>
 			<textarea class="form-control" name="ShieldFinish" id="ShieldFinish">{{ShieldFinish}}</textarea>
 			<br>
 		</div>
 	</div>
 	<div class="row">
 		<div class="col-md-3">
-			<label for="ManualMoveGcode">{{importance(3,4)}}<translate>Manual Movement Gcode Template</translate></label>
+			<label for="ManualMoveGcode">{{importance(3,4)}}<translate>Manual Movement Code Template</translate></label>
 			<textarea class="form-control" name="ManualMoveGcode" id="ManualMoveGcode">{{ManualMoveGcode}}</textarea>
 			<br>
 		</div>
+		<div class="col-md-3">
+			<label for="ShutterOpenGcode">{{importance(3,4)}}<translate>Shutter Open Code</translate>{{helpModal("gcode-shutter-open,vars,math,gcode,shield,exec")}} {{formulaModal()}}</label>
+			<textarea class="form-control" name="ShutterOpenGcode" id="ShutterOpenGcode">{{ShutterOpenGcode}}</textarea>
+			<br>
+		</div>
+		<div class="col-md-3">
+			<label for="ShutterCloseGcode">{{importance(3,4)}}<translate>Shutter Close Code</translate> {{formulaModal()}}</label>
+			<textarea class="form-control" name="ShutterCloseGcode" id="ShutterCloseGcode">{{ShutterCloseGcode}}</textarea>
+			<br>
+		</div>		
 
 	</div>
 
@@ -236,18 +265,6 @@
 			</select>
 			<br>
 		</div>
-	</div>
-	<div class="row">
-		<div class="col-md-6">
-			<label for="ShutterOpenGcode">{{importance(3,4)}}<translate>Shutter Open Gcode</translate>{{helpModal("gcode-shutter-open,vars,math,gcode,shield,exec")}} {{formulaModal()}}</label>
-			<textarea class="form-control" name="ShutterOpenGcode" id="ShutterOpenGcode">{{ShutterOpenGcode}}</textarea>
-			<br>
-		</div>
-		<div class="col-md-6">
-			<label for="ShutterCloseGcode">{{importance(3,4)}}<translate>Shutter Close Gcode</translate> {{formulaModal()}}</label>
-			<textarea class="form-control" name="ShutterCloseGcode" id="ShutterCloseGcode">{{ShutterCloseGcode}}</textarea>
-			<br>
-		</div>		
 	</div>
 	
 	{% if arch=="arm" %}

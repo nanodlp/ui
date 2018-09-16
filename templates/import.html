@@ -8,40 +8,40 @@
 				<label for="file" class="tip" data-tip="JSON file to restore" translate>Import Profile</label>
 				<input name="JsonFile" id="file" type="file" accept=".json" required>
 				<br>
-				<button type="submit" class="btn btn-success" translate>Import</button>
+				<button type="submit" class="btn btn-success" translate>Import Profile</button>
 			</div>
 		</div>
 	</form>
-	<br>
+	<hr>
 	<form action="/profile/fetch" method="post" class="edit-page">
 		<div class="row">
 			<div class="col-md-12">
 				<label for="file" class="tip" data-tip="JSON file to restore" translate>Download Profile</label>
 				<input name="url" type="text" placeholder="Copy & Paste Profile URL" required>
 				<br>
-				<button type="submit" class="btn btn-success" translate>Download & Import</button>
+				<button type="submit" class="btn btn-success" translate>Download & Import Profile</button>
 			</div>
 		</div>
 	</form>
-	<br>
+	<hr>
 	<form action="/setup/import" method="post" class="edit-page" enctype="multipart/form-data">
 		<div class="row">
 			<div class="col-md-12">
 				<label for="file" class="tip" data-tip="JSON file to restore" translate>Restore Machine Settings</label>
 				<input name="JsonFile" id="file" type="file" accept=".json" required>
 				<br>
-				<button type="submit" class="btn btn-success">Restore</button>
+				<button type="submit" class="btn btn-success">Restore Machine Settings</button>
 			</div>
 		</div>
 	</form>
-	<br>
+	<hr>
 	<form action="/setup/fetch" method="post" class="edit-page">
 		<div class="row">
 			<div class="col-md-12">
 				<label for="file" class="tip" data-tip="JSON file to restore" translate>Download Machine Settings</label>
 				<input name="url" type="text" placeholder="Copy & Paste Machine Settings URL" required>
 				<br>
-				<button type="submit" class="btn btn-success" translate>Download & Restore</button>
+				<button type="submit" class="btn btn-success" translate>Download & Restore Machine Settings</button>
 			</div>
 		</div>
 	</form>

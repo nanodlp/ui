@@ -36,6 +36,11 @@
 	<dd>Put delay <samp>eg. [[Delay 1.23]]</samp></dd>
 	<dt>[[WaitForDoneMessage]]</dt>
 	<dd>Wait for <kbd>Z_move_comp</kbd> message from RAMPS or similar boards</dd>
+	<dt>[[ResponseCheck ExpectedOK BufferSize]]</dt>
+	<dd>Helps syncronize fast moving SLS and laser SLA systems. It limits how many gcode will be send to RAMPS before waiting for response from RAMPS. It requires ok response from RAMPS after commands get completed and not after receiving them.
+		<br><kbd>ExpectedOK</kbd> integer indicates how many OK will be received from RAMPS board.
+		<br><kbd>BufferSize</kbd> indicates how many command should be sent out before receiving OK responses.		
+		<br><samp>eg. [[ResponseCheck 1 3]]</samp></dd>
 	<dt>[[Pause]]</dt>
 	<dd>Pause the printer, requires resume from dashboard to continue.</dd>
 </dl>
@@ -92,6 +97,14 @@ G1 Z1.1
 [[WaitForDoneMessage]]
 </pre>
 <br>
+
+<h5>4. Using [[ResponseCheck ExpectedOK BufferSize]] keyword</h5>
+If the firmware you are using on the controller board send ok response after execution of each command, you can use this command to syncronize movements.
+<pre>
+G1 X1.1
+[[ResponseCheck 1 1]]
+</pre>
+<br>		
 
 <br>
 <h4>Crash Recovery</h4>

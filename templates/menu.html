@@ -33,18 +33,12 @@
         {% endif %}
         <li>
             {% if newBuild %}
-                {% if arch=="arm" %}
-                    <a href="/printer/upgrade">
-                        <span class="label label-info" translate>New Version Available</span>
-                    </a>
-                {% else %}
-                    <a href="http://www.nanodlp.com">
-                        <span class="label label-info" translate>New Version Available</span>
-                    </a>
-                {% endif %}
+                <a href="/printer/upgrade">
+                    <span class="label label-info">{% if printerName!="" %}{{printerName}} - {% endif %}<translate>New Version Available</translate></span>
+                </a>
             {% elif version>0 %}
                 <a href="http://www.nanodlp.com">
-                    <small><translate>Build</translate> {{version}}</small>
+                    <small>{% if printerName!="" %}{{printerName}} - {% endif %}<translate>Build</translate> {{version}}</small>
                 </a>
             {% endif %}
         </li>
