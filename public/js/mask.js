@@ -96,10 +96,3 @@ function grid_init(){
 		e.preventDefault();
 	});
 }
-
-function resume_init(){
-	$("body").delegate(".grid","change",function(e){
-		var t=$(this);
-		return confirm(t.data("confirm").replace("[LayerID]",t.parent().find("#appendedtext").val()));
-	});
-}

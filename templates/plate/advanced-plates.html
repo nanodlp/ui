@@ -1,0 +1,141 @@
+{% extends "../base.html" %}
+{% block content %}
+<div class="row">
+	<div class="col-md-9">
+		<h2><span translate>Advanced Plates</span></h2>
+	</div>
+	<div class="col-md-3">
+		<input id="search" placeholder="Search Plates" class="form-control compact-input">
+		<translate class="hide">Search Plates</translate>
+	</div>
+</div>
+<translate class="hide" id="delete-confirm">Are you sure you want to delete this plate?</translate>
+<translate class="hide" id="regenerate-confirm">Are you sure you want to regenerate the layers of this plate?</translate>
+<translate class="hide" id="stop-confirm">Are you sure you want to stop printing?</translate>
+<translate class="hide" id="start-confirm">Are you sure you want to print plate from the start?</translate>
+<translate class="hide" id="calibrate-confirm">Are you sure you want to print the calibration plate?</translate>
+<form method="post">
+<table class="table table-striped table-bordered model-list" id="plates">
+	<thead>
+		<tr>
+			<th translate>Plate</th>
+			<th translate>Preview</th>
+			<th translate>Details</th>
+            <th translate>Action</th>
+			<th translate>Printing</th>
+		</tr>
+	</thead>
+	{% if plates %}
+	{% for row in plates %}{% if row.PlateID != 0 %}
+	<tr>
+		<td>
+			<b>{{row.Path}}</b>
+			<br><br>
+			{% if !row.profileError %}
+			<a href="/profile/edit/{{row.profileID}}">{{row.ProfileName}}</a><br>
+			X:{{row.XRes}}μm Y:{{row.YRes}}μm Z:{{row.ZRes}}μm<br>
+			<translate>Cure Time</translate>:{{row.cureTime}}s<br>
+			{% if row.ProfileUpdate>row.Updated %}
+			<div class="notice" translate>Plate generated using old profile data.</div>
+			{% endif %}
+			{% else %}
+			<div class="alert alert-warning" translate>Profile not found.</div>
+			{% endif %}
+		</td>
+		<td>
+			{% if row.Preview %}<img src="static/plates/{{row.PlateID}}/3d.png">{% endif %}
+		</td>
+		<td>
+			<dl class="small">
+				<dt><span class="glyphicon glyphicon-time"></span>
+					<translate>Print Time</translate>
+				</dt>
+				<dd>{{row.PrintTime}}</dd>
+				<dt><span class="glyphicon glyphicon-tint"></span>
+					<translate>Resin Usage</translate>
+				</dt>
+				<dd>{{row.TotalSolidArea}}ml</dd>
+				<dt><span class="glyphicon glyphicon-usd"></span>
+					<translate>Resin Cost</translate>
+				</dt>
+				<dd>{{row.Price}}</dd>
+				{% if row.StopLayers %}
+				<dt><span class="glyphicon glyphicon-stop"></span>
+					<translate>Stop Layers</translate>
+				</dt>
+				<dd>{{row.StopLayers}}</dd>
+				{% endif %}
+			</dl>
+		</td>
+		<td>
+			{% if row.Corrupted==true %}
+			<div class="alert alert-danger"><span class="glyphicon glyphicon-exclamation-sign"></span>
+				<translate>This plate is corrupted.</translate>
+			</div><br>
+			{% endif %}
+			<a class="btn btn-primary" href="/plate/edit/{{ row.PlateID }}"><span class="glyphicon glyphicon-pencil"></span>
+			</a>
+
+			{% if row.PlateID != status.PlateID or status.Printing == false %}
+			<a class="btn btn-danger ask" href="/plate/delete/{{ row.PlateID }}" data-ask="delete-confirm"><span class="glyphicon glyphicon-trash"></span>
+			</a>
+			{% endif %}
+
+			{% if row.Processed==true %}
+			<a class="btn btn-success" href="/plate/download/{{ row.PlateID }}"><span class="glyphicon glyphicon-download-alt"></span>
+			</a>
+			{% endif %}
+
+			{% if row.Type=="stl" %}
+			<a href="/static/?src=/static/plates/{{ row.PlateID }}/plate.stl&dst=/plate/add-support&width={{width}}&height={{height}}"
+			 class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span>
+				<translate>3D</translate>
+			</a>
+			{% endif %}
+			<a class="btn btn-success" href="/plate/preview/{{ row.PlateID }}"><span class="glyphicon glyphicon-eye-open"></span></a>
+
+			<br>
+			{% if (row.Processed==true && row.Type=="stl" && ( row.PlateID != status.PlateID or status.Printing == false)) or !autoSlice %}
+			<a class="btn btn-warning ask" href="/plate/regenerate/{{ row.PlateID }}" data-ask="regenerate-confirm"><span
+				 class="glyphicon glyphicon-refresh"></span> <translate>Regenerate</translate></a>
+			{% endif %}
+
+			{% if row.Processed==false %}
+			<div class="plate" data-plate="{{row.PlateID}}" data-total="{{row.LayersCount}}">
+				<div class="alert alert-danger notprocessed" translate>The plate is not processed yet.</div>
+				<div class="details hide">
+					<div class="alert alert-danger" translate>Slicing... (You can start printing)</div>
+					<div class="progress progress-striped">
+						<div style="width: 0%" class="progress-bar progress-bar-success"></div>
+					</div>
+				</div>
+			</div>
+            {% endif %}
+        </td>
+        <td>
+            <label for="plates"><input type="checkbox" id="plates" name="plates" value="{{row.PlateID}}"> Part of Print</label>
+            <label for="default"><input type="radio" id="default" name="default" value="{{row.ProfileID}}" required> Default Profile</label>
+        </td>
+	</tr>
+	{% endif %}{% endfor %}
+	{% else %}
+	<tr>
+		<td colspan="999">
+			<div class="text-center" translate>
+				No Plates
+			</div>
+		</td>
+	</tr>
+	{% endif %}
+</table>
+<input type="submit" name="submit" value="Generate Plate" class="btn btn-success">
+<br><br>
+</form>
+{% if freeSpace > 0 %}
+<sub><span class="glyphicon glyphicon-hdd"></span>
+	<translate>Free Disk Space</translate> {{freeSpace}}MB
+</sub>
+<br>
+<br>
+{% endif %}
+{% endblock %}

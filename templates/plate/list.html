@@ -1,0 +1,233 @@
+{{ printHistory(PrintResult) }}
+<translate class="hide" id="deleteall-confirm">Are you sure you want to delete all plates?</translate>
+<translate class="hide" id="delete-confirm">Are you sure you want to delete this plate?</translate>
+<translate class="hide" id="regenerate-confirm">Are you sure you want to regenerate the layers of this plate?
+</translate>
+<translate class="hide" id="stop-confirm">Are you sure you want to stop printing?</translate>
+<translate class="hide" id="start-confirm">Are you sure you want to print plate from the start?</translate>
+<translate class="hide" id="calibrate-confirm">Are you sure you want to print the calibration plate?</translate>
+<table class="table table-striped model-list" id="plates">
+	<thead>
+		<tr>
+			<th><translate>ID</translate> <span class="glyphicon glyphicon-sort-by-attributes"></span></th>
+			<th><translate>Plate</translate> <span class="glyphicon glyphicon-sort-by-attributes"></span></th>
+			<th></th>
+			<th><translate>Details</translate> <span class="glyphicon glyphicon-sort-by-attributes"></span></th>
+			<th><translate>Date</translate> <span class="glyphicon glyphicon-sort-by-attributes"></span></th>
+			<th><translate>Action</translate> <span class="glyphicon glyphicon-sort-by-attributes"></span></th>
+		</tr>
+	</thead>
+	{% if plates %}
+	{% for row in plates %}{% if row.PlateID != 0 %}
+	<tr {% if forloop.Counter==1 %}id="latest"{% endif %} class="{% if row.Processed %}plate-processed{% endif %}" data-profile="{{row.profileID}}">
+		<td>{{row.PlateID}}</td>
+		<td>
+			<b>{{row.Path}}</b>
+			<br><br>
+			{% if !row.profileError %}
+			<span class="glyphicon glyphicon-tint"></span> &nbsp; <a href="/profile/edit/{{row.profileID}}">{{row.ProfileName}}</a><br>
+			<span class="glyphicon glyphicon-move"></span> &nbsp; {{row.XSize}}x{{row.YSize}}x{{row.ZSize}}<translate>mm</translate> / {{row.XRes}}x{{row.YRes}}x{{row.ZRes}}<translate>μm</translate><br>
+			{% if row.ReSliceNeeded %}
+			<div class="notice"><span class="glyphicon glyphicon-alert"></span> &nbsp;
+				<translate>Re-slicing required.</translate>
+				{% if (row.Type) %}
+					<a class="ask req-no-slicing btn btn-default btn-sm" href="/plate/regenerate/{{ row.PlateID }}"
+					data-ask="regenerate-confirm"><span class="glyphicon glyphicon-refresh"></span>
+					</a>
+				{% endif %}
+			</div>
+			{% endif %}
+			{% else %}
+			<div class="alert alert-warning"><span class="glyphicon glyphicon-alert"></span>
+				<translate>Profile not found.</translate>
+			</div>
+			{% endif %}
+			{% if row.IsFaulty %}
+			<div class="notice"><span class="glyphicon glyphicon-alert"></span> &nbsp; <a
+					href="/plate/preview/{{ row.PlateID }}" translate>Source file contains faulty triangles.</a>
+					{% if !row.Repaired %}
+					<a class="ask req-no-slicing btn btn-default btn-sm repair" href="/plate/repair-regenerate/{{ row.PlateID }}"
+					data-ask="regenerate-confirm"><span class="glyphicon glyphicon-plus"></span>	<span class="glyphicon glyphicon-refresh"></span>
+					</a>
+					{% endif %}
+			</div>
+			{% endif %}
+			{% if row.Risky %}
+			<div class="notice"><span class="glyphicon glyphicon-alert"></span> &nbsp; <a
+					href="/plate/preview/{{ row.PlateID }}" translate>Plate contains overhang areas.</a></div>
+			{% endif %}
+			<br>
+			{% if row.Corrupted==true %}
+			<div class="alert alert-danger"><span class="glyphicon glyphicon-alert"></span> &nbsp; 
+				<translate>This plate is corrupt.</translate>
+				<a class="ask req-no-slicing btn btn-default" href="/plate/regenerate/{{ row.PlateID }}"
+				data-ask="regenerate-confirm"><span class="glyphicon glyphicon-refresh"></span> &nbsp; <translate>Regenerate</translate>
+				</a>
+			</div>
+			{% endif %}
+			<div class="alert alert-danger req-not-processed"><span class="glyphicon glyphicon-exclamation-sign"></span> &nbsp; 
+				<translate>The plate is not sliced yet.</translate>
+			</div>
+			<div class="plate" data-plate="{{row.PlateID}}" data-total="{{row.LayersCount}}">
+				<div class="details hide">
+					<div class="alert alert-danger"><span class="glyphicon glyphicon-refresh"></span>
+						<translate>Slicing...</translate>
+						<div class="progress progress-striped active">
+							<div style="width: 0%" class="progress-bar progress-bar-success"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</td>
+		<td>
+			<img src="static/plates/{{row.PlateID}}/3d.png?{{row.Updated}}"
+				class="threed {% if !row.Preview %}hide retry{% endif %}">
+		</td>
+		<td>	
+			<dl class="small">
+				<dt><span class="glyphicon glyphicon-tint"></span>&nbsp;
+					<translate>Resin Usage</translate>
+				</dt>
+				<dd>{{row.TotalSolidArea}}ml</dd>
+				<dt><span class="glyphicon glyphicon-usd"></span>&nbsp;
+					<translate>Resin Cost</translate>
+				</dt>
+				<dd>{{row.Price}}</dd>				
+				{% if row.StopLayers %}
+				<dt><span class="glyphicon glyphicon-stop"></span>&nbsp;
+					<translate>Stop Layers</translate>
+				</dt>
+				<dd>{{row.StopLayers}}</dd>
+				{% endif %}
+			</dl>
+		</td>
+		<td>	
+			<dl class="small">
+				<dt><span class="glyphicon glyphicon-print"></span>&nbsp;
+					<translate>Last Print</translate>
+				</dt>
+				<dd>
+					{% if row.LastPrint>0 %}
+						{% if row.LastPrint/60/60/24>0 %}
+							{{ row.LastPrint/60/60/24}} <translate>days ago</translate>
+						{% else %}
+							{{ row.LastPrint/60/60}} <translate>hours ago</translate>
+						{% endif %}
+					{% else %}
+					-
+					{% endif %}
+				</dd>
+				<dt><span class="glyphicon glyphicon-time"></span>&nbsp;
+					<translate>Print Time</translate>
+				</dt>
+				<dd>{{row.PrintTime}}</dd>
+				<dt><span class="glyphicon glyphicon-time"></span>&nbsp;
+					<translate>Cure Time</translate>
+				</dt>
+				<dd>{{row.supportCureTime}}s / {% if !row.cureTimes %}{{row.cureTime}}{% else %}{{row.cureTimes}}{% endif %}s</dd>
+			</dl>
+		</td>
+		<td>
+		{% if status.Printing == false %}
+			<form action="/printer/start/{{ row.PlateID }}" method="post">
+				<span class="input-append input-group">
+					<input name="LayerID" class="form-control compact-input appendedtext resume-id"
+						value="{% if row.PlateID == status.PlateID && status.ResumeID<row.LayersCount %}{{status.ResumeID}}{% endif %}"
+						type="number" min="0" size="3" max="{{row.LayersCount}}">
+					<span class="input-group-btn">
+					<button class="btn btn-default layer-id" disabled>/ {{row.LayersCount}}</div>
+					<translate class="hide">Layer ID</translate>
+					<button type="submit" class="btn btn-warning resume req-processed"
+						data-confirm='Are you sure you want to resume plate {{row.Path}} from layer [LayerID]?'
+						value="Submit"><span class="glyphicon glyphicon-play"></span><span class="glyphicon glyphicon-pause"></span>
+					</button>
+					</span>
+				</span>
+			</form>
+			<a class="btn btn-success ask req-processed" href="/printer/start/{{ row.PlateID }}"
+				data-ask="start-confirm"><span class="glyphicon glyphicon-play"></span>
+			</a>
+			{% else %}
+			{% if row.PlateID == status.PlateID %}
+			<div class="input-append">
+				<a class="btn btn-danger ask" href="/printer/stop" title="stop" data-ask="stop-confirm"><span
+						class="glyphicon glyphicon-stop"></span></a>
+				<span class="add-on"><span translate>Layer</span> {{ status.ResumeID }} <span translate>of</span>
+					{{row.LayersCount}}</span>
+			</div>
+			{% endif %}
+			{% endif %}
+			<a class="btn btn-success" href="/plate/preview/{{ row.PlateID }}"><span
+					class="glyphicon glyphicon-eye-open"></span></a>		
+			{% if row.Type=="stl" && !row.Repaired %}
+			<a class="btn btn-success repair" href="/plate/repair/{{ row.PlateID }}"><span
+					class="glyphicon glyphicon-plus"></span></a>		
+			{% endif %}
+			<div class="btn-group">
+				<button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					<span class="glyphicon glyphicon-option-vertical"></span> <span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu">					
+					<li><a href="/plate/edit/{{ row.PlateID }}"><span
+						class="glyphicon glyphicon-pencil"></span> &nbsp; <translate>Edit</translate></a></li>
+					<!--{% if row.Type=="stl" && row.Size < 300 %}
+					<li><a href="/static/?src=/static/plates/{{ row.PlateID }}/plate.stl&dst=/plate/add-support&width={{width}}&height={{height}}"><span class="glyphicon glyphicon-pencil"></span> &nbsp; <translate>3D Edit</translate>
+					</a></li>
+					{% endif %}-->
+					{% if (row.Processed==true && row.Type && (( row.PlateID != status.PlateID or status.Printing == false))) or (row.Type && !autoSlice) %}
+					<li><a class="ask req-no-slicing" href="/plate/regenerate/{{ row.PlateID }}"
+						data-ask="regenerate-confirm"><span class="glyphicon glyphicon-refresh"></span> &nbsp; <translate>Regenerate</translate>
+					</a></li>
+					{% if row.Type=="stl" %}
+					<li><a class="ask req-no-slicing" href="/plate/regenerate-wasm/{{ row.PlateID }}"
+						data-ask="regenerate-confirm"><span class="glyphicon glyphicon-refresh"></span> &nbsp; <translate>Regenerate Web</translate>
+					</a></li>
+					{% endif %}
+					{% endif %}
+				  <li class="req-processed"><a href="/plate/cover/{{ row.PlateID }}"><span class="glyphicon glyphicon-plus"></span> &nbsp; <translate>Blackout</translate></a></li>
+				  {% if row.PlateID != status.PlateID or status.Printing == false %}
+				  <li>
+				  <a class="ask" href="/plate/delete/{{ row.PlateID }}" data-ask="delete-confirm"><span class="glyphicon glyphicon-trash"></span> &nbsp; <translate>Delete</translate>
+				  </a>
+				  </li>
+				  {% endif %}				  
+				  <li class="req-processed"><a href="/plate/download/{{ row.PlateID }}/analytic"><span class="glyphicon glyphicon-download-alt"></span> &nbsp; <translate>Analytic Data</translate></a></li>
+				  <li class="req-processed"><a href="/plate/download/{{ row.PlateID }}/nanodlp"><span class="glyphicon glyphicon-download-alt"></span> &nbsp; <translate>Download NanoDLP</translate></a></li>
+				  <li class="req-processed"><a href="/plate/download/{{ row.PlateID }}/cbddlp"><span class="glyphicon glyphicon-download-alt"></span> &nbsp; <translate>Download CBDDLP</translate></a></li>
+				  <li class="req-processed"><a href="/plate/download/{{ row.PlateID }}/photon"><span class="glyphicon glyphicon-download-alt"></span> &nbsp; <translate>Download Photon</translate></a></li>
+				  <li class="req-processed"><a href="/plate/download/{{ row.PlateID }}/ctb"><span class="glyphicon glyphicon-download-alt"></span> &nbsp; <translate>Download CTB</translate></a></li>
+				  <li class="req-processed"><a href="/plate/download/{{ row.PlateID }}/cws"><span class="glyphicon glyphicon-download-alt"></span> &nbsp; <translate>Download CWS</translate></a></li>
+				  <li class="req-processed"><a href="/plate/download/{{ row.PlateID }}/zip"><span class="glyphicon glyphicon-download-alt"></span> &nbsp; <translate>Download CZIP</translate></a></li>
+				  <li class="req-processed"><a href="/plate/download/{{ row.PlateID }}/fdg"><span class="glyphicon glyphicon-download-alt"></span> &nbsp; <translate>Download FDG</translate></a></li>
+				  <li class="req-processed"><a href="/plate/download/{{ row.PlateID }}/lgs"><span class="glyphicon glyphicon-download-alt"></span> &nbsp; <translate>Download LGS</translate></a></li>
+				  <li class="req-processed"><a href="/plate/download/{{ row.PlateID }}/lgs30"><span class="glyphicon glyphicon-download-alt"></span> &nbsp; <translate>Download LGS30</translate></a></li>
+				  <li class="req-processed"><a href="/plate/download/{{ row.PlateID }}/phz"><span class="glyphicon glyphicon-download-alt"></span> &nbsp; <translate>Download PHZ</translate></a></li>
+				  <li class="req-processed"><a href="/plate/download/{{ row.PlateID }}/pws"><span class="glyphicon glyphicon-download-alt"></span> &nbsp; <translate>Download PWS</translate></a></li>
+				  <li class="req-processed"><a href="/plate/download/{{ row.PlateID }}/pw0"><span class="glyphicon glyphicon-download-alt"></span> &nbsp; <translate>Download PW0</translate></a></li>
+				  <li class="req-processed"><a href="/plate/download/{{ row.PlateID }}/sl1"><span class="glyphicon glyphicon-download-alt"></span> &nbsp; <translate>Download SL1</translate></a></li>
+				  <li class="req-processed"><a href="/plate/download/{{ row.PlateID }}/uvj"><span class="glyphicon glyphicon-download-alt"></span> &nbsp; <translate>Download UVJ</translate></a></li>
+				  <li class="req-processed"><a href="/plate/download/{{ row.PlateID }}/zcodex"><span class="glyphicon glyphicon-download-alt"></span> &nbsp; <translate>Download ZCODEX</translate></a></li>
+				  {% if (row.Type) %}<li class="req-processed"><a href="/plate/download/{{ row.PlateID }}/{{ row.Type }}"><span class="glyphicon glyphicon-download-alt"></span> &nbsp; <translate>Download {{ row.Type|upper }}</translate></a></li>{% endif %}
+				</ul>
+			</div>
+			{% if status.Printing == false %}
+			<span class="start-after-slice">
+				<a class="btn btn-success ask" href="/printer/start-after-slice/{{ row.PlateID }}"
+					data-ask="start-confirm"><span class="glyphicon glyphicon-play"></span>
+					<translate>Print After Sliced</translate>
+				</a>
+			</span>
+			{% endif %}
+		</td>
+	</tr>
+	{% endif %}{% endfor %}
+	{% else %}
+	<tr>
+		<td colspan="999">
+			<div class="text-center" translate>
+				No Plates
+			</div>
+		</td>
+	</tr>
+	{% endif %}
+

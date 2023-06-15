@@ -25,12 +25,7 @@
 				{% endif %}
 			</div>
 			<div class="col-md-4">
-				<label for="ProfileID" translate>Profile</label>
-				<select name="ProfileID" id="ProfileID" class="form-control">
-					{% for profile in profiles %}
-						<option value="{{profile.ProfileID}}" {% if profile.ProfileID == plate.ProfileID %}selected{% endif %}>{{profile.Title}}</option>
-					{% endfor %}
-				</select>
+				{{ selectProfile(profiles,plate.ProfileID) }}
 				<br>
 			</div>
 		</div>

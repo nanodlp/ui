@@ -1,0 +1,10 @@
+{% extends "../base.html" %}
+{% block content %}
+<h1 translate>Restore Backup</h1>
+<form action="" method="post" class="edit-page" enctype="multipart/form-data">
+    <label for="BackupFile" translate>Restore Backup File</label>
+    <input class="form-control" name="BackupFile" id="BackupFile" type="file" accept=".zip">
+    <br>
+    <button type="submit" class="btn btn-success" name="file" value="add" translate>Upload</button>
+</form>
+{% endblock %}

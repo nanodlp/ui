@@ -1,41 +1,121 @@
 {% extends "../base.html" %}
 {% block content %}
-<legend><translate>Preview Layers of Plate</translate> "{{plate.Path}}" <button id="preview_layer" class="btn btn-danger" data-confirm="display-confirm" translate>Display Layer</button> <button id="toggle_details" class="btn btn-info" translate>Toggle Details</button> <button id="preview_previous" class="btn btn-success">&#x3C;</button> <button id="preview_next" class="btn btn-success">&#x3E;</button></legend>
-<translate class="hide" id="display-confirm">Are you sure you want to display the current layer on the main Projector/LCD unit of the printer?</translate>
+<legend>
+    <div class="row">
+        <div class="col-sm-10">
+            <translate>Plate</translate> "{{plate.Path}}" &nbsp;
+
+            <button id="preview_layer" class="btn btn-danger" data-confirm="display-confirm"><span
+                    class="glyphicon glyphicon-facetime-video"></span> &nbsp;<translate>Display Layer</translate>
+            </button>
+            <button id="toggle_details" class="btn btn-info" data-display="true">
+                <span class="glyphicon glyphicon-eye-open"></span> / <span class="glyphicon glyphicon-eye-close"></span>
+                <translate>Information</translate>
+            </button>
+
+            <button id="toggle_compare" class="btn btn-success">
+                <span class="glyphicon glyphicon-transfer"></span>
+                <translate>Toggle Overhang Areas</translate>
+            </button>
+
+            <button id="preview_previous" class="btn btn-success">
+                <span class="glyphicon glyphicon-step-backward"></span></button> <button id="preview_next"
+                class="btn btn-success">
+                <span class="glyphicon glyphicon-step-forward"></span>
+            </button>
+        </div>
+
+        <div class="col-sm-2">
+            <span class="input-group">
+                <input type="text" class="form-control play-delay" value="0.1">
+                <span class="input-group-btn">
+                    <button class="btn btn-success" id="preview_play" type="button"><span
+                            class="glyphicon glyphicon-play"></span></button>
+                    <button class="btn btn-success hide" id="preview_stop" type="button"><span
+                            class="glyphicon glyphicon-stop"></span></button>
+                </span>
+            </span>
+        </div>
+    </div>
+</legend>
+<translate class="hide" id="display-confirm">Are you sure you want to display the current layer on the main
+    Projector/LCD unit of the printer?</translate>
 <div class="row">
     <div class="col-md-12">
         {% if slicing %}
-            <div class="alert alert-info" role="alert" translate>This plate is still being processed, the image of some layers is still missing.</div>
+        <div class="alert alert-info" role="alert" translate>This plate is still being processed, the image of some
+            layers is still missing.</div>
         {% endif %}
-        <input type="range" max="{{plate.LayersCount}}" min="1" value="{{layerID}}" data-plate="{{plate.PlateID}}" data-default="{{layerID}}" class="form-control" id="preview_range" autofocus>
+        {% if faulty||risky %}
+        <div class="alert alert-danger" role="alert">
+            {% if faulty %}
+            <translate>Faulty layers:</translate>
+            {% for fault in faulties %}
+            <a href="#" class="overhang">{{fault}}</a>
+            {% endfor %}
+            {% endif %}
+            {% if risky %}
+            {% if faulty %}<br>{% endif %}
+            <translate>Overhang areas on layers:</translate>
+            {% for hang in overhangs %}
+            <a href="#" class="overhang">{{hang}}</a>
+            {% endfor %}
+            {% endif %}
+        </div>
+        {% endif %}
+        <input type="range" max="{{plate.LayersCount}}" min="1" value="{{layerID}}" data-plate="{{plate.PlateID}}"
+            data-default="{{layerID}}" class="form-control" id="preview_range" data-dynthickness='{{dynthickness}}'
+            data-mc='{{multicure}}' data-cc='{{curetimes}}' data-w='{{width}}' data-h='{{height}}' autofocus>
         <br>
-        <div id="details" class="small alert">
+    </div>
+    <div class="row">
+        <div id="details" class="small alert col-md-4">
             <dl class="small dl-horizontal">
-                <dt translate>Layer</dt><dd><span id="current_layer">{{layerID}}</span>/{{plate.LayersCount}}</dd>
-                <dt translate>Area Count</dt><dd><span id="AreaCount"></span></dd>
-                <dt translate>Total Solid Area</dt><dd><span id="TotalSolidArea"></span></dd>
-                <dt translate>Largest Area</dt><dd><span id="LargestArea"></span></dd>
-                <dt translate>Smallest Area</dt><dd><span id="SmallestArea"></span></dd>
+                <dt translate>Layer</dt>
+                <dd><span id="current_layer">{{layerID}}</span>/{{plate.LayersCount}}</dd>
+                <dt translate>Area Count</dt>
+                <dd><span id="AreaCount"></span></dd>
+                <dt translate>Layer Thickness</dt>
+                <dd><span id="LayerThickness"></span></dd>
+                <dt translate>Total Solid Area</dt>
+                <dd><span id="TotalSolidArea"></span></dd>
+                <dt translate>Largest Area</dt>
+                <dd><span id="LargestArea"></span></dd>
+                <dt translate>Smallest Area</dt>
+                <dd><span id="SmallestArea"></span></dd>
                 <!--<dt translate>Pixel Difference</dt><dd><span id="PixDiff"></span></dd>-->
-                <dt translate>Boundry - X</dt><dd><span id="MinX"></span> - <span id="MaxX"></span></dd>
-                <dt translate>Boundry - Y</dt><dd><span id="MinY"></span> - <span id="MaxY"></span></dd>
-            </dl>
-            <hr>
-            <dl class="small dl-horizontal">
-                <dt translate>Move to Layer</dt><dd></dd>
-                <dt translate>Gcode Before</dt><dd><span id="beforeGcode"></span></dd>
-                <dt translate>Wait Before</dt><dd><span id="waitBeforePrint"></span></dd>
-                <dt translate>Cure Layer</dt><dd><span id="cureTime"></span></dd>
-                <dt translate>Wait After</dt><dd><span id="waitAfterPrint"></span></dd>
-                <dt translate>Gcode After</dt><dd><span id="afterGcode"></span></dd>
-                <dt translate>Move to Position</dt><dd></dd>
-                <dt translate>Wait</dt><dd><span id="afterLiftWait"></span></dd>
+                <dt translate>Boundary - X</dt>
+                <dd><span id="MinX"></span> - <span id="MaxX"></span></dd>
+                <dt translate>Boundary - Y</dt>
+                <dd><span id="MinY"></span> - <span id="MaxY"></span></dd>
+                <dt translate>Special</dt>
+                <dd><span id="special"></span></dd>
+                <dt translate>Code Before</dt>
+                <dd><span id="beforeGcode"></span></dd>
+                <dt translate>Wait Before Cure</dt>
+                <dd><span id="waitBeforePrint"></span></dd>
+                <dt translate>Cure Time</dt>
+                <dd><span id="cureTime"></span></dd>
+                <dt translate>Code During Cure</dt>
+                <dd><span id="duringGcode"></span></dd>
+                <dt translate>Wait After Cure</dt>
+                <dd><span id="waitAfterPrint"></span></dd>
+                <dt translate>Code After</dt>
+                <dd><span id="afterGcode"></span></dd>
+                <dt translate>Wait After Lift</dt>
+                <dd><span id="afterLiftWait"></span></dd>
             </dl>
         </div>
-        <div id="preview">
-            <img src="/static/plates/{{plate.PlateID}}/{{layerID}}.png" data-path="/static/plates/{{plate.PlateID}}/">
+        <div class="col-md-4">
+            <div id="preview">
+                <img src="/static/plates/{{plate.PlateID}}/{{layerID}}.png"
+                    data-path="/static/plates/{{plate.PlateID}}/">
+            </div>
         </div>
-        <br><br><br>
+        <div class="col-md-4">
+            <div class="threed" id="threed"> 
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}

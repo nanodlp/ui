@@ -1,126 +1,802 @@
 {% extends "../base.html" %}
 {% block content %}
+{% macro gpio_select(name,default) %}
+<select class="form-control" name="{{name}}" id="{{name}}">
+	<option value="0" {% if default==0 %}selected{% endif %} translate>Disable</option>
+	<option value="7" {% if default==7 %}selected{% endif %} translate>Physical 7, BCM 4</option>
+	<option value="8" {% if default==8 %}selected{% endif %} translate>Physical 8, BCM 14</option>
+	<option value="10" {% if default==10 %}selected{% endif %} translate>Physical 10, BCM 15</option>
+	<option value="11" {% if default==11 %}selected{% endif %} translate>Physical 11, BCM 17</option>
+	<option value="12" {% if default==12 %}selected{% endif %} translate>Physical 12, BCM 18</option>
+	<option value="13" {% if default==13 %}selected{% endif %} translate>Physical 13, BCM 27</option>
+	<option value="15" {% if default==15 %}selected{% endif %} translate>Physical 15, BCM 22</option>
+	<option value="16" {% if default==16 %}selected{% endif %} translate>Physical 16, BCM 23</option>
+	<option value="18" {% if default==18 %}selected{% endif %} translate>Physical 18, BCM 24</option>
+	<option value="22" {% if default==22 %}selected{% endif %} translate>Physical 22, BCM 25</option>
+	<option value="29" {% if default==29 %}selected{% endif %} translate>Physical 29, BCM 5</option>
+	<option value="31" {% if default==31 %}selected{% endif %} translate>Physical 31, BCM 6</option>
+	<option value="32" {% if default==32 %}selected{% endif %} translate>Physical 32, BCM 12</option>
+	<option value="33" {% if default==33 %}selected{% endif %} translate>Physical 33, BCM 13</option>
+	<option value="36" {% if default==36 %}selected{% endif %} translate>Physical 36, BCM 16</option>
+	<option value="37" {% if default==37 %}selected{% endif %} translate>Physical 37, BCM 26</option>
+</select>
+{% endmacro %}
+{% macro speed_select(name,label,default) %}
+<label for="{{name}}">{{label}}</label>
+<select class="form-control" name="{{name}}" id="{{name}}">
+	<option value="300" {% if default==300 %}selected{% endif %}>300</option>
+	<option value="600" {% if default==600 %}selected{% endif %}>600</option>
+	<option value="1200" {% if default==1200 %}selected{% endif %}>1200</option>
+	<option value="2400" {% if default==2400 %}selected{% endif %}>2400</option>
+	<option value="4800" {% if default==4800 %}selected{% endif %}>4800</option>
+	<option value="9600" {% if default==9600 %}selected{% endif %}>9600</option>
+	<option value="14400" {% if default==14400 %}selected{% endif %}>14400</option>
+	<option value="19200" {% if default==19200 %}selected{% endif %}>19200</option>
+	<option value="28800" {% if default==28800 %}selected{% endif %}>28800</option>
+	<option value="38400" {% if default==38400 %}selected{% endif %}>38400</option>
+	<option value="57600" {% if default==57600 %}selected{% endif %}>57600</option>
+	<option value="115200" {% if default==115200 %}selected{% endif %}>115200</option>
+</select>
+{% endmacro %}
 <div class="starter-template">
-	<ul class="nav nav-tabs">
-		<li class="active"><a data-toggle="tab" href="#hardwareSection" translate>Hardware Setup</a></li>
-		<li><a data-toggle="tab" href="#maskSection" translate>Projector Mask</a></li>
-		<li><a data-toggle="tab" href="#buttonsSection" translate>Customized Buttons</a></li>
-		<li><a data-toggle="tab" href="#passwordSection" translate>Password Protection</a></li>
-		<li><a data-toggle="tab" href="#toolsSection" translate>Tools</a></li>
-		<li><a href="/help" translate>Help</a></li>
-	</ul>
-	<br>
-	{% if msg %}
-		<div class="alert alert-danger" role="alert">{{msg}}</div>
-	{% endif %}
-	{% if printing %}
+	<input type="hidden" id="scategory" value="">
+	<form action="" method="post" class="edit-page" id="setup">
+		<br>
+		{% if printing %}
 		<div class="alert alert-warning" role="alert" translate>Some critical settings such as type of the shield and etc, will not take effect in the middle of printing. To change those settings without restart, stop printing and submit this page again.</div>
-	{% endif %}
-	<div class="tab-content">
-		<div id="hardwareSection" class="tab-pane fade in active">
-		{% include "setup-config.html" %}
+		{% endif %}
+		<div class="row">
+			<div class="col-md-6 setup-categories setup">
+				{{ setting_cat("<translate>Basic Settings</translate>","<translate>Printer name, type, language</translate>",gear_icon,"i_basic") }}
+				{{ setting_cat("<translate>Display Engine</translate>","<translate>Display resolution, connection, lamps</translate>",computer_icon,"i_display") }}
+				{{ setting_cat("<translate>Axis / Movement</translate>","<translate>Axis details, speed, gcodes</translate>",axis_icon,"i_axis") }}
+				{{ setting_cat("<translate>RAMPS / Controller</translate>","<translate>Controller settings</translate>",diagram_icon,"i_ramps") }}
+				{{ setting_cat("<translate>Code / Gcode</translate>","<translate>Bootup, start, resume, stop print, before, after layer</translate>",code_icon,"i_code") }}
+				{{ setting_cat("<translate>Hardware</translate>","<translate>Printer type, GPIO</translate>",cpu_icon,"i_hardware") }}
+				{{ setting_cat("<translate>HMI</translate>","<translate>Nextion, AMLCD</translate>",keyboard_icon,"i_hmi") }}
+			</div>
+			<div class="col-md-6 setup-categories">				
+				{{ setting_cat("<translate>Print Quality</translate>","<translate>Lamps, light output, barrel correction</translate>",glob_icon,"i_quality") }}
+				{{ setting_cat("<translate>Slicing</translate>","<translate>Resolution, 3D preview, remote slicer</translate>",layers_icon,"i_slicing") }}
+				{{ setting_cat("<translate>Network</translate>","<translate>NanoDLP network port, remote slicer</translate>",wifi_icon,"i_network") }}
+				{{ setting_cat("<translate>Camera</translate>","<translate>Camera settings, storage</translate>",cam_icon,"i_camera") }}
+				{{ setting_cat("<translate>Appearance</translate>","<translate>Theme, language, sound</translate>",font_icon,"i_appearance") }}
+				{{ setting_cat("<translate>Shutter</translate>","<translate>Shutter types, gcodes, GPIO</translate>",shutter_icon,"i_shutter") }}
+			</div>
+			<div class="col-md-12 selected-cat">	
+			</div>
 		</div>
-		<div id="maskSection" class="tab-pane fade">
-			<form action="/add-mask" method="post" class="edit-page" enctype="multipart/form-data">
-					{% if mask %}
-						<img src="{{mask}}?" width="500">
-					{% endif %}
-					<label for="MaskFile" translate>Mask file effects only STL/SLC/SVG files uploaded after mask submit</label>
-					<input class="form-control" name="MaskFile" id="MaskFile" type="file" accept=".png,.jpg">
-					<br>
-					<button type="submit" class="btn btn-success" name="mask" value="add" translate>Add Mask</button>
-					<button type="submit" class="btn btn-danger" name="mask" value="remove" translate>Remove Mask</button>
-			</form>
+		<div class="row flex-row">
+			<div class="col-md-4 i_basic i_option">
+				<label for="Name">
+					<translate>Printer Name</translate>
+				</label>
+				<input class="form-control" value="{{Name}}" name="Name" id="Name">
+			</div>
+			<div class="col-md-4 i_basic i_hardware i_option i_lock">
+				<label for="PrinterType">
+					<translate>Printer Type</translate> {{helpPage("https://docs.nano3dtech.com/manual/settings/#printer-type")}}
+				</label>
+				<select class="form-control" name="PrinterType" id="PrinterType">
+					<option value="0" {% if PrinterType==0 %}selected{% endif %} translate>Projector / UV LCD</option>
+					<option value="1" {% if PrinterType==1 %}selected{% endif %} translate>Laser</option>
+					<option value="2" {% if PrinterType==2 %}selected{% endif %} translate>Non-Stop Printer</option>
+					<option value="3" {% if PrinterType==3 %}selected{% endif %} translate>High Resolution Printer</option>
+				</select>
+			</div>
+			<div class="col-md-4 i_basic i_appearance i_option">
+				<label for="Lang">
+					<translate>Language</translate>
+				</label>
+				<select class="form-control" name="Lang" id="Lang">
+					<option value="" {% if Lang=="" %}selected{% endif %} translate>English</option>
+					<option value="chn" {% if Lang=="chn" %}selected{% endif %} translate>Chinese</option>
+					<option value="kr" {% if Lang=="kr" %}selected{% endif %} translate hidden>Korean</option>
+					<option value="jp" {% if Lang=="jp" %}selected{% endif %} translate>Japanese</option>
+					<option value="pt-br" {% if Lang=="pt-br" %}selected{% endif %} translate>Brazilian Portuguese</option>
+					<option value="it" {% if Lang=="it" %}selected{% endif %} translate>Italian</option>
+					<option value="sp" {% if Lang=="sp" %}selected{% endif %} translate>Spanish</option>
+					<option value="tr" {% if Lang=="tr" %}selected{% endif %} translate>Turkish</option>
+					<option value="ru" {% if Lang=="ru" %}selected{% endif %} translate>Russian</option>
+				</select>
+
+			</div>
+			<div class="col-md-4 i_appearance i_option">
+				<label for="Theme">
+					<translate>Theme</translate>
+				</label>
+				<select class="form-control" name="Theme" id="Theme">
+					<option value="0" {% if Theme==0 %}selected{% endif %} translate>Blue / Dark</option>
+					<option value="1" {% if Theme==1 %}selected{% endif %} translate>Blue / Light</option>
+					<option value="2" {% if Theme==2 %}selected{% endif %} translate>Black / Light</option>
+					<option value="3" {% if Theme==3 %}selected{% endif %} translate>Brown / Light</option>
+					<option value="4" {% if Theme==4 %}selected{% endif %} translate>Black / Dark</option>
+				</select>
+
+			</div>
+			<div class="col-md-4 i_ramps i_hardware i_option i_lock">
+				<label for="ShieldType">
+					<translate>Shield Use</translate> {{helpPage("https://docs.nano3dtech.com/manual/shield/#hardware-choices")}}
+				</label>
+				<select class="form-control" name="ShieldType" id="ShieldType">
+					<option value="0" {% if ShieldType==0 %}selected{% endif %} translate>Disabled</option>
+					<option value="1" {% if ShieldType==1 %}selected{% endif %} translate>USB/Serial</option>
+					<option value="2" {% if ShieldType==2 %}selected{% endif %} class="conditional"
+						data-condition="#arch=='arm' && ['i_axis','i_hardware'].includes(#scategory)" translate>i2c</option>
+				</select>
+
+			</div>
+			<div class="col-md-4 i_shutter i_option i_lock">
+				<label for="ShutterMode">
+					<translate>Shutter</translate>
+				</label>
+				<select class="form-control" name="ShutterMode" id="ShutterMode">
+					<option value="2" {% if ShutterMode==2 %}selected{% endif %} translate>Disable</option>
+					<option value="1" {% if ShutterMode==1 %}selected{% endif %} translate>Open Before Each Layer
+					</option>
+					<option value="0" {% if ShutterMode==0 %}selected{% endif %} translate>Open Before Print</option>
+				</select>
+
+			</div>
+			<div class="col-md-4 i_axis conditional i_option i_lock" data-condition="#arch=='arm' && #scategory=='i_axis'">
+				<label for="ZAxisPin">
+					<translate>Step GPIO for Z-Axis</translate> {{helpPage("https://docs.nano3dtech.com/manual/direct/")}}
+				</label>
+				{{ gpio_select("ZAxisPin",ZAxisPin) }}
+			</div>
+			<div class="col-md-4 conditional i_axis i_option i_lock"
+				data-condition="#ZAxisPin > 0 && #arch=='arm' && #scategory=='i_axis'">
+				<label for="DirectionPin">
+					<translate>Direction GPIO</translate> {{helpPage("https://docs.nano3dtech.com/manual/direct/")}}
+				</label>
+				{{ gpio_select("DirectionPin",DirectionPin) }}
+
+			</div>
+			<div class="col-md-4 conditional i_axis i_option i_lock"
+				data-condition="#ZAxisPin > 0 && #arch=='arm' && #scategory=='i_axis'">
+				<label for="LimitPin">
+					<translate>Endstop Switch - Top Limit</translate>
+					{{helpPage("https://docs.nano3dtech.com/manual/direct/#endstop")}}
+				</label>
+				{{ gpio_select("LimitPin",LimitPin) }}
+
+			</div>
+			<div class="col-md-4 conditional i_axis i_option i_lock"
+				data-condition="#ZAxisPin > 0 && #arch=='arm' && #scategory=='i_axis'">
+				<label for="LimitPinB">
+					<translate>Endstop Switch - Bottom Limit</translate>
+					{{helpPage("https://docs.nano3dtech.com/manual/direct/#endstop")}}
+				</label>
+				{{ gpio_select("LimitPinB",LimitPinB) }}
+			</div>
+			<div class="col-md-4 conditional i_axis i_option i_lock"
+				data-condition="#ZAxisPin > 0 && (#LimitPinB>0||#LimitPin>0) && #arch=='arm' && #scategory=='i_axis'">
+				<label for="LimitPinMode">
+					<translate>Endstop Switch - Default State</translate>
+					{{helpPage("https://docs.nano3dtech.com/manual/direct/#endstop")}}
+				</label>
+				<select class="form-control" name="LimitPinMode" id="LimitPinMode">
+					<option value="0" {% if LimitPinMode==0 %}selected{% endif %} translate>High</option>
+					<option value="1" {% if LimitPinMode==1 %}selected{% endif %} translate>Low</option>
+				</select>
+			</div>
+			<div class="col-md-4 conditional i_axis i_option i_lock"
+				data-condition="#ZAxisPin > 0 && (#LimitPinB>0||#LimitPin>0) && #arch=='arm' && #scategory=='i_axis'">
+				<label for="LimitPinReset">
+					<translate>Reset Position on Limit</translate>
+					{{helpPage("https://docs.nano3dtech.com/manual/direct/#endstop")}}
+				</label>
+				<select class="form-control" name="LimitPinReset" id="LimitPinReset">
+					<option value="0" {% if LimitPinReset==0 %}selected{% endif %} translate>Yes</option>
+					<option value="1" {% if LimitPinReset==1 %}selected{% endif %} translate>No</option>
+				</select>
+			</div>
+			<div class="col-md-4 conditional i_axis i_option i_lock"
+				data-condition="#ZAxisPin > 0 && #arch=='arm' && #scategory=='i_axis'">
+				<label for="EnablePin">
+					<translate>Driver Enable GPIO</translate> {{helpPage("https://docs.nano3dtech.com/manual/direct/#enable-pin")}}
+				</label>
+				{{ gpio_select("EnablePin",EnablePin) }}
+
+			</div>
+			<div class="col-md-4 conditional i_axis i_option i_lock"
+				data-condition="#ZAxisPin > 0 && #EnablePin > 0 && #arch=='arm' && #scategory=='i_axis'">
+				<label for="EnablePinState">
+					<translate>Enable GPIO State</translate>
+				</label>
+				<select class="form-control" name="EnablePinState" id="EnablePinState">
+					<option value="0" {% if EnablePinState==0 %}selected{% endif %} translate>Low</option>
+					<option value="1" {% if EnablePinState==1 %}selected{% endif %} translate>High</option>
+				</select>
+
+			</div>
+			<div class="col-md-4 conditional i_axis i_option i_lock"
+				data-condition="#ZAxisPin > 0 && #EnablePin > 0 && #arch=='arm' && #scategory=='i_axis'">
+				<label for="EnablePinMode">
+					<translate>Enable GPIO Mode</translate>
+				</label>
+				<select class="form-control" name="EnablePinMode" id="EnablePinMode">
+					<option value="0" {% if EnablePinMode==0 %}selected{% endif %} translate>Enable on Boot</option>
+					<option value="1" {% if EnablePinMode==1 %}selected{% endif %} translate>Enable Before Each Print
+					</option>
+				</select>
+
+			</div>
+			<div class="col-md-4 conditional i_axis i_code i_option i_lock"
+				data-condition="#ZAxisPin > 0 && #arch=='arm' && ['i_axis','i_code'].includes(#scategory)">
+				<label for="SpeedFormula">
+					<translate>Custom Acceleration</translate> {{helpPage("https://docs.nano3dtech.com/manual/code/#dynamic-fields")}}
+					{{formulaModal()}}
+				</label>
+				<textarea class="form-control" name="SpeedFormula" id="SpeedFormula">{{SpeedFormula}}</textarea>
+			</div>
+			<div class="col-md-4 conditional i_ramps i_option i_lock"
+				data-condition="['1','2'].includes(#ShieldType) && #scategory=='i_ramps'">
+				<label for="ShieldEncoding">
+					<translate>Data Encoding</translate> {{helpPage("https://docs.nano3dtech.com/manual/shield/#encoding")}}
+				</label>
+				<select class="form-control" name="ShieldEncoding" id="ShieldEncoding">
+					<option value="0" {% if ShieldEncoding==0 %}selected{% endif %} translate>ASCII (\r\n)</option>
+					<option value="2" {% if ShieldEncoding==2 %}selected{% endif %} translate>ASCII (\n)</option>
+					<option value="3" {% if ShieldEncoding==3 %}selected{% endif %} translate>ASCII (\r)</option>
+					<option value="1" {% if ShieldEncoding==1 %}selected{% endif %} translate>Binary</option>
+				</select>
+
+			</div>
+			<div class="col-md-4 conditional i_ramps i_option i_lock"
+				data-condition="['1'].includes(#ShieldType) && #scategory=='i_ramps'">
+				<label for="ShieldUSBAddress">
+					<translate>USB/Serial Port Address</translate> {{helpPage("https://docs.nano3dtech.com/manual/shield/")}}
+				</label>
+				<input class="form-control" value="{{ShieldUSBAddress}}" name="ShieldUSBAddress" id="ShieldUSBAddress"
+					list="devices">
+				<datalist id="devices">
+					{% for path in devices %}
+					<option value="{{path}}">
+					{% endfor %}
+				</datalist>
+
+			</div>
+			<div class="col-md-4 conditional i_ramps i_option i_lock"
+				data-condition="['1'].includes(#ShieldType) && #scategory=='i_ramps'">
+				{{ speed_select("ShieldSpeed","Baud Rate",ShieldSpeed) }}
+
+			</div>
+			<div class="col-md-4 i_axis i_ramps i_option i_lock">
+				<label for="ShieldPositioning">
+					<translate>Movement Positioning</translate>
+				</label>
+				<select class="form-control" name="ShieldPositioning" id="ShieldPositioning">
+					<option value="0" {% if ShieldPositioning==0 %}selected{% endif %} translate>Relative</option>
+					<option value="1" {% if ShieldPositioning==1 %}selected{% endif %} translate>Absolute</option>
+				</select>
+
+			</div>
+			<div class="col-md-4 i_axis i_ramps i_option i_lock">
+				<label for="ShieldAxisMode">
+					<translate>Shield Axis Direction</translate>
+				</label>
+				<select class="form-control" name="ShieldAxisMode" id="ShieldAxisMode">
+					<option value="0" {% if ShieldAxisMode==0 %}selected{% endif %} translate>Zero at Bottom</option>
+					<option value="1" {% if ShieldAxisMode==1 %}selected{% endif %} translate>Zero at Top</option>
+				</select>
+			</div>
+			<div class="col-md-4 conditional i_axis i_hardware i_option i_lock"
+				data-condition="#arch=='arm' && ['i_axis','i_hardware'].includes(#scategory)">
+				<label for="WaitPin">
+					<translate>Wait GPIO</translate> {{helpPage("https://docs.nano3dtech.com/manual/hardware/#wait-pin")}}
+				</label>
+				{{ gpio_select("WaitPin",WaitPin) }}
+			</div>
+			<div class="col-md-4 conditional i_ramps i_option i_lock"
+				data-condition="#arch=='arm' && ['2'].includes(#ShieldType) && #scategory=='i_ramps'">
+				<label for="ShieldI2CAddress">
+					<translate>i2c Address</translate> <span class="label label-warning" translate>Restart Required</span>
+				</label>
+				<input class="form-control" value="{{ShieldI2CAddress}}" name="ShieldI2CAddress" id="ShieldI2CAddress"
+					type="number" min="0" max="127">
+
+			</div>
+
+			<div class="col-md-4 i_code i_option i_lock">
+				<label for="ShieldBootup">{{helpPage("https://docs.nano3dtech.com/manual/code/")}} {{formulaModal()}}
+					<translate>Bootup Code</translate></label>
+				<textarea class="form-control" name="ShieldBootup" id="ShieldBootup">{{ShieldBootup}}</textarea>
+
+			</div>
+			<div class="col-md-4 i_code i_option i_lock">
+				<label for="ShieldShutdown">{{helpPage("https://docs.nano3dtech.com/manual/code/")}} {{formulaModal()}}
+					<translate>Shutdown Code</translate></label>
+				<textarea class="form-control" name="ShieldShutdown" id="ShieldShutdown">{{ShieldShutdown}}</textarea>
+
+			</div>
+			<div class="col-md-4 i_code i_axis i_option i_lock">
+				<label for="ShieldStart">
+					<translate>Start of Print Code</translate> {{helpPage("https://docs.nano3dtech.com/manual/code/")}} 
+					{{formulaModal()}}
+				</label>
+				<textarea class="form-control" name="ShieldStart" id="ShieldStart">{{ShieldStart}}</textarea>
+			</div>
+			<div class="col-md-4 i_code i_axis i_option i_lock">
+				<label for="ShieldResume">
+					<translate>Resume Print Code</translate> {{helpPage("https://docs.nano3dtech.com/manual/code/")}} 
+					{{formulaModal()}}
+				</label>
+				<textarea class="form-control" name="ShieldResume" id="ShieldResume">{{ShieldResume}}</textarea>
+
+			</div>
+			<div class="col-md-4 i_code i_axis i_option i_lock">
+				<label for="ShieldFinish">
+					<translate>Print Stop Code</translate> {{formulaModal()}}
+				</label>
+				<textarea class="form-control" name="ShieldFinish" id="ShieldFinish">{{ShieldFinish}}</textarea>
+			</div>
+			<div class="col-md-4 i_code i_axis i_option i_lock">
+				<label for="ManualMoveGcode">
+					<translate>Manual Movement Code Template</translate>
+				</label>
+				<textarea class="form-control" name="ManualMoveGcode"
+					id="ManualMoveGcode">{{ManualMoveGcode}}</textarea>
+
+			</div>
+			<div class="col-md-4 i_code i_option i_lock">
+				<label for="BoardParser">
+					<translate>Controller Board Output Parser</translate>
+				</label>
+				<textarea class="form-control" name="BoardParser" id="BoardParser">{{BoardParser}}</textarea>
+			</div>
+			<div class="col-md-4 conditional i_shutter i_code i_option i_lock"
+				data-condition="['1','0'].includes(#ShutterMode) && ['i_shutter','i_code'].includes(#scategory)">
+				<label for="ShutterOpenGcode">
+					<translate>Shutter Open Code</translate>
+					{{helpPage("https://docs.nano3dtech.com/manual/code/#aync-codes")}} {{formulaModal()}} {{caution()}}
+				</label>
+				<textarea class="form-control" name="ShutterOpenGcode"
+					id="ShutterOpenGcode">{{ShutterOpenGcode}}</textarea>
+
+			</div>
+			<div class="col-md-4 conditional i_shutter i_code i_option i_lock"
+				data-condition="['1','0'].includes(#ShutterMode) && ['i_shutter','i_code'].includes(#scategory)">
+				<label for="ShutterCloseGcode">
+					<translate>Shutter Close Code</translate> {{helpPage("https://docs.nano3dtech.com/manual/code/#aync-codes")}} {{formulaModal()}} {{caution()}}
+				</label>
+				<textarea class="form-control" name="ShutterCloseGcode"
+					id="ShutterCloseGcode">{{ShutterCloseGcode}}</textarea>
+
+			</div>
+
+			<div class="col-md-4 conditional i_shutter i_option i_lock"
+				data-condition="#arch=='arm' && ['1','0'].includes(#ShutterMode) && ['i_shutter'].includes(#scategory)">
+				<label for="ShutterType">
+					<translate>Shutter Type</translate> {{helpPage("https://docs.nano3dtech.com/manual/hardware/#shutter")}}
+				</label>
+				<select class="form-control" name="ShutterType" id="ShutterType">
+					<option value="0" {% if ShutterType==0 %}selected{% endif %} translate>Through Shield</option>
+					<option value="1" {% if ShutterType==1 %}selected{% endif %} translate>Servo Motor</option>
+					<option value="2" {% if ShutterType==2 %}selected{% endif %} translate>True/False Signal</option>
+				</select>
+
+			</div>
+			<div class="col-md-4 conditional ShutterType_toggle i_shutter i_option i_lock"
+				data-condition="#arch=='arm' && ['1','0'].includes(#ShutterMode) && ['i_shutter'].includes(#scategory)">
+				<label for="ShutterPin">
+					<translate>Shutter GPIO</translate> {{helpPage("https://docs.nano3dtech.com/manual/hardware/#gpio")}}
+				</label>
+				{{ gpio_select("ShutterPin",ShutterPin) }}
+
+			</div>
+			<div class="col-md-4 conditional ShutterType_toggle i_shutter i_option i_lock"
+				data-condition="#arch=='arm' && ['1','0'].includes(#ShutterMode) && ['i_shutter'].includes(#scategory)">
+				<label for="ShutterOpen">
+					<translate>Servo Pulse Width - Open</translate> <span class="label label-default"
+						translate>ms</span> {{helpPage("https://docs.nano3dtech.com/manual/hardware/#servo")}}
+				</label>
+				<input class="form-control" value="{%if ShutterOpen>499 %}{{ShutterOpen}}{% else %}500{% endif %}" name="ShutterOpen" id="ShutterOpen" type="number"
+					min="500" max="2500">
+			</div>
+			<div class="col-md-4 conditional ShutterType_toggle i_shutter i_option i_lock"
+				data-condition="#arch=='arm' && ['1','0'].includes(#ShutterMode) && ['i_shutter'].includes(#scategory)">
+				<label for="ShutterClose">
+					<translate>Servo Pulse Width - Close</translate> <span class="label label-default"
+						translate>ms</span> {{helpPage("https://docs.nano3dtech.com/manual/hardware/#servo")}}
+				</label>
+				<input class="form-control" value="{%if ShutterClose>499 %}{{ShutterClose}}{% else %}500{% endif %}" name="ShutterClose" id="ShutterClose" type="number"
+					min="500" max="2500">
+			</div>
+			<div class="col-md-4 conditional ShutterType_toggle i_shutter i_option i_lock"
+				data-condition="#arch=='arm' && ['1','0'].includes(#ShutterMode) && ['i_shutter'].includes(#scategory)">
+				<label for="ShutterSignalLength">
+					<translate>Servo Signal Length</translate> <span class="label label-default"
+						translate>Millisecond</span> {{helpPage("https://docs.nano3dtech.com/manual/hardware/#servo")}}
+				</label>
+				<input class="form-control" value="{{ShutterSignalLength}}" name="ShutterSignalLength"
+					id="ShutterSignalLength" type="number">
+
+			</div>
+			<div class="col-md-4 i_display i_slicing i_option i_lock">
+				<label for="ProjectorWidth">
+					<translate>Horizontal Resolution</translate>{{regenerateRequired()}}
+				</label>
+				<input class="form-control" value="{%if ProjectorWidth>1 %}{{ProjectorWidth}}{% else %}1920{% endif %}" name="ProjectorWidth" id="ProjectorWidth"
+					type="number" min="1" required>
+			</div>
+			<div class="col-md-4 i_display i_slicing i_option i_lock">
+				<label for="ProjectorHeight">
+					<translate>Vertical Resolution</translate>{{regenerateRequired()}}
+				</label>
+				<input class="form-control" value="{%if ProjectorHeight>1 %}{{ProjectorHeight}}{% else %}1080{% endif %}" name="ProjectorHeight" id="ProjectorHeight"
+					type="number" min="1" required>
+
+			</div>
+			<div class="col-md-4 i_display i_slicing i_option i_lock">
+				<label for="DisplayController">
+					<translate>Display Controller</translate> 
+				</label>
+				<select class="form-control" name="DisplayController" id="DisplayController">
+					<option value="0" {% if DisplayController==0 %}selected{% endif %} translate>Normal</option>
+					<option value="1" {% if DisplayController==1 %}selected{% endif %} translate>Non-Standard Monochrome</option>
+				</select>
+			</div>
+			<div class="col-md-4 i_display i_slicing i_option i_lock">
+				<label for="XYRes">
+					<translate>X/Y Resolution</translate> <span class="label label-default"
+						translate>μm</span>{{helpModal("xy-resolution")}}{{regenerateRequired()}}
+				</label>
+				<input class="form-control" value="{%if XYRes>1 %}{{XYRes}}{% else %}50{% endif %}" name="XYRes" id="XYRes" step="0.001" type="number" min="1"
+					required>
+			</div>
+			<div class="col-md-4 i_display i_slicing i_option i_lock">
+				<label for="YRes">
+					<translate>Y Resolution</translate> <span
+						class="label label-default translate">μm</span>{{helpModal("y-resolution,xy-resolution")}}{{regenerateRequired()}}
+				</label>
+				<input class="form-control" value="{{YRes}}" name="YRes" id="YRes" step="0.001" type="number">
+			</div>
+			<div class="col-md-4 i_quality i_slicing i_option i_lock">
+				<label for="BarrelFactor">
+					<translate>Lens Barrel Factor</translate> {{helpPage("https://docs.nano3dtech.com/manual/barrel/")}}{{regenerateRequired()}}
+				</label>
+				<input class="form-control" value="{{ConfigSlicerOptions.BarrelFactor}}" name="BarrelFactor" id="BarrelFactor" step="0.001"
+					type="number">
+
+			</div>
+			<div class="col-md-4 i_quality i_slicing i_option i_lock">
+				<label for="BarrelX">
+					<translate>Center of Barrel - X</translate> <span class="label label-default"
+						translate>Pixel</span>{{regenerateRequired()}}
+				</label>
+				<input class="form-control" value="{{ConfigSlicerOptions.BarrelX}}" name="BarrelX" id="BarrelX" type="number">
+			</div>
+			<div class="col-md-4 i_quality i_slicing i_option i_lock">
+				<label for="BarrelY">
+					<translate>Center of Barrel - Y</translate> <span class="label label-default"
+						translate>Pixel</span>{{regenerateRequired()}}
+				</label>
+				<input class="form-control" value="{{ConfigSlicerOptions.BarrelY}}" name="BarrelY" id="BarrelY" type="number">
+			</div>
+			<div class="col-md-4 i_display i_slicing i_option i_lock">
+				<label for="ImageMirror">
+					<translate>Mirror Layers</translate> {{regenerateRequired()}}
+				</label>
+				<select class="form-control" name="ImageMirror" id="ImageMirror">
+					<option value="0" {% if ConfigSlicerOptions.ImageMirror==0 %}selected{% endif %} translate>Disabled</option>
+					<option value="1" {% if ConfigSlicerOptions.ImageMirror==1 %}selected{% endif %} translate>Horizontally</option>
+					<option value="2" {% if ConfigSlicerOptions.ImageMirror==2 %}selected{% endif %} translate>Vertically</option>
+					<option value="3" {% if ConfigSlicerOptions.ImageMirror==3 %}selected{% endif %} translate>Both</option>
+				</select>
+			</div>
+			<div class="col-md-4 i_display i_option i_lock">
+				<label for="ProjectorType">
+					<translate>Display Communication Type</translate> {{helpPage("https://docs.nano3dtech.com/manual/hardware/#projector")}}
+				</label>
+				<select class="form-control" name="ProjectorType" id="ProjectorType">
+					<option value="0" {% if ProjectorType==0 %}selected{% endif %} translate>Disabled</option>
+					<option value="1" {% if ProjectorType==1 %}selected{% endif %} translate>USB / Serial Port - ASCII (\r\n)</option>
+					<option value="5" {% if ProjectorType==5 %}selected{% endif %} translate>USB / Serial Port - ASCII (\r)</option>
+					<option value="6" {% if ProjectorType==6 %}selected{% endif %} translate>USB / Serial Port - ASCII (\n)</option>
+					<option value="2" {% if ProjectorType==2 %}selected{% endif %} translate>USB / Serial Port - Binary</option>
+					<!--<option value="3" {% if ProjectorType==3 %}selected{% endif %} translate>Execution Only</option>-->
+				</select>
+
+			</div>
+			<div class="col-md-4 ProjectorType_toggle i_display i_option i_lock">
+				<label for="ProjectorWarmup">
+					<translate>Display Warm-up Time</translate> <span class="label label-default"
+						translate>Second</span>
+				</label>
+				<input class="form-control" value="{{ProjectorWarmup}}" name="ProjectorWarmup" id="ProjectorWarmup"
+					type="number">
+			</div>
+			<div class="col-md-4 ProjectorType_toggle i_display i_quality i_option i_lock">
+				<label for="ProjectorLampQuery">
+					<translate>Query Lamp Hours</translate> {{helpPage("https://docs.nano3dtech.com/manual/hardware/#lamp")}}
+				</label>
+				<input class="form-control" value="{{ProjectorLampQuery}}" name="ProjectorLampQuery"
+					id="ProjectorLampQuery">
+			</div>
+			<div class="col-md-4 ProjectorType_toggle i_display i_quality i_option i_lock">
+				<label for="ProjectorLampEffect">
+					<translate>Lamp Brightness</translate> <span class="label label-default"
+						translate>Percentage</span> {{helpPage("https://docs.nano3dtech.com/manual/hardware/#lamp")}}
+				</label>
+				<input class="form-control" value="{{ProjectorLampEffect}}" name="ProjectorLampEffect"
+					id="ProjectorLampEffect" step="0.01" type="number">
+			</div>
+			<div class="col-md-4 ProjectorType_toggle i_display i_option i_lock">
+				{{ speed_select("ProjectorSpeed","Baud Rate",ProjectorSpeed) }}
+			</div>
+			<div class="col-md-4 ProjectorType_toggle i_display i_option i_lock">
+				<label for="ProjectorAddress">
+					<translate>Projector USB/Serial Port Address</translate>
+				</label>
+				<input class="form-control" value="{{ProjectorAddress}}" name="ProjectorAddress" id="ProjectorAddress"
+					list="devices">
+			</div>
+			<div class="col-md-4 ProjectorType_toggle i_display i_option i_lock">
+				<label for="ProjectorOn">
+					<translate>Display Turn On Command</translate>
+				</label>
+				<input class="form-control" value="{{ProjectorOn}}" name="ProjectorOn" id="ProjectorOn">
+			</div>
+			<div class="col-md-4 ProjectorType_toggle i_display i_option i_lock">
+				<label for="ProjectorOff">
+					<translate>Display Turn Off Command</translate>
+				</label>
+				<input class="form-control" value="{{ProjectorOff}}" name="ProjectorOff" id="ProjectorOff">
+
+			</div>
+			<div class="col-md-4 ProjectorType_toggle i_display i_option i_lock">
+				<label for="ProjectorPowerCycle">
+					<translate>Display Power Cycle</translate>
+				</label>
+				<select class="form-control" name="ProjectorPowerCycle" id="ProjectorPowerCycle">
+					<option value="0" {% if ProjectorPowerCycle==0 %}selected{% endif %} translate>Power-Up on Start / Power-Down on Stop</option>
+					<option value="1" {% if ProjectorPowerCycle==1 %}selected{% endif %} translate>Power-Up on Start / Power-Down on Shutdown</option>
+					<option value="2" {% if ProjectorPowerCycle==2 %}selected{% endif %} translate>Power-Up on Start / Power-Down on Last Layer</option>
+				</select>
+			</div>
+			<div class="col-md-4 i_display i_option i_lock">
+				<label for="DisplayID">
+					<translate>Display Number</translate> {{helpPage("https://docs.nano3dtech.com/manual/display-engine/")}}
+				</label>
+				<input class="form-control" value="{{DisplayID}}" name="DisplayID" id="DisplayID">
+			</div>
+			<div class="col-md-4 i_display i_option i_lock">
+				<label for="DispConn">
+					<translate>Display Connection</translate> {{helpPage("https://docs.nano3dtech.com/manual/display-engine/#direct")}}
+				</label>
+				<select id="displays" class="form-control" value="{{DispConn}}" name="DispConn" id="DispConn" list="displays">
+					<option value='' {% if (DispConn==display.Conn) %}selected{% endif %}>
+					{% for display in displays %}
+					<option value='{{display.Conn}}' {% if (DispConn==display.Conn) %}selected{% endif %}>{{display.Name}}
+					{% endfor %}
+				</select>
+			</div>
+			<div class="col-md-4 i_display i_option i_lock">
+				<label for="FBPath">
+					<translate>Framebuffer Path</translate> {{helpPage("https://docs.nano3dtech.com/manual/display-engine/#framebuffer")}}
+				</label>
+				<input class="form-control" value="{{FBPath}}" name="FBPath" id="FBPath" list="framebuffers">
+				<datalist id="framebuffers">
+					{% for path in framebuffers %}
+					<option value="{{path}}">
+					{% endfor %}
+				</datalist>
+			</div>
+			<div class="col-md-4 i_display i_quality i_code i_option i_lock">
+				<label for="LightOutputFormula">
+					<translate>Light Output Formula</translate> <span class="label label-default"
+						translate>Percentage</span>  {{helpPage("https://docs.nano3dtech.com/manual/code/#light-output")}} {{formulaModal()}}
+				</label>
+				<input class="form-control" value="{{LightOutputFormula}}" name="LightOutputFormula"
+					id="LightOutputFormula">
+
+			</div>
+
+			<div class="col-md-4 i_axis i_option i_lock">
+				<label for="StopPositionMm">
+					<translate>Platform Stop Position</translate> <span class="label label-default"
+						translate>Millimeter</span>{{helpModal("wait-position")}}
+				</label>
+				<input class="form-control" value="{{StopPositionMm}}" name="StopPositionMm" id="StopPositionMm"
+					type="number" step="0.001">
+			</div>
+			<div class="col-md-4 i_axis i_option i_lock">
+				<label for="ResinDistanceMm">
+					<translate>Resin Depth</translate> <span class="label label-default"
+						translate>Millimeter</span>
+				</label>
+				<input class="form-control" value="{{ResinDistanceMm}}" name="ResinDistanceMm" id="ResinDistanceMm"
+					type="number" step="0.001">
+			</div>
+
+			<div class="col-md-4 i_axis i_option i_lock">
+				<label for="MaxSpeed">
+					<translate>Max Speed</translate> <span class="label label-default"
+						translate>μm/Second</span> {{helpPage("https://docs.nano3dtech.com/manual/speed/")}}
+				</label>
+				<input class="form-control" value="{{MaxSpeed}}" name="MaxSpeed" id="MaxSpeed" type="number"
+					step="0.001">
+			</div>
+			<div class="col-md-4 i_axis i_option i_lock">
+				<label for="MinSpeed">
+					<translate>Min Speed</translate> {{helpPage("https://docs.nano3dtech.com/manual/speed/")}}
+				</label>
+				<input class="form-control" value="{{MinSpeed}}" name="MinSpeed" id="MinSpeed" type="number">
+			</div>
+			<div class="col-md-4 i_axis i_option i_lock">
+				<label for="StartupSpeed">
+					<translate>Motor Startup Speed</translate> {{helpPage("https://docs.nano3dtech.com/manual/speed/")}}
+				</label>
+				<input class="form-control" value="{{StartupSpeed}}" name="StartupSpeed" id="StartupSpeed" type="number">
+			</div>
+			<div class="col-md-4 i_axis i_option i_lock">
+				<label for="MotorDegree">
+					<translate>Motor Step Angle</translate>
+				</label>
+				<input class="form-control" value="{{MotorDegree}}" name="MotorDegree" id="MotorDegree" type="number"
+					step="0.01">
+
+			</div>
+			<div class="col-md-4 i_axis i_option i_lock">
+				<label for="MicroStep">
+					<translate>Microstep</translate> {{helpPage("https://docs.nano3dtech.com/manual/direct/#microstepping")}}
+				</label>
+				<input class="form-control" value="{{MicroStep}}" name="MicroStep" type="number" id="MicroStep">
+			</div>
+			<div class="col-md-4 i_axis i_option i_lock">
+				<label for="LeadscrewPitch">
+					<translate>Leadscrew Pitch</translate> <span class="label label-default"
+						translate>Millimeter</span> {{helpPage("https://docs.nano3dtech.com/manual/direct/#pitch")}}
+				</label>
+				<input class="form-control" value="{{LeadscrewPitch}}" name="LeadscrewPitch" id="LeadscrewPitch"
+					step="0.0001" type="number">
+			</div>
+			<div class="col-md-4 i_axis i_option i_lock">
+				<label for="ZAxisHeight">
+					<translate>Z-Axis Height</translate> 
+					<span class="label label-default" translate>Pulse</span>
+					<span id="axis_in_mm">-</span> 
+					<span class="label label-default" translate>mm</span> 
+					{{helpModal("zaxis-height")}}
+				</label>
+				<input class="form-control" value="{{ZAxisHeight}}" name="ZAxisHeight" id="ZAxisHeight" type="number">
+			</div>
+
+			<div class="col-md-4 i_camera i_option i_lock">
+				<label for="CameraFrequency">
+					<translate>Camera Photo Frequency</translate>
+				</label>
+				<select class="form-control" name="CameraFrequency" id="CameraFrequency">
+					<option value="0" {% if CameraFrequency==0 %}selected{% endif %} translate>Disabled</option>
+					<option value="-1" {% if CameraFrequency==-1 %}selected{% endif %} translate>Only Manually</option>
+					<option value="1" {% if CameraFrequency==1 %}selected{% endif %} translate>Once Per Layer</option>
+					<option value="2" {% if CameraFrequency==2 %}selected{% endif %} translate>Once Per 2 Layers
+					</option>
+					<option value="3" {% if CameraFrequency==3 %}selected{% endif %} translate>Once Per 3 Layers
+					</option>
+					<option value="5" {% if CameraFrequency==5 %}selected{% endif %} translate>Once Per 5 Layers
+					</option>
+					<option value="10" {% if CameraFrequency==10 %}selected{% endif %} translate>Once Per 10 Layers
+					</option>
+				</select>
+			</div>
+			<div class="col-md-4 CameraFrequency_toggle i_camera i_option i_lock">
+				<label for="CameraStore">
+					<translate>Storage Mode</translate>
+				</label>
+				<select class="form-control" name="CameraStore" id="CameraStore">
+					<option value="0" {% if CameraStore==0 %}selected{% endif %} translate>Only Last Image</option>
+					<option value="1" {% if CameraStore==1 %}selected{% endif %} translate>All Images</option>
+				</select>
+			</div>
+			<div class="col-md-4 CameraFrequency_toggle i_camera i_option i_lock">
+				<label for="CameraCommand">
+					<translate>Camera Command</translate>  {{helpPage("https://docs.nano3dtech.com/manual/hardware/#camera")}}
+				</label>
+				<input class="form-control" value="{{CameraCommand}}" name="CameraCommand" id="CameraCommand">
+			</div>
+			<div class="col-md-4 i_hmi i_option i_lock">
+				<label for="USBDisplayAddress">
+					<translate>Nextion Display Port Address</translate> {{helpPage("https://docs.nano3dtech.com/manual/hardware/#projector")}}
+				</label>
+				<input class="form-control" value="{{USBDisplayAddress}}" name="USBDisplayAddress"
+					id="USBDisplayAddress" list="devices">
+				<datalist id="devices">
+					{% for path in devices %}
+					<option value="{{path}}">
+					{% endfor %}
+				</datalist>
+			</div>	
+				<div class="col-md-4 conditional i_hardware i_option i_lock" data-condition="#arch=='arm' && #scategory=='i_hardware'">
+				<label for="ShutdownPin">
+					<translate>Stop/Shutdown Physical GPIO</translate> {{helpPage("https://docs.nano3dtech.com/manual/hardware/#shutdown")}}
+				</label>
+				{{ gpio_select("ShutdownPin",ShutdownPin) }}
+			</div>
+			<div class="col-md-4 conditional i_hardware i_option i_lock" data-condition="#arch=='arm' && #scategory=='i_hardware'">
+				<label for="FaultPin">
+					<translate>Stepper Driver Fault Detection GPIO</translate> {{helpPage("https://docs.nano3dtech.com/manual/hardware/#fault-detection")}}
+				</label>
+				{{ gpio_select("FaultPin",FaultPin) }}
+			</div>
+			<div class="col-md-4 conditional FaultPin_toggle i_hardware i_option i_lock" data-condition="#arch=='arm' && #scategory=='i_hardware'">
+				<label for="FaultPinState">
+					<translate>Fault GPIO Default State</translate>
+				</label>
+				<select class="form-control" name="FaultPinState" id="FaultPinState">
+					<option value="0" {% if FaultPinState==0 %}selected{% endif %} translate>Low</option>
+					<option value="1" {% if FaultPinState==1 %}selected{% endif %} translate>High</option>
+				</select>
+			</div>
+
+			<div class="col-md-4 i_network i_option i_lock">
+				<label for="Port">
+					<translate>TCP Port to Listen</translate> <span class="label label-warning" translate>Restart Required</span>
+				</label>
+				<input class="form-control" value="{{Port}}" name="Port" id="Port" min="80" max="65535" type="number">
+			</div>
+			<div class="col-md-4 i_appearance i_option">
+				<label for="Mute">
+					<translate>Play Sound After Print Stop</translate>
+				</label>
+				<select class="form-control" name="Mute" id="Mute">
+					<option value="0" {% if Mute==0 %}selected{% endif %} translate>Enable</option>
+					<option value="1" {% if Mute==1 %}selected{% endif %} translate>Disable</option>
+				</select>
+
+			</div>
+			<div class="col-md-4 i_slicing i_network i_option i_lock">
+				<label for="RemoteSlicer">
+					<translate>Remote Slicer</translate>  {{helpPage("https://docs.nano3dtech.com/manual/remote-slicing/")}}
+				</label>
+				<input class="form-control" value="{{RemoteSlicer}}" name="RemoteSlicer" id="RemoteSlicer"
+					placeholder="IP:Port">
+			</div>
+			<div class="col-md-4 i_slicing i_option i_lock">
+				<label for="AutoSlice">
+					<translate>Auto Slice</translate>
+				</label>
+				<select class="form-control" name="AutoSlice" id="AutoSlice">
+					<option value="0" {% if AutoSlice==0 %}selected{% endif %} translate>Enable</option>
+					<option value="1" {% if AutoSlice==1 %}selected{% endif %} translate>Disable</option>
+				</select>
+			</div>
 		</div>
-		<div id="buttonsSection" class="tab-pane fade">
-		{% include "setup-buttons.html" %}
-		</div>
-		<div id="passwordSection" class="tab-pane fade">
-			<h3 translate>Local Panel Password Protection</h3>
-			<form action="/add-protection" method="post" class="edit-page">
-				<div class="row">
-					<div class="col-md-3">
-						<label for="username" translate>Username for Admin</label>
-						<input name="username" class="form-control">
-					</div>
-					<div class="col-md-3">
-						<label for="password" translate>Password for Admin</label>
-						<input name="password" type="password" class="form-control">
-						<br>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-3">
-						<label for="viewUsername" translate>Username for Dashboard</label>
-						<input name="viewUsername" class="form-control">
-					</div>
-					<div class="col-md-3">
-						<label for="viewPassword" translate>Password for Dashboard</label>
-						<input name="viewPassword" type="password" class="form-control">
-					</div>
-				</div>
-				<br>
-				<div class="note">
-					<ul>
-						<li translate>Admin has access to all functions including the dashboard.</li>
-						<li translate>Empty username for dashboard, makes the dashboard accessible to everyone without authentication.</li>
-						<li translate>To remove the password protection, remove the username from the input and submit.</li>
-					</ul>
-				</div>
-				<br>
-				<button type="submit" class="btn btn-success" name="user" value="add" translate>Save</button>
-			</form>
-			<h3 translate>Remote Access to the printer</h3>
-			<form action="/online-access" method="post" class="edit-page">
-				<div class="row">
-					<div class="col-md-3">
-						<label for="onlineKey" translate>Online Access Key</label>
-						<input name="onlineKey" type="onlineKey" class="form-control">
-					</div>
-				</div>
-				<br>
-				<div class="note" translate>To enable the remote access to the printer, please enter random access key</div>
-				<br>
-				<button type="submit" class="btn btn-success" name="user" value="add" translate>Save</button>
-			</form>
-		</div>
-		<div id="toolsSection" class="tab-pane fade">
-			<a class="btn btn-success" href="/setup/export" translate>Export Machine Settings File</a>
-			<br>
-			<a class="btn btn-success" href="/import" title="Import Machine File" translate>Import Machine Settings</a>
-			<br>
-			<a class="btn btn-success" href="/debug" translate>Debug Info</a>
-			<br>
-			<div class="alert alert-warning" role="alert" translate>Any of the following actions will take effect immediately after click, without changing the page.</div>
-			<a class="ajax btn btn-danger" data-ajax="/" href="/printer/force-stop" data-confirm="stop-confirm" translate>Force Stop</a>
-			<translate class="hide" id="stop-confirm">Are you sure you want to force stop the printer?</translate>
-			<br>
-			<a class="ajax btn btn-danger" data-ajax="/" href="/printer/off" data-confirm="poweroff-confirm" translate>Power Off</a>
-			<translate class="hide" id="poweroff-confirm">Are you sure you want to power off the printer?</translate>
-			<br>
-			<a class="ajax btn btn-danger" data-ajax="/" href="/printer/restart" data-confirm="restart-confirm" translate>Restart</a>
-			<translate class="hide" id="restart-confirm">Are you sure you want to restart the printer?</translate>
-			<br>
-			<a class="ajax btn btn-danger" data-ajax="/" href="/printer/terminate" data-confirm="terminate-confirm" translate>Terminate nanoDLP</a>
-			<translate class="hide" id="terminate-confirm">Are you sure you want to terminate nanoDLP and have access to terminal?</translate>
-			<br>
-			{% if arch=="arm" %}
-				<a class="ajax btn btn-danger" data-ajax="/" href="/printer/restore" data-confirm="restore-confirm" translate>Restore Default Settings of Machine/Profiles/Buttons</a>
-				<translate class="hide" id="restore-confirm">Are you sure you want to restore the default settings and reboot the printer?</translate>
-				<br>
-				<a class="btn btn-danger" href="/printer/distro/change" translate>Change Distribution</a>
-				<br>
-				<a class="btn btn-danger" href="/printer/upgrade" translate>Upgrade nanoDLP</a>
-				<br>
-				<br>
-				<div class="alert alert-warning" role="alert" translate>Filesystem expantion will run silently in background, and will restart the Raspberry Pi afterward. Please do not change anything.</div>
-				<a class="ajax btn btn-danger" data-ajax="/" href="/printer/expand-fs" data-confirm="expand-confirm" translate>Expand Filesystem</a>
-				<translate class="hide" id="expand-confirm">Are you sure you want to expand filesystem?</translate>
-			{% endif %}
-		</div>
-	</div>
-	<br>
-	<br>
+		<br>
+		<input type="hidden" value="{{PreviewGenerate}}" name="PreviewGenerate">
+		<input type="hidden" value="{{DefaultProfile}}" name="DefaultProfile">
+		<input type="hidden" value="{{arch}}" id="arch">
+		<input type="hidden" value="{{OEMLock}}" id="OEMLock">
+		<input type="hidden" value="{{ConfigSlicerOptions.PreviewHeight}}" name="PreviewHeight">
+		<input type="hidden" value="{{ConfigSlicerOptions.PreviewWidth}}" name="PreviewWidth">
+		<input type="hidden" value="{{ShieldPause}}" name="ShieldPause">
+		<input type="hidden" value="{{ShieldUnpause}}" name="ShieldUnpause">
+		<input type="hidden" name="ReverseDirectionPin" value="{{ReverseDirectionPin}}">
+		<input type="hidden" name="ShieldForceStop" value="{{ShieldForceStop}}">
+		<input type="hidden" name="FanOnGcode" value="{{FanOnGcode}}">
+		<input type="hidden" name="FanOffGcode" value="{{FanOffGcode}}">
+		<input type="hidden" name="TopGcode" value="{{TopGcode}}">
+		<input type="hidden" name="CalibrationGcode" value="{{CalibrationGcode}}">
+		<input type="hidden" name="BottomGcode" value="{{BottomGcode}}">
+		<input type="hidden" name="PressureType" value="{{PressureType}}">
+		<input type="hidden" name="PressureAddress" value="{{PressureAddress}}">
+		<input type="hidden" name="PressureSpeed" value="{{PressureSpeed}}">
+		<input type="hidden" name="PressureDebug" value="{{PressureDebug}}">
+		<input type="hidden" name="PressureRegex" value="{{PressureRegex}}">
+		<input type="hidden" name="ScaleClockPin" value="{{ScaleClockPin}}">
+		<input type="hidden" name="ScaleDataPin" value="{{ScaleDataPin}}">
+		<input type="hidden" name="OpenScaleAddress" value="{{OpenScaleAddress}}">
+		<input type="hidden" name="ProjectorOnSyscall" value="{{ProjectorOnSyscall}}">
+		<input type="hidden" name="ProjectorOffSyscall" value="{{ProjectorOffSyscall}}">
+		<input type="hidden" name="LCDPath" value="{{LCDPath}}">
+		<input type="hidden" name="LCDAddress" value="{{LCDAddress}}">
+		<input type="hidden" name="LCDType" value="{{LCDType}}">
+		<input type="hidden" name="UpdateCustomInput" value="true">
+		{{ customInputs(inputs,CustomValues,0)}}
+		<button type="submit" class="btn btn-success" translate>Save</button> &nbsp; 
+		<a type="submit" class="btn btn-warning" href="/setup" translate>Cancel</a>
+	</form>	
 	<br>
 	<br>
 </div>

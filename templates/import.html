@@ -5,7 +5,7 @@
 	<form action="/profile/import" method="post" class="edit-page" enctype="multipart/form-data">
 		<div class="row">
 			<div class="col-md-12">
-				<label for="file" class="tip" data-tip="JSON file to restore" translate>Import Profile</label>
+				<label for="file" translate>Import Profile</label>
 				<input name="JsonFile" id="file" type="file" accept=".json" required>
 				<br>
 				<button type="submit" class="btn btn-success" translate>Import Profile</button>
@@ -16,7 +16,7 @@
 	<form action="/profile/fetch" method="post" class="edit-page">
 		<div class="row">
 			<div class="col-md-12">
-				<label for="file" class="tip" data-tip="JSON file to restore" translate>Download Profile</label>
+				<label for="file" translate>Download Profile</label>
 				<input name="url" type="text" placeholder="Copy & Paste Profile URL" required>
 				<br>
 				<button type="submit" class="btn btn-success" translate>Download & Import Profile</button>
@@ -27,7 +27,7 @@
 	<form action="/setup/import" method="post" class="edit-page" enctype="multipart/form-data">
 		<div class="row">
 			<div class="col-md-12">
-				<label for="file" class="tip" data-tip="JSON file to restore" translate>Restore Machine Settings</label>
+				<label for="file" translate>Restore Machine Settings</label>
 				<input name="JsonFile" id="file" type="file" accept=".json" required>
 				<br>
 				<button type="submit" class="btn btn-success">Restore Machine Settings</button>
@@ -38,7 +38,7 @@
 	<form action="/setup/fetch" method="post" class="edit-page">
 		<div class="row">
 			<div class="col-md-12">
-				<label for="file" class="tip" data-tip="JSON file to restore" translate>Download Machine Settings</label>
+				<label for="file" translate>Download Machine Settings</label>
 				<input name="url" type="text" placeholder="Copy & Paste Machine Settings URL" required>
 				<br>
 				<button type="submit" class="btn btn-success" translate>Download & Restore Machine Settings</button>
@@ -46,7 +46,7 @@
 		</div>
 	</form>
 	<br>
-	<a href="https://www.nanodlp.com/repo/" translate>Machine Settings and Profiles Repository</a>
+	<a href="https://www.nano3dtech.com/repo/" translate>Machine Settings and Profiles Repository</a>
 	<br>
 </div>
 {% endblock %}

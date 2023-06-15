@@ -3,48 +3,74 @@
 <div class="row">
 	<div class="col-md-3">
 		<div class="box">
-			<img src="/static/general/calibration.png" style="width: 240px;" >
+			<img src="/static/general/boundaries.png" style="width: 240px;">
 			<div class="caption">
-				<h3 translate>Dynamic Calibration</h3>
-				<p><a href="/projector/generate/calibration" class="btn btn-primary" translate>Display</a> <a href="/projector/blank" class="btn" translate>Close</a></p>
+				<h3>
+					<translate>Boundary & Size</translate> {{helpPage("https://docs.nano3dtech.com/manual/display-calibration/#boundary")}}
+				</h3>
+				<p>
+					<a href="/projector/generate/boundaries" class="btn btn-info svg">{{ icon(computer_icon) }}</a>
+					<a href="/projector/generate/boundaries-red" class="btn btn-info svg" style="color:red">{{ icon(computer_icon) }}</a>
+					<a href="/projector/blank" class="btn btn-info svg" style="color:black">{{ icon(filldisplay_icon) }}</a>
+				</p>
 			</div>
 		</div>
 	</div>
 	<div class="col-md-3">
 		<div class="box">
-			<img src="/static/general/calibration-red.png" style="width: 240px;" >
+			<img src="/static/general/calibration-red.png" style="width: 240px;">
 			<div class="caption">
-				<h3 translate>Dynamic Red Calib.</h3>
-				<p><a href="/projector/generate/calibration-red" class="btn btn-primary" translate>Display</a> <a href="/projector/blank" class="btn" translate>Close</a></p>
+				<h3>
+					<translate>Pixel Check</translate> {{helpPage("https://docs.nano3dtech.com/manual/display-calibration/#pixel-check")}}
+				</h3>
+				<p>
+					<a href="/projector/generate/hr" class="btn btn-info svg">{{ icon(hr_icon) }}</a>
+					<a href="/projector/generate/vr" class="btn btn-info svg">{{ icon(vr_icon) }}</a>
+					<a href="/projector/blank" class="btn btn-info svg" style="color:black">{{ icon(filldisplay_icon) }}</a>
 			</div>
 		</div>
 	</div>
 	<div class="col-md-3">
 		<div class="box">
-			<img src="/static/general/boundaries.png" style="width: 240px;" >
+			<img src="/static/general/calibration.png" style="width: 240px;">
 			<div class="caption">
-				<h3 translate>Boundaries</h3>
-				<p><a href="/projector/generate/boundaries" class="btn btn-primary" translate>Display</a> <a href="/projector/blank" class="btn" translate>Close</a></p>
+				<h3>
+					<translate>Focus Calibration</translate> {{helpPage("https://docs.nano3dtech.com/manual/display-calibration/#focus")}}
+				</h3>
+				<p>
+					<a href="/projector/generate/calibration" class="btn btn-info svg">{{ icon(computer_icon) }}</a>
+					<a href="/projector/generate/calibration-red" class="btn btn-info svg" style="color:red">{{ icon(computer_icon) }}</a>
+					<a href="/projector/blank" class="btn btn-info svg" style="color:black">{{ icon(filldisplay_icon) }}</a>
 			</div>
 		</div>
 	</div>
-       <div class="col-md-3">
+	<div class="col-md-3">
 		<div class="box">
-			<img src="/static/general/white.png" style="width: 240px;" >
+			<img src="/static/general/white.png" style="width: 240px;">
 			<div class="caption">
-				<h3 translate>Full White</h3>
-				<p><a href="/projector/generate/white" class="btn btn-primary" translate>Display</a> <a href="/projector/blank" class="btn" translate>Close</a></p>
+				<h3>
+					<translate>Full White</translate> {{helpPage("https://docs.nano3dtech.com/manual/display-calibration/#white")}}
+				</h3>
+				<p>
+					<a href="/projector/generate/white" class="btn btn-info svg">{{ icon(computer_icon) }}</a>
+					{% if mask %}
+					<a href="/projector/display/plates***mask.png" class="btn btn-primary" translate>Mask</a>
+					{% endif %}
+					<a href="/projector/blank" class="btn btn-info svg" style="color:black">{{ icon(filldisplay_icon) }}</a>
+				</p>
 			</div>
 		</div>
 	</div>
 </div>
 <div class="row">
-    <div class="col-md-6">
+	<div class="col-md-6">
 		<br>
 		<br>
 		<div class="box edit-page">
 			<div class="caption">
-				<h3 translate>Barrel Distortion</h3>
+				<h3>
+					<translate>Barrel Distortion</translate> {{helpPage("https://docs.nano3dtech.com/manual/barrel/")}}
+				</h3>
 			</div>
 			<form method="post" action="/projector/generate/barrel" class="ajax-post">
 				<label>
@@ -62,28 +88,36 @@
 				</label>
 				<br>
 				<br>
-				<p><button type="submit" class="btn btn-primary" translate>Display</button> <a href="/projector/blank" class="btn" translate>Close</a></p>
+				<p><button type="submit" class="btn btn-primary" translate>Display</button> <a href="/projector/blank"
+						class="btn" translate>Close</a></p>
 
 		</div>
-    </div>
-    <div class="col-md-3">
-		<br>
-		<br>
-		<br>
-		<a href="/projector/on" class="btn btn-primary" translate>Projector Turn On</a><br><br>
-		<a href="/projector/off" class="btn btn-primary" translate>Projector Turn Off</a><br><br>
-		<a href="/shutter/open" class="btn btn-primary" translate>Shutter Open</a><br><br>
-		<a href="/shutter/close" class="btn btn-primary" translate>Shutter Close</a><br><br>
 	</div>
 	<div class="col-md-3">
 		<br>
 		<br>
+		<div class="box">
+			<h3 translate>UV LED / Projector</h3>
+			<br>
+			<a href="/projector/on" class="btn btn-primary" translate>Projector / UV Turn On</a><br><br>
+			<a href="/projector/off" class="btn btn-primary" translate>Projector / UV Turn Off</a><br><br>
+			<a href="/shutter/open" class="btn btn-primary" translate>Shutter Open</a><br><br>
+			<a href="/shutter/close" class="btn btn-primary" translate>Shutter Close</a><br><br>
+		</div>
+	</div>
+	<div class="col-md-3">
 		<br>
-    	<a href="/mask/form" class="btn btn-success" translate>Mask Generator</a><br><br>
-    	<a href="/projector/lamp" class="btn btn-primary" translate>Update Lamp Hours</a>
-    	&nbsp; &nbsp; {{lampHours}}<translate>Hours</translate><br><br>
 		<br>
-		{{ buttonsView(buttons,"/projector-calibration") }}
+		<div class="box">
+			<h3 translate>Mask and Lamp</h3>
+			<br>
+			<a href="/mask/add" class="btn btn-success" translate>Edit Mask</a><br><br>
+			<a href="/mask/form" class="btn btn-success" translate>Mask Generator</a><br><br>
+			<a href="/projector/lamp" class="btn btn-primary" translate>Update Lamp Hours</a>
+			&nbsp; &nbsp; {{lampHours}}<translate>Hours</translate><br><br>
+			<br>
+			{{ buttonsView(buttons,"/projector-calibration") }}
+		</div>
 	</div>
 </div>
 {% if width==1920 && height==1080 && build=="microlay" %}
@@ -92,10 +126,11 @@
 		<br>
 		<br>
 		<div class="box">
-			<img src="/static/general/calibration-1920x1080.png" style="width: 100%;" >
+			<img src="/static/general/calibration-1920x1080.png" style="width: 100%;">
 			<div class="caption">
 				<h3 translate>FullHD Calibration</h3>
-				<p><a href="/projector/display/general***calibration-1920x1080.png" class="btn btn-primary" translate>Display</a> <a href="/projector/blank" class="btn" translate>Close</a></p>
+				<p><a href="/projector/display/general***calibration-1920x1080.png" class="btn btn-primary"
+						translate>Display</a> <a href="/projector/blank" class="btn" translate>Close</a></p>
 			</div>
 		</div>
 	</div>

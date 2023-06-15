@@ -1,0 +1,56 @@
+{% extends "../base.html" %}
+{% block content %}
+{% macro customInputView(Name,Title,Type,Max,Date) %}
+<tr>
+	<td>
+		<label translate>Name without space, only characters</label>
+		<input name="Name" value="{{Name}}" class="name" placeholder="Name eg. FEPFilm" pattern="[A-Za-z]{3,30}">
+	</td>
+	<td>
+		<label translate>Title</label>
+		<input name="Title" value="{{Title}}" placeholder="Title text">
+		<br>
+		<br>
+	</td>
+	<td>
+		<label translate>Consumable Type</label>
+		<select name="Type" class="form-control">
+			<option value="0" {% if Type==0 %}selected{% endif %} translate>Cure Time</option>
+			<option value="1" {% if Type==1 %}selected{% endif %} translate>Print Time</option>
+			<option value="2" {% if Type==2 %}selected{% endif %} translate>Number of Layers</option>
+			<option value="3" {% if Type==3 %}selected{% endif %} translate>Number of Prints</option>
+			<option value="4" {% if Type==4 %}selected{% endif %} translate>Number of Complete Prints</option>
+		</select>
+	</td>
+	<td>
+		<label translate>Lifecycle limit</label>
+		<input name="Max" value="{{Max}}" placeholder="Max Usage" type="number">
+		<input name="Date" value="{{Date}}" type="hidden">
+	</td>
+	<td class="action"><a href="#" class="up">&#x2B06;</a><br><a href="#" class="down">&#x2B07;</a><br><a href="#" class="remove">&#x2716;</a></td>
+</tr>
+{% endmacro %}
+<form action="/setup/custom-consumables" method="post" id="custom_inputs" class="edit-table edit-page">
+	<div class="row">
+		<div class="col-md-12">
+			<table width="100%">
+				<tr class="thead">
+					<th translate>Name</th>
+					<th translate>Details</th>
+					<th translate>Details</th>
+					<th translate>Details</th>
+					<th translate>Action</th>
+				</tr>
+				{% if inputs %}
+					{% for input in inputs %}
+						{{ customInputView(input.Name,input.Title,input.Type,input.Max,input.Date) }}
+					{% endfor %}
+				{% endif %}
+				{{ customInputView("","","","","") }}
+			</table>
+			<br>
+			<button type="submit" class="btn btn-success" translate>Submit</button>
+		</div>
+	</div>
+</form>
+{% endblock %}

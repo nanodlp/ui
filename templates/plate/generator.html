@@ -6,12 +6,7 @@
 	<form action="" method="post" class="edit-page">
 		<div class="row">
 			<div class="col-md-3">
-				<label for="ProfileID" translate>Profile</label>
-				<select name="ProfileID" id="ProfileID" class="form-control">
-					{% for profile in profiles %}
-						<option value="{{profile.ProfileID}}" {% if profile.ProfileID == plate.ProfileID %}selected{% endif %}>{{profile.Title}}</option>
-					{% endfor %}
-				</select>
+                {{ selectProfile(profiles,plate.ProfileID) }}
 			</div>
 			<div class="col-md-3">
 				<label for="Depth"><translate>Plate Depth</translate> <span class="label label-default"><translate>Millimeter</translate></span></label>
@@ -20,22 +15,25 @@
 			</div>
 			<div class="col-md-3">
 				<label for="CureTimes" translate>Comma Separated Cure Times</label>
-				<input name="CureTimes" id="CureTimes" placeholder="eg. 3,4,5,2.5" pattern="[\d,\.]*" class="form-control" value="{{generator.CureTimes}}">
+				<input name="CureTimes" id="CureTimes" placeholder="eg. 3,4,5,2.5" pattern="[\d,\.]*" class="form-control" value="{{generator.CureTimes}}" required>
 			</div>
 			<div class="col-md-3">
 				<label for="PillarDia" translate>Comma Separated Pillar Diameter</label>
-				<input name="PillarDia" id="PillarDia" placeholder="eg. 0.1, 0.2, 0.3, 0.5, 1, 2, 4" pattern="[\d,\.]*" class="form-control" value="{{generator.PillarDia}}">
+				<input name="PillarDia" id="PillarDia" placeholder="eg. 0.1, 0.2, 0.3, 0.5, 1, 2, 4" pattern="[\d,\.]*" class="form-control" value="{{generator.PillarDia}}" required>
 			</div>
 		</div>
-		<h3 translate>Cube Measurement</h3>
 		<div class="row">
-			<div class="col-md-6">
-				<label for="BlockWidth"><translate>Width</translate> <span class="label label-default" translate>Millimeter</span></label>
-				<input value="30" name="BlockWidth" id="BlockWidth" class="form-control" value="{{generator.BlockWidth}}">
+			<div class="col-md-3">
+				<label for="BlockWidth"><translate>Measurement Cube Width</translate> <span class="label label-default" translate>Millimeter</span></label>
+				<input name="BlockWidth" id="BlockWidth" class="form-control" value="{{generator.BlockWidth}}">
+			</div>
+			<div class="col-md-3">
+				<label for="BlockHeight"><translate>Measurement Cube Height</translate> <span class="label label-default" translate>Millimeter</span></label>
+				<input name="BlockHeight" id="BlockHeight" class="form-control" value="{{generator.BlockHeight}}">
 			</div>
 			<div class="col-md-6">
-				<label for="BlockHeight"><translate>Height</translate> <span class="label label-default" translate>Millimeter</span></label>
-				<input value="5" name="BlockHeight" id="BlockHeight" class="form-control" value="{{generator.BlockHeight}}">
+				<label for="Padding"><translate>Support Padding</translate> <span class="label label-default" translate>Millimeter</span></label>
+				<input name="Padding" id="Padding" class="form-control" value="{{generator.Padding}}">
 			</div>
 		</div>
 		<br>

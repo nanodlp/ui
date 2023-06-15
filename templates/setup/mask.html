@@ -1,0 +1,14 @@
+{% extends "../base.html" %}
+{% block content %}
+<h1 translate>Projector Mask</h1>
+<form action="" method="post" class="edit-page" enctype="multipart/form-data">
+    {% if mask %}
+        <img src="{{mask}}" width="500">
+    {% endif %}
+    <label for="MaskFile" translate>Mask file effects only STL/SLC/SVG files uploaded after mask submit</label>
+    <input class="form-control" name="MaskFile" id="MaskFile" type="file" accept=".png,.jpg">
+    <br>
+    <button type="submit" class="btn btn-success" name="mask" value="add" translate>Add Mask</button>
+    <button type="submit" class="btn btn-danger" name="mask" value="remove" translate>Remove Mask</button>
+</form>
+{% endblock %}

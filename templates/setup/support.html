@@ -1,0 +1,24 @@
+{% extends "../base.html" %}
+{% block content %}
+<div class="starter-template">
+    <div class="row flex-row">
+        <div class="col-md-12">
+            <h2 translate>Support</h2>
+            <h3 translate>Report a Bug</h3>
+            <p translate>By submitting form below, your printer log files and configurations will be transmitted for debugging purpose.</p>                    
+            <form action="/support" method="post" class="edit-page">
+                <input class="form-control" name="email" type="email" placeholder="Email address" required>
+                <textarea class="form-control" name="report" placeholder="Detail of the bug you want to report." required></textarea>
+                <input class="btn btn-success" type="submit" value="Send">
+            </form>
+            <br>           
+            <h3 translate>Resources</h3>
+            <ul>
+                <li><a href="https://docs.nano3dtech.com/" target="_blank" translate>Online Document</a>
+                <li><a href="https://www.nano3dtech.com/forum/" target="_blank" translate>Support Forum</a>
+                <li><a href="https://www.facebook.com/groups/nanodlp" target="_blank" translate>NanoDLP Facebook Group</a>
+            </ul>            
+        </div>
+    </div>
+</div>
+{% endblock %}

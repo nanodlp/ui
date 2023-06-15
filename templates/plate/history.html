@@ -1,0 +1,19 @@
+{% extends "../base.html" %}
+{% block content %}
+<h3>Print Statistics</h3>
+<div class="stat-bar progress">
+    <div class="part" style="background-color:rgba(150,150,255,255);width:{{status.0}}%;" translate>No Result</div>
+    <div class="part" style="background-color:rgba(150,150,150,255);width:{{status.1}}%;" translate>Ignore Result</div>
+    <div class="part" style="background-color:rgba(48,120,93,255);width:{{status.2}}%;" translate>Success</div>
+    <div class="part" style="background-color:rgba(150,120,93,255);width:{{status.3}}%;" translate>Part Missing</div>
+    <div class="part" style="background-color:rgba(188,174,56,255);width:{{status.4}}%;" translate>Only Support</div>
+    <div class="part" style="background-color:rgba(120,48,93,255);width:{{status.5}}%;" translate>Complete Failure</div>
+</div>
+
+<h3>Print History</h3>
+{% for print in prints %}
+    {{ printHistory(print) }}
+{% endfor %}
+<br>
+<br>
+{% endblock %}

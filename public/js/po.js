@@ -1,6 +1,6 @@
 $(function(){
 	var lang = $("body").data("lang");
-	if (lang.length===0) return;
+	if (lang.length===0||lang=="en") return;
 	$.get("/static/lang/"+lang+".po",function(data){
 		var lang = parse(data);
 		replace_lang(lang);

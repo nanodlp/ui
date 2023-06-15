@@ -1,0 +1,9 @@
+{% extends "../base.html" %}
+{% block content %}
+<h1 translate>Slicing on browser</h1>
+<div id="wasm" data-options='{{data}}' data-source="{{source}}"></div>
+<div class="progress progress-striped">
+    <div style="width: 0%" class="progress-bar progress-bar-main progress-bar-warning"></div>
+</div>
+<script src='/static/js/wasm.js'></script>
+{% endblock %}

@@ -1,6 +1,6 @@
 {% extends "../base.html" %}
 {% block content %}
-{% macro customInputView(Name,Title,Note,Placeholder,Unit,Type,Min,Max) %}
+{% macro customInputView(Name,Title,Note,Place,Placeholder,Unit,Type,Min,Max) %}
 <tr>
 	<td>
 		<label translate>Name without space, only characters</label>
@@ -8,6 +8,17 @@
 		<br>
 		<label translate>Title</label>
 		<input name="Title" value="{{Title}}" placeholder="Title text">
+	</td>
+	<td>
+		<label translate>Place</label>
+		<select name="Place" class="form-control">
+			<option value="0" {% if Place==0 %}selected{% endif %} translate>Setup</option>
+			<option value="1" {% if Place==1 %}selected{% endif %} translate>Profile</option>
+		</select>	
+		<br>
+		<br>
+		<br>
+		<br>
 	</td>
 	<td>
 		<label translate>Note Text</label>
@@ -18,9 +29,10 @@
 	</td>
 	<td>
 		<label translate>Value Type</label>
-		<select name="Type">
-			<option value="text" {% if Type=="text" %}selected{% endif %} translate>Text</option>
-			<option value="number" {% if Type=="number" %}selected{% endif %} translate>Number</option>
+		<select name="Type" class="form-control">
+			<option value="0" {% if Type==0 %}selected{% endif %} translate>Text</option>
+			<option value="1" {% if Type==1 %}selected{% endif %} translate>Number</option>
+			<option value="2" {% if Type==2 %}selected{% endif %} translate>Enable / Disable</option>
 		</select>
 		<br>
 		<label translate>Unit Text</label>
@@ -50,10 +62,10 @@
 				</tr>
 				{% if inputs %}
 					{% for input in inputs %}
-						{{ customInputView(input.Name,input.Title,input.Note,input.Placeholder,input.Unit,input.Type,input.Min,input.Max) }}
+						{{ customInputView(input.Name,input.Title,input.Note,input.Place,input.Placeholder,input.Unit,input.Type,input.Min,input.Max) }}
 					{% endfor %}
 				{% endif %}
-				{{ customInputView("","","","","","","","") }}
+				{{ customInputView("","","","","","","","","") }}
 			</table>
 			<br>
 			<button type="submit" class="btn btn-success" translate>Submit</button>

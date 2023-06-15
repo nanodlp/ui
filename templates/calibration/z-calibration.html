@@ -24,13 +24,13 @@
 					</tr>
 					<tr class="success">
 						<td translate>Current</td>
-						<td><b>{{CurrentHeightMm}}</b></td>
-						<td><b>{{Status.CurrentHeight}}</b></td>
+						<td><b id="current-height-mm">{{CurrentHeightMm}}</b></td>
+						<td><b id="current-height-pulse">{{Status.CurrentHeight}}</b></td>
 					</tr>
 					<tr>
 						<td translate>End Level</td>
-						<td><b>{{ZAxisHeightMm}}</b></td>
-						<td><b>{{Config.ZAxisHeight}}</b></td>
+						<td><b id="axis-height-mm">{{ZAxisHeightMm}}</b></td>
+						<td><b id="axis-height-pulse">{{Config.ZAxisHeight}}</b></td>
 					</tr>
 				</tbody>
 			</table>
@@ -48,6 +48,8 @@
 					<a href="/z-axis/enable/1" type="button" class="btn btn-success" translate>Enable Motor</a> &nbsp;
 					<a href="/z-axis/enable/0" type="button" class="btn btn-warning" translate>Disable Motor</a>
 				{% endif %}
+			{% else %}
+				<a href="/z-axis/record-height" type="button" class="btn btn-primary" translate>Record Current Height as Axis Height</a>
 			{% endif %}
 		</div>
 		<!--ajax_result-->

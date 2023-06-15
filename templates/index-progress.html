@@ -1,0 +1,146 @@
+<div class="starter-template">
+	{% if !mute %}
+	<audio id="buzzer" src="/static/alert.ogg" type="audio/ogg"></audio>
+	{% else %}
+	<span id="buzzer"></span>
+	{% endif %}
+	{% if panicked %}
+	<div class="alert alert-danger"><span class="glyphicon glyphicon-exclamation-sign"></span>
+		<translate>It seems your printer experienced issue during the last print.</translate> 
+		<a href="/debug/send" class="btn btn-success" translate>Send Report</a> 
+		<a href="/debug/dismiss" class="btn btn-warning" translate>Dismiss</a>
+	</div>
+	{% endif %}
+	<div class="alert alert-danger hide" id="msg_box"><span class="glyphicon glyphicon-exclamation-sign"></span>
+		<translate>Could not connect to the NanoDLP. Please check your network connection.</translate>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="panel panel-default dashboard">
+				<div class="panel-heading printing-obj">
+					<h3 class="panel-title">
+						<span class="glyphicon glyphicon-tasks"></span>
+						<span class="val last_path"></span>
+					</h3>
+				</div>
+
+
+				<div class="panel-body layer_details printing-obj">
+					<div class="row">
+						<div class="col-md-5">
+							<a class="embed-responsive embed-responsive-16by9" id="image_wrapper" href="/plate/preview">
+								<div class="image_enlarge embed-responsive-item"></div>
+								<span class="glyphicon glyphicon-refresh text-success" id="change-preview"></span>
+							</a>
+						</div>
+						<div class="col-md-3">
+							<span class="glyphicon glyphicon-align-left text-success"></span>
+							<translate class="key">Layer</translate>
+							<div class="val last_location"></div>
+							<br>
+
+							<span class="glyphicon glyphicon-resize-vertical text-success"></span>
+							<translate class="key">Height</translate>
+							<div class="val last_height"></div>
+							<br>
+
+							<span class="glyphicon glyphicon-hourglass text-success"></span>
+							<translate class="key">Remaining</translate>
+							<div class="val last_remaining"></div>
+							<br>
+
+						</div>
+						<div class="col-md-4">
+							<span class="glyphicon glyphicon-time text-success"></span>
+							<translate class="key">ETA</translate>
+							<div class="val last_eta"></div>
+							<br>
+
+							<span class="glyphicon glyphicon-time text-success"></span>
+							<translate class="key">Elapsed</translate>
+							<div class="val last_elapsed"></div>
+							<br>
+
+							<span class="glyphicon glyphicon-eye-open text-success"></span>
+							<a href="/printer" class="key" translate>Action</a>
+							<div class="val last_action"></div>
+						</div>
+					</div>
+					<div class="layer-progress progress printing-obj">
+						<div style="width: 0%" class="progress-bar progress-bar-layer progress-bar-warning"></div>
+					</div>
+					<div class="progress progress-striped printing-obj">
+						<div style="width: 0%" class="progress-bar progress-bar-main progress-bar-warning"></div>
+					</div>
+					<div class="stat-bar progress printing-obj">
+						<div class="part" id="MoveTo" style="background-color:rgba(174,77,86,255);" translate>To Layer</div>
+						<div class="part" id="GcodeBefore" style="background-color:rgba(176,116,132,255);" translate>Gcode Before</div>
+						<div class="part" id="WaitBefore" style="background-color:rgba(103,164,117,255);" translate>Wait Before</div>
+						<div class="part" id="DisplayLayer" style="background-color:rgba(48,120,93,255);" translate>Cure Time</div>
+						<div class="part" id="WaitAfter" style="background-color:rgba(188,174,56,255);" translate>Wait After</div>
+						<div class="part" id="GcodeAfter" style="background-color:rgba(18,143,149,255);" translate>Gcode After</div>
+						<div class="part" id="MoveToWait" style="background-color:rgba(146,153,196,255);" translate>Lift</div>
+						<div class="part" id="WaitAfterLift" style="background-color:rgba(158,142,87,255);" translate>Lift Wait</div>
+					</div>
+				</div>
+				<div class="panel-heading cont">
+					<h3 class="panel-title">
+						<span class="glyphicon glyphicon-tasks idle-obj"></span>
+						<span class="val last_path idle-obj"></span>
+						<span class="glyphicon glyphicon-tasks pause-obj"></span>
+						<span class="val last_path pause-obj"></span>
+						<div class="controls">	
+							<div class="printing-obj">
+								<a class="ask printing-obj" href="/printer/stop" data-ask="stop-confirm"><span class="glyphicon glyphicon-stop text-danger"></span></a>
+								<a class="ask pause-obj" href="/printer/stop" data-ask="stop-confirm"><span class="glyphicon glyphicon-stop text-danger"></span></a>
+								<a class="pause-obj" href="/printer/unpause"><span class="glyphicon glyphicon-play text-success"></span></a>
+								<a class="printing-obj" href="/printer/pause"><span class="glyphicon glyphicon-pause text-warning"></span></a>
+								<a class="ask resume-obj" href="/printer/resume" data-ask="resume-confirm"><span class="glyphicon glyphicon-play text-warning"></span></a>
+							</div>
+							<a class="ask pause-obj" href="/printer/stop" data-ask="stop-confirm"><span class="glyphicon glyphicon-stop text-danger"></span></a>
+							<a class="pause-obj" href="/printer/unpause"><span class="glyphicon glyphicon-play text-success"></span></a>
+							<a class="ask resume-obj" href="/printer/resume" data-ask="resume-confirm"><span class="glyphicon glyphicon-play text-warning"></span></a>
+							{% if arch=="arm" %}
+							<a class="idle-obj ajax" href="/printer/off" name="type" data-confirm="poweroff-confirm"><span class="glyphicon glyphicon-off text-danger"></span></a>
+							<a class="idle-obj ajax" href="/printer/restart" name="type" data-confirm="restart-confirm"><span class="glyphicon glyphicon-repeat text-danger"></a>
+							{% endif %}
+
+						</div>
+					</h3>
+				</div>				
+			</div>
+			<span class="printing-obj">
+				{% if autoShutdown %}
+				<a class="btn btn-success" href="/printer/auto-shutdown/disable" alt="Disable shutdown after job completion"
+				translate>Disable Auto Shutdown</a>
+				{% else %}
+				<a class="btn btn-warning" href="/printer/auto-shutdown/enable" alt="Enable shutdown after job completion" translate>Enable
+					Auto Shutdown</a>
+				{% endif %}
+				&nbsp; 
+			</span>
+
+			<span class="idle-obj">
+				{% if cast==false %}
+				<a class="btn btn-success ask" href="/printer/cast" data-ask="display-confirm" translate>Start Display</a>
+				&nbsp; 
+				{% endif %}
+
+				{% if projectorPowerCycle==1 %}
+				<a class="ajax btn btn-warning idle-obj" href="/projector/off" name="type" data-confirm="projectoroff-confirm" translate>Projector
+					Off</a>
+				&nbsp; 
+				{% endif %}
+			</span>
+			{{ buttonsView(buttons,"/") }}
+			<a class="btn btn-success" id="camera" href="/camera/take" translate>Take Photo</a>
+		</div>
+	</div>
+</div>
+<translate class="hide" id="stop-confirm">Are you sure you want to stop printing? It will stop after the current layer is completed. If you want to abort the current layer, go to the `Setup` page, click on `Tools` tab and click the `Force Stop` button.</translate>
+<translate class="hide" id="poweroff-confirm">Are you sure you want to power off the printer?</translate>
+<translate class="hide" id="projectoroff-confirm">Are you sure you want to power off the projector?</translate>
+<translate class="hide" id="display-confirm">Are you sure you want to start the display? It will automatically select the second display.</translate>
+<translate class="hide" id="restart-confirm">Are you sure you want to restart the printer?</translate>
+<translate class="hide" id="resume-confirm">Are you sure you want to resume the previous print?</translate>
+

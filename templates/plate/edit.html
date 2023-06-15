@@ -2,79 +2,97 @@
 {% block content %}
 <div class="starter-template">
 	<legend>
-		{% if from=="usb" || not plate.PlateID %}
-			<translate>Add Plate</translate>
+		{% if not plate.PlateID %}
+			<ul class="nav nav-pills">
+				<li class="active"><a data-toggle="tab" href="#upload-section">Upload</a></li>
+				{% if os == "linux" %}
+				<li><a data-toggle="tab" href="#usb-section">USB</a></li>
+				{% endif %}
+			</ul>
 		{% else %}
 			<translate>Edit Plate</translate> "{{plate.Path}}"
 		{% endif %}
 	</legend>
-	<form method="post" action="{% if file!="" %}/plate/add-usb{% endif %}" class="edit-page" enctype="multipart/form-data">
-		<div class="row">
-			{% if from=="usb" %}
-			<div class="col-md-6">
-				<label for="file" translate>File From USB</label>
-				<select name="USBFile" id="file" class="form-control">
-				{% for file in files %}
-					<option value="{{file}}">{{file}}</option>
-				{% endfor %}
-				</select>
+	<form method="post" class="edit-page" enctype="multipart/form-data">
+		<div class="row flex-row">
+			{% if not plate.PlateID %}
+			<div class="col-md-4">
+				<div class="tab-content">
+					<div id="usb-section" class="tab-pane">
+						<label for="file" translate>File</label>
+						<select name="USBFile" id="file" class="form-control">
+							<option value=""></option>
+							{% for file in files %}
+							<option value="{{file}}">{{file}}</option>
+							{% endfor %}
+						</select>
+					</div>
+					<div id="upload-section" class="tab-pane fade in active">
+						<label for="ZipFile"><translate>File</translate> <span class="label label-default" translate>STL, OBJ, SLC, NSLICE, SVG, NanoDLP or Zip (PNG Files)</span></label>
+						<input name="ZipFile" class="form-control" id="ZipFile" type="file" accept=".zip,.obj,.slc,.svg,.stl,.cws,.nanodlp,.nslice">
+					</div>
+				</div>
 			</div>
 			{% else %}
-				{% if not plate.PlateID && file=="" %}
-				<div class="col-md-6">
-					<label for="ZipFile"><translate>Plate File</translate> <span class="label label-default" translate>STL, SLC, SVG or Zip (PNG Files)</span></label>
-					<input name="ZipFile" class="form-control" id="ZipFile" type="file" accept=".zip,.slc,.svg,.stl,.cws" {% if not plate.PlateID %}required{% endif %}>
-				</div>
-				{% else %}
 				<input type="hidden" name="USBFile" class="form-control" value="{{file}}">
-				{% endif %}
 			{% endif %}
-			<div class="col-md-6">
-				<label for="Path" translate>Plate Name</label>
+			<div class="col-md-4">
+				<label for="Path" translate>Name</label>
 				<input value="{{plate.Path}}" name="Path" id="Path" class="form-control" required>
 				<br>
 			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-3">
-				<label for="ProfileID" translate>Profile</label>
-				<select name="ProfileID" id="ProfileID" class="form-control">
-					{% for profile in profiles %}
-						<option value="{{profile.ProfileID}}" {% if (defaultProfile == profile.ProfileID) %}selected{% endif %}>{{profile.Title}}</option>
-					{% endfor %}
-				</select>
+			<div class="col-md-4">
+                {{ selectProfile(profiles,defaultProfile) }}
 				<br>
 			</div>
-			<div class="col-md-3">
+			<div class="col-md-12">
+				<button class="btn btn-info" type="button" data-toggle="collapse" data-target=".advanced" aria-expanded="false" translate>Advanced Options</button>
+				<br>
+				<br>
+			</div>
+			<div class="col-md-4 collapse advanced">
 				<label for="AutoCenter"><translate>Auto Center</translate>{{helpModal("auto-center")}}</label>
 				<select name="AutoCenter" id="AutoCenter" class="form-control">
-					<option value="0" translate>Center Pieces</option>
-					<option value="1" translate>Center Origin</option>
-					<option value="2" translate>Disable</option>
+					<option value="0" {% if plate.AutoCenter==0 %}selected{% endif %} translate>Center Pieces</option>
+					<option value="1" {% if plate.AutoCenter==1 %}selected{% endif %} translate>Center Origin</option>
+					<option value="2" {% if plate.AutoCenter==2 %}selected{% endif %} translate>Disable</option>
 				</select>
 			</div>
-			<div class="col-md-3">
-				<label for="StopLayers"><translate>Stop Layers</translate> <span class="label label-default" translate>Optional</span>{{helpModal("stop-layers")}}</label>
-				<input value="{{plate.StopLayers}}" class="form-control" name="StopLayers" id="StopLayers" pattern="[\d,]*">
+			<div class="col-md-4 collapse advanced">
+				<label for="MultiThickness"><translate>Multiple Thickness</translate> <span class="label label-default" translate>height:thickness,mm:micron</span>{{helpPage("https://docs.nano3dtech.com/manual/adaptive-thickness/#multiple-thickness")}}</label>
+				<input name="MultiThickness" class="form-control" id="MultiThickness" value="{{ plate.MultiThickness }}" pattern="[\d.:,]*">
+				<br>				
 			</div>
-			<div class="col-md-3">
-				<label for="LowQualityLayerNumber"><translate>Number of Low Quality Layers</translate> <span class="label label-default" translate>Optional</span>{{helpModal("low-quality-layers")}}</label>
-				<input class="form-control" value="{{plate.LowQualityLayerNumber}}{% if not plate.PlateID %}0{% endif %}" name="LowQualityLayerNumber" id="LowQualityLayerNumber" type="number" required>
+			<div class="col-md-4 collapse advanced">
+				<label for="MultiCure"><translate>Multiple Print</translate> <span class="label label-default" translate>Comma separated in second</span>{{helpPage("https://docs.nano3dtech.com/manual/multicure/")}}</label>
+				<input name="MultiCure" class="form-control" id="MultiCure" value="{{ plate.MultiCure }}" pattern="[\d.,]*">
 				<br>
 			</div>
-		</div>
-		<div class="row">
+			<div class="col-md-4 collapse advanced">
+					<label for="Offset"><translate>Offset Lowest Point for Slicing</translate> <span class="label label-default" translate>mm</span></label>
+					<input name="Offset" class="form-control" id="Offset" type="number" step="0.01" value="{{ plate.Offset }}">
+			</div>
+			<div class="col-md-4 collapse advanced">
+				<label for="StopLayers"><translate>Stop Layers</translate> <span class="label label-default" translate>Optional</span>{{helpModal("stop-layers")}}</label>
+				<input value="{{plate.StopLayers}}" class="form-control" name="StopLayers" id="StopLayers" pattern="[\d,]*">
+				<br>
+			</div>
+			<div class="col-md-4 collapse advanced">
+				<label for="LowQualityLayerNumber"><translate>Number of Low Quality Layers</translate> <span class="label label-default" translate>Optional</span>{{helpModal("low-quality-layers")}}</label>
+				<input class="form-control" value="{{plate.LowQualityLayerNumber}}" name="LowQualityLayerNumber" id="LowQualityLayerNumber" type="number">
+				<br>
+			</div>
 			{% if not plate.PlateID && file=="" %}
-				<div class="col-md-6">
+				<div class="col-md-4 collapse advanced">
 					<label for="MaskFile"><translate>Mask File (PNG)</translate> <span class="label label-default" translate>Optional, override global mask</span></label>
 					<input name="MaskFile" class="form-control" id="MaskFile" type="file" accept=".png">
 				</div>
-				<div class="col-md-3">
+				<div class="col-md-4 collapse advanced">
 					<label for="MaskEffect"><translate>Decrease Mask Intensity</translate> <span class="label label-default" translate>Percentage</span></label>
 					<input name="MaskEffect" class="form-control" id="MaskEffect" type="number" step="0.1" min="0" max="100" value="{{ plate.MaskEffect }}">
 				</div>
 			{% endif %}
-			<div class="col-md-3">
+			<div class="col-md-4 collapse advanced">
 				<label for="ImageRotate" translate>Rotate Layers</label>
 				<select class="form-control" name="ImageRotate" id="ImageRotate">
 					<option value="0" {% if plate.ImageRotate==0 %}selected{% endif %} translate>Same as Profile</option>
@@ -85,9 +103,23 @@
 			</div>
 		</div>
 		<br>
+		<div class="progress progress-striped hide">
+			<div style="width: 0%" class="progress-bar progress-bar-main progress-bar-warning"></div>
+		</div>
 		<button type="submit" class="btn btn-success" translate>Submit</button>
+		<button type="button" class="btn btn-success" id="browser_slice" disabled="disabled" translate>Slice on Browser and Submit</button>
 	</form>
+	{% if isARM %}
+	<div class="row">
+		<div class="col-md-12">
+			<br>
+			<br>
+			<div class="alert alert-info" translate>To speedup slicing you can use, NanoDLP remote slicer feature or SLC format.</div>
+		</div>
+	</div>
 	<br>
 	<br>
+	{% endif %}
 </div>
+<script src='/static/js/wasm.js'></script>
 {% endblock %}

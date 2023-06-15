@@ -1,0 +1,88 @@
+{% extends "../base.html" %}
+{% block content %}
+<div class="starter-template">
+	<legend translate>Edit Configuration Files</legend>
+
+	{% if dhcp %}
+	<form action="" method="post" class="edit-page" enctype="multipart/form-data">
+		<div class="row">
+			<div class="col-md-12">
+				<label for="file" translate>Edit Network Settings</label>
+				<textarea name="dhcp">{{dhcp}}</textarea>
+				<br>
+				<button type="submit" class="btn btn-success" translate>Save</button>
+			</div>
+		</div>
+	</form>
+	<hr>
+	{% endif %}
+
+	{% if wificontent %}
+	<form action="" method="post" class="edit-page" enctype="multipart/form-data">
+		<div class="row">
+			<div class="col-md-12">
+				<label for="file" translate>Edit Wifi Settings</label>
+				<textarea name="wifi">{{wificontent}}</textarea>
+				<br>
+				<button type="submit" class="btn btn-success" translate>Save</button>
+			</div>
+		</div>
+	</form>
+	<hr>
+	{% endif %}
+
+	{% if config %}
+	<form action="" method="post" class="edit-page" enctype="multipart/form-data">
+		<div class="row">
+			<div class="col-md-12">
+				<label for="file" translate>Edit Config Settings</label>
+				<textarea name="config">{{config}}</textarea>
+				<br>
+				<button type="submit" class="btn btn-success" translate>Save</button>
+			</div>
+		</div>
+	</form>
+	<hr>
+	{% endif %}
+
+	{% if klipper %}
+	<form action="" method="post" class="edit-page" enctype="multipart/form-data">
+		<div class="row">
+			<div class="col-md-12">
+				<label for="file" translate>Edit Klipper Settings</label>
+				<textarea name="klipper">{{klipper}}</textarea>
+				<br>
+				<button type="submit" class="btn btn-success" translate>Save</button>
+			</div>
+		</div>
+	</form>
+	<hr>
+	<form action="/printer/upload/klipper" method="post" class="edit-page" enctype="multipart/form-data">
+		<div class="row">
+			<div class="col-md-12">
+				<label for="file" translate>Edit Klipper Settings</label>
+				<input name="klipper" class="form-control" id="klipper" type="file" accept=".cfg">
+				<br>
+				<button type="submit" class="btn btn-success" translate>Save</button>
+			</div>
+		</div>
+	</form>
+	<hr>
+	{% endif %}
+
+	{% if hmi %}
+	<form action="" method="post" class="edit-page" enctype="multipart/form-data">
+		<div class="row">
+			<div class="col-md-12">
+				<label for="file" translate>Edit HMI Settings</label>
+				<textarea name="hmi">{{hmi}}</textarea>
+				<br>
+				<button type="submit" class="btn btn-success" translate>Save</button>
+			</div>
+		</div>
+	</form>
+	<hr>
+	{% endif %}
+
+</div>
+{% endblock %}

@@ -1,24 +1,136 @@
-{% macro buttonsView(buttons,page) %} {% if buttons %}
-<div class="custom-buttons">
-	{% for button in buttons %} {% if button.Position==page %}
-	<a href="/button/press/{{button.ID}}" class="{{button.Color}} {{button.Condition}}" {% if button.ConfirmText!="" %} onclick="return confirm('{{button.ConfirmText}}');"
-	  {% endif %}>{{button.Name}}</a>
-	{% endif %} {% endfor %}
+{% macro printHistory(PrintResult) %}
+{% if PrintResult.Path %}
+<div class="row">
+	<div class="col-md-12">
+		<div class="panel panel-{{ PrintResult.StatusTag }}">
+			<div class="panel-heading">
+				<h3 class="panel-title">
+					<span class="glyphicon glyphicon-question-sign" style="display: inline-block;"></span>
+					{{PrintResult.Path}}
+				</h3>
+			</div>
+			<div class="panel-body">
+				<img src="/print/preview/{{PrintResult.PrintID}}" style="float: right;max-width:300px;">
+				<span class="glyphicon glyphicon-tint"></span> {{PrintResult.ProfileName}} ({{PrintResult.TotalSolidArea}}ml)<br>
+				<span class="glyphicon glyphicon-usd"></span> {{PrintResult.Price}}<br>
+				<span class="glyphicon glyphicon-time"></span> {{PrintResult.PrintTime}}<br>
+				<span class="glyphicon glyphicon-time"></span> {{PrintResult.supportCureTime}}s / {% if !PrintResult.cureTimes %}{{PrintResult.cureTime}}{% else %}{{PrintResult.cureTimes}}{% endif %}s<br>
+			</div>
+			{% if PrintResult.Status == 0 %}
+			<div class="panel-footer">
+				<a class="btn btn-success" href="/plate/result/{% if PrintResult %}{{PrintResult.PlateID}}{% else %}0{%endif%}/{{PrintResult.PrintID}}/2"><span class="glyphicon glyphicon-ok-sign"></span> <translate>Successful Print</translate></a>
+				<div class="btn-group">
+					<button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					<span class="glyphicon glyphicon-remove-sign"></span> <translate>Failed Print</translate> <span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu">
+						<li><a href="/plate/result/{{PrintResult.PlateID}}/{{PrintResult.PrintID}}/3" translate>Some Parts Are Missing</a></li>
+						<li><a href="/plate/result/{{PrintResult.PlateID}}/{{PrintResult.PrintID}}/4" translate>Only Supports There</a></li>
+						<li><a href="/plate/result/{{PrintResult.PlateID}}/{{PrintResult.PrintID}}/5" translate>Nothing on Build Platform</a></li>
+					</ul>
+				</div>
+				<a class="btn btn-warning" href="/plate/result/{{PrintResult.PlateID}}/{{PrintResult.PrintID}}/1"><span class="glyphicon glyphicon-minus-sign"></span> <translate>Ignore</translate></a>
+			</div>
+			{% endif %}
+		</div>
+	</div>
 </div>
-{% endif %} {% endmacro %}{% macro helpModal(helpFiles,title) %} {% if helpFiles %}
-<a href="#" class="help" data-files="{{helpFiles}}" translate>?</a>
-{% endif %} {% endmacro %}{% macro formulaModal(title) %}
-<a href="#" class="help" data-files="formula" data-run="true" translate>F</a>
-{% endmacro %}{% macro importance(ramps,direct) %}
-<div class="color-code">
-	<a href="#" class="help color_{{ramps}}" data-files="importance" data-run="true" translate>R</a>
-	<a href="#" class="help color_{{direct}}" data-files="importance" data-run="true" translate>D</a>
-</div>
-{% endmacro %}{% macro regenerateRequired() %}
-<a href="#" class="help regen" data-files="regenerate-required">⟲</a>
+{% endif %}
 {% endmacro %}
+{% macro selectProfile(profiles,defaultID) %}
+<label for="ProfileID" translate>Profile</label>
+<select name="ProfileID" id="ProfileID" class="form-control">
+	{% for profile in profiles %}
+		<option value="{{profile.ProfileID}}" {% if profile.ProfileID == defaultID %}selected{% endif %}>{{profile.Title}}</option>
+	{% endfor %}
+</select>
+{% endmacro %}
+{% macro customInputs(inputs,values,place) %}
+{% if inputs %}
+	<h3 translate>Other Settings</h3>
+	<div class="row custom">
+		{% for input in inputs %}
+		{% if input.Place == place %}
+		<div class="col-md-4">
+			<label for="{{input.Name}}">{{input.Title}}{% if input.Unit!="" %} <span
+					class="label label-default">{{input.Unit}}</span>{% endif %}</label>
+			{% if input.Type==2 %}
+			<select name="{{input.Name}}" id="{{input.Name}}" class="form-control">
+				<option value="0" {% for key, value in values %}{% if key==input.Name && value=="0" %}selected{% endif %}{% endfor %}>Enabled</option>
+				<option value="1" {% for key, value in values %}{% if key==input.Name and value=="1" %}selected{% endif %}{% endfor %}>Disabled</option>
+			</select>
+			{% else %}
+			<input class="form-control" type="{% if input.Type==1 %}{{input.Type}}{% endif %}"
+				value="{% for key, value in values %}{% if key==input.Name %}{{value}}{% endif %}{% endfor %}"
+				name="{{input.Name}}" id="{{input.Name}}" {% if input.Type==1 %} min="{{input.Min}}"
+				max="{{input.Max}}" {% endif %}>
+			{% endif %}
+			</div>
+		{% endif %}
+		{% endfor %}
+	</div>
+	<br>
+{% endif %}	
+{% endmacro %}
+{% macro buttonsView(buttons,page) %} 
+	{% if buttons %}
+	<span class="custom-buttons">
+		{% for button in buttons %} 
+			{% if button.Position==page %}
+			<span id="cbutton{{button.ID}}" style="{% if button.Condition=='hidden' %}display:none{%endif%}">
+				{{button.HTML|safe}}
+				{% if button.HTML=="" %}
+					<a href="/button/press/{{button.ID}}" class="{{button.Color}} {{button.Condition}}" {% if button.ConfirmText!="" %} onclick="return confirm('{{button.ConfirmText}}');" {% endif %}>{{button.Name}}</a>
+				{% endif %}
+			</span> &nbsp;
+			{% endif %}
+		{% endfor %}
+	</span>
+	{% endif %} 
+{% endmacro %}
+{% macro helpModal(helpFiles,title) %} {% if helpFiles %}<a href="#" class="help hh" data-files="{{helpFiles}}" translate>ⓘ</a>{% endif %} {% endmacro %}
+{% macro formulaModal(title) %}<a href="#" class="help" data-files="formula" data-run="true" translate>∑</a>{% endmacro %}
+{% macro caution() %}<a href="https://docs.nano3dtech.com/manual/settings/#caution-" target="_blank" class="help">🔥</a>{% endmacro %}
+{% macro regenerateRequired() %}<a href="https://docs.nano3dtech.com/manual/settings/#regenerate-" target="_blank" class="help regen">⟲</a>{% endmacro %}
+{% macro helpPage(url) %}<a href="{{url}}" target="_blank" class="help">ℹ</a>{% endmacro %}
+{% macro calcModal(type,title) %}<a href="#" class="help" data-files="calc-{{ type }}" data-run="true">∑</a>{% endmacro %}
+{% set gear_icon = '<path fill-rule="evenodd" d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 0 0-5.86 2.929 2.929 0 0 0 0 5.858z"/>'  %}
+{% set computer_icon = '<path d="M5.75 13.5c.167-.333.25-.833.25-1.5h4c0 .667.083 1.167.25 1.5H11a.5.5 0 0 1 0 1H5a.5.5 0 0 1 0-1h.75z"/><path fill-rule="evenodd" d="M13.991 3H2c-.325 0-.502.078-.602.145a.758.758 0 0 0-.254.302A1.46 1.46 0 0 0 1 4.01V10c0 .325.078.502.145.602.07.105.17.188.302.254a1.464 1.464 0 0 0 .538.143L2.01 11H14c.325 0 .502-.078.602-.145a.758.758 0 0 0 .254-.302 1.464 1.464 0 0 0 .143-.538L15 9.99V4c0-.325-.078-.502-.145-.602a.757.757 0 0 0-.302-.254A1.46 1.46 0 0 0 13.99 3zM14 2H2C0 2 0 4 0 4v6c0 2 2 2 2 2h12c2 0 2-2 2-2V4c0-2-2-2-2-2z"/>' %}
+{% set heart_icon = '  <path d="M8 2.748v11.047c3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>' %}
+{% set filldisplay_icon = '<path d="M6 12c0 .667-.083 1.167-.25 1.5H5a.5.5 0 0 0 0 1h6a.5.5 0 0 0 0-1h-.75c-.167-.333-.25-.833-.25-1.5h4c2 0 2-2 2-2V4c0-2-2-2-2-2H2C0 2 0 4 0 4v6c0 2 2 2 2 2h4z"/>' %}
+{% set axis_icon = '<path fill-rule="evenodd" d="M3.646 9.146a.5.5 0 0 1 .708 0L8 12.793l3.646-3.647a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 0-.708zm0-2.292a.5.5 0 0 0 .708 0L8 3.207l3.646 3.647a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 0 0 0 .708z"/>' %}
+{% set diagram_icon = '<path fill-rule="evenodd" d="M0 11.5A1.5 1.5 0 0 1 1.5 10h1A1.5 1.5 0 0 1 4 11.5v1A1.5 1.5 0 0 1 2.5 14h-1A1.5 1.5 0 0 1 0 12.5v-1zm1.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1zm4.5.5A1.5 1.5 0 0 1 7.5 10h1a1.5 1.5 0 0 1 1.5 1.5v1A1.5 1.5 0 0 1 8.5 14h-1A1.5 1.5 0 0 1 6 12.5v-1zm1.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1zm4.5.5a1.5 1.5 0 0 1 1.5-1.5h1a1.5 1.5 0 0 1 1.5 1.5v1a1.5 1.5 0 0 1-1.5 1.5h-1a1.5 1.5 0 0 1-1.5-1.5v-1zm1.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1zM6 3.5A1.5 1.5 0 0 1 7.5 2h1A1.5 1.5 0 0 1 10 3.5v1A1.5 1.5 0 0 1 8.5 6h-1A1.5 1.5 0 0 1 6 4.5v-1zM7.5 3a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1z"/>	<path fill-rule="evenodd" d="M8 5a.5.5 0 0 1 .5.5V7H14a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-1 0V8h-5v.5a.5.5 0 0 1-1 0V8h-5v.5a.5.5 0 0 1-1 0v-1A.5.5 0 0 1 2 7h5.5V5.5A.5.5 0 0 1 8 5z"/>' %}
+{% set code_icon = '<path fill-rule="evenodd" d="M4.854 4.146a.5.5 0 0 1 0 .708L1.707 8l3.147 3.146a.5.5 0 0 1-.708.708l-3.5-3.5a.5.5 0 0 1 0-.708l3.5-3.5a.5.5 0 0 1 .708 0zm6.292 0a.5.5 0 0 0 0 .708L14.293 8l-3.147 3.146a.5.5 0 0 0 .708.708l3.5-3.5a.5.5 0 0 0 0-.708l-3.5-3.5a.5.5 0 0 0-.708 0zm-.999-3.124a.5.5 0 0 1 .33.625l-4 13a.5.5 0 0 1-.955-.294l4-13a.5.5 0 0 1 .625-.33z"/>' %}
+{% set cpu_icon = '<path fill-rule="evenodd" d="M5 0a.5.5 0 0 1 .5.5V2h1V.5a.5.5 0 0 1 1 0V2h1V.5a.5.5 0 0 1 1 0V2h1V.5a.5.5 0 0 1 1 0V2A2.5 2.5 0 0 1 14 4.5h1.5a.5.5 0 0 1 0 1H14v1h1.5a.5.5 0 0 1 0 1H14v1h1.5a.5.5 0 0 1 0 1H14v1h1.5a.5.5 0 0 1 0 1H14a2.5 2.5 0 0 1-2.5 2.5v1.5a.5.5 0 0 1-1 0V14h-1v1.5a.5.5 0 0 1-1 0V14h-1v1.5a.5.5 0 0 1-1 0V14h-1v1.5a.5.5 0 0 1-1 0V14A2.5 2.5 0 0 1 2 11.5H.5a.5.5 0 0 1 0-1H2v-1H.5a.5.5 0 0 1 0-1H2v-1H.5a.5.5 0 0 1 0-1H2v-1H.5a.5.5 0 0 1 0-1H2A2.5 2.5 0 0 1 4.5 2V.5A.5.5 0 0 1 5 0zm-.5 3A1.5 1.5 0 0 0 3 4.5v7A1.5 1.5 0 0 0 4.5 13h7a1.5 1.5 0 0 0 1.5-1.5v-7A1.5 1.5 0 0 0 11.5 3h-7zM5 6.5A1.5 1.5 0 0 1 6.5 5h3A1.5 1.5 0 0 1 11 6.5v3A1.5 1.5 0 0 1 9.5 11h-3A1.5 1.5 0 0 1 5 9.5v-3zM6.5 6a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3z"/>' %}
+{% set keyboard_icon = '<path fill-rule="evenodd" d="M14 5H2a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1zM2 4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2H2z"/><path d="M13 10.25a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25v-.5zm0-2a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25v-.5zm-5 0A.25.25 0 0 1 8.25 8h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5A.25.25 0 0 1 8 8.75v-.5zm2 0a.25.25 0 0 1 .25-.25h1.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-1.5a.25.25 0 0 1-.25-.25v-.5zm1 2a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25v-.5zm-5-2A.25.25 0 0 1 6.25 8h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5A.25.25 0 0 1 6 8.75v-.5zm-2 0A.25.25 0 0 1 4.25 8h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5A.25.25 0 0 1 4 8.75v-.5zm-2 0A.25.25 0 0 1 2.25 8h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5A.25.25 0 0 1 2 8.75v-.5zm11-2a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25v-.5zm-2 0a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25v-.5zm-2 0A.25.25 0 0 1 9.25 6h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5A.25.25 0 0 1 9 6.75v-.5zm-2 0A.25.25 0 0 1 7.25 6h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5A.25.25 0 0 1 7 6.75v-.5zm-2 0A.25.25 0 0 1 5.25 6h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5A.25.25 0 0 1 5 6.75v-.5zm-3 0A.25.25 0 0 1 2.25 6h1.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-1.5A.25.25 0 0 1 2 6.75v-.5zm0 4a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25v-.5zm2 0a.25.25 0 0 1 .25-.25h5.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-5.5a.25.25 0 0 1-.25-.25v-.5z"/>' %}
+{% set layers_icon = '<path fill-rule="evenodd" d="M3.188 8L.264 9.559a.5.5 0 0 0 0 .882l7.5 4a.5.5 0 0 0 .47 0l7.5-4a.5.5 0 0 0 0-.882L12.813 8l-4.578 2.441a.5.5 0 0 1-.47 0L3.188 8z"/><path fill-rule="evenodd" d="M7.765 1.559a.5.5 0 0 1 .47 0l7.5 4a.5.5 0 0 1 0 .882l-7.5 4a.5.5 0 0 1-.47 0l-7.5-4a.5.5 0 0 1 0-.882l7.5-4zM1.563 6L8 9.433 14.438 6 8 2.567 1.562 6z"/>' %}
+{% set wifi_icon = '<path d="M15.385 6.115a.485.485 0 0 0-.048-.736A12.443 12.443 0 0 0 8 3 12.44 12.44 0 0 0 .663 5.379a.485.485 0 0 0-.048.736.518.518 0 0 0 .668.05A11.448 11.448 0 0 1 8 4c2.507 0 4.827.802 6.717 2.164.204.148.489.13.668-.049z"/><path d="M13.229 8.271c.216-.216.194-.578-.063-.745A9.456 9.456 0 0 0 8 6c-1.905 0-3.68.56-5.166 1.526a.48.48 0 0 0-.063.745.525.525 0 0 0 .652.065A8.46 8.46 0 0 1 8 7a8.46 8.46 0 0 1 4.577 1.336c.205.132.48.108.652-.065zm-2.183 2.183c.226-.226.185-.605-.1-.75A6.472 6.472 0 0 0 8 9c-1.06 0-2.062.254-2.946.704-.285.145-.326.524-.1.75l.015.015c.16.16.408.19.611.09A5.478 5.478 0 0 1 8 10c.868 0 1.69.201 2.42.56.203.1.45.07.611-.091l.015-.015zM9.06 12.44c.196-.196.198-.52-.04-.66A1.99 1.99 0 0 0 8 11.5a1.99 1.99 0 0 0-1.02.28c-.238.14-.236.464-.04.66l.706.706a.5.5 0 0 0 .708 0l.707-.707z"/>' %}
+{% set cam_icon = '<path fill-rule="evenodd" d="M15 12V6a1 1 0 0 0-1-1h-1.172a3 3 0 0 1-2.12-.879l-.83-.828A1 1 0 0 0 9.173 3H6.828a1 1 0 0 0-.707.293l-.828.828A3 3 0 0 1 3.172 5H2a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1zM2 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.172a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 9.172 2H6.828a2 2 0 0 0-1.414.586l-.828.828A2 2 0 0 1 3.172 4H2z"/>  <path fill-rule="evenodd" d="M8 11a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5zm0 1a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>  <path d="M3 6.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0z"/>' %}
+{% set glob_icon = '<path fill-rule="evenodd" d="M1.018 7.5h2.49c.03-.877.138-1.718.312-2.5H1.674a6.958 6.958 0 0 0-.656 2.5zM2.255 4H4.09a9.266 9.266 0 0 1 .64-1.539 6.7 6.7 0 0 1 .597-.933A7.024 7.024 0 0 0 2.255 4zM8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm-.5 1.077c-.67.204-1.335.82-1.887 1.855-.173.324-.33.682-.468 1.068H7.5V1.077zM7.5 5H4.847a12.5 12.5 0 0 0-.338 2.5H7.5V5zm1 2.5V5h2.653c.187.765.306 1.608.338 2.5H8.5zm-1 1H4.51a12.5 12.5 0 0 0 .337 2.5H7.5V8.5zm1 2.5V8.5h2.99a12.495 12.495 0 0 1-.337 2.5H8.5zm-1 1H5.145c.138.386.295.744.468 1.068.552 1.035 1.218 1.65 1.887 1.855V12zm-2.173 2.472a6.695 6.695 0 0 1-.597-.933A9.267 9.267 0 0 1 4.09 12H2.255a7.024 7.024 0 0 0 3.072 2.472zM1.674 11H3.82a13.651 13.651 0 0 1-.312-2.5h-2.49c.062.89.291 1.733.656 2.5zm8.999 3.472A7.024 7.024 0 0 0 13.745 12h-1.834a9.278 9.278 0 0 1-.641 1.539 6.688 6.688 0 0 1-.597.933zM10.855 12H8.5v2.923c.67-.204 1.335-.82 1.887-1.855A7.98 7.98 0 0 0 10.855 12zm1.325-1h2.146c.365-.767.594-1.61.656-2.5h-2.49a13.65 13.65 0 0 1-.312 2.5zm.312-3.5h2.49a6.959 6.959 0 0 0-.656-2.5H12.18c.174.782.282 1.623.312 2.5zM11.91 4a9.277 9.277 0 0 0-.64-1.539 6.692 6.692 0 0 0-.597-.933A7.024 7.024 0 0 1 13.745 4h-1.834zm-1.055 0H8.5V1.077c.67.204 1.335.82 1.887 1.855.173.324.33.682.468 1.068z"/>' %}
+{% set cloud_icon = '<path fill-rule="evenodd" d="M4.406 3.342A5.53 5.53 0 0 1 8 2c2.69 0 4.923 2 5.166 4.579C14.758 6.804 16 8.137 16 9.773 16 11.569 14.502 13 12.687 13H3.781C1.708 13 0 11.366 0 9.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383zm.653.757c-.757.653-1.153 1.44-1.153 2.056v.448l-.445.049C2.064 6.805 1 7.952 1 9.318 1 10.785 2.23 12 3.781 12h8.906C13.98 12 15 10.988 15 9.773c0-1.216-1.02-2.228-2.313-2.228h-.5v-.5C12.188 4.825 10.328 3 8 3a4.53 4.53 0 0 0-2.941 1.1z"/>  <path fill-rule="evenodd" d="M10.354 6.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7 8.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>' %}
+{% set font_icon = '<path d="M12.258 3H3.747l-.082 2.46h.479c.26-1.544.758-1.783 2.693-1.845l.424-.013v7.827c0 .663-.144.82-1.3.923v.52h4.082v-.52c-1.162-.103-1.306-.26-1.306-.923V3.602l.43.013c1.935.062 2.434.301 2.694 1.846h.479L12.258 3z"/>' %}
+{% set shutter_icon = '<path fill-rule="evenodd" d="M8 15V1a7 7 0 1 1 0 14zm0 1A8 8 0 1 1 8 0a8 8 0 0 1 0 16z"/>' %}
+{% set stopwatch_icon = '<path fill-rule="evenodd" d="M8 15A6 6 0 1 0 8 3a6 6 0 0 0 0 12zm0 1A7 7 0 1 0 8 2a7 7 0 0 0 0 14z"/><path fill-rule="evenodd" d="M8 4.5a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5H4.5a.5.5 0 0 1 0-1h3V5a.5.5 0 0 1 .5-.5zM5.5.5A.5.5 0 0 1 6 0h4a.5.5 0 0 1 0 1H6a.5.5 0 0 1-.5-.5z"/><path d="M7 1h2v2H7V1z"/>' %}
+{% set normal_icon = '<path fill-rule="evenodd" d="M3.188 8L.264 9.559a.5.5 0 0 0 0 .882l7.5 4a.5.5 0 0 0 .47 0l7.5-4a.5.5 0 0 0 0-.882L12.813 8l-1.063.567L14.438 10 8 13.433 1.562 10 4.25 8.567 3.187 8z"/><path fill-rule="evenodd" d="M7.765 1.559a.5.5 0 0 1 .47 0l7.5 4a.5.5 0 0 1 0 .882l-7.5 4a.5.5 0 0 1-.47 0l-7.5-4a.5.5 0 0 1 0-.882l7.5-4zM1.563 6L8 9.433 14.438 6 8 2.567 1.562 6z"/>' %}
+{% set burnin_icon = '<path fill-rule="evenodd" d="M7.765 1.559a.5.5 0 0 1 .47 0l7.5 4a.5.5 0 0 1 0 .882l-7.5 4a.5.5 0 0 1-.47 0l-7.5-4a.5.5 0 0 1 0-.882l7.5-4z"/><path fill-rule="evenodd" d="M2.125 8.567l-1.86.992a.5.5 0 0 0 0 .882l7.5 4a.5.5 0 0 0 .47 0l7.5-4a.5.5 0 0 0 0-.882l-1.86-.992-5.17 2.756a1.5 1.5 0 0 1-1.41 0l.418-.785-.419.785-5.169-2.756z"/>' %}
+{% set stopwatchfill_icon = '<path fill-rule="evenodd" d="M5.5.5A.5.5 0 0 1 6 0h4a.5.5 0 0 1 0 1H9v1.07A7.002 7.002 0 0 1 8 16 7 7 0 0 1 7 2.07V1H6a.5.5 0 0 1-.5-.5zm3 4.5a.5.5 0 0 0-1 0v3.5h-3a.5.5 0 0 0 0 1H8a.5.5 0 0 0 .5-.5V5z"/>' %}
+{% set tag_icon = '<path fill-rule="evenodd" d="M2 2v4.586l7 7L13.586 9l-7-7H2zM1 2a1 1 0 0 1 1-1h4.586a1 1 0 0 1 .707.293l7 7a1 1 0 0 1 0 1.414l-4.586 4.586a1 1 0 0 1-1.414 0l-7-7A1 1 0 0 1 1 6.586V2z"/><path fill-rule="evenodd" d="M4.5 5a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1zm0 1a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/>' %}
+{% set pen_icon = '<path fill-rule="evenodd" d="M5.707 13.707a1 1 0 0 1-.39.242l-3 1a1 1 0 0 1-1.266-1.265l1-3a1 1 0 0 1 .242-.391L10.086 2.5a2 2 0 0 1 2.828 0l.586.586a2 2 0 0 1 0 2.828l-7.793 7.793zM3 11l7.793-7.793a1 1 0 0 1 1.414 0l.586.586a1 1 0 0 1 0 1.414L5 13l-3 1 1-3z"/><path fill-rule="evenodd" d="M9.854 2.56a.5.5 0 0 0-.708 0L5.854 5.855a.5.5 0 0 1-.708-.708L8.44 1.854a1.5 1.5 0 0 1 2.122 0l.293.292a.5.5 0 0 1-.707.708l-.293-.293z"/><path d="M13.293 1.207a1 1 0 0 1 1.414 0l.03.03a1 1 0 0 1 .03 1.383L13.5 4 12 2.5l1.293-1.293z"/>' %}
+{% set hr_icon = '<path fill-rule="evenodd" d="M0 8a.5.5 0 0 1 .5-.5h15a.5.5 0 0 1 0 1H.5A.5.5 0 0 1 0 8z"/><path d="M4 3h8a1 1 0 0 1 1 1v2.5h1V4a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v2.5h1V4a1 1 0 0 1 1-1zM3 9.5H2V12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V9.5h-1V12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.5z"/>' %}
+{% set vr_icon = '<path d="M3 12V4a1 1 0 0 1 1-1h2.5V2H4a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2.5v-1H4a1 1 0 0 1-1-1zm6.5 1v1H12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H9.5v1H12a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H9.5z"/><path fill-rule="evenodd" d="M8 16a.5.5 0 0 1-.5-.5V.5a.5.5 0 0 1 1 0v15a.5.5 0 0 1-.5.5z"/>' %}
+{% macro icon(ic) %}
+<svg viewBox="0 0 16 16" class="bi" fill="currentColor" xmlns="http://www.w3.org/2000/svg">{{ic|safe}}</svg>
+{% endmacro %}
+{% macro setting_cat(name,text,ic,class) %}
+<a href="#" class="setting-cat inverse" data-related="{{class}}">
+	<div class="glyphicon-ring">{{ icon(ic) }}</div>
+	<h4>{{name|safe}}</h4>
+	<span class="desc">{{text|safe}}</span>
+</a>
+{% endmacro %}
+{% block macro %} {% endblock %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{lang}}">
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -33,14 +145,14 @@
 	<link href='/static/boot3/css/bootstrap.{{theme}}.min.css' rel="stylesheet">
 
 	<!-- Custom styles for this template -->
-	<link href='/static/css/main.css' rel="stylesheet">
+	<link href='/static/css/main.css?{{version}}' rel="stylesheet">
 	<title>{% if title %}{{ title }}{% endif %}</title>
 	{% block head %} {% endblock %}
 </head>
 
 <body data-lang="{{lang}}">
 	<!-- Fixed navbar -->
-	<nav class="navbar navbar-default navbar-fixed-top">
+	<nav class="navbar navbar-default">
 		<div class="container">{% include "menu.html" %}</div>
 	</nav>
 
@@ -55,11 +167,11 @@
 	<script src='/static/js/jquery.imgareaselect.dev.js'></script>
 	<script src='/static/js/favico-0.3.10.min.js'></script>
 	<script src='/static/js/jquery.sparkline.min.js'></script>
-	<script src='/static/js/main.js'></script>
+	<script src='/static/js/conditionize.flexible.jquery.min.js'></script>	
+	<script src='/static/js/main.js?{{version}}'></script>
 	<script src='/static/js/formula.js'></script>
 	<script src='/static/js/slicer.js'></script>
 	<script src='/static/js/preview.js'></script>
-	<script src='/static/js/three.js'></script>
 	<script src='/static/js/po.js'></script>
 	{% block js %} {% endblock %} {% block tail %} {% endblock %}
 	<div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -76,6 +188,25 @@
 					<button type="button" class="btn btn-default" data-dismiss="modal" translate>Close</button>
 				</div>
 			</div>
+		</div>
+	</div>
+	<div class="container mlog">
+		<div class="bs-callout">
+			<a href="/printer">
+				<small>
+					<span class="glyphicon glyphicon-align-left text-success"></span>
+					<span class="val last_location"></span>
+					&nbsp; &nbsp;
+					<span class="glyphicon glyphicon-hourglass text-success"></span>
+					<span class="val last_remaining"></span>
+					&nbsp; &nbsp;
+					<span class="glyphicon glyphicon-time text-success"></span>
+					<span class="val last_eta"></span>
+					&nbsp; &nbsp;
+					<span class="glyphicon glyphicon-eye-open text-success"></span>
+					<span class="val last_action"></span>
+				</small>
+			</a>
 		</div>
 	</div>
 </body>

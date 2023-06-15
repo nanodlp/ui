@@ -1,0 +1,109 @@
+{% extends "../base.html" %} {% block content %}
+<div class="starter-template">
+    <h1>{{profile.Title}}</h1>
+    <form action="" method="post" class="edit-page" id="setup">
+        <br>
+        <div class="row flex-row">
+            <div class="col-md-12">
+                <label for="ZStepWait">
+                    <div class="glyphicon-ring">{{ icon(axis_icon) }}</div>
+                    <h4 translate>Max Speed</translate>
+                        <span
+                            class="label label-success val">{% if profile.ZStepWait==0 %}1{% else %}{{profile.ZStepWait}}{% endif %}</span>
+                        <span class="label label-default" translate>mm/min</span>
+                        {{helpPage("https://docs.nano3dtech.com/manual/speed/")}}
+                </label>
+                <input class="form-control ticks"
+                    value="{% if profile.ZStepWait==0 %}1{% else %}{{profile.ZStepWait}}{% endif %}" name="ZStepWait"
+                    type="range" min="1" max="1000" step="1">
+            </div>
+
+            <div class="col-md-12">
+                <label for="WaitBeforePrint">
+                    <div class="glyphicon-ring">{{ icon(stopwatch_icon) }}</div>
+                    <h4 translate>Wait Before Cure</translate>
+                        <span class="label label-success val">{{profile.WaitBeforePrint}}</span>
+                        <span class="label label-default" translate>Second</span>
+                </label>
+                <input class="form-control ticks" value="{{profile.WaitBeforePrint}}" name="WaitBeforePrint"
+                    type="range" min="0" max="10" step="0.1">
+            </div>
+
+            <div class="col-md-12">
+                <label for="SupportCureTime">
+                    <div class="glyphicon-ring">{{ icon(burnin_icon) }}</div>
+                    <h4 translate>Burn-in Layer Cure Time</translate>
+                        <span class="label label-success val">{{profile.SupportCureTime}}</span>
+                        <span class="label label-default" translate>Second</span>
+                </label>
+                <input class="form-control ticks" value="{{profile.SupportCureTime}}" name="SupportCureTime"
+                    type="range" min="0" max="200" step="0.1">
+            </div>
+
+
+            <div class="col-md-12">
+                <label for="SupportLayerNumber">
+                    <div class="glyphicon-ring">{{ icon(layers_icon) }}</div>
+                    <h4 translate>Burn-in Layer Number</translate>
+                        <span class="label label-success val">{{profile.SupportLayerNumber}}</span>
+                </label>
+                <input class="form-control ticks" value="{{profile.SupportLayerNumber}}" name="SupportLayerNumber"
+                    type="range" min="0" max="100" step="0.1">
+            </div>
+
+
+            <div class="col-md-12">
+                <label for="CureTime">
+                    <div class="glyphicon-ring">{{ icon(normal_icon) }}</div>
+                    <h4 translate>Normal Layer Cure Time</translate>
+                        <span class="label label-success val">{{profile.CureTime}}</span>
+                        <span class="label label-default" translate>Second</span>
+                </label>
+                <input class="form-control ticks" value="{{profile.CureTime}}" name="CureTime" type="range" min="0"
+                    max="100" step="0.1">
+            </div>
+
+
+            <div class="col-md-12">
+                <label for="WaitAfterPrint">
+                    <div class="glyphicon-ring">{{ icon(stopwatch_icon) }}</div>
+                    <h4 translate>Wait After Cure</translate>
+                        <span class="label label-success val">{{profile.WaitAfterPrint}}</span>
+                        <span class="label label-default" translate>Second</span>
+                </label>
+                <input class="form-control ticks" value="{{profile.WaitAfterPrint}}" name="WaitAfterPrint" type="range"
+                    min="0" max="10" step="0.1">
+            </div>
+
+
+            <div class="col-md-12">
+                <label for="WaitHeight">
+                    <div class="glyphicon-ring">{{ icon(axis_icon) }}</div>
+                    <h4 translate>Lift After Print</translate>
+                        <span class="label label-success val">{{profile.WaitHeight}}</span>
+                        <span class="label label-default" translate>Second</span>
+                </label>
+                <input class="form-control ticks" value="{{profile.WaitHeight}}" name="WaitHeight" type="range" min="0"
+                    max="100" step="0.1">
+            </div>
+
+
+            <div class="col-md-12">
+                <label for="TopWait">
+                    <div class="glyphicon-ring">{{ icon(stopwatch_icon) }}</div>
+                    <h4 translate>Wait After Lift</translate>
+                        <span class="label label-success val">{{profile.TopWait}}</span>
+                        <span class="label label-default" translate>Second</span>
+                </label>
+                <input class="form-control ticks" value="{{profile.TopWait}}" name="TopWait" type="range" min="0"
+                    max="10" step="0.1">
+            </div>
+
+
+
+            <button type="submit" class="btn btn-success" translate>Save</button> &nbsp;
+    </form>
+    <br>
+    <br>
+</div>
+{% endblock %}

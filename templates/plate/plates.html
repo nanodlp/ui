@@ -1,12 +1,24 @@
 {% extends "../base.html" %}
 {% block content %}
 <div class="row">
-	<div class="col-md-9">
-		<h2><span translate>Plates</span> <a class="btn btn-default" href="/plate/add" role="button" translate>Add</a> <a class="btn btn-success" href="/static/?width={{width}}&height={{height}}&dst=/plate/add-support&exit=/plates" role="button" translate>Add Support With 3D Editor</a>
-		{% if os == "linux" %}
-		<a class="btn btn-default" href="/plate/add-usb" role="button" translate>Add From USB</a>
-		{% endif %}
+	<div class="col-md-6">
+		<h2><span translate>Plates</span>
+			<a class="btn btn-default" href="/plate/add" role="button"><span
+					class="glyphicon glyphicon-plus"></span></a>
+			<a class="btn btn-default"
+				href="/static/editor/?ApplicationMode=embedded"
+				role="button"><span class="glyphicon glyphicon-plus"></span>
+				<translate>3D Editor</translate>
+			</a>
 		</h2>
+	</div>
+	<div class="col-md-3">
+		<select id="plates-profile-search" class="form-control">
+			<option value="" translate>All Profiles</option>
+			{% for row in profiles %}
+				<option value="{{row.ProfileID}}">{{row.Title}}</option>
+			{% endfor %}
+		</select>
 	</div>
 	<div class="col-md-3">
 		<input id="search" placeholder="Search Plates" class="form-control compact-input">
@@ -16,172 +28,57 @@
 <div class="row">
 	<div class="col-md-12">
 		{% if freeSpace < 1000 && freeSpace>0 %}
-			<div class="alert alert-danger" translate>Free space available on your disk is low. Please remove some plates.</div>
+		<div class="alert alert-danger" translate>Free space available on your disk is low. Please remove some plates or expand the partition.
+		</div>
 		{% endif %}
 	</div>
 </div>
-<translate class="hide" id="delete-confirm">Are you sure you want to delete this plate?</translate>
-<translate class="hide" id="regenerate-confirm">Are you sure you want to regenerate the layers of this plate?</translate>
-<translate class="hide" id="stop-confirm">Are you sure you want to stop printing?</translate>
-<translate class="hide" id="calibrate-confirm">Are you sure you want to print the calibration plate?</translate>
-<table class="table table-striped table-bordered model-list" id="plates">
-	<thead>
-		<tr>
-			<th translate>ID</th>
-			<th translate>Name</th>
-			<th translate>Profile</th>
-			<th translate>Details</th>
-			<th translate>Action</th>
-			<th translate>Printing</th>
-		</tr>
-	</thead>
-	{% if plates %}
-		{% for row in plates %}{% if row.PlateID != 0 %}
-			<tr>
-				<td>{{row.PlateID}}</td>
-				<td>{{row.Path}}</td>
-				<td>
-					{% if !row.profileError %}
-						<a href="/profile/edit/{{row.profileID}}">{{row.ProfileName}}</a><br>
-						X:{{row.XRes}}μm Y:{{row.YRes}}μm Z:{{row.ZRes}}μm<br>
-						<translate>Cure Time</translate>:{{row.cureTime}}s<br>
-						{% if row.ProfileUpdate>row.Updated %}
-							<div class="notice" translate>Plate generated using old profile data.</div>
-						{% endif %}
-					{% else %}
-						<div class="alert alert-warning" translate>Profile not found.</div>
-					{% endif %}
-				</td>
-				<td>
-					<dl class="small">
-						<dt translate>Print Time</dt>
-						<dd>{{row.PrintTime}}</dd>
-						<dt translate>Resin Usage</dt>
-						<dd>{{row.TotalSolidArea}}ml</dd>
-						<dt translate>Resin Cost</dt>
-						<dd>{{row.Price}}</dd>
-						{% if row.StopLayers %}
-							<dt translate>Stop Layers</dt>
-							<dd>{{row.StopLayers}}</dd>
-						{% endif %}
-				</td>
-				<td>
-					{% if row.Corrupted==true %}
-					<div class="alert alert-danger" translate>This plate is corrupted.</div><br>
-					{% endif %}
-					<a class="btn btn-primary" href="/plate/edit/{{ row.PlateID }}" title="Edit Plate" translate>Edit</a>
-
-					{% if row.PlateID != status.PlateID or status.Printing == false %}
-					<a class="btn btn-danger ask" href="/plate/delete/{{ row.PlateID }}" title="Delete Plate" data-ask="delete-confirm" translate>Delete</a>
-
-					{% endif %}
-
-					{% if row.Processed==true %}
-					<a class="btn btn-success" href="/plate/download/{{ row.PlateID }}" title="Download Plate" translate>Download</a>
-					{% endif %}
-
-					{% if row.Type=="stl" %}
-						<a href="/static/?src=/static/plates/{{ row.PlateID }}/plate.stl&dst=/plate/add-support&width={{width}}&height={{height}}" translate class="btn btn-success">3D Edit</a>
-					{% endif %}
-
-					<br>
-					{% if row.Processed==true && ( row.PlateID != status.PlateID or status.Printing == false) %}
-					<a class="btn btn-warning ask" href="/plate/regenerate/{{ row.PlateID }}" title="Recreate Layers" data-ask="regenerate-confirm" translate>Recreate</a>
-					{% endif %}
-
-					{% if row.BlackoutData!="" %}
-						<a class="btn btn-primary" href="/plate/cover/{{ row.PlateID }}" translate>Modify Blackout</a>
-					{% else %}
-						<a class="btn btn-primary" href="/plate/cover/{{ row.PlateID }}" translate>Add Blackout</a>
-					{% endif %}
-					<a class="btn btn-success" href="/plate/preview/{{ row.PlateID }}" translate>Layers</a>
-					{% if row.Processed==false %}
-					<div class="plate" data-plate="{{row.PlateID}}" data-total="{{row.LayersCount}}">
-						<div class="alert alert-danger notprocessed" translate>The plate is not processed yet.</div>
-						<div class="details hide">
-							<div class="alert alert-danger" translate>Processing. You can start printing.</div>
-							<br>
-							<div class="progress progress-striped">
-							   <div style="width: 0%" class="progress-bar progress-bar-warning"></div>
-							</div>
-						</div>
-					</div>
-					{% endif %}
-				</td>
-				<td>
-					{% if status.Printing == false %}
-						<form action="/printer/start/{{ row.PlateID }}" method="POST">
-							<div class="input-append">
-								<input id="appendedtext" name="LayerID" class="form-control compact-input" placeholder="Layer ID" value="{% if row.PlateID == status.PlateID %}{{status.ResumeID}}{% endif %}" type="text" size="3">
-								<translate class="hide">Layer ID</translate>
-								<span class="add-on"> <span translate>of</span> {{row.LayersCount}} <span translate>Layers</span></span>
-								<button type="submit" class="btn btn-warning resume" data-confirm='Are you sure you want to resume plate {{row.Path}} from layer [LayerID]?' value="Submit" translate>Resume Printing</button>
-							</div>
-						</form>
-						<a class="btn btn-success" href="/printer/start/{{ row.PlateID }}" title="Auto play" onclick="return confirm('Are you sure you want to print plate {{row.Path}}?');" translate>Print From Start</a>
-					{% else %}
-						{% if row.PlateID == status.PlateID %}
-							<div class="input-append">
-								<a class="btn btn-danger ask" href="/printer/stop" title="stop" data-ask="stop-confirm" translate>Stop</a>
-								<br>
-								<br>
-								<span class="add-on"><span translate>Layer</span> {{ status.ResumeID }} <span translate>of</span> {{row.LayersCount}}</span>
-							</div>
-						{% endif %}
-					{% endif %}
-				</td>
-			</tr>
-		{% endif %}{% endfor %}
-	{% else %}
-		<tr>
-			<td colspan="999">
-				<div class="text-center" translate>
-					No Plates
-				</div>
-			</td>
-		</tr>
-	{% endif %}
-
+	{% include "list.html" %}
 	<tr>
-		<td>-</td>
+		<td></td>
 		<td translate>Plate Generator</td>
 		<td colspan="2" translate>Create 3D shapes by repeating an image frame</td>
-		<td>
+		<td colspan="2">
 			<a class="btn btn-info" href="/plate/layer-generator" translate>Upload Image</a>
-			<br>
 			<a class="btn btn-info" href="/plate/paint" translate>Paint</a>
+			<a class="btn btn-info" href="/plate/pcb-generator" translate>PCB Print</a>
 		</td>
-		<td></td>
 	</tr>
 
 	<tr>
-		<td>-</td>
+		<td></td>
 		<td><span translate>Calibration Plate</span>{{helpModal("calibration-plate")}}</td>
-		<td><span translate>Rect:</span> {{generator.BlockWidth}}*{{generator.BlockHeight}}*{{generator.Depth}}
-		<br>
-		<span translate>Pillars:</span> {{generator.PillarSize}}*{{generator.Depth}}
-		</td>
-		<td>-</td>
-		<td>
-			<a class="btn btn-primary" href="/plate/generator" title="Generate Calibration Plate" translate>Generate</a>
+		<td colspan="2"><span translate>Rect:</span> {{generator.BlockWidth}}*{{generator.BlockHeight}}*{{generator.Depth}}
 			<br>
-			<a class="btn btn-success" href="/plate/preview/0" translate>Preview Layers</a>
+			<span translate>Pillars:</span> {{generator.PillarSize}}*{{generator.Depth}}
 		</td>
-		<td>
+		<td colspan="2">
 			{% if 0 != status.PlateID or status.Printing == false %}
-				<a class="btn btn-success ask" href="/printer/start/0" title="Auto play" data-ask="calibrate-confirm" translate>Print Calibration Plate</a>
+			<a class="btn btn-success ask" href="/printer/start/0" data-ask="calibrate-confirm"><span
+					class="glyphicon glyphicon-play"></span></a>
 			{% else %}
-				<div class="input-append">
-					<a class="btn btn-danger ask" href="/printer/stop" title="stop" data-ask="stop-confirm" translate>Stop</a>
-				</div>
+			<div class="input-append">
+				<a class="btn btn-danger ask" href="/printer/stop" title="stop" data-ask="stop-confirm"><span
+						class="glyphicon glyphicon-stop"></span></a>
+			</div>
 			{% endif %}
+			<a class="btn btn-primary" href="/plate/generator" title="Generate Calibration Plate" translate>Generate</a>
+			<a class="btn btn-success" href="/plate/preview/0"><span class="glyphicon glyphicon-eye-open"></span></a>
 		</td>
 	</tr>
 
 </table>
+<a class="btn btn-danger ask" href="/plates/delete" data-ask="deleteall-confirm">Delete All Plates</a>
+<br>
+<br>
+<div><span class="glyphicon glyphicon-resize-small"></span>
+	<translate>Plate Size</translate>: {{width|floatformat}}x{{height|floatformat}}<translate>mm</translate>
+</div>
 {% if freeSpace > 0 %}
-	<sub><span translate>Free Disk Space</span> {{freeSpace}}MB</sub>
-	<br>
-	<br>
+<span class="glyphicon glyphicon-hdd"></span>
+<translate>Free Disk Space</translate>: {{freeSpace}}MB
+<br>
+<br>
+<br>
 {% endif %}
 {% endblock %}

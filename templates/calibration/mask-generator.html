@@ -5,7 +5,7 @@
 {% block content %}
 <div class="row">
     <div class="col-md-12">
-    	<h2><translate>Mask Generation Wizard</translate>{{helpModal("mask-generation")}}</h2>
+    	<h2><translate>Mask Generation Wizard</translate> {{helpPage("https://docs.nano3dtech.com/manual/mask/")}}</h2>
     </div>
 </div>
 <form action="/mask/generate" method="post" id="mask_form">
@@ -19,13 +19,17 @@
 			<label for="HeightPoints" translate>Number of Points in Height</label>
 			<input value="5" name="HeightPoints" id="HeightPoints" class="grid_input form-control" type="number" min="1" required>
 		</div>
-		<div class="col-md-3">
-			<label for="PointSize"><translate>Measurement Point Width</translate> <span class="label label-default" translate>Millimeter</span></label>
+		<div class="col-md-2">
+			<label for="PointSize"><translate>Point Width</translate> <span class="label label-default" translate>mm</span></label>
 			<input value="100" name="PointSize" id="PointSize" class="grid_input form-control" type="number" min="1" required>
 		</div>
-		<div class="col-md-3">
-			<label for="Color"><translate>Light Source Color</translate> {{helpModal("color")}}</label>
+		<div class="col-md-2">
+			<label for="Color"><translate>Light Source Color</translate> {{helpPage("https://docs.nano3dtech.com/manual/mask/#color")}}</label>
 			<input class="form-control" value="#ffffff" name="Color" id="Color" type="color">
+		</div>
+		<div class="col-md-2">
+			<label for="Duration"><translate>Duration</translate> <span class="label label-default" translate>Second</span></label>
+			<input class="form-control" value="0" name="Duration" id="Duration">
 		</div>
 		<div class="col-md-2">
 			<label translate>Display Mask</label><br>
@@ -51,8 +55,8 @@
 		</div>
 		<div class="col-md-2">
 			<br>
-			<label for="BluringRadius"><translate>Bluring Radius</translate> <span class="label label-default" translate>Pixel</span></label>
-			<input value="30" name="BluringRadius" id="BluringRadius" type="number" min="1" class="form-control" required>
+			<label for="BlurringRadius"><translate>Blurring Radius</translate> <span class="label label-default" translate>Pixel</span></label>
+			<input value="30" name="BlurringRadius" id="BlurringRadius" type="number" min="1" class="form-control" required>
 		</div>
 		<div class="col-md-2">
 			<br>
@@ -88,6 +92,15 @@
 				<h4 translate>Final Mask</h4>
 				<div id="mask"><img src='/static/plates/mask.png?' width='100%'></div>
 			</div>
+		</div>
+	</div>	
+	<div class="row">
+		<div class="col-md-12">
+		<h3 translate>UV LED / Projector</h3>
+		<a href="/projector/on" class="btn btn-primary ajax" translate>Projector / UV Turn On</a>
+		<a href="/projector/off" class="btn btn-primary ajax" translate>Projector / UV Turn Off</a> 
+		<a href="/shutter/open" class="btn btn-primary ajax" translate>Shutter Open</a>
+		<a href="/shutter/close" class="btn btn-primary ajax" translate>Shutter Close</a> 
 		</div>
 	</div>	
 	<div class="row edit-page">

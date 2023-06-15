@@ -2,23 +2,40 @@
 {% block content %}
 <form method="post" class="edit-page">
 	<div class="row">
-		<div class="col-md-2">
-		</div>
-		<div class="col-md-8">
-			<div class="alert alert-warning">
-				<translate>This process could take a few seconds to minutes depending on the quality of your internet connection.</translate>
-				<br>
-				<translate>It would not replace Raspberry Pi's configuration, if any function does not work as expected use ssh terminal to upgrade.</translate>
+		<div class="col-md-12">
+			<h1 translate>Upgrade from build #{{vers.Current}}</h1>
+			<div class="alert">
+				<dt>
+				<li translate>The process could takes few seconds to minutes depending on the quality of your internet connection.</li>
+				<li translate>During the upgrade process NanoDLP would not be accessible.</li>
+				<li translate>The upgrade process would not change your configurations.</li>
+				<li translate>To monitor the process you could checkout the dashboard activity log.</li>
+				<li translate>After completion printer will be restarted.</li>
+				<li translate>You can do manual upgrade by using SSH terminal.</li>
+				</dt>
 			</div>
-			<div class="alert alert-info" translate>To monitor the process you could checkout the activity log. After completion the Printer will be restarted.</div>
-			<a href="/printer/upgrade/go/stable" class="btn btn-success" translate>Upgrade to the latest stable version</a>
-			<br>
-			<a href="/printer/upgrade/go/beta" class="btn btn-danger" translate>Upgrade to the beta version</a>
-			<br>
-			<br>
-			<iframe src="https://www.nanodlp.com/new.html" style="border:0;width:100%;height:1200px;"></iframe>
-		</div>
-		<div class="col-md-2">
+			<div id="changelog-display" data-beta="{{vers.Beta}}" data-current="{{vers.Current}}" data-stable="{{vers.Stable}}" data-changelog="{{changelog}}">
+				<h4><translate>What's new on the latest stable</translate> ({{vers.Stable}})</h4>
+				<dt id="stable"></dt>
+				<br>
+				<a href="/printer/upgrade/go/stable" class="btn btn-success" translate>Upgrade to the latest stable version</a>
+				<br>
+				<h4><translate>What's new on the latest beta</translate> ({{vers.Beta}})</h4>
+				<dt id="beta"></dt>
+				<br>
+				<a href="/printer/upgrade/go/beta" class="btn btn-danger" translate>Upgrade to the beta version</a>
+				<br>
+				<br>
+				<br>
+			</div>
+			{% if rpi %}
+			<h4><translate>Downgrade / Upgrade to other builds</translate></h4>
+			{% for version in versions %}
+				<a href="/printer/upgrade/go/{{version}}" class="btn btn-warning" translate>Switch to {{version}}</a>
+				<br>
+				<br>
+			{% endfor %}
+			{% endif %}
 		</div>
 	</div>
 </form>

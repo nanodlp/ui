@@ -1,0 +1,79 @@
+{% extends "../base.html" %}
+{% block content %}
+<div class="starter-template">
+    <div class="row flex-row">
+        <div class="col-md-4">
+            <h3 translate>Settings</h3>
+            <a class="btn btn-success" href="/setup/export/nanosupport" translate>Export Settings for NanoSupport</a>
+            <br>
+            <a class="btn btn-success" href="/setup/export" translate>Export Machine Settings File</a>
+            <br>
+            <a class="btn btn-success" href="/import" title="Import Machine File" translate>Import Machine Settings</a>
+            <br>
+            <a class="ajax btn btn-danger" data-ajax="/" href="/printer/restore-default" data-confirm="restore-confirm"
+                translate>Restore Default Settings</a>
+            <translate class="hide" id="restore-confirm">Are you sure you want to restore the default settings and reboot the printer?</translate>
+            <br>
+            <a class="btn btn-success" href="/printer/backup" translate>Backup Plates and Settings</a>
+            <br>
+            <a class="btn btn-danger" href="/printer/restore" translate>Restore Backup File</a>
+            <br>
+        </div>
+        <div class="col-md-4">
+            <h3 translate>Actions</h3>
+            <a class="ajax btn btn-danger" data-ajax="/" href="/printer/force-stop" data-confirm="stop-confirm"
+                translate>Force Stop</a>
+            <translate class="hide" id="stop-confirm">Are you sure you want to force stop the printer?</translate>
+            <br>
+            <a class="ajax btn btn-danger" data-ajax="/" href="/printer/off" data-confirm="poweroff-confirm"
+                translate>Power Off</a>
+            <translate class="hide" id="poweroff-confirm">Are you sure you want to power off the printer?</translate>
+            <br>
+            <a class="ajax btn btn-danger" data-ajax="/" href="/printer/restart" data-confirm="restart-confirm"
+                translate>Restart Printer</a>
+            <translate class="hide" id="restart-confirm">Are you sure you want to restart the printer?</translate>
+            <br>
+            <a class="ajax btn btn-warning" data-ajax="/" href="/printer/reload" translate>Reload NanoDLP</a>
+            <br>
+            <a class="ajax btn btn-danger" data-ajax="/" href="/printer/terminate" data-confirm="terminate-confirm"
+                translate>Terminate nanoDLP</a>
+            <translate class="hide" id="terminate-confirm">Are you sure you want to terminate nanoDLP and have access to
+                terminal?</translate>
+            <br>
+        </div>
+        <div class="col-md-4">
+            <h3 translate>Tools</h3>
+            <a class="btn btn-info" href="/debug" translate>Download Debug File</a>
+            <br>
+            {% if arch=="arm" %}
+            <a class="btn btn-success" href="/printer/edit/pi" translate>Edit Raspberry Pi Settings</a>
+            <br>
+            {% endif %}
+            <a class="btn btn-danger" href="/printer/distro/change" translate>Change Distribution</a>
+            <br>
+            <a class="btn btn-success" href="/printer/upgrade" translate>Upgrade nanoDLP</a>
+            <br>
+            <a class="btn btn-success" href="/analytic" translate>Analytic Dashboard</a>
+            <br>
+            <a class="btn btn-success" href="/printer/stat/reset" translate>Reset Usage Statistics</a>
+            <br>
+            <br>
+            {% if arch=="arm" %}
+            <div class="alert alert-warning" role="alert" translate>Filesystem expansion will run silently in background and will restart the Raspberry Pi afterward. Please do not change anything.</div>
+            <a class="ajax btn btn-danger" data-ajax="/" href="/printer/expand-fs" data-confirm="expand-confirm"
+                translate>Expand Filesystem</a>
+            <translate class="hide" id="expand-confirm">Are you sure you want to expand filesystem?</translate>
+            <br>
+            <br>
+            {% endif %}            
+            <a class="btn btn-success" href="/printer/upgrade/dsi/nanodlp-dsi.beta.tar.gz" translate>Upgrade DSI interface</a>
+            <h1 translate>Upload AVR Firmware</h1>
+            <form action="/avr/upload" method="post" class="edit-page" enctype="multipart/form-data">
+                <input class="form-control" name="HexFile" id="HexFile" type="file" accept=".hex">
+                <br>
+                <button type="submit" class="btn btn-success" name="file" value="add" translate>Upload</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

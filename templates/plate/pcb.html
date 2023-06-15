@@ -1,0 +1,35 @@
+{% extends "../base.html" %}
+{% block content %}
+<div class="starter-template">
+	<div class="alert alert-success" role="alert">
+		<ul>
+			<li translate>The PCB schema will be inverted automatically.</li>
+		</ul>
+	</div>
+	<legend translate>PCB Print</legend>
+	<form action="" method="post" class="edit-page" enctype="multipart/form-data">
+		<div class="row">
+			<div class="col-md-4">
+				<label for="Path" translate>Plate Name</label>
+				<input value="{{plate.Path}}" name="Path" id="Path" class="form-control" required>
+			</div>
+			<div class="col-md-4">
+				<label for="ZipFile" translate>PNG/JPEG File</label>
+				<input name="ZipFile" id="ZipFile" type="file" accept=".png,.jpg">
+			</div>
+			<!--<div class="col-md-3">
+				<label for="DPI" translate>Print DPI</label>
+				<input name="DPI" id="DPI" class="form-control" type="number" required>
+			</div>-->
+			<div class="col-md-4">
+                {{ selectProfile(profiles,plate.ProfileID) }}
+				<br>
+			</div>
+		</div>
+		<br>
+		<button type="submit" class="btn btn-success" translate>Generate</button>
+	</form>
+	<br>
+	<br>
+</div>
+{% endblock %}
