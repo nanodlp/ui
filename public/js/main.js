@@ -840,3 +840,8 @@ function search_init(){
 		});
 	});
 }
+
+$('#expertModeCheckbox').change(function() {
+	$.ajax({url: '/printer/view/toggle',type: 'GET',dataType: 'json'}); 
+	window.location.reload();
+});

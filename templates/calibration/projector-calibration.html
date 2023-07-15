@@ -16,7 +16,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="col-md-3">
+	<div class="col-md-3 {% if viewMode == 0 %}hidden{% endif %}" >
 		<div class="box">
 			<img src="/static/general/calibration-red.png" style="width: 240px;">
 			<div class="caption">
@@ -63,7 +63,7 @@
 	</div>
 </div>
 <div class="row">
-	<div class="col-md-6">
+	<div class="col-md-6 {% if viewMode == 0 %}hidden{% endif %}">
 		<br>
 		<br>
 		<div class="box edit-page">
@@ -93,7 +93,7 @@
 
 		</div>
 	</div>
-	<div class="col-md-3">
+	<div class="col-md-3 {% if viewMode == 0 %}hidden{% endif %}">
 		<br>
 		<br>
 		<div class="box">
@@ -105,7 +105,7 @@
 			<a href="/shutter/close" class="btn btn-primary" translate>Shutter Close</a><br><br>
 		</div>
 	</div>
-	<div class="col-md-3">
+	<div class="col-md-3 {% if viewMode == 0 %}hidden{% endif %}">
 		<br>
 		<br>
 		<div class="box">
