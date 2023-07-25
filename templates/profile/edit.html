@@ -20,7 +20,7 @@
 			</div>
 		</div>
 		<div class="row flex-row" id="options">
-			<div class="col-md-4 i_basic i_option">
+			<div class="col-md-4 i_basic i_option {% if basic.ResinID %}hidden{% endif %}">
 				<label for="ResinID" translate>Resin</label>
 				<select name="ResinID" id="ResinID" class="form-control">
 					<option value="0">-</option>
@@ -29,11 +29,11 @@
 					{% endfor %}
 				</select>				
 			</div>
-			<div class="col-md-4 i_basic i_option">
+			<div class="col-md-4 i_basic i_option {% if basic.Title %}hidden{% endif %}">
 				<label for="Title" translate>Name</label>
 				<input class="form-control" value="{{profile.Title}}" name="Title" id="Title" required>
 			</div>
-			<div class="col-md-4 i_basic i_option">
+			<div class="col-md-4 i_basic i_option {% if basic.ResinPrice %}hidden{% endif %}">
 				<label for="ResinPrice">
 					<span translate>Resin Price</span>
 					<span class="label label-default" translate>Per Litre</span>
@@ -41,26 +41,26 @@
 				<input class="form-control" value="{{profile.ResinPrice}}" name="ResinPrice" id="ResinPrice" step="0.01"
 					type="number">
 			</div>
-			<div class="col-md-4 i_basic i_option">
+			<div class="col-md-4 i_basic i_option {% if basic.Desc %}hidden{% endif %}">
 				<label for="Desc" translate>Description</label>
 				<textarea class="form-control" name="Desc" id="Desc">{{profile.Desc}}</textarea>
 			</div>
-			<div class="col-md-4 i_moveafterprint i_option conditional" data-condition="#PrinterType != 2 && ['i_moveafterprint'].includes(#scategory)">
+			<div class="col-md-4 i_moveafterprint i_option conditional {% if basic.ShieldAfterLayer %}hidden{% endif %}" data-condition="#PrinterType != 2 && ['i_moveafterprint'].includes(#scategory)">
 				<label for="ShieldAfterLayer">
 					<translate>Code After Each Layer</translate> {{helpPage("https://docs.nano3dtech.com/manual/code/")}}
 					{{formulaModal()}}
 				</label>
 				<textarea class="form-control" name="ShieldAfterLayer"
 					id="ShieldAfterLayer">{{profile.ShieldAfterLayer}}</textarea>
-			</div>			
-			<div class="col-md-4 i_burnin i_option">
+			</div>	
+			<div class="col-md-4 i_burnin i_option {% if basic.SupportLayerNumber %}hidden{% endif %}">
 				<label for="SupportLayerNumber">
 					<translate>Number of Burin-in Layers</translate>{{regenerateRequired()}}
 				</label>
 				<input class="form-control" value="{{profile.SupportLayerNumber}}" name="SupportLayerNumber"
 					id="SupportLayerNumber" type="number" required>
 			</div>
-			<div class="col-md-4 i_burnin i_option">
+			<div class="col-md-4 i_burnin i_option {% if basic.SupportCureTime %}hidden{% endif %}">
 				<label for="SupportCureTime">
 					<translate>Burn-in Cure Time</translate>
 					<span class="label label-default" translate>Second</span> {{helpModal("transitional-curetime")}}
@@ -68,7 +68,7 @@
 				<input class="form-control" value="{{profile.SupportCureTime}}" name="SupportCureTime"
 					id="SupportCureTime" step="0.0001" type="number" required>
 			</div>
-			<div class="col-md-4 i_burnin i_option">
+			<div class="col-md-4 i_burnin i_option {% if basic.SupportWaitBeforePrint %}hidden{% endif %}">
 				<label for="SupportWaitBeforePrint">
 					<translate>Burn-in Wait Before Print</translate>
 					<span class="label label-default" translate>Second</span>
@@ -76,7 +76,7 @@
 				<input class="form-control" value="{{profile.SupportWaitBeforePrint}}" name="SupportWaitBeforePrint"
 					step="0.01" id="SupportWaitBeforePrint" type="number" required>
 			</div>
-			<div class="col-md-4 i_burnin i_option conditional" data-condition="#PrinterType != 2 && ['i_burnin'].includes(#scategory)">
+			<div class="col-md-4 i_burnin i_option conditional {% if basic.SupportWaitAfterPrint %}hidden{% endif %}" data-condition="#PrinterType != 2 && ['i_burnin'].includes(#scategory)">
 				<label for="SupportWaitAfterPrint">
 					<translate>Burn-in Wait After Print</translate>
 					<span class="label label-default" translate>Second</span>
@@ -84,7 +84,7 @@
 				<input class="form-control" value="{{profile.SupportWaitAfterPrint}}" name="SupportWaitAfterPrint"
 					step="0.01" id="SupportWaitAfterPrint" type="number" required>
 			</div>
-			<div class="col-md-4 i_slicing i_option">
+			<div class="col-md-4 i_slicing i_option {% if basic.AdaptSlicing %}hidden{% endif %}">
 				<label for="AdaptSlicing">
 					<translate>Adaptive Thickness</translate> {{helpPage("https://docs.nano3dtech.com/manual/adaptive-thickness/")}} {{regenerateRequired()}}
 				</label>
@@ -93,21 +93,21 @@
 					<option value="1" {% if profile.AdaptSlicing==1 %}selected{% endif %} translate>Enable</option>
 				</select>
 			</div>
-			<div class="col-md-4 conditional i_slicing i_option"
+			<div class="col-md-4 conditional i_slicing i_option {% if basic.AdaptSlicingMin %}hidden{% endif %}"
 				data-condition="#AdaptSlicing > 0 && ['i_slicing'].includes(#scategory)">
 				<label for="AdaptSlicingMin">
 					<translate>Minimum Thickness for Adaptive Slicing</translate> <span class="label label-default">μm</span>  {{helpPage("https://docs.nano3dtech.com/manual/adaptive-thickness/")}} {{regenerateRequired()}}
 				</label>
 				<input class="form-control" value="{{profile.AdaptSlicingMin}}" name="AdaptSlicingMin" id="AdaptSlicingMin" step="1" type="number">
 			</div>
-			<div class="col-md-4 conditional i_slicing i_option"
+			<div class="col-md-4 conditional i_slicing i_option {% if basic.AdaptSlicingMax %}hidden{% endif %}"
 				data-condition="#AdaptSlicing > 0 && ['i_slicing'].includes(#scategory)">
 				<label for="AdaptSlicingMax">
 					<translate>Maximum Thickness for Adaptive Slicing</translate> <span class="label label-default">μm</span> {{helpPage("https://docs.nano3dtech.com/manual/adaptive-thickness/")}}{{regenerateRequired()}}
 				</label>
 				<input class="form-control" value="{{profile.AdaptSlicingMax}}" name="AdaptSlicingMax" id="AdaptSlicingMax" step="1" type="number">
 			</div>
-			<div class="col-md-4 i_slicing i_option">
+			<div class="col-md-4 i_slicing i_option {% if basic.AntiAlias3D %}hidden{% endif %}">
 				<label for="AntiAlias3D">
 					<translate>3D Anti-aliasing</translate> {{helpPage("https://docs.nano3dtech.com/manual/aa-3d/")}} {{regenerateRequired()}}
 				</label>
@@ -116,7 +116,7 @@
 					<option value="1" {% if profile.AntiAlias3D==1 %}selected{% endif %} translate>Enable</option>
 				</select>
 			</div>
-			<div class="col-md-4 i_slicing i_option">
+			<div class="col-md-4 i_slicing i_option {% if basic.AntiAlias %}hidden{% endif %}">
 				<label for="AntiAlias">
 					<translate>Anti-aliasing</translate>{{helpPage("https://docs.nano3dtech.com/manual/print-quality/#anti-aliasing")}}{{regenerateRequired()}}
 				</label>
@@ -125,14 +125,14 @@
 					<option value="1" {% if profile.AntiAlias==1 %}selected{% endif %} translate>Disable</option>
 				</select>
 			</div>
-			<div class="col-md-4 i_slicing i_option">
+			<div class="col-md-4 i_slicing i_option {% if basic.AntiAliasThreshold %}hidden{% endif %}">
 				<label for="AntiAliasThreshold">
 					<translate>Anti-aliasing Minimum Light Intensity Threshold</translate> <span class="label label-default">%</span> {{helpPage("https://docs.nano3dtech.com/manual/print-quality/#anti-aliasing-threshold")}}{{regenerateRequired()}}
 				</label>
 				<input class="form-control" value="{{profile.AntiAliasThreshold}}" name="AntiAliasThreshold" id="AntiAliasThreshold" step="0.1"
 					min="0" max="100" type="number">
 			</div>
-			<div class="col-md-4 i_slicing i_option">
+			<div class="col-md-4 i_slicing i_option {% if basic.SupportOffset %}hidden{% endif %}">
 				<label for="SupportOffset">
 					<translate>Burn-in Erode / Dilate Areas</translate>
 					<span class="label label-default" translate>MM</span> {{helpPage("https://docs.nano3dtech.com/manual/erode/")}} {{regenerateRequired()}}
@@ -140,7 +140,7 @@
 				<input class="form-control" value="{{profile.SupportOffset}}" name="SupportOffset" id="SupportOffset"
 					step="0.001" type="number">
 			</div>
-			<div class="col-md-4 i_normal i_option">
+			<div class="col-md-4 i_normal i_option {% if basic.Depth %}hidden{% endif %}">
 				<label for="Depth">
 					<translate>Normal Layer Thickness</translate>
 					<span class="label label-default" translate>μm</span> {{regenerateRequired()}}
@@ -148,7 +148,7 @@
 				<input class="form-control" value="{{profile.Depth}}" name="Depth" id="Depth" step="0.001" type="number"
 					required>
 			</div>
-			<div class="col-md-4 i_normal i_option">
+			<div class="col-md-4 i_normal i_option {% if basic.CureTime %}hidden{% endif %}">
 				<label for="CureTime">
 					<translate>Normal Layer Cure Time</translate>
 					<span class="label label-default" translate>Second</span>
@@ -156,7 +156,7 @@
 				<input class="form-control" value="{{profile.CureTime}}" name="CureTime" id="CureTime" step="0.0001"
 					type="number" required>
 			</div>
-			<div class="col-md-4 i_normal i_option">
+			<div class="col-md-4 i_normal i_option {% if basic.DynamicWait %}hidden{% endif %}">
 				<label for="DynamicWait">
 					<translate>Dynamic Wait</translate>
 					<span class="label label-danger" translate>Experimental</span>
@@ -166,7 +166,7 @@
 				<textarea class="form-control" name="DynamicWait"
 					id="DynamicWait">{{profile.DynamicWait}}</textarea>
 			</div>
-			<div class="col-md-4 i_normal i_option">
+			<div class="col-md-4 i_normal i_option {% if basic.DynamicLift %}hidden{% endif %}">
 				<label for="DynamicLift">
 					<translate>Dynamic Lift</translate>
 					<span class="label label-danger" translate>Experimental</span>
@@ -176,7 +176,7 @@
 				<textarea class="form-control" name="DynamicLift"
 					id="DynamicLift">{{profile.DynamicLift}}</textarea>
 			</div>
-			<div class="col-md-4 i_normal i_option">
+			<div class="col-md-4 i_normal i_option {% if basic.WaitBeforePrint %}hidden{% endif %}">
 				<label for="WaitBeforePrint">
 					<translate>Wait Before Print</translate>
 					<span class="label label-default" translate>Second</span>
@@ -184,7 +184,7 @@
 				<input class="form-control" value="{{profile.WaitBeforePrint}}" name="WaitBeforePrint"
 					id="WaitBeforePrint" step="0.01" type="number" required>
 			</div>
-			<div class="col-md-4 i_normal i_option conditional" data-condition="#PrinterType != 2 && ['i_normal'].includes(#scategory)">
+			<div class="col-md-4 i_normal i_option conditional {% if basic.WaitAfterPrint %}hidden{% endif %}" data-condition="#PrinterType != 2 && ['i_normal'].includes(#scategory)">
 				<label for="WaitAfterPrint">
 					<translate>Wait After Print</translate>
 					<span class="label label-default" translate>Second</span>
@@ -192,7 +192,7 @@
 				<input class="form-control" value="{{profile.WaitAfterPrint}}" name="WaitAfterPrint" id="WaitAfterPrint"
 					step="0.01" type="number" required>
 			</div>
-			<div class="col-md-4 i_slicing i_option">
+			<div class="col-md-4 i_slicing i_option {% if basic.Offset %}hidden{% endif %}">
 				<label for="Offset">
 					<translate>Erode / Dilate Areas</translate>
 					<span class="label label-default" translate>MM</span> {{helpPage("https://docs.nano3dtech.com/manual/erode/")}} {{regenerateRequired()}}
@@ -200,7 +200,7 @@
 				<input class="form-control" value="{{profile.Offset}}" name="Offset" id="Offset" step="0.001"
 					type="number">
 			</div>
-			<div class="col-md-4 i_normal i_option">
+			<div class="col-md-4 i_normal i_option {% if basic.DynamicCureTime %}hidden{% endif %}">
 				<label for="DynamicCureTime">
 					<translate>Dynamic Cure Time</translate>
 					<span class="label label-default"
@@ -210,7 +210,7 @@
 				<textarea class="form-control" name="DynamicCureTime"
 					id="DynamicCureTime">{{profile.DynamicCureTime}}</textarea>
 			</div>
-			<div class="col-md-4 i_movetolayer i_option">
+			<div class="col-md-4 i_movetolayer i_option {% if basic.ShieldBeforeLayer %}hidden{% endif %}">
 				<label for="ShieldBeforeLayer">
 					<translate>Code Before Each Layer</translate> {{helpPage("https://docs.nano3dtech.com/manual/code/")}}
 					{{formulaModal()}}
@@ -218,7 +218,7 @@
 				<textarea class="form-control" name="ShieldBeforeLayer"
 					id="ShieldBeforeLayer">{{profile.ShieldBeforeLayer}}</textarea>
 			</div>
-			<div class="col-md-4 i_movetolayer i_moveafterprint i_option">
+			<div class="col-md-4 i_movetolayer i_moveafterprint i_option {% if basic.DynamicSpeed %}hidden{% endif %}">
 				<label for="DynamicSpeed">
 					<translate>Dynamic Speed</translate>
 					<span class="label label-default"
@@ -227,7 +227,7 @@
 				</label>
 				<textarea class="form-control" name="DynamicSpeed" id="DynamicSpeed">{{profile.DynamicSpeed}}</textarea>
 			</div>
-			<div class="col-md-4 i_moveafterprint i_option">
+			<div class="col-md-4 i_moveafterprint i_option {% if basic.SeparationDetection %}hidden{% endif %}">
 				<label for="SeparationDetection">
 					<translate>Separation Detection</translate>
 					{{helpPage("https://docs.nano3dtech.com/manual/code/#dynamic-fields")}}
@@ -237,7 +237,7 @@
 				<textarea class="form-control" name="SeparationDetection"
 					id="SeparationDetection">{{profile.SeparationDetection}}</textarea>
 			</div>
-			<div class="col-md-4 i_moveafterprint i_option">
+			<div class="col-md-4 i_moveafterprint i_option {% if basic.ResinLevelDetection %}hidden{% endif %}">
 				<label for="ResinLevelDetection">
 					<translate>Resin Level Detection</translate>
 					<span class="label label-danger" translate>Experimental</span>
@@ -247,7 +247,7 @@
 				<textarea class="form-control" name="ResinLevelDetection"
 					id="ResinLevelDetection">{{profile.ResinLevelDetection}}</textarea>
 			</div>
-			<div class="col-md-4 i_moveafterprint i_option">
+			<div class="col-md-4 i_moveafterprint i_option {% if basic.CrashDetection %}hidden{% endif %}">
 				<label for="CrashDetection">
 					<translate>Crash Detection</translate>
 					<span class="label label-danger" translate>Experimental</span>
@@ -257,7 +257,7 @@
 				<textarea class="form-control" name="CrashDetection"
 					id="CrashDetection">{{profile.CrashDetection}}</textarea>
 			</div>
-			<div class="col-md-4 i_moveafterprint i_option conditional" data-condition="#PrinterType != 2 && ['i_moveafterprint'].includes(#scategory)">
+			<div class="col-md-4 i_moveafterprint i_option conditional {% if basic.TopWait %}hidden{% endif %}" data-condition="#PrinterType != 2 && ['i_moveafterprint'].includes(#scategory)">
 				<label for="TopWait">
 					<translate>Wait After Lift</translate>
 					<span class="label label-default" translate>Second</span>
@@ -265,7 +265,7 @@
 				<input class="form-control" value="{{profile.TopWait}}" name="TopWait" id="TopWait" step="0.01"
 					type="number" required>
 			</div>			
-			<div class="col-md-4 i_movetolayer i_moveafterprint i_option">
+			<div class="col-md-4 i_movetolayer i_moveafterprint i_option {% if basic.ZStepWait %}hidden{% endif %}">
 				<label for="ZStepWait">
 					<translate>Max Speed</translate>
 					<span class="label label-default" translate>mm/min (Direct Control: μm/Second) </span> {{helpPage("https://docs.nano3dtech.com/manual/speed/")}}
@@ -274,7 +274,7 @@
 					value="{% if profile.ZStepWait==0 %}1{% else %}{{profile.ZStepWait}}{% endif %}" name="ZStepWait"
 					id="ZStepWait" type="number" min="1" required>
 			</div>
-			<div class="col-md-4 i_movetolayer i_option conditional" data-condition="#DirectControl>0">
+			<div class="col-md-4 i_movetolayer i_option conditional {% if basic.SlowSectionHeight %}hidden{% endif %}" data-condition="#DirectControl>0">
 				<label for="SlowSectionHeight">
 					<translate>Slow Section Height</translate>
 					<span class="label label-default" translate>Millimeter</span> {{helpPage("https://docs.nano3dtech.com/manual/speed/")}}
@@ -282,7 +282,7 @@
 				<input class="form-control" value="{{profile.SlowSectionHeight}}" name="SlowSectionHeight"
 					id="SlowSectionHeight" step="0.001" type="number" required>
 			</div>
-			<div class="col-md-4 i_movetolayer i_option conditional" data-condition="#DirectControl>0">
+			<div class="col-md-4 i_movetolayer i_option conditional {% if basic.SlowSectionStepWait %}hidden{% endif %}" data-condition="#DirectControl>0">
 				<label for="SlowSectionStepWait">
 					<translate>Speed in Slow Section</translate>
 					<span class="label label-default" translate>μm/Second</span> {{helpPage("https://docs.nano3dtech.com/manual/speed/")}}
@@ -291,7 +291,7 @@
 					value="{% if profile.SlowSectionStepWait==0 %}1{% else %}{{profile.SlowSectionStepWait}}{% endif %}"
 					name="SlowSectionStepWait" id="SlowSectionStepWait" type="number" min="1" required>
 			</div>
-			<div class="col-md-4 i_slicing i_option">
+			<div class="col-md-4 i_slicing i_option {% if basic.FillColor %}hidden{% endif %}">
 				<label for="FillColor">
 					<translate>Light Source Color</translate>  {{helpPage("https://docs.nano3dtech.com/manual/mask/#color")}}{{regenerateRequired()}}
 				</label>
@@ -300,7 +300,7 @@
 				{% else %}
 				<input class="form-control" value="#ffffff" name="FillColor" id="FillColor" type="color"> {% endif %}
 			</div>
-			<div class="col-md-4 i_slicing i_option">
+			<div class="col-md-4 i_slicing i_option {% if basic.BlankColor %}hidden{% endif %}">
 				<label for="BlankColor">
 					<translate>Blank Area Color</translate>  {{helpPage("https://docs.nano3dtech.com/manual/mask/#color")}}{{regenerateRequired()}}
 				</label>
@@ -309,7 +309,7 @@
 					type="color"> {% else %}
 				<input class="form-control" value="#000000" name="BlankColor" id="BlankColor" type="color"> {% endif %}
 			</div>
-			<div class="col-md-4 i_slicing i_option">
+			<div class="col-md-4 i_slicing i_option {% if basic.PixelDiming %}hidden{% endif %}">
 				<label for="PixelDiming">
 					<translate>Pixel Dimming Type</translate> {{helpPage("https://docs.nano3dtech.com/manual/dimming/")}}{{regenerateRequired()}}
 				</label>
@@ -319,7 +319,7 @@
 					<option value="2" {% if profile.PixelDiming==2 %}selected{% endif %} translate>Homogeneous</option>
 				</select>
 			</div>
-			<div class="col-md-4 conditional i_slicing i_option"
+			<div class="col-md-4 conditional i_slicing i_option {% if basic.DimAmount %}hidden{% endif %}"
 				data-condition="#PixelDiming > 0 && ['i_slicing','i_slicing'].includes(#scategory)">
 				<label for="DimAmount">
 					<translate>Dimming Amount Percentage</translate>{{regenerateRequired()}}
@@ -327,7 +327,7 @@
 				<input class="form-control" value="{{profile.DimAmount}}" name="DimAmount" id="DimAmount" step="0.1"
 					min="0" max="100" type="number">
 			</div>
-			<div class="col-md-4 conditional i_slicing i_option"
+			<div class="col-md-4 conditional i_slicing i_option {% if basic.DimWall %}hidden{% endif %}"
 				data-condition="#PixelDiming > 0 && ['i_slicing','i_slicing'].includes(#scategory)">
 				<label for="DimWall">
 					<translate>Wall Around Dimming</translate>{{regenerateRequired()}}
@@ -335,7 +335,7 @@
 				<input class="form-control" value="{{profile.DimWall}}" name="DimWall" id="DimWall" step="1"
 					type="number">
 			</div>
-			<div class="col-md-4 conditional i_slicing i_option"
+			<div class="col-md-4 conditional i_slicing i_option {% if basic.DimSkip %}hidden{% endif %}"
 				data-condition="#PixelDiming > 0 && ['i_slicing','i_slicing'].includes(#scategory)">
 				<label for="DimSkip">
 					<translate>Skip Dimming for Early Layers</translate>{{regenerateRequired()}}
@@ -343,7 +343,7 @@
 				<input class="form-control" value="{{profile.DimSkip}}" name="DimSkip" id="DimSkip" step="1"
 					type="number">
 			</div>
-			<div class="col-md-4 i_option i_slicing i_burnin conditional" data-condition="#PrinterType != 2 && ['i_burnin','i_slicing'].includes(#scategory)">
+			<div class="col-md-4 i_option i_slicing i_burnin conditional {% if basic.ElephantMidExposure %}hidden{% endif %}" data-condition="#PrinterType != 2 && ['i_burnin','i_slicing'].includes(#scategory)">
 				<label for="ElephantMidExposure">
 					<translate>Elephant Foot Middle Exposure</translate> {{helpPage("https://docs.nano3dtech.com/manual/elephant-foot/")}}
 				</label>
@@ -352,7 +352,7 @@
 					<option value="1" {% if profile.ElephantMidExposure==1 %}selected{% endif %} translate>Enable</option>
 				</select>
 			</div>
-			<div class="col-md-4 i_option i_burnin conditional" data-condition="#PrinterType != 2 && ['i_burnin'].includes(#scategory)">
+			<div class="col-md-4 i_option i_burnin conditional {% if basic.TransitionalLayer %}hidden{% endif %}" data-condition="#PrinterType != 2 && ['i_burnin'].includes(#scategory)">
 				<label for="TransitionalLayer">
 					<translate>Transitional Layer</translate>
 				</label>
@@ -361,7 +361,7 @@
 					<option value="1" {% if profile.TransitionalLayer==1 %}selected{% endif %} translate>Disable</option>
 				</select>
 			</div>
-			<div class="col-md-4 i_slicing i_burnin i_option">
+			<div class="col-md-4 i_slicing i_burnin i_option {% if basic.ElephantType %}hidden{% endif %}">
 				<label for="ElephantType">
 					<translate>Elephant Foot Compensation</translate>{{regenerateRequired()}}
 				</label>
@@ -371,7 +371,7 @@
 					<option value="2" {% if profile.ElephantType==2 %}selected{% endif %} translate>Homogeneous</option>
 				</select>
 			</div>
-			<div class="col-md-4 conditional i_slicing i_burnin i_option"
+			<div class="col-md-4 conditional i_slicing i_burnin i_option {% if basic.ElephantAmount %}hidden{% endif %}"
 				data-condition="#ElephantType > 0 && ['i_slicing','i_burnin'].includes(#scategory)">
 				<label for="ElephantAmount">
 					<translate>Elephant Foot Compensation Amount Percentage</translate>{{regenerateRequired()}}
@@ -379,7 +379,7 @@
 				<input class="form-control" value="{{profile.ElephantAmount}}" name="ElephantAmount" id="ElephantAmount" step="0.1"
 					min="0" max="100" type="number">
 			</div>
-			<div class="col-md-4 conditional i_slicing i_burnin i_option"
+			<div class="col-md-4 conditional i_slicing i_burnin i_option {% if basic.ElephantWall %}hidden{% endif %}"
 				data-condition="#ElephantType > 0 && ['i_slicing','i_burnin'].includes(#scategory)">
 				<label for="ElephantWall">
 					<translate>Elephant Foot Wall Thickness</translate>{{regenerateRequired()}}
@@ -387,7 +387,7 @@
 				<input class="form-control" value="{{profile.ElephantWall}}" name="ElephantWall" id="ElephantWall" step="1"
 					type="number">
 			</div>
-			<div class="col-md-4 conditional i_slicing i_burnin i_option"
+			<div class="col-md-4 conditional i_slicing i_burnin i_option {% if basic.ElephantLayers %}hidden{% endif %}"
 				data-condition="#ElephantType > 0 && ['i_slicing','i_burnin'].includes(#scategory)">
 				<label for="ElephantLayers">
 					<translate>Elephant Foot Compensation Layers</translate>{{regenerateRequired()}}
@@ -395,7 +395,7 @@
 				<input class="form-control" value="{{profile.ElephantLayers}}" name="ElephantLayers" id="ElephantLayers" step="1"
 					type="number">
 			</div>
-			<div class="col-md-4 i_slicing i_option">
+			<div class="col-md-4 i_slicing i_option {% if basic.HatchingType %}hidden{% endif %}">
 				<label for="HatchingType">
 					<translate>Hollowing / Infill Type</translate> {{helpPage("https://docs.nano3dtech.com/manual/hollowing/")}}{{regenerateRequired()}}
 				</label>
@@ -405,7 +405,7 @@
 					<option value="2" {% if profile.HatchingType==2 %}selected{% endif %} translate>Hollowing</option>
 				</select>				
 			</div>
-			<div class="col-md-4 i_slicing i_option conditional"
+			<div class="col-md-4 i_slicing i_option conditional {% if basic.HatchingTopCap %}hidden{% endif %}"
 				data-condition="#HatchingType > 0 && ['i_slicing'].includes(#scategory)">
 				<label for="HatchingTopCap">
 					<translate>Top Cap Wall</translate>
@@ -415,7 +415,7 @@
 				<input class="form-control" value="{{profile.HatchingTopCap}}" name="HatchingTopCap" id="HatchingTopCap"
 					step="1" max="10" type="number">
 			</div>
-			<div class="col-md-4 i_slicing i_option conditional"
+			<div class="col-md-4 i_slicing i_option conditional {% if basic.HatchingBottomCap %}hidden{% endif %}"
 				data-condition="#HatchingType > 0 && ['i_slicing'].includes(#scategory)">
 				<label for="HatchingBottomCap">
 					<translate>Bottom Cap Wall</translate>
@@ -425,7 +425,7 @@
 				<input class="form-control" value="{{profile.HatchingBottomCap}}" name="HatchingBottomCap"
 					id="HatchingBottomCap" step="1" max="10" type="number">
 			</div>
-			<div class="col-md-4 i_slicing i_option conditional"
+			<div class="col-md-4 i_slicing i_option conditional {% if basic.HatchingOuterWall %}hidden{% endif %}"
 				data-condition="#HatchingType > 0 && ['i_slicing'].includes(#scategory)">
 				<label for="HatchingOuterWall">
 					<translate>Outer Wall Thickness</translate>
@@ -435,7 +435,7 @@
 				<input class="form-control" value="{{profile.HatchingOuterWall}}" name="HatchingOuterWall"
 					id="HatchingOuterWall" step="1" type="number">
 			</div>
-			<div class="col-md-4 i_slicing i_option conditional"
+			<div class="col-md-4 i_slicing i_option conditional {% if basic.HatchingWall %}hidden{% endif %}"
 				data-condition="#HatchingType > 0 && ['i_slicing'].includes(#scategory)">
 				<label for="HatchingWall">
 					<translate>Infill Pattern Wall Size</translate>
@@ -445,7 +445,7 @@
 				<input class="form-control" value="{{profile.HatchingWall}}" name="HatchingWall" id="HatchingWall"
 					step="1" type="number">
 			</div>
-			<div class="col-md-4 i_slicing i_option conditional"
+			<div class="col-md-4 i_slicing i_option conditional {% if basic.HatchingGap %}hidden{% endif %}"
 				data-condition="#HatchingType > 0 && ['i_slicing'].includes(#scategory)">
 				<label for="HatchingGap">
 					<translate>Infill Pattern Cell Width</translate>
@@ -455,7 +455,7 @@
 				<input class="form-control" value="{{profile.HatchingGap}}" name="HatchingGap" id="HatchingGap" step="1"
 					type="number">
 			</div>
-			<div class="col-md-4 i_moveafterprint i_option conditional" data-condition="#PrinterType != 2 && ['i_moveafterprint'].includes(#scategory)">
+			<div class="col-md-4 i_moveafterprint i_option conditional {% if basic.SupportWaitHeight %}hidden{% endif %}" data-condition="#PrinterType != 2 && ['i_moveafterprint'].includes(#scategory)">
 				<label for="SupportWaitHeight">
 					<translate>Burn-in Lift After Print</translate>
 					<span class="label label-default" translate>Millimeter</span>
@@ -463,7 +463,7 @@
 				<input class="form-control" value="{{profile.SupportWaitHeight}}" name="SupportWaitHeight" step="0.001"
 					id="SupportWaitHeight" type="number" required>
 			</div>
-			<div class="col-md-4 i_moveafterprint i_option conditional" data-condition="#PrinterType != 2 && ['i_burnin'].includes(#scategory)">
+			<div class="col-md-4 i_moveafterprint i_option conditional {% if basic.SupportTopWait %}hidden{% endif %}" data-condition="#PrinterType != 2 && ['i_burnin'].includes(#scategory)">
 				<label for="SupportTopWait">
 					<translate>Burn-in Wait After Lift</translate>
 					<span class="label label-default" translate>Second</span>
@@ -471,7 +471,7 @@
 				<input class="form-control" value="{{profile.SupportTopWait}}" name="SupportTopWait" step="0.01"
 					id="SupportTopWait" type="number" required>
 			</div>
-			<div class="col-md-4 i_moveafterprint i_option conditional" data-condition="#PrinterType != 2 && ['i_moveafterprint'].includes(#scategory)">
+			<div class="col-md-4 i_moveafterprint i_option conditional {% if basic.WaitHeight %}hidden{% endif %}" data-condition="#PrinterType != 2 && ['i_moveafterprint'].includes(#scategory)">
 				<label for="WaitHeight">
 					<translate>Lift After Print</translate>
 					<span class="label label-default">Millimeter</span>
@@ -479,7 +479,7 @@
 				<input class="form-control" value="{{profile.WaitHeight}}" name="WaitHeight" id="WaitHeight"
 					step="0.001" type="number" required>
 			</div>
-			<div class="col-md-4 i_slicing i_option">
+			<div class="col-md-4 i_slicing i_option {% if basic.ResinID %}ImageRotate{% endif %}">
 				<label for="ImageRotate">
 					<translate>Rotate Layers</translate>{{regenerateRequired()}}
 				</label>
@@ -488,7 +488,7 @@
 					<option value="1" {% if profile.ImageRotate==1 %}selected{% endif %} translate>Rotate 90°</option>
 				</select>
 			</div>
-			<div class="col-md-4 i_slicing i_option">
+			<div class="col-md-4 i_slicing i_option {% if basic.ResinID %}MultiCureGap{% endif %}">
 				<label for="MultiCureGap">
 					<translate>Multi Print Gap</translate> <span class="label label-default" translate>MM</span>
 					{{helpPage("https://docs.nano3dtech.com/manual/multicure/")}} {{regenerateRequired()}}
@@ -496,34 +496,34 @@
 				<input class="form-control" value="{{profile.MultiCureGap}}" name="MultiCureGap" id="MultiCureGap"
 					step="1" type="number">
 			</div>
-			<div class="col-md-4 conditional i_normal i_option"
+			<div class="col-md-4 conditional i_normal i_option {% if basic.LaserCode %}hidden{% endif %}"
 				data-condition="#PrinterType == 1 && ['i_normal'].includes(#scategory)">
 				<label for="LaserCode">
 					<translate>Laser Code</translate> {{helpPage("https://docs.nano3dtech.com/manual/code/")}} {{formulaModal()}}
 				</label>
 				<textarea class="form-control" name="LaserCode" id="LaserCode">{{profile.LaserCode}}</textarea>
 			</div>
-			<div class="col-md-4 i_override i_option">
+			<div class="col-md-4 i_override i_option {% if basic.ShieldStart %}hidden{% endif %}">
 				<label for="ShieldStart">
 					<translate>Override Start of Print Code</translate>
 					{{helpPage("https://docs.nano3dtech.com/manual/code/")}} {{formulaModal()}}
 				</label>
 				<textarea class="form-control" name="ShieldStart" id="ShieldStart">{{profile.ShieldStart}}</textarea>
 			</div>
-			<div class="col-md-4 i_override i_option">
+			<div class="col-md-4 i_override i_option {% if basic.ShieldResume %}hidden{% endif %}">
 				<label for="ShieldResume">
 					<translate>Override Resume Print Code</translate>
 					{{helpPage("https://docs.nano3dtech.com/manual/code/")}} {{formulaModal()}}
 				</label>
 				<textarea class="form-control" name="ShieldResume" id="ShieldResume">{{profile.ShieldResume}}</textarea>
 			</div>
-			<div class="col-md-4 i_override i_option">
+			<div class="col-md-4 i_override i_option {% if basic.ShieldFinish %}hidden{% endif %}">
 				<label for="ShieldFinish">
 					<translate>Override Print Stop Code</translate> {{helpPage("https://docs.nano3dtech.com/manual/code/")}} {{formulaModal()}}
 				</label>
 				<textarea class="form-control" name="ShieldFinish" id="ShieldFinish">{{profile.ShieldFinish}}</textarea>
 			</div>
-			<div class="col-md-4 i_override i_option">
+			<div class="col-md-4 i_override i_option {% if basic.XYRes %}hidden{% endif %}">
 				<label for="XYRes">
 					<translate>Override X Resolution</translate>
 					<span class="label label-default" translate>Micron</span> {{calcModal("resolution")}} {{regenerateRequired()}}
@@ -531,14 +531,14 @@
 				<input class="form-control" value="{{profile.XYRes}}" name="XYRes" id="XYRes" step="0.001"
 					type="number">
 			</div>
-			<div class="col-md-4 i_override i_option">
+			<div class="col-md-4 i_override i_option {% if basic.YRes %}hidden{% endif %}">
 				<label for="YRes">
 					<translate>Override Y Resolution</translate> 
 					<span class="label label-default" translate>Micron</span> {{calcModal("resolution")}} {{regenerateRequired()}}
 				</label>
 				<input class="form-control" value="{{profile.YRes}}" name="YRes" id="YRes" step="0.001" type="number">
 			</div>
-			<div class="col-md-4 i_override i_option">
+			<div class="col-md-4 i_override i_option {% if basic.ZResPerc %}hidden{% endif %}">
 				<label for="ZResPerc">
 					<translate>Z Model Size Modifier</translate>
 					<span class="label label-default" translate>Percentage</span>{{regenerateRequired()}}
@@ -546,7 +546,7 @@
 				<input class="form-control" value="{{profile.ZResPerc}}" name="ZResPerc" id="ZResPerc" step="0.001"
 					type="number">
 			</div>
-			<div class="col-md-4 i_slicing i_override i_option">
+			<div class="col-md-4 i_slicing i_override i_option {% if basic.IgnoreMask %}hidden{% endif %}">
 				<label for="IgnoreMask">
 					<translate>Mask File</translate> {{helpPage("https://docs.nano3dtech.com/manual/mask/")}}{{regenerateRequired()}}
 				</label>

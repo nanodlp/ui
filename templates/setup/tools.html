@@ -46,10 +46,10 @@
             <a class="btn btn-info" href="/debug" translate>Download Debug File</a>
             <br>
             {% if arch=="arm" %}
-            <a class="btn btn-success" href="/printer/edit/pi" translate>Edit Raspberry Pi Settings</a>
+            <a class="btn btn-success {% if viewMode == 0 %}hidden{% endif %}" href="/printer/edit/pi " translate>Edit Raspberry Pi Settings</a>
             <br>
             {% endif %}
-            <a class="btn btn-danger" href="/printer/distro/change" translate>Change Distribution</a>
+            <a class="btn btn-danger {% if viewMode == 0 %}hidden{% endif %}" href="/printer/distro/change" translate>Change Distribution</a>
             <br>
             <a class="btn btn-success" href="/printer/upgrade" translate>Upgrade nanoDLP</a>
             <br>
@@ -59,16 +59,16 @@
             <br>
             <br>
             {% if arch=="arm" %}
-            <div class="alert alert-warning" role="alert" translate>Filesystem expansion will run silently in background and will restart the Raspberry Pi afterward. Please do not change anything.</div>
-            <a class="ajax btn btn-danger" data-ajax="/" href="/printer/expand-fs" data-confirm="expand-confirm"
+            <div class="alert alert-warning {% if viewMode == 0 %}hidden{% endif %}" role="alert" translate>Filesystem expansion will run silently in background and will restart the Raspberry Pi afterward. Please do not change anything.</div>
+            <a class="ajax btn btn-danger {% if viewMode == 0 %}hidden{% endif %}" data-ajax="/" href="/printer/expand-fs" data-confirm="expand-confirm"
                 translate>Expand Filesystem</a>
             <translate class="hide" id="expand-confirm">Are you sure you want to expand filesystem?</translate>
             <br>
             <br>
             {% endif %}            
             <a class="btn btn-success" href="/printer/upgrade/dsi/nanodlp-dsi.beta.tar.gz" translate>Upgrade DSI interface</a>
-            <h1 translate>Upload AVR Firmware</h1>
-            <form action="/avr/upload" method="post" class="edit-page" enctype="multipart/form-data">
+            <h1 translate class="{% if viewMode == 0 %}hidden{% endif %}">Upload AVR Firmware</h1>
+            <form action="/avr/upload" method="post" class="edit-page  {% if viewMode == 0 %}hidden{% endif %}" enctype="multipart/form-data">
                 <input class="form-control" name="HexFile" id="HexFile" type="file" accept=".hex">
                 <br>
                 <button type="submit" class="btn btn-success" name="file" value="add" translate>Upload</button>
