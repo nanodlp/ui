@@ -15,6 +15,7 @@
 				<span class="glyphicon glyphicon-usd"></span> {{PrintResult.Price}}<br>
 				<span class="glyphicon glyphicon-time"></span> {{PrintResult.PrintTime}}<br>
 				<span class="glyphicon glyphicon-time"></span> {{PrintResult.supportCureTime}}s / {% if !PrintResult.cureTimes %}{{PrintResult.cureTime}}{% else %}{{PrintResult.cureTimes}}{% endif %}s<br>
+				<span class="glyphicon glyphicon-time"></span> {{PrintResult.Date}}<br>
 			</div>
 			{% if PrintResult.Status == 0 %}
 			<div class="panel-footer">

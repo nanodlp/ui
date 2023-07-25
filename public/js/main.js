@@ -727,14 +727,15 @@ function image_display(path,layer_id,blackout){
 		var frame_src='/static/plates/' + path + '/' + layer_id + '.png?' + Math.floor(Date.now() / 1000);
 		var preview_src='/plate/preview/'+path+'/'+layer_id;
 		if ($("#image_wrapper div").html()=='') {
-			$("#image_wrapper div").html('<img src="'+frame_src+'" class="two" loading=lazy>');			;
+			var d = ' style="aspect-ratio: calc(('+$(".layer_details").data("ratio")+'));" ';
+			$("#image_wrapper div").html('<img src="'+frame_src+'" class="two"'+d+'loading=lazy>');			;
 			$.get('/static/plates/' + path + '/3d.png',function(){
 				$("#image_wrapper div").html($("#image_wrapper div").html()+'<img src="'+preview_src+'" class="three" loading=lazy>');
 			}).fail(function() {
 				$("#image_wrapper #change-preview").remove();
 				$("#image_wrapper").addClass("toggle");
 			});
-			return;
+			return;			
 		}
 		if ($("#image_wrapper").hasClass("toggle")) {
 			$(".two").attr("src",frame_src);
