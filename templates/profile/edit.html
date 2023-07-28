@@ -479,7 +479,7 @@
 				<input class="form-control" value="{{profile.WaitHeight}}" name="WaitHeight" id="WaitHeight"
 					step="0.001" type="number" required>
 			</div>
-			<div class="col-md-4 i_slicing i_option {% if basic.ResinID %}ImageRotate{% endif %}">
+			<div class="col-md-4 i_slicing i_option {% if basic.ImageRotate %}hidden{% endif %} {% if basic.ResinID %}ImageRotate{% endif %}">
 				<label for="ImageRotate">
 					<translate>Rotate Layers</translate>{{regenerateRequired()}}
 				</label>
@@ -488,7 +488,7 @@
 					<option value="1" {% if profile.ImageRotate==1 %}selected{% endif %} translate>Rotate 90°</option>
 				</select>
 			</div>
-			<div class="col-md-4 i_slicing i_option {% if basic.ResinID %}MultiCureGap{% endif %}">
+			<div class="col-md-4 i_slicing i_option  {% if basic.MultiCureGap %}hidden{% endif %} {% if basic.ResinID %}MultiCureGap{% endif %}">
 				<label for="MultiCureGap">
 					<translate>Multi Print Gap</translate> <span class="label label-default" translate>MM</span>
 					{{helpPage("https://docs.nano3dtech.com/manual/multicure/")}} {{regenerateRequired()}}

@@ -28,6 +28,7 @@
                 <li><a href="/tools"><span class="glyphicon glyphicon-cog"></span>&nbsp; <translate>Tools</translate></a></li>
                 <li><a href="/support"><span class="glyphicon glyphicon-question-sign"></span>&nbsp; <translate>Support</translate></a></li>
                 {% endif %}
+                <li><a href="#" id="expertModeCheckbox"><span class="glyphicon glyphicon-dashboard"></span>&nbsp; {% if viewMode == 1 %}<translate>Basic Mode</translate>{% else %}<translate>Expert Mode</translate>{% endif %}</a> </li>
             </ul>            
         </li>        
     </ul>
@@ -49,16 +50,6 @@
             {% endif %}
         </li>
         {% endif %}
-        <!-- view Mode Toggle -->
-        <li>
-            <a style="padding-right:0px;">
-                <div class="checkbox-inline">
-                    <label>
-                        <input type="checkbox" id="expertModeCheckbox" {% if viewMode == 1 %} checked {% endif %}/><span class="label label-info">Expert Mode</span> 
-                    </label>
-                </div>
-            </a>
-        </li>
         <li>
             {% if !manHighLock %}
                 {% if newBuild %}

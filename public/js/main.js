@@ -131,7 +131,7 @@ function select_setting(){
 
 function settings_open(t){
 	$(".setup-categories").slideUp();
-	var cl = $(t).data("related");
+	var cl = $(t).data("related");	
 	$("#scategory").val(cl);
 	$("."+cl).slideDown();
 	window.location = "#"+cl;
@@ -150,6 +150,12 @@ function settings_close(){
 
 /* Profile page category handling */
 function profile_settings_init() {
+	$(".setting-cat").each(function(){
+		var cl = $(this).data("related");
+		if ($("."+cl+"").length==0||$("."+cl).not(".hidden").length==0){
+			$(this).hide();
+		}	
+	});	
 	$("body").on("input","input.ticks",function(e){
 		$(this).parent("h4").find(".val").html($(this).val());
 	});
@@ -842,7 +848,8 @@ function search_init(){
 	});
 }
 
-$('#expertModeCheckbox').change(function() {
+$('#expertModeCheckbox').click(function(e) {
+	e.preventDefault();
 	$.ajax({url: '/printer/view/toggle',type: 'GET',dataType: 'json'}); 
 	window.location.reload();
 });
