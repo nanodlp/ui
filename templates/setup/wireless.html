@@ -17,6 +17,20 @@
 </tr>
 </form>
 {% endmacro %}
+<div class="row layer_details">
+	<div class="col-md-6">
+		<span class="glyphicon glyphicon-info-sign text-success"></span>
+		<translate class="key">Hostname</translate>
+		<div class="val">{{Hostname}}</div>
+		<br>
+	</div>
+	<div class="col-md-6">
+		<span class="glyphicon glyphicon-info-sign text-success"></span>
+		<translate class="key">IP:PORT</translate>
+		<div class="val">{{IP}}:{{Port}}</div>
+		<br>
+	</div>
+</div>
 <div class="row">
 	<div class="col-md-12 edit-table edit-page">
 		<div class="alert alert-warning" role="alert" translate>Changing the WiFi settings during printing could cause interruption.</div>

@@ -660,3 +660,32 @@ dl {
 .navbar-brand img{
 	height: 100%;
 }
+
+.upload-button {
+	position: relative;
+	overflow: hidden;
+}
+  
+.upload-progress-bar {
+	position: absolute;
+	display: none;
+	top: 0;
+	left: 0;
+	width: 0;
+	height: 100%;
+	background-color: #afad4c;
+	animation: upload-progress 2s ease-in-out infinite;
+	box-sizing: border-box;
+}
+  
+@keyframes upload-progress {
+	0% {
+	  width: 0;
+	}
+	50% {
+	  width: 50%;
+	}
+	100% {
+	  width: 100%;
+	}
+}

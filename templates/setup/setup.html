@@ -100,6 +100,12 @@
 					<option value="ru" {% if Lang=="ru" %}selected{% endif %} translate>Russian</option>
 				</select>
 			</div>
+			<div class="col-md-4 i_basic i_option">
+				<label for="WiFiCountry">
+					<translate>WiFi Country</translate>
+				</label>
+				<input class="form-control" value="{{WiFiCountry}}" name="WiFiCountry" id="WiFiCountry" pattern="[A-Za-z]{2}|^$">
+			</div>
 			<div class="col-md-4 i_basic i_appearance i_option">
 				<label for="ViewMode">
 					<translate>View Mode</translate>
@@ -779,6 +785,8 @@
 		<input type="hidden" value="{{OEMLock}}" id="OEMLock">
 		<input type="hidden" value="{{ConfigSlicerOptions.PreviewHeight}}" name="PreviewHeight">
 		<input type="hidden" value="{{ConfigSlicerOptions.PreviewWidth}}" name="PreviewWidth">
+		<input type="hidden" value="{{VatHeight}}" name="VatHeight">
+		<input type="hidden" value="{{VatWidth}}" name="VatWidth">
 		<input type="hidden" value="{{ShieldPause}}" name="ShieldPause">
 		<input type="hidden" value="{{ShieldUnpause}}" name="ShieldUnpause">
 		<input type="hidden" name="ReverseDirectionPin" value="{{ReverseDirectionPin}}">
@@ -787,6 +795,7 @@
 		<input type="hidden" name="FanOffGcode" value="{{FanOffGcode}}">
 		<input type="hidden" name="TopGcode" value="{{TopGcode}}">
 		<input type="hidden" name="CalibrationGcode" value="{{CalibrationGcode}}">
+		<input type="hidden" name="UpgradeGcode" value="{{UpgradeGcode}}">
 		<input type="hidden" name="BottomGcode" value="{{BottomGcode}}">
 		<input type="hidden" name="PressureType" value="{{PressureType}}">
 		<input type="hidden" name="PressureAddress" value="{{PressureAddress}}">

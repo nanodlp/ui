@@ -58,6 +58,19 @@
             <a class="btn btn-success" href="/printer/stat/reset" translate>Reset Usage Statistics</a>
             <br>
             <br>
+            {% if os=="linux" %}
+                <form action="/setup/timezone" method="post" id="mask_form">
+                    <select name="timezone" id="range" class="form-control form-inline" style="display:inline;width: auto;">
+                        <option value=""></option>
+                        {% for zone in zones %}
+                        <option value="{{zone}}">{{zone}}</option>
+                        {% endfor %}
+                        </select>
+                    <button type="submit" class="btn btn-success" translate>Change Timezone</button>
+                </form>
+                <br>
+                <br>
+            {% endif %}            
             {% if arch=="arm" %}
             <div class="alert alert-warning {% if viewMode == 0 %}hidden{% endif %}" role="alert" translate>Filesystem expansion will run silently in background and will restart the Raspberry Pi afterward. Please do not change anything.</div>
             <a class="ajax btn btn-danger {% if viewMode == 0 %}hidden{% endif %}" data-ajax="/" href="/printer/expand-fs" data-confirm="expand-confirm"
@@ -66,6 +79,14 @@
             <br>
             <br>
             {% endif %}            
+            <h1 translate>Offline Upgrade</h1>
+            <form action="/printer/upgrade/go" method="post" class="edit-page" enctype="multipart/form-data">
+                <input class="form-control" name="Upgrade" id="Upgrade" type="file" accept=".gz">
+                <br>
+                <button type="submit" class="btn btn-success" name="file" value="add" translate>Upgrade</button>
+            </form>
+            <br>
+            <br>
             <a class="btn btn-success" href="/printer/upgrade/dsi/nanodlp-dsi.beta.tar.gz" translate>Upgrade DSI interface</a>
             <h1 translate class="{% if viewMode == 0 %}hidden{% endif %}">Upload AVR Firmware</h1>
             <form action="/avr/upload" method="post" class="edit-page  {% if viewMode == 0 %}hidden{% endif %}" enctype="multipart/form-data">

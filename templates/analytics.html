@@ -26,7 +26,7 @@
 {% endblock %}
 {% block content %}
 <script>
-    var dplot;
+    var dplot,plot;
     function renderChart(data,series) {
         // Remove null indicators
         for (var i=data.length-1; i>0;i--){
@@ -52,8 +52,12 @@
             series: series,
             axes: prepareAxis(series),        
         };
+        if ($("#uplot").html()!=""){
+            plot.setData(data);
+            return;
+        }
         $("#uplot").html("");
-        let uplot = new uPlot(opts, data, $("#uplot")[0]);
+        plot = new uPlot(opts, data, $("#uplot")[0]);
     }
     function waitForElement(){
         if(typeof $ !== "undefined"){
@@ -177,11 +181,11 @@
 <a class="btn btn-warning" href="/analytic/reset" translate>Reset Stats</a>
 <select id="range" class="form-control form-inline" style="display:inline;width: auto;">
     <option value="0" translate>Auto Update Paused</option>
-    <option value="50" translate>Last 50 Points - Auto Update</option>
-    <option value="100" translate>Last 100 Points - Auto Update</option>
     <option value="500" translate>Last 500 Points - Auto Update</option>
-    <option value="1000" translate>Last 1000 Points - Auto Update</option>
-    <option value="5000" translate>Last 5000 Points - Auto Update</option>
+    <option value="1000" translate>Last 1,000 Points - Auto Update</option>
+    <option value="5000" translate>Last 5,000 Points - Auto Update</option>
+    <option value="10000" translate>Last 10,000 Points - Auto Update</option>
+    <option value="50000" translate>Last 50,000 Points - Auto Update</option>
 </select>
 <br>
 <input id="aggregate" class="form-control form-inline" style="display:inline;width: auto;" placeholder="Aggregate - Second">

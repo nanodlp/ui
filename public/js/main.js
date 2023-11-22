@@ -40,6 +40,7 @@ $(function(){
 	plates_preview_init();
 	confirm_init();
 	ajax_post_init();
+	post_init();
 	calibration_init();
 	settings_init();	
 	profile_settings_init();	
@@ -207,6 +208,15 @@ function ajax_post_init(){
 	$(".ajax-post").on("submit",function(e){
 		$.post($(this).attr("action"),$(this).serialize());
 		e.preventDefault();
+	});
+}
+
+function post_init(){
+	$('.upload-disable').submit(function(e) {
+		var form = $(this);
+		var submitButton = form.find('button[type="submit"]');
+		submitButton.prop('disabled', true);
+		$(".upload-progress-bar").show();
 	});
 }
 
@@ -524,7 +534,7 @@ function update_status(){
 			layer_progress(data['PrevLayerTime'],data['LayerStartTime']);
 		}
 		if ($("#stat").length>0){
-			change_stats(data,['proc','disk','mem','uptime','proc_numb','temp']);
+			change_stats(data,['proc','disk','mem','uptime','proc_numb','temp', 'resin']);
 		}
 		update_timeline();
 		current_status_display();
@@ -851,5 +861,5 @@ function search_init(){
 $('#expertModeCheckbox').click(function(e) {
 	e.preventDefault();
 	$.ajax({url: '/printer/view/toggle',type: 'GET',dataType: 'json'}); 
-	window.location.reload();
+	window.location.reload(true);
 });

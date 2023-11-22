@@ -24,7 +24,6 @@
             <translate class="key">Total Print Time</translate>
             <div class="val">{{tstat.TotalPrintTime}}</div>
             <br>
-
         </div>
         <div class="col-md-4">
             {% if os=="linux" %}
@@ -55,6 +54,13 @@
                     <td colspan=2 id="mem_chart" class="spark"><canvas></canvas></td>
                     <td colspan=2 id="" class="spark"><canvas></canvas></td>
                 </tr>
+                <tr>
+                    <td translate>Resin</td>
+                    <td id="resin"></td>
+                </tr>
+                <tr>
+                    <td colspan=2 id="resin_chart" class="spark"><canvas></canvas></td>
+                </tr>
                 <tr><td><br><br></td></tr>
             </table>
             {% endif %}
@@ -72,12 +78,13 @@
         </div>
         {% endfor %}
     </div>
-    <div class="col-md-12 {% if power||disk||heat||swap||space %}alert alert-danger{% endif %}">
+    <div class="col-md-12 {% if power||disk||heat||swap||space||storage %}alert alert-danger{% endif %}">
         {% if power %}<translate>Power issue detected. It is serious issue that may cause random problems during printing.</translate><br>{% endif%}
         {% if disk %}<translate>Storage corruption detected. Storage should get repaired.</translate><br>{% endif%}
         {% if heat %}<translate>Heating start causing performance degrade and slow down.</translate><br>{% endif%}
         {% if swap %}<translate>Memory swap detected it will slow down operations.</translate><br>{% endif%}
         {% if space %}<translate>Not enough free disk space. Try removing some plates or expand disk space.</translate><br>{% endif%}
+        {% if storage %}<translate>Storage does not work as expected.</translate><br>{% endif%}
     </div>
     <div id="console_wrapper">
         <div id="console">
