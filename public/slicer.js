@@ -8,10 +8,6 @@ function updatePlateID(plateID){
 	postMessage(["plateIDUpdate",plateID]);
 }
 
-function updateLayerCount(percentage){
-	postMessage(["sliceProgress",percentage]);
-}
-
 function post_render(data){
 	postMessage(["renderLayer",data]);
 }
@@ -21,7 +17,7 @@ function WASMIsReady(){
 }
 
 onmessage = function(e) {
-	console.log(e.data[0],e.data[1])
+	console.log(e.data[0]) // ,e.data[1])
 	if (e.data[0]=="slice"){
 		// window.location.origin, JSON.stringify(data), bytes
 		BrowserSliceUpload(e.data[1], e.data[2], e.data[3]);

@@ -1,9 +1,9 @@
 {% extends "../base.html" %}
 {% block content %}
-{% macro customInputView(Name,Title,Note,Place,Placeholder,Unit,Type,Min,Max) %}
+{% macro customInputView(Name,Title,Default,Note,Place,Placeholder,Unit,Type,Min,Max) %}
 <tr>
 	<td>
-		<label translate>Name without space, only characters</label>
+		<label translate>Name <sup>without space, only characters</sup></label>
 		<input name="Name" value="{{Name}}" class="name" placeholder="Name eg. ResinPumpAmount" pattern="[A-Za-z]{3,30}">
 		<br>
 		<label translate>Title</label>
@@ -16,9 +16,8 @@
 			<option value="1" {% if Place==1 %}selected{% endif %} translate>Profile</option>
 		</select>	
 		<br>
-		<br>
-		<br>
-		<br>
+		<label translate>Default Value</label>
+		<input name="Default" value="{{Default}}" placeholder="Default Value">
 	</td>
 	<td>
 		<label translate>Note Text</label>
@@ -62,10 +61,10 @@
 				</tr>
 				{% if inputs %}
 					{% for input in inputs %}
-						{{ customInputView(input.Name,input.Title,input.Note,input.Place,input.Placeholder,input.Unit,input.Type,input.Min,input.Max) }}
+						{{ customInputView(input.Name,input.Title,input.Default,input.Note,input.Place,input.Placeholder,input.Unit,input.Type,input.Min,input.Max) }}
 					{% endfor %}
 				{% endif %}
-				{{ customInputView("","","","","","","","","") }}
+				{{ customInputView("","","","","","","","","","") }}
 			</table>
 			<br>
 			<button type="submit" class="btn btn-success" translate>Submit</button>

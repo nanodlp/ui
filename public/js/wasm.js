@@ -1,4 +1,5 @@
 var onmessageEvents = function(e) {
+    console.log(e.data[0]);
     if (e.data[0]=="layerRenderFinished"){
             finishedLayer++;
             update_progress();

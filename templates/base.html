@@ -164,8 +164,8 @@
 		{% block content %} {% endblock %}
 	</div>
 	<!-- /container -->
-
-
+	<!-- Electron  -->
+	<script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
 	<script src='/static/boot3/js/jquery.min.js'></script>
 	<script src='/static/boot3/js/bootstrap.min.js'></script>
 	<script src='/static/js/jquery.imgareaselect.dev.js'></script>
@@ -177,6 +177,7 @@
 	<script src='/static/js/slicer.js'></script>
 	<script src='/static/js/preview.js'></script>
 	<script src='/static/js/po.js'></script>
+	<script>if (window.module) module = window.module;</script>
 	{% block js %} {% endblock %} {% block tail %} {% endblock %}
 	<div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 		<div class="modal-dialog" role="document">

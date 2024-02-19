@@ -40,6 +40,12 @@
             <translate class="hide" id="terminate-confirm">Are you sure you want to terminate nanoDLP and have access to
                 terminal?</translate>
             <br>
+            <a class="ajax btn btn-warning" data-ajax="/" href="/printer/reload" translate>Disable & Stop NanoDLP DSI HMI</a>
+            <br>
+            <a class="ajax btn btn-warning" data-ajax="/" href="/printer/reload" translate>Enable & Start NanoDLP DSI HMI</a>
+            <br>
+            <a class="btn btn-success" href="/printer/upgrade/dsi/nanodlp-dsi.beta.tar.gz" translate>Upgrade DSI interface</a>
+            <br>
         </div>
         <div class="col-md-4">
             <h3 translate>Tools</h3>
@@ -87,7 +93,6 @@
             </form>
             <br>
             <br>
-            <a class="btn btn-success" href="/printer/upgrade/dsi/nanodlp-dsi.beta.tar.gz" translate>Upgrade DSI interface</a>
             <h1 translate class="{% if viewMode == 0 %}hidden{% endif %}">Upload AVR Firmware</h1>
             <form action="/avr/upload" method="post" class="edit-page  {% if viewMode == 0 %}hidden{% endif %}" enctype="multipart/form-data">
                 <input class="form-control" name="HexFile" id="HexFile" type="file" accept=".hex">
