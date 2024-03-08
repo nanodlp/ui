@@ -109,12 +109,23 @@
 		<button type="submit" class="btn btn-success upload-button"><translate>Submit</translate><span class="upload-progress-bar"></span></button>
 		<button type="button" class="btn btn-success" id="browser_slice" disabled="disabled" translate>Slice on Browser and Submit</button>
 	</form>
-	{% if isARM %}
+	{% if isARM && !remoteSlicing %}
 	<div class="row">
 		<div class="col-md-12">
 			<br>
 			<br>
 			<div class="alert alert-info" translate>To speedup slicing you can use, NanoDLP remote slicer feature or SLC format.</div>
+		</div>
+	</div>
+	<br>
+	<br>
+	{% endif %}
+	{% if remoteSlicing %}
+	<div class="row">
+		<div class="col-md-12">
+			<br>
+			<br>
+			<div class="alert alert-success" translate>Remote slicing enabled.</div>
 		</div>
 	</div>
 	<br>

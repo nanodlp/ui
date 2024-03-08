@@ -1,10 +1,15 @@
 $(function(){
 	var lang = $("body").data("lang");
-	if (lang.length===0||lang=="en") return;
+	if (lang.length===0||lang=="en") {
+		update_tooltip_title();
+		$('.tip').tooltip();
+		return;
+	}
 	$.get("/static/lang/"+lang+".po",function(data){
 		var lang = parse(data);
 		replace_lang(lang);
 	});
+	$('.tip').tooltip();
 });
 
 function replace_lang(lang){
@@ -17,6 +22,15 @@ function replace_lang(lang){
 		var t = $(i);
 		var v = lang[t.attr("placeholder")];
 		t.attr("placeholder",v);
+	});
+	update_tooltip_title();
+}
+
+function update_tooltip_title(){
+	$(".tip").each(function(k,i){
+		var t = $(i)
+		console.log(",",t);
+		t.attr("title",t.find("translate").html());
 	});
 }
 

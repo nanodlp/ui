@@ -1,7 +1,9 @@
 var preview_loop;
 function preview_init(){
 	if ($('#preview img').length==0) return;
-	$("body").delegate("#preview_layer","click",function(e){
+	$("body").delegate("#preview img","click",function(e){
+		window.open("/plate/preview/image/"+layer_url(),'Image');
+	}).delegate("#preview_layer","click",function(e){
 		e.preventDefault();
 		var t=$("#preview_range");
 		if (t.data("clicked")){
@@ -69,9 +71,19 @@ function preview_init(){
 }
 
 var compareTimer;
-function preview_update(){
+function preview_url(){
+	var current_layer = $('#preview_range').val();
+	return '/plate/preview/'+$('#preview_range').data("plate")+'/'+current_layer;
+}
+
+function layer_url(){
+	var current_layer = $('#preview_range').val();
 	var d = new Date();
 	var addon = '?' + d.getTime();
+	return $('#preview img').data('path') + current_layer + '.png' + addon;
+}
+
+function preview_update(){
 	var t = $('#preview_range');
 	var current_layer = t.val();
 	clearTimeout(compareTimer);
@@ -80,10 +92,10 @@ function preview_update(){
 	}, 100);
 	
 	$('#current_layer').html(current_layer);
-	$('#preview img').attr('src', $('#preview img').data('path') + current_layer + '.png' + addon);
+	$('#preview img').attr('src', layer_url());
 	if (!$("#toggle_details").data("display")) return;
-	if ($('#threed img').length==0) $("#threed").html('<img src="'+'/plate/preview/'+t.data("plate")+'/'+current_layer+'" class="two">');	
-	else $('#threed img').attr("src",'/plate/preview/'+t.data("plate")+'/'+current_layer);
+	if ($('#threed img').length==0) $("#threed").html('<img src="'+preview_url()+'" class="two">');	
+	else $('#threed img').attr("src",preview_url());
 	$.getJSON($('#preview img').data('path')+"info.json").done(function(data) {
 		d=data[current_layer-1];
 		$.each(d,function(k,v){

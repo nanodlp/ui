@@ -33,45 +33,39 @@ msgstr "100 Pulse ⇩"
 msgid "3D"
 msgstr "3D"
 
-#: ../templates/profile/edit.html:112
+#: ../templates/profile/edit.html:120
 msgid "3D Anti-aliasing"
 msgstr "3D 안티 엘리어싱"
 
-#: ../templates/plate/list.html:172
-msgid "3D Edit"
-msgstr "3D 편집"
-
-#: ../templates/plate/plates.html:11
-msgid "3D Editor"
-msgstr "3D 편집기"
-
-#: ../templates/setup/setup.html:239
+#: ../templates/setup/setup.html:254
 msgid "ASCII (\\n)"
 msgstr "ASCII (\\n)"
 
-#: ../templates/setup/setup.html:240
+#: ../templates/setup/setup.html:255
 msgid "ASCII (\\r)"
 msgstr "ASCII (\\r)"
 
-#: ../templates/setup/setup.html:238
+#: ../templates/setup/setup.html:253
 msgid "ASCII (\\r\\n)"
 msgstr "ASCII (\\r\\n)"
 
-#: ../templates/setup/setup.html:270
+#: ../templates/setup/setup.html:285
 msgid "Absolute"
 msgstr "절대위치"
 
-#: ../templates/index.html:62 ../templates/plate/advanced-plates.html:24
-#: ../templates/plate/list.html:17 ../templates/setup/custom-buttons.html:42
-#: ../templates/setup/custom-inputs.html:49
+#: ../templates/index-progress.html:65
+#: ../templates/plate/advanced-plates.html:24 ../templates/plate/list.html:17
+#: ../templates/setup/consumables.html:42
+#: ../templates/setup/custom-buttons.html:42
+#: ../templates/setup/custom-inputs.html:60
 msgid "Action"
 msgstr "액션"
 
-#: ../templates/profile/profiles.html:15 ../templates/setup/tools.html:21
+#: ../templates/profile/profiles.html:16 ../templates/setup/tools.html:23
 msgid "Actions"
 msgstr "액션"
 
-#: ../templates/profile/edit.html:89
+#: ../templates/profile/edit.html:97
 msgid "Adaptive Thickness"
 msgstr "적응형 두께"
 
@@ -82,6 +76,18 @@ msgstr "마스크 추가"
 #: ../templates/plate/cover.html:28
 msgid "Add Selection"
 msgstr "선택 항목 추가"
+
+#: ../templates/plate/plates.html:7
+msgid "Add a new job"
+msgstr ""
+
+#: ../templates/plate/plates.html:11
+msgid "Add a new job using 3D editor"
+msgstr ""
+
+#: ../templates/profile/profiles.html:5
+msgid "Add a new resin profile"
+msgstr ""
 
 #: ../templates/setup/password.html:29
 msgid "Admin has access to all functions including the dashboard."
@@ -103,7 +109,7 @@ msgstr "레이어 후"
 msgid "After completion printer will be restarted."
 msgstr "완료 후 프린터가 다시 시작됩니다."
 
-#: ../templates/setup/setup.html:674
+#: ../templates/setup/setup.html:704
 msgid "All Images"
 msgstr "모든 이미지"
 
@@ -111,15 +117,19 @@ msgstr "모든 이미지"
 msgid "All Profiles"
 msgstr "모든 프로필"
 
-#: ../templates/setup/tools.html:54
+#: ../templates/setup/tools.html:62
 msgid "Analytic Dashboard"
 msgstr "분석 대시보드"
 
-#: ../templates/profile/edit.html:121
+#: ../templates/plate/list.html:195
+msgid "Analytic Data"
+msgstr ""
+
+#: ../templates/profile/edit.html:129
 msgid "Anti-aliasing"
 msgstr "안티 엘리어싱"
 
-#: ../templates/profile/edit.html:130
+#: ../templates/profile/edit.html:138
 msgid "Anti-aliasing Minimum Light Intensity Threshold"
 msgstr "안티앨리어싱 최소 광량"
 
@@ -131,6 +141,10 @@ msgstr "언제나"
 msgid "Appearance"
 msgstr "모습"
 
+#: ../templates/printer.html:75
+msgid "Are you sure you have changed the consumable?"
+msgstr ""
+
 #: ../templates/plate/list.html:2
 msgid "Are you sure you want to delete all plates?"
 msgstr "모든 플레이트를 삭제하시겠습니까?"
@@ -139,7 +153,7 @@ msgstr "모든 플레이트를 삭제하시겠습니까?"
 msgid "Are you sure you want to delete this plate?"
 msgstr "이 플레이트를 삭제하시겠습니까?"
 
-#: ../templates/profile/profiles.html:42
+#: ../templates/profile/profiles.html:43
 msgid "Are you sure you want to delete this profile?"
 msgstr "이 프로필을 삭제하시겠습니까?"
 
@@ -149,19 +163,19 @@ msgid ""
 "    Projector/LCD unit of the printer?"
 msgstr "프린터의 LCD에 현재 레이어를 표시하시겠습니까?"
 
-#: ../templates/setup/tools.html:63
+#: ../templates/setup/tools.html:84
 msgid "Are you sure you want to expand filesystem?"
 msgstr "파일 시스템을 확장하시겠습니까?"
 
-#: ../templates/setup/tools.html:24
+#: ../templates/setup/tools.html:26
 msgid "Are you sure you want to force stop the printer?"
 msgstr "프린터를 강제로 중지하시겠습니까?"
 
-#: ../templates/index.html:154 ../templates/setup/tools.html:28
+#: ../templates/index-progress.html:141 ../templates/setup/tools.html:30
 msgid "Are you sure you want to power off the printer?"
 msgstr "프린터 전원을 끄시겠습니까?"
 
-#: ../templates/index.html:155
+#: ../templates/index-progress.html:142
 msgid "Are you sure you want to power off the projector?"
 msgstr "LED를 끄시겠습니까?"
 
@@ -177,15 +191,15 @@ msgstr "보정 플레이트를 인쇄하시겠습니까?"
 msgid "Are you sure you want to regenerate the layers of this plate?"
 msgstr "이 플레이트의 레이어를 재생성하시겠습니까?"
 
-#: ../templates/index.html:158 ../templates/setup/tools.html:32
+#: ../templates/index-progress.html:144 ../templates/setup/tools.html:34
 msgid "Are you sure you want to restart the printer?"
 msgstr "프린터를 다시 시작하시겠습니까?"
 
-#: ../templates/setup/tools.html:13
+#: ../templates/setup/tools.html:15
 msgid "Are you sure you want to restore the default settings and reboot the printer?"
 msgstr "기본 설정을 복원하고 프린터를 재부팅하시겠습니까?"
 
-#: ../templates/index.html:159
+#: ../templates/index-progress.html:145
 msgid "Are you sure you want to resume the previous print?"
 msgstr "이전 인쇄를 다시 시작하시겠습니까?"
 
@@ -197,26 +211,19 @@ msgstr "적용된 섹션을 저장하시겠습니까?"
 msgid "Are you sure you want to set this height as the bottom?"
 msgstr "이 높이를 맨 아래로 설정하시겠습니까?"
 
-#: ../templates/index.html:156
-msgid ""
-"Are you sure you want to start the display? It will automatically select\n"
-"\tthe second display."
-msgstr "디스플레이를 시작하시겠습니까? 두 번째 디스플레이가 자동으로 선택됩니다."
+#: ../templates/index-progress.html:143
+msgid "Are you sure you want to start the display? It will automatically select the second display."
+msgstr ""
 
 #: ../templates/plate/advanced-plates.html:14 ../templates/plate/list.html:6
 msgid "Are you sure you want to stop printing?"
 msgstr "인쇄를 중지하시겠습니까?"
 
-#: ../templates/index.html:151
-msgid ""
-"Are you sure you want to stop printing? It will stop after the current\n"
-"\tlayer is completed. If you want to abort the current layer, go to the `Setup` page, click on `Tools` tab and click\n"
-"\tthe `Force Stop` button."
+#: ../templates/index-progress.html:140
+msgid "Are you sure you want to stop printing? It will stop after the current layer is completed. If you want to abort the current layer, go to the `Setup` page, click on `Tools` tab and click the `Force Stop` button."
 msgstr ""
-"인쇄를 중지하시겠습니까? 현재 레이어가 완료되면 중지됩니다.\n"
-"현재 레이어를 중단하려면 '설정' 페이지로 이동한 후 '도구' 탭을 클릭하고 '강제 중지' 버튼을 클릭하세요."
 
-#: ../templates/setup/tools.html:38
+#: ../templates/setup/tools.html:40
 msgid ""
 "Are you sure you want to terminate nanoDLP and have access to\n"
 "                terminal?"
@@ -226,7 +233,7 @@ msgstr "nanoDLP를 종료하고 터미널에 액세스하시겠습니까?"
 msgid "Area Count"
 msgstr "면적 수"
 
-#: ../templates/setup/wireless.html:26
+#: ../templates/setup/wireless.html:42
 msgid "Authentication"
 msgstr "인증"
 
@@ -234,21 +241,13 @@ msgstr "인증"
 msgid "Authentication Required"
 msgstr "인증 필요"
 
-#: ../templates/plate/edit.html:54
-msgid "Auto Center"
-msgstr "자동 센터"
-
-#: ../templates/setup/setup.html:742
+#: ../templates/setup/setup.html:772
 msgid "Auto Slice"
 msgstr "자동 슬라이스"
 
-#: ../templates/analytics.html:172
+#: ../templates/analytics.html:187
 msgid "Auto Update Paused"
 msgstr "자동 업데이트 중지됨"
-
-#: ../templates/plate/edit.html:117
-msgid "Available memory could be limited to slice STL files larger than 500MB. Please, use NanoDLP remote slicer feature or SLC format to upload large plates."
-msgstr "사용 가능한 메모리는 500MB보다 큰 슬라이스 STL 파일로 제한될 수 있습니다. NanoDLP 원격 슬라이서 기능 또는 SLC 포맷을 사용하여 대형 플레이트를 업로드하십시오."
 
 #: ../templates/setup/setup.html:52
 msgid "Axis / Movement"
@@ -258,7 +257,7 @@ msgstr "축 / 움직임"
 msgid "Axis details, speed, gcodes"
 msgstr "축 세부 정보, 속도, G코드, "
 
-#: ../templates/setup/tools.html:15
+#: ../templates/setup/tools.html:17
 msgid "Backup Plates and Settings"
 msgstr "플레이트 및 설정 백업"
 
@@ -278,9 +277,17 @@ msgstr "배럴의 중심 X"
 msgid "Barrel's Center Y"
 msgstr "배럴의 중심 Y"
 
+#: ../templates/setup/setup.html:114
+msgid "Basic"
+msgstr ""
+
 #: ../templates/profile/edit.html:11
 msgid "Basic Details"
 msgstr "기본 세부 정보"
+
+#: ../templates/menu.html:31
+msgid "Basic Mode"
+msgstr ""
 
 #: ../templates/setup/setup.html:50
 msgid "Basic Settings"
@@ -290,19 +297,19 @@ msgstr "기본 설정"
 msgid "Before Layer"
 msgstr "레이어 전"
 
-#: ../templates/setup/setup.html:241
+#: ../templates/setup/setup.html:256
 msgid "Binary"
 msgstr "바이너리"
 
-#: ../templates/setup/setup.html:112
+#: ../templates/setup/setup.html:127
 msgid "Black / Dark"
 msgstr "블랙 / 다크"
 
-#: ../templates/setup/setup.html:110
+#: ../templates/setup/setup.html:125
 msgid "Black / Light"
 msgstr "블랙 / 라이트"
 
-#: ../templates/plate/list.html:185
+#: ../templates/plate/list.html:188
 msgid "Blackout"
 msgstr "슬라이스 보기"
 
@@ -310,7 +317,7 @@ msgstr "슬라이스 보기"
 msgid "Blackout Platform"
 msgstr "슬라이스 보기"
 
-#: ../templates/profile/edit.html:264
+#: ../templates/profile/edit.html:313
 msgid "Blank Area Color"
 msgstr "빈 영역 색상"
 
@@ -318,11 +325,11 @@ msgstr "빈 영역 색상"
 msgid "Blue"
 msgstr "블루"
 
-#: ../templates/setup/setup.html:108
+#: ../templates/setup/setup.html:123
 msgid "Blue / Dark"
 msgstr "블루 / 다크"
 
-#: ../templates/setup/setup.html:109
+#: ../templates/setup/setup.html:124
 msgid "Blue / Light"
 msgstr "블루 / 라이트"
 
@@ -330,7 +337,7 @@ msgstr "블루 / 라이트"
 msgid "Blurring Radius"
 msgstr "흐릿한 반지름"
 
-#: ../templates/setup/setup.html:302
+#: ../templates/setup/setup.html:317
 msgid "Bootup Code"
 msgstr "부팅 코드"
 
@@ -338,11 +345,11 @@ msgstr "부팅 코드"
 msgid "Bootup, start, resume, stop print, before, after layer"
 msgstr "부팅, 시작, 재시작, 인쇄 중지, 레이어 전 후"
 
-#: ../templates/setup/setup.html:478
+#: ../templates/setup/setup.html:499
 msgid "Both"
 msgstr "모두"
 
-#: ../templates/profile/edit.html:380
+#: ../templates/profile/edit.html:429
 msgid "Bottom Cap Wall"
 msgstr "하단 캡 벽"
 
@@ -358,15 +365,15 @@ msgstr "경계 - X"
 msgid "Boundary - Y"
 msgstr "경계 - Y"
 
-#: ../templates/setup/setup.html:95
+#: ../templates/setup/setup.html:96
 msgid "Brazilian Portuguese"
 msgstr "브라질 포르투갈어"
 
-#: ../templates/setup/setup.html:111
+#: ../templates/setup/setup.html:126
 msgid "Brown / Light"
 msgstr "브라운 / 라이트"
 
-#: ../templates/menu.html:60 ../templates/menu.html:65
+#: ../templates/menu.html:61 ../templates/menu.html:66
 msgid "Build"
 msgstr "빌드"
 
@@ -374,11 +381,11 @@ msgstr "빌드"
 msgid "Burin-in layers count, cure time, lift, erode"
 msgstr "경화 레이어 수, 경화 시간, 리프트, 침식"
 
-#: ../templates/profile/edit.html:65
+#: ../templates/profile/edit.html:73
 msgid "Burn-in Cure Time"
 msgstr "초기 레이어 경화 시간"
 
-#: ../templates/profile/edit.html:137
+#: ../templates/profile/edit.html:145
 msgid "Burn-in Erode / Dilate Areas"
 msgstr "초기 레이어 침식/확장 영역"
 
@@ -387,36 +394,26 @@ msgid "Burn-in Layer"
 msgstr "초기 레이어"
 
 #: ../templates/profile/simple.html:35
-msgid ""
-"Burn-in Layer Cure Time\n"
-"                        <span class=\"label label-success val\">{{profile.SupportCureTime}}</span>\n"
-"                        <span class=\"label label-default\" translate=\"\">Second</span>"
+msgid "Burn-in Layer Cure Time"
 msgstr ""
-"초기 레이어 경화 시간\n"
-"                        <span class=\"label label-success val\">{{profile.SupportCureTime}}</span>\n"
-"                        <span class=\"label label-default\" translate=\"\">초</span>"
 
 #: ../templates/profile/simple.html:47
-msgid ""
-"Burn-in Layer Number\n"
-"                        <span class=\"label label-success val\">{{profile.SupportLayerNumber}}</span>"
+msgid "Burn-in Layer Number"
 msgstr ""
-"초기 레이어 개수\n"
-"                        <span class=\"label label-success val\">{{profile.SupportLayerNumber}}</span>"
 
-#: ../templates/profile/edit.html:419
+#: ../templates/profile/edit.html:468
 msgid "Burn-in Lift After Print"
 msgstr "초기 레이어 : 인쇄 후 리프트"
 
-#: ../templates/profile/edit.html:427
+#: ../templates/profile/edit.html:476
 msgid "Burn-in Wait After Lift"
 msgstr "초기 레이어 : 리프트 후 대기"
 
-#: ../templates/profile/edit.html:81
+#: ../templates/profile/edit.html:89
 msgid "Burn-in Wait After Print"
 msgstr "초기 레이어 : 인쇄 후 대기"
 
-#: ../templates/profile/edit.html:73
+#: ../templates/profile/edit.html:81
 msgid "Burn-in Wait Before Print"
 msgstr "초기 레이어 : 인쇄 전 대기"
 
@@ -424,7 +421,7 @@ msgstr "초기 레이어 : 인쇄 전 대기"
 msgid "By submitting form below, your printer log files and configurations will be transmitted for debugging purpose."
 msgstr "아래 양식을 제출하면 디버깅을 위해 프린터 로그 파일과 구성이 전송됩니다."
 
-#: ../templates/printer.html:33
+#: ../templates/printer.html:32
 msgid "CPU"
 msgstr "CPU"
 
@@ -440,11 +437,11 @@ msgstr "보정 플레이트"
 msgid "Camera"
 msgstr "카메라"
 
-#: ../templates/setup/setup.html:679
+#: ../templates/setup/setup.html:709
 msgid "Camera Command"
 msgstr "카메라 명령어"
 
-#: ../templates/setup/setup.html:652
+#: ../templates/setup/setup.html:682
 msgid "Camera Photo Frequency"
 msgstr "카메라 사진 빈도"
 
@@ -452,7 +449,7 @@ msgstr "카메라 사진 빈도"
 msgid "Camera settings, storage"
 msgstr "카메라 설정, 저장"
 
-#: ../templates/setup/setup.html:781
+#: ../templates/setup/setup.html:816
 msgid "Cancel"
 msgstr "취소"
 
@@ -464,17 +461,33 @@ msgstr "원점을 중심으로"
 msgid "Center Pieces"
 msgstr "조각을 중심으로"
 
-#: ../templates/setup/setup.html:458
+#: ../templates/setup/setup.html:479
 msgid "Center of Barrel - X"
 msgstr "배럴의 중심 - X"
 
-#: ../templates/setup/setup.html:465
+#: ../templates/setup/setup.html:486
 msgid "Center of Barrel - Y"
 msgstr "배럴의 중심 - Y"
 
-#: ../templates/setup/tools.html:50
+#: ../templates/plate/edit.html:54
+msgid "Centering"
+msgstr ""
+
+#: ../templates/profile/edit.html:47
+msgid "Centigrade°"
+msgstr ""
+
+#: ../templates/setup/tools.html:58
 msgid "Change Distribution"
 msgstr "유통사 변경"
+
+#: ../templates/setup/tools.html:75
+msgid "Change Timezone"
+msgstr ""
+
+#: ../templates/setup/distro.html:15
+msgid "Change to \"Athena\" Version"
+msgstr ""
 
 #: ../templates/setup/distro.html:18
 msgid "Change to \"Microlay\" Version"
@@ -484,7 +497,7 @@ msgstr "Microlay 버전으로 변경"
 msgid "Change to \"NanoDLP Controller Board\" Version"
 msgstr "NanoDLP 컨트롤러 보드로 변경"
 
-#: ../templates/setup/distro.html:16
+#: ../templates/setup/distro.html:19
 msgid "Change to \"Phrozen\" Version"
 msgstr "Phrozen 버전으로 변경"
 
@@ -492,15 +505,15 @@ msgstr "Phrozen 버전으로 변경"
 msgid "Change to \"mUVe3D\" Version"
 msgstr "mUVe3D 버전으로 변경"
 
-#: ../templates/setup/distro.html:15
+#: ../templates/setup/distro.html:16
 msgid "Change to \"ynde\" Version"
 msgstr "ynde 버전으로 변경"
 
-#: ../templates/setup/wireless.html:22
+#: ../templates/setup/wireless.html:38
 msgid "Changing the WiFi settings during printing could cause interruption."
 msgstr "인쇄 중에 WiFi 설정을 변경하면 작업이 중단될 수 있습니다."
 
-#: ../templates/profile/edit.html:277 ../templates/profile/edit.html:329
+#: ../templates/profile/edit.html:326 ../templates/profile/edit.html:378
 msgid "Checkerboard"
 msgstr "체커보드"
 
@@ -508,7 +521,11 @@ msgstr "체커보드"
 msgid "Chinese"
 msgstr "중국어"
 
-#: ../templates/base.html:159
+#: ../templates/profile/profiles.html:40
+msgid "Clone"
+msgstr ""
+
+#: ../templates/base.html:197
 #: ../templates/calibration/projector-calibration.html:133
 #: ../templates/calibration/projector-calibration.html:91
 msgid "Close"
@@ -522,7 +539,7 @@ msgstr "코드 / Gcode"
 msgid "Code After"
 msgstr "코드 후"
 
-#: ../templates/profile/edit.html:50
+#: ../templates/profile/edit.html:58
 msgid "Code After Each Layer"
 msgstr "각 레이어 후 코드"
 
@@ -530,7 +547,7 @@ msgstr "각 레이어 후 코드"
 msgid "Code Before"
 msgstr "코드 전"
 
-#: ../templates/profile/edit.html:195
+#: ../templates/profile/edit.html:223
 msgid "Code Before Each Layer"
 msgstr "각 레이어 전 코드"
 
@@ -554,7 +571,7 @@ msgstr "초 쉼표 구분"
 msgid "Complete Failure"
 msgstr "완전 실패"
 
-#: ../templates/setup/wireless.html:29
+#: ../templates/setup/wireless.html:45
 msgid "Connect"
 msgstr "연결"
 
@@ -562,21 +579,42 @@ msgstr "연결"
 msgid "Consider this protection is very basic and easily could be bypassed."
 msgstr "이 보호는 매우 기본적이며 쉽게 우회될 수 있습니다."
 
+#: ../templates/setup/consumables.html:16
+msgid "Consumable Type"
+msgstr ""
+
+#: ../templates/setup/setup.html:358
+msgid "Controller Board Output Parser"
+msgstr ""
+
 #: ../templates/setup/setup.html:53
 msgid "Controller settings"
 msgstr "컨트롤러 설정"
 
-#: ../templates/index.html:17
+#: ../templates/index-progress.html:15
 msgid "Could not connect to the NanoDLP. Please check your network connection."
 msgstr "NanoDLP에 연결할 수 없습니다. 네트워크 연결을 확인하십시오."
+
+#: ../templates/profile/edit.html:260
+msgid "Crash Detection"
+msgstr ""
 
 #: ../templates/plate/plates.html:40
 msgid "Create 3D shapes by repeating an image frame"
 msgstr "이미지 프레임을 반복하여 3D 모양 만들기"
 
-#: ../templates/index.html:76 ../templates/plate/advanced-plates.html:37
-#: ../templates/plate/list.html:123 ../templates/plate/preview.html:97
-#: ../templates/profile/profiles.html:13
+#: ../templates/plate/plates.html:44
+msgid "Create a PCB job"
+msgstr ""
+
+#: ../templates/plate/plates.html:43
+msgid "Create a job using paint"
+msgstr ""
+
+#: ../templates/index-progress.html:79
+#: ../templates/plate/advanced-plates.html:37 ../templates/plate/list.html:125
+#: ../templates/plate/preview.html:97 ../templates/profile/profiles.html:14
+#: ../templates/setup/consumables.html:18
 msgid "Cure Time"
 msgstr "경화 시간"
 
@@ -584,7 +622,7 @@ msgstr "경화 시간"
 msgid "Current"
 msgstr "현재"
 
-#: ../templates/setup/setup.html:227
+#: ../templates/setup/setup.html:242
 msgid "Custom Acceleration"
 msgstr "사용자 지정 가속"
 
@@ -600,7 +638,7 @@ msgstr "사용자 지정 HTML"
 msgid "Dashboard"
 msgstr "대시보드"
 
-#: ../templates/setup/setup.html:235
+#: ../templates/setup/setup.html:250
 msgid "Data Encoding"
 msgstr "데이터 인코딩"
 
@@ -612,26 +650,33 @@ msgstr "날짜"
 msgid "Decrease Mask Intensity"
 msgstr "마스크 강도 감소"
 
-#: ../templates/profile/profiles.html:14
+#: ../templates/profile/profiles.html:15
 msgid "Default"
 msgstr "기본"
 
-#: ../templates/plate/list.html:188
+#: ../templates/setup/custom-inputs.html:19
+msgid "Default Value"
+msgstr ""
+
+#: ../templates/plate/list.html:191 ../templates/profile/profiles.html:38
 msgid "Delete"
 msgstr "삭제"
 
-#: ../templates/profile/edit.html:45
+#: ../templates/profile/edit.html:53
 msgid "Description"
 msgstr "설명"
 
 #: ../templates/plate/advanced-plates.html:23 ../templates/plate/list.html:15
-#: ../templates/printer.html:81 ../templates/setup/custom-inputs.html:46
-#: ../templates/setup/custom-inputs.html:47
-#: ../templates/setup/custom-inputs.html:48
+#: ../templates/printer.html:97 ../templates/setup/consumables.html:39
+#: ../templates/setup/consumables.html:40
+#: ../templates/setup/consumables.html:41
+#: ../templates/setup/custom-inputs.html:57
+#: ../templates/setup/custom-inputs.html:58
+#: ../templates/setup/custom-inputs.html:59
 msgid "Details"
 msgstr "세부 정보"
 
-#: ../templates/profile/edit.html:284
+#: ../templates/profile/edit.html:333
 msgid "Dimming Amount Percentage"
 msgstr "조광량 퍼센트"
 
@@ -639,19 +684,23 @@ msgstr "조광량 퍼센트"
 msgid "Dimming and Mask settings will take effect on the created layers."
 msgstr "조광 및 마스크 설정이 생성된 레이어에 적용됩니다."
 
-#: ../templates/setup/setup.html:149
+#: ../templates/setup/setup.html:164
 msgid "Direction GPIO"
 msgstr "방향 GPIO"
 
-#: ../templates/plate/edit.html:58 ../templates/profile/edit.html:115
-#: ../templates/profile/edit.html:125 ../templates/profile/edit.html:310
-#: ../templates/profile/edit.html:320 ../templates/profile/edit.html:92
-#: ../templates/setup/setup.html:133 ../templates/setup/setup.html:5
-#: ../templates/setup/setup.html:729 ../templates/setup/setup.html:746
+#: ../templates/plate/edit.html:58 ../templates/profile/edit.html:100
+#: ../templates/profile/edit.html:123 ../templates/profile/edit.html:133
+#: ../templates/profile/edit.html:359 ../templates/profile/edit.html:369
+#: ../templates/setup/setup.html:148 ../templates/setup/setup.html:5
+#: ../templates/setup/setup.html:759 ../templates/setup/setup.html:776
 msgid "Disable"
 msgstr "사용 안 함"
 
-#: ../templates/index.html:111
+#: ../templates/setup/tools.html:43
+msgid "Disable & Stop NanoDLP DSI HMI"
+msgstr ""
+
+#: ../templates/index-progress.html:114
 msgid "Disable Auto Shutdown"
 msgstr "자동 종료 사용 안 함"
 
@@ -659,17 +708,17 @@ msgstr "자동 종료 사용 안 함"
 msgid "Disable Motor"
 msgstr "모터 사용 안 함"
 
-#: ../templates/profile/edit.html:446 ../templates/setup/setup.html:121
-#: ../templates/setup/setup.html:475 ../templates/setup/setup.html:486
-#: ../templates/setup/setup.html:655
+#: ../templates/profile/edit.html:495 ../templates/setup/setup.html:136
+#: ../templates/setup/setup.html:496 ../templates/setup/setup.html:507
+#: ../templates/setup/setup.html:685
 msgid "Disabled"
 msgstr "사용 안 함"
 
-#: ../templates/printer.html:46
+#: ../templates/printer.html:45
 msgid "Disk"
 msgstr "디스크"
 
-#: ../templates/index.html:13
+#: ../templates/index-progress.html:11
 msgid "Dismiss"
 msgstr "해제"
 
@@ -682,11 +731,15 @@ msgstr "디스플레이"
 msgid "Display Calibration"
 msgstr "디스플레이 보정"
 
-#: ../templates/setup/setup.html:483
+#: ../templates/setup/setup.html:504
 msgid "Display Communication Type"
 msgstr "디스플레이 통신 유형"
 
-#: ../templates/setup/setup.html:426
+#: ../templates/setup/setup.html:580
+msgid "Display Connection"
+msgstr ""
+
+#: ../templates/setup/setup.html:447
 msgid "Display Controller"
 msgstr "디스플레이 컨트롤러"
 
@@ -702,23 +755,23 @@ msgstr "디스플레이 레이어"
 msgid "Display Mask"
 msgstr "디스플레이 마스크"
 
-#: ../templates/setup/setup.html:553
+#: ../templates/setup/setup.html:574
 msgid "Display Number"
 msgstr "디스플레이 개수"
 
-#: ../templates/setup/setup.html:543
+#: ../templates/setup/setup.html:564
 msgid "Display Power Cycle"
 msgstr "디스플레이 전원 주기"
 
-#: ../templates/setup/setup.html:536
+#: ../templates/setup/setup.html:557
 msgid "Display Turn Off Command"
 msgstr "디스플레이 끄기 명령어"
 
-#: ../templates/setup/setup.html:530
+#: ../templates/setup/setup.html:551
 msgid "Display Turn On Command"
 msgstr "디스플레이 켜기 명령어"
 
-#: ../templates/setup/setup.html:497
+#: ../templates/setup/setup.html:518
 msgid "Display Warm-up Time"
 msgstr "디스플레이 준비 시간"
 
@@ -742,39 +795,39 @@ msgstr "프로필 다운로드 & 가져오기"
 msgid "Download & Restore Machine Settings"
 msgstr "기계 설정 다운로드 & 복구"
 
-#: ../templates/plate/list.html:193
+#: ../templates/plate/list.html:197
 msgid "Download CBDDLP"
 msgstr "CBDDLP 다운로드"
 
-#: ../templates/analytics.html:169
+#: ../templates/analytics.html:197
 msgid "Download CSV"
 msgstr "CSV 다운로드"
 
-#: ../templates/plate/list.html:195
+#: ../templates/plate/list.html:199
 msgid "Download CTB"
 msgstr "CTB 다운로드"
 
-#: ../templates/plate/list.html:196
+#: ../templates/plate/list.html:200
 msgid "Download CWS"
 msgstr "CWS 다운로드"
 
-#: ../templates/plate/list.html:197
+#: ../templates/plate/list.html:201
 msgid "Download CZIP"
 msgstr "CZIP 다운로드"
 
-#: ../templates/setup/tools.html:44
+#: ../templates/setup/tools.html:52
 msgid "Download Debug File"
 msgstr "Debug 파일 다운로드"
 
-#: ../templates/plate/list.html:198
+#: ../templates/plate/list.html:202
 msgid "Download FDG"
 msgstr "FDG 다운로드"
 
-#: ../templates/plate/list.html:199
+#: ../templates/plate/list.html:203
 msgid "Download LGS"
 msgstr "LGS 다운로드"
 
-#: ../templates/plate/list.html:200
+#: ../templates/plate/list.html:204
 msgid "Download LGS30"
 msgstr "LGS30 다운로드"
 
@@ -782,23 +835,23 @@ msgstr "LGS30 다운로드"
 msgid "Download Machine Settings"
 msgstr "기계 설정 다운로드"
 
-#: ../templates/plate/list.html:192
+#: ../templates/plate/list.html:196
 msgid "Download NanoDLP"
 msgstr "NanoDLP 다운로드"
 
-#: ../templates/plate/list.html:201
+#: ../templates/plate/list.html:205
 msgid "Download PHZ"
 msgstr "PHZ 다운로드"
 
-#: ../templates/plate/list.html:203
+#: ../templates/plate/list.html:207
 msgid "Download PW0"
 msgstr "PW0 다운로드"
 
-#: ../templates/plate/list.html:202
+#: ../templates/plate/list.html:206
 msgid "Download PWS"
 msgstr "PWS 다운로드"
 
-#: ../templates/plate/list.html:194
+#: ../templates/plate/list.html:198
 msgid "Download Photon"
 msgstr "다운로드 버튼"
 
@@ -806,23 +859,23 @@ msgstr "다운로드 버튼"
 msgid "Download Profile"
 msgstr "프로필 다운로드"
 
-#: ../templates/plate/list.html:204
+#: ../templates/plate/list.html:208
 msgid "Download SL1"
 msgstr "SL1 다운로드"
 
-#: ../templates/plate/list.html:205
+#: ../templates/plate/list.html:209
 msgid "Download UVJ"
 msgstr "UVJ 다운로드"
 
-#: ../templates/plate/list.html:206
+#: ../templates/plate/list.html:210
 msgid "Download ZCODEX"
 msgstr "ZCODEX 다운로드"
 
-#: ../templates/plate/list.html:207
+#: ../templates/plate/list.html:211
 msgid "Download {{ row.Type|upper }}"
 msgstr "{{ row.Type|upper }} 다운로드"
 
-#: ../templates/setup/setup.html:196
+#: ../templates/setup/setup.html:211
 msgid "Driver Enable GPIO"
 msgstr "드라이버 활성화 GPIO"
 
@@ -834,31 +887,51 @@ msgstr "지속 시간"
 msgid "During the upgrade process NanoDLP would not be accessible."
 msgstr "업그레이드 과정 중에는 NanoDLP에 액세스할 수 없습니다."
 
-#: ../templates/profile/edit.html:185
+#: ../templates/profile/edit.html:213
 msgid "Dynamic Cure Time"
 msgstr "동적 경화 시간"
 
-#: ../templates/profile/edit.html:203
+#: ../templates/profile/edit.html:179
+msgid "Dynamic Lift"
+msgstr ""
+
+#: ../templates/profile/edit.html:231
 msgid "Dynamic Speed"
 msgstr "동적 속도"
 
-#: ../templates/index.html:57
+#: ../templates/profile/edit.html:169
+msgid "Dynamic Wait"
+msgstr ""
+
+#: ../templates/index-progress.html:55
 msgid "ETA"
 msgstr "완료 예정 시간"
 
-#: ../templates/plate/list.html:170
+#: ../templates/plate/list.html:173 ../templates/profile/profiles.html:36
 msgid "Edit"
 msgstr "편집"
 
-#: ../templates/setup/editor.html:32
+#: ../templates/setup/editor.html:38
 msgid "Edit Config Settings"
 msgstr "구성 설정 편집"
+
+#: ../templates/setup/editor.html:4
+msgid "Edit Configuration Files"
+msgstr ""
+
+#: ../templates/setup/editor.html:77
+msgid "Edit HMI Settings"
+msgstr ""
+
+#: ../templates/setup/editor.html:52 ../templates/setup/editor.html:63
+msgid "Edit Klipper Settings"
+msgstr ""
 
 #: ../templates/calibration/projector-calibration.html:114
 msgid "Edit Mask"
 msgstr "마스크 편집"
 
-#: ../templates/setup/editor.html:8
+#: ../templates/setup/editor.html:10
 msgid "Edit Network Settings"
 msgstr "네트워크 설정 편집"
 
@@ -866,35 +939,35 @@ msgstr "네트워크 설정 편집"
 msgid "Edit Plate"
 msgstr "플레이트 편집"
 
-#: ../templates/setup/editor.html:4
-msgid "Edit Raspberry Pi Configuration Files"
-msgstr "라즈베리파이 구성 파일 편집"
-
-#: ../templates/setup/tools.html:47
+#: ../templates/setup/tools.html:55
 msgid "Edit Raspberry Pi Settings"
 msgstr "라즈베리파이 설정 편집"
 
-#: ../templates/setup/editor.html:20
+#: ../templates/setup/editor.html:24
 msgid "Edit Wifi Settings"
 msgstr "와이파이 설정 편집"
 
-#: ../templates/profile/edit.html:325
+#: ../templates/index-progress.html:60
+msgid "Elapsed"
+msgstr ""
+
+#: ../templates/profile/edit.html:374
 msgid "Elephant Foot Compensation"
 msgstr "코끼리 발 현상 보상"
 
-#: ../templates/profile/edit.html:336
+#: ../templates/profile/edit.html:385
 msgid "Elephant Foot Compensation Amount Percentage"
 msgstr "코끼리 발 현상 보상량 퍼센트"
 
-#: ../templates/profile/edit.html:352
+#: ../templates/profile/edit.html:401
 msgid "Elephant Foot Compensation Layers"
 msgstr "코끼리 발 현상 레이어"
 
-#: ../templates/profile/edit.html:307
+#: ../templates/profile/edit.html:356
 msgid "Elephant Foot Middle Exposure"
 msgstr "코끼리 발 현상 중심 노광"
 
-#: ../templates/profile/edit.html:344
+#: ../templates/profile/edit.html:393
 msgid "Elephant Foot Wall Thickness"
 msgstr "코끼리 발 현상 벽 두께"
 
@@ -902,14 +975,14 @@ msgstr "코끼리 발 현상 벽 두께"
 msgid "Empty username for dashboard, makes the dashboard accessible to everyone without authentication."
 msgstr "대시보드의 비어 있는 사용자 이름은 인증 없이 모든 사용자가 대시보드에 액세스할 수 있도록 합니다."
 
-#: ../templates/profile/edit.html:116 ../templates/profile/edit.html:124
-#: ../templates/profile/edit.html:311 ../templates/profile/edit.html:319
-#: ../templates/profile/edit.html:93 ../templates/setup/setup.html:728
-#: ../templates/setup/setup.html:745
+#: ../templates/profile/edit.html:101 ../templates/profile/edit.html:124
+#: ../templates/profile/edit.html:132 ../templates/profile/edit.html:360
+#: ../templates/profile/edit.html:368 ../templates/setup/setup.html:758
+#: ../templates/setup/setup.html:775
 msgid "Enable"
 msgstr "사용"
 
-#: ../templates/index.html:114
+#: ../templates/index-progress.html:117
 msgid ""
 "Enable\n"
 "\t\t\t\t\tAuto Shutdown"
@@ -917,15 +990,23 @@ msgstr ""
 "사용\n"
 "\t\t\t\t\t자동 종료"
 
-#: ../templates/setup/setup.html:219
+#: ../templates/setup/tools.html:45
+msgid "Enable & Start NanoDLP DSI HMI"
+msgstr ""
+
+#: ../templates/setup/custom-inputs.html:34
+msgid "Enable / Disable"
+msgstr ""
+
+#: ../templates/setup/setup.html:234
 msgid "Enable Before Each Print"
 msgstr "인쇄 전 사용"
 
-#: ../templates/setup/setup.html:215
+#: ../templates/setup/setup.html:230
 msgid "Enable GPIO Mode"
 msgstr "GPIO 모드 사용"
 
-#: ../templates/setup/setup.html:204
+#: ../templates/setup/setup.html:219
 msgid "Enable GPIO State"
 msgstr "GPIO 상태 사용"
 
@@ -933,7 +1014,7 @@ msgstr "GPIO 상태 사용"
 msgid "Enable Motor"
 msgstr "모터 사용"
 
-#: ../templates/setup/setup.html:218
+#: ../templates/setup/setup.html:233
 msgid "Enable on Boot"
 msgstr "부팅 시 사용"
 
@@ -941,15 +1022,15 @@ msgstr "부팅 시 사용"
 msgid "End Level"
 msgstr "엔드 레벨"
 
-#: ../templates/setup/setup.html:166
+#: ../templates/setup/setup.html:181
 msgid "Endstop Switch - Bottom Limit"
 msgstr "엔드스탑 스위치 - 하단 리미트"
 
-#: ../templates/setup/setup.html:174
+#: ../templates/setup/setup.html:189
 msgid "Endstop Switch - Default State"
 msgstr "엔드스탑 스위치 - 기본 상태"
 
-#: ../templates/setup/setup.html:157
+#: ../templates/setup/setup.html:172
 msgid "Endstop Switch - Top Limit"
 msgstr "엔드스탑 스위치 - 상단 리미트"
 
@@ -957,7 +1038,7 @@ msgstr "엔드스탑 스위치 - 상단 리미트"
 msgid "English"
 msgstr "영어"
 
-#: ../templates/profile/edit.html:177
+#: ../templates/profile/edit.html:205
 msgid "Erode / Dilate Areas"
 msgstr "침식 / 확장 영역"
 
@@ -969,23 +1050,45 @@ msgstr ""
 msgid "Even-though it can process multi color images, to make the dimming feature work correctly, try to use images containing grayscale colors."
 msgstr "다중 색상 이미지를 처리할 수 있지만, 조광 기능이 올바르게 작동하도록 하려면 그레이스케일 색상이 포함된 이미지를 사용하십시오."
 
-#: ../templates/setup/tools.html:61
+#: ../templates/setup/tools.html:82
 msgid "Expand Filesystem"
 msgstr "파일 시스템 확장"
+
+#: ../templates/profile/edit.html:170 ../templates/profile/edit.html:180
+#: ../templates/profile/edit.html:243 ../templates/profile/edit.html:251
+#: ../templates/profile/edit.html:261
+msgid "Experimental"
+msgstr ""
+
+#: ../templates/setup/setup.html:115
+msgid "Expert"
+msgstr ""
+
+#: ../templates/menu.html:31
+msgid "Expert Mode"
+msgstr ""
+
+#: ../templates/profile/profiles.html:42
+msgid "Export"
+msgstr ""
 
 #: ../templates/calibration/mask-generator.html:114
 msgid "Export Comma Separated Values"
 msgstr "쉼표로 구분된 값 내보내기"
 
-#: ../templates/setup/tools.html:7
+#: ../templates/setup/tools.html:9
 msgid "Export Machine Settings File"
 msgstr "기계 설정 파일 내보내기"
 
-#: ../templates/base.html:24
+#: ../templates/setup/tools.html:7
+msgid "Export Settings for NanoSupport"
+msgstr ""
+
+#: ../templates/base.html:27
 msgid "Failed Print"
 msgstr "인쇄 실패"
 
-#: ../templates/setup/setup.html:709
+#: ../templates/setup/setup.html:739
 msgid "Fault GPIO Default State"
 msgstr "결함 GPIO 기본 상태"
 
@@ -997,7 +1100,7 @@ msgstr "결함 레이어:"
 msgid "File"
 msgstr "파일"
 
-#: ../templates/setup/tools.html:60
+#: ../templates/setup/tools.html:81
 msgid "Filesystem expansion will run silently in background and will restart the Raspberry Pi afterward. Please do not change anything."
 msgstr "파일 시스템 확장은 백그라운드에서 자동으로 실행되며, 후에 라즈베리 파이가 재시작됩니다. 아무것도 변경하지 마십시오."
 
@@ -1013,11 +1116,11 @@ msgstr "바닥 ⇩"
 msgid "Focus Calibration"
 msgstr "포커스 보정"
 
-#: ../templates/setup/tools.html:22
+#: ../templates/setup/tools.html:24
 msgid "Force Stop"
 msgstr "강제 중지"
 
-#: ../templates/setup/setup.html:559
+#: ../templates/setup/setup.html:591
 msgid "Framebuffer Path"
 msgstr "프레임버퍼 경로"
 
@@ -1042,16 +1145,20 @@ msgstr "FullHD 보정"
 msgid "Gcode"
 msgstr "G코드"
 
-#: ../templates/index.html:78
+#: ../templates/index-progress.html:81
 msgid "Gcode After"
 msgstr "G코드 후"
 
-#: ../templates/index.html:74
+#: ../templates/index-progress.html:77
 msgid "Gcode Before"
 msgstr "G코드 전"
 
+#: ../templates/menu.html:23
+msgid "Gcode Terminal"
+msgstr ""
+
 #: ../templates/plate/extrude.html:49 ../templates/plate/generator.html:41
-#: ../templates/plate/pcb.html:30 ../templates/plate/plates.html:65
+#: ../templates/plate/pcb.html:30
 msgid "Generate"
 msgstr "생성"
 
@@ -1071,15 +1178,16 @@ msgstr "터치스크린"
 msgid "Hardware"
 msgstr "하드웨어"
 
-#: ../templates/printer.html:69
+#: ../templates/printer.html:84
 msgid "Heating start causing performance degrade and slow down."
 msgstr "가열로 인해 성능이 저하되고 속도가 느려집니다."
 
-#: ../templates/calibration/z-calibration.html:14 ../templates/index.html:45
+#: ../templates/calibration/z-calibration.html:14
+#: ../templates/index-progress.html:43
 msgid "Height"
 msgstr "높이"
 
-#: ../templates/profile/edit.html:363
+#: ../templates/profile/edit.html:412
 msgid "Hexagonal"
 msgstr "육각형"
 
@@ -1087,34 +1195,42 @@ msgstr "육각형"
 msgid "Hidden"
 msgstr "숨겨짐"
 
-#: ../templates/setup/setup.html:178 ../templates/setup/setup.html:208
-#: ../templates/setup/setup.html:713
+#: ../templates/setup/setup.html:193 ../templates/setup/setup.html:223
+#: ../templates/setup/setup.html:743
 msgid "High"
 msgstr "높음"
+
+#: ../templates/setup/setup.html:84
+msgid "High Resolution Printer"
+msgstr ""
 
 #: ../templates/calibration/mask-generator.html:72
 msgid "Highlight Point"
 msgstr "하이라이트 포인트"
 
-#: ../templates/profile/edit.html:364
+#: ../templates/profile/edit.html:413
 msgid "Hollowing"
 msgstr "비우기"
 
-#: ../templates/profile/edit.html:359
+#: ../templates/profile/edit.html:408
 msgid "Hollowing / Infill Type"
 msgstr "비우기 / 채우기 유형"
 
-#: ../templates/profile/edit.html:278 ../templates/profile/edit.html:330
+#: ../templates/profile/edit.html:327 ../templates/profile/edit.html:379
 msgid "Homogeneous"
 msgstr "동차"
 
-#: ../templates/setup/setup.html:411
+#: ../templates/setup/setup.html:432
 msgid "Horizontal Resolution"
 msgstr "수평 해상도"
 
-#: ../templates/setup/setup.html:476
+#: ../templates/setup/setup.html:497
 msgid "Horizontally"
 msgstr "수평"
+
+#: ../templates/setup/wireless.html:25
+msgid "Hostname"
+msgstr ""
 
 #: ../templates/calibration/projector-calibration.html:117
 msgid "Hours"
@@ -1124,6 +1240,10 @@ msgstr "시간"
 msgid "ID"
 msgstr "ID"
 
+#: ../templates/setup/wireless.html:31
+msgid "IP:PORT"
+msgstr ""
+
 #: ../templates/setup/custom-buttons.html:22
 msgid "Idle"
 msgstr "Idle"
@@ -1132,7 +1252,7 @@ msgstr "Idle"
 msgid "If you want to overwrite settings too, after restart go to `Setup` page / `Tools` tab and press `Restore Settings` button."
 msgstr "설정을 덮어쓰려면 다시 시작한 후 '설정' 페이지 / '도구' 탭으로 이동한 후 '설정 복구' 버튼을 누릅니다."
 
-#: ../templates/base.html:32 ../templates/profile/edit.html:515
+#: ../templates/base.html:35 ../templates/profile/edit.html:564
 msgid "Ignore"
 msgstr "무시"
 
@@ -1144,7 +1264,7 @@ msgstr "무시된 결과"
 msgid "Import Comma Separated Values"
 msgstr "쉼표로 구분된 값 가져오기"
 
-#: ../templates/setup/tools.html:9
+#: ../templates/setup/tools.html:11
 msgid "Import Machine Settings"
 msgstr "기계 설정 가져오기"
 
@@ -1152,15 +1272,19 @@ msgstr "기계 설정 가져오기"
 msgid "Import Profile"
 msgstr "프로필 가져오기"
 
+#: ../templates/profile/profiles.html:7
+msgid "Import a resin profile"
+msgstr ""
+
 #: ../templates/import.html:4
 msgid "Import and Export Settings"
 msgstr "설정 가져오기/내보내기"
 
-#: ../templates/profile/edit.html:410
+#: ../templates/profile/edit.html:459
 msgid "Infill Pattern Cell Width"
 msgstr "셀 너비 패턴 채우기"
 
-#: ../templates/profile/edit.html:400
+#: ../templates/profile/edit.html:449
 msgid "Infill Pattern Wall Size"
 msgstr "벽 크기 패턴 채우기"
 
@@ -1168,19 +1292,32 @@ msgstr "벽 크기 패턴 채우기"
 msgid "Information"
 msgstr "정보"
 
-#: ../templates/index.html:11
+#: ../templates/index-progress.html:9
 msgid "It seems your printer experienced issue during the last print."
 msgstr "마지막 인쇄 중에 프린터에 문제가 발생한 것 같습니다."
 
-#: ../templates/setup/setup.html:96
+#: ../templates/setup/setup.html:97
 msgid "Italian"
 msgstr "이탈리아어"
 
-#: ../templates/setup/setup.html:94
+#: ../templates/setup/setup.html:95
 msgid "Japanese"
 msgstr "일본어"
 
-#: ../templates/setup/setup.html:512
+#: ../templates/plate/list.html:13
+msgid "Job"
+msgstr ""
+
+#: ../templates/index.html:8 ../templates/menu.html:12
+#: ../templates/plate/plates.html:5
+msgid "Jobs"
+msgstr ""
+
+#: ../templates/setup/setup.html:94
+msgid "Korean"
+msgstr ""
+
+#: ../templates/setup/setup.html:533
 msgid "Lamp Brightness"
 msgstr "램프 밝기"
 
@@ -1200,83 +1337,77 @@ msgstr "최대 면적"
 msgid "Laser"
 msgstr "레이저"
 
-#: ../templates/profile/edit.html:461
+#: ../templates/profile/edit.html:510
 msgid "Laser Code"
 msgstr "레이저 코드"
 
-#: ../templates/analytics.html:174
-msgid "Last 100 Points - Auto Update"
-msgstr "마지막 100개 - 자동 업데이트"
+#: ../templates/analytics.html:190
+msgid "Last 1,000 Points - Auto Update"
+msgstr ""
 
-#: ../templates/analytics.html:176
-msgid "Last 1000 Points - Auto Update"
-msgstr "마지막 1000개 - 자동 업데이트"
+#: ../templates/analytics.html:192
+msgid "Last 10,000 Points - Auto Update"
+msgstr ""
 
-#: ../templates/analytics.html:173
-msgid "Last 50 Points - Auto Update"
-msgstr "마지막 50개 - 자동 업데이트"
+#: ../templates/analytics.html:191
+msgid "Last 5,000 Points - Auto Update"
+msgstr ""
 
-#: ../templates/analytics.html:175
+#: ../templates/analytics.html:193
+msgid "Last 50,000 Points - Auto Update"
+msgstr ""
+
+#: ../templates/analytics.html:189
 msgid "Last 500 Points - Auto Update"
 msgstr "마지막 500개 - 자동 업데이트"
 
-#: ../templates/analytics.html:177
-msgid "Last 5000 Points - Auto Update"
-msgstr "마지막 5000개 - 자동 업데이트"
-
-#: ../templates/plate/list.html:105
+#: ../templates/plate/list.html:107
 msgid "Last Print"
 msgstr "마지막 인쇄"
 
-#: ../templates/calibration/z-calibration.html:104 ../templates/index.html:40
-#: ../templates/plate/list.html:153 ../templates/plate/preview.html:74
-#: ../templates/printer.html:78
+#: ../templates/calibration/z-calibration.html:104
+#: ../templates/index-progress.html:38 ../templates/plate/list.html:156
+#: ../templates/plate/preview.html:74 ../templates/printer.html:94
 msgid "Layer"
 msgstr "레이어"
 
-#: ../templates/plate/list.html:137
+#: ../templates/plate/list.html:139
 msgid "Layer ID"
 msgstr "레이어 ID"
 
-#: ../templates/plate/preview.html:78 ../templates/profile/profiles.html:12
+#: ../templates/plate/preview.html:78 ../templates/profile/profiles.html:13
 msgid "Layer Thickness"
 msgstr "레이어 두께"
 
-#: ../templates/profile/edit.html:371 ../templates/profile/edit.html:381
+#: ../templates/profile/edit.html:420 ../templates/profile/edit.html:430
 msgid "Layers"
 msgstr "레이어"
 
-#: ../templates/setup/setup.html:633
+#: ../templates/setup/setup.html:663
 msgid "Leadscrew Pitch"
 msgstr "리드스크류 피치"
 
-#: ../templates/setup/setup.html:450
+#: ../templates/setup/setup.html:471
 msgid "Lens Barrel Factor"
 msgstr "렌즈 배럴 계수"
 
-#: ../templates/printer.html:77
+#: ../templates/printer.html:93
 msgid "Level"
 msgstr "레벨"
 
-#: ../templates/index.html:79
+#: ../templates/setup/consumables.html:26
+msgid "Lifecycle limit"
+msgstr ""
+
+#: ../templates/index-progress.html:82
 msgid "Lift"
 msgstr "리프트"
 
-#: ../templates/profile/edit.html:435
+#: ../templates/profile/edit.html:484 ../templates/profile/simple.html:82
 msgid "Lift After Print"
 msgstr "인쇄 후 리프트"
 
-#: ../templates/profile/simple.html:82
-msgid ""
-"Lift After Print\n"
-"                        <span class=\"label label-success val\">{{profile.WaitHeight}}</span>\n"
-"                        <span class=\"label label-default\" translate=\"\">Second</span>"
-msgstr ""
-"인쇄 후 리프트\n"
-"                        <span class=\"label label-success val\">{{profile.WaitHeight}}</span>\n"
-"                        <span class=\"label label-default\" translate=\"\">Second</span>"
-
-#: ../templates/index.html:80
+#: ../templates/index-progress.html:83
 msgid "Lift Wait"
 msgstr "리프트 대기"
 
@@ -1284,12 +1415,12 @@ msgstr "리프트 대기"
 msgid "Lift after print, wait after lift, sending code"
 msgstr "인쇄 후 리프트, 리프트 후 대기, 코드 전송"
 
-#: ../templates/setup/setup.html:571
+#: ../templates/setup/setup.html:602
 msgid "Light Output Formula"
 msgstr "광출력 공식"
 
 #: ../templates/calibration/mask-generator.html:27
-#: ../templates/profile/edit.html:255
+#: ../templates/profile/edit.html:304
 msgid "Light Source Color"
 msgstr "광원 색상"
 
@@ -1301,13 +1432,13 @@ msgstr "로컬 패널 비밀번호 보호"
 msgid "Login"
 msgstr "로그인"
 
-#: ../templates/setup/setup.html:179 ../templates/setup/setup.html:207
-#: ../templates/setup/setup.html:712
+#: ../templates/setup/setup.html:194 ../templates/setup/setup.html:222
+#: ../templates/setup/setup.html:742
 msgid "Low"
 msgstr "낮음"
 
-#: ../templates/profile/edit.html:138 ../templates/profile/edit.html:178
-#: ../templates/profile/edit.html:452
+#: ../templates/profile/edit.html:146 ../templates/profile/edit.html:206
+#: ../templates/profile/edit.html:501
 msgid "MM"
 msgstr "MM"
 
@@ -1323,7 +1454,7 @@ msgstr "기계 설정과 프로필 저장소"
 msgid "Making any change will automatically discard the previous calibration plate."
 msgstr "변경하면 이전 보정 플레이트가 자동으로 삭제됩니다."
 
-#: ../templates/setup/setup.html:335
+#: ../templates/setup/setup.html:350
 msgid "Manual Movement Code Template"
 msgstr "수동 이동 코드 템플릿"
 
@@ -1335,7 +1466,7 @@ msgstr "제조사 설정"
 msgid "Mask"
 msgstr "마스크"
 
-#: ../templates/profile/edit.html:510
+#: ../templates/profile/edit.html:559
 msgid "Mask File"
 msgstr "마스크 파일"
 
@@ -1367,27 +1498,16 @@ msgstr "마스크와 램프"
 msgid "Mask file effects only STL/SLC/SVG files uploaded after mask submit"
 msgstr "마스크 파일은 마스크 제출 후 업로드된 STL/SLC/SVG 파일에만 영향을 줍니다."
 
-#: ../templates/profile/edit.html:229 ../templates/setup/setup.html:598
+#: ../templates/profile/edit.html:278 ../templates/profile/simple.html:10
+#: ../templates/setup/setup.html:629
 msgid "Max Speed"
 msgstr "최대 속도"
 
-#: ../templates/profile/simple.html:10
-msgid ""
-"Max Speed\n"
-"                        <span class=\"label label-success val\">{% if profile.ZStepWait==0 %}1{% else %}{{profile.ZStepWait}}{% endif %}</span>\n"
-"                        <span class=\"label label-default\" translate=\"\">mm/min</span>\n"
-"                        {{helpPage(\"https://docs.nano3dtech.com/manual/speed/\")}}"
-msgstr ""
-"최대 속도\n"
-"                        <span class=\"label label-success val\">{% if profile.ZStepWait==0 %}1{% else %}{{profile.ZStepWait}}{% endif %}</span>\n"
-"                        <span class=\"label label-default\" translate=\"\">mm/분</span>\n"
-"                        {{도움 페이지(\"https://docs.nano3dtech.com/manual/speed/\")}}"
-
-#: ../templates/setup/custom-inputs.html:33
+#: ../templates/setup/custom-inputs.html:44
 msgid "Max for Number Input"
 msgstr "숫자 입력에 대한 최대값"
 
-#: ../templates/profile/edit.html:106
+#: ../templates/profile/edit.html:114
 msgid "Maximum Thickness for Adaptive Slicing"
 msgstr "적응형 슬라이싱을 위한 최대 두께"
 
@@ -1407,61 +1527,65 @@ msgstr "측정 큐브 너비"
 msgid "Measurement Mode"
 msgstr "측정 모드"
 
-#: ../templates/printer.html:48
+#: ../templates/printer.html:47
 msgid "Memory"
 msgstr "메모리"
 
-#: ../templates/printer.html:70
+#: ../templates/printer.html:85
 msgid "Memory swap detected it will slow down operations."
 msgstr "메모리 스왑에서 작업 속도가 느려지는 것을 감지했습니다."
 
-#: ../templates/profile/edit.html:488 ../templates/profile/edit.html:496
-#: ../templates/profile/profiles.html:12
+#: ../templates/profile/edit.html:537 ../templates/profile/edit.html:545
+#: ../templates/profile/profiles.html:13
 msgid "Micron"
 msgstr "Micron"
 
-#: ../templates/setup/setup.html:627
+#: ../templates/setup/setup.html:657
 msgid "Microstep"
 msgstr "Microstep"
 
 #: ../templates/calibration/z-calibration.html:15
 #: ../templates/plate/extrude.html:34 ../templates/plate/generator.html:12
 #: ../templates/plate/generator.html:27 ../templates/plate/generator.html:31
-#: ../templates/plate/generator.html:35 ../templates/profile/edit.html:239
-#: ../templates/profile/edit.html:420 ../templates/setup/setup.html:581
-#: ../templates/setup/setup.html:589 ../templates/setup/setup.html:633
+#: ../templates/plate/generator.html:35 ../templates/profile/edit.html:288
+#: ../templates/profile/edit.html:469 ../templates/setup/setup.html:612
+#: ../templates/setup/setup.html:620 ../templates/setup/setup.html:663
 msgid "Millimeter"
 msgstr "Millimeter"
 
-#: ../templates/setup/setup.html:402
+#: ../templates/setup/setup.html:423
 msgid "Millisecond"
 msgstr "Millisecond"
 
-#: ../templates/setup/setup.html:606
+#: ../templates/setup/setup.html:637
 msgid "Min Speed"
 msgstr "최소 속도"
 
-#: ../templates/setup/custom-inputs.html:30
+#: ../templates/setup/custom-inputs.html:41
 msgid "Min for Number Input"
 msgstr "숫자 입력에 대한 최소값"
 
-#: ../templates/profile/edit.html:99
+#: ../templates/profile/edit.html:107
 msgid "Minimum Thickness for Adaptive Slicing"
 msgstr "적응형 슬라이싱을 위한 최소 두께"
 
-#: ../templates/setup/setup.html:472
+#: ../templates/setup/setup.html:493
 msgid "Mirror Layers"
 msgstr "미러 레이어"
 
-#: ../templates/printer.html:80
+#: ../templates/printer.html:96
 msgid "Module"
 msgstr "모듈"
 
-#: ../templates/setup/setup.html:612
+#: ../templates/plate/list.html:169
+msgid "More"
+msgstr ""
+
+#: ../templates/setup/setup.html:643
 msgid "Motor Startup Speed"
 msgstr "모터 시동 속도"
 
-#: ../templates/setup/setup.html:619
+#: ../templates/setup/setup.html:649
 msgid "Motor Step Angle"
 msgstr "모터 스텝 앵글"
 
@@ -1481,11 +1605,11 @@ msgstr "레이어로 이동"
 msgid "Move to layer, movement speed, slow section, sending code"
 msgstr "레이어로 이동, 이동 속도, 느린 섹션, 코드 전송"
 
-#: ../templates/setup/setup.html:266
+#: ../templates/setup/setup.html:281
 msgid "Movement Positioning"
 msgstr "이동 위치"
 
-#: ../templates/profile/edit.html:452
+#: ../templates/profile/edit.html:501
 msgid "Multi Print Gap"
 msgstr "다중 인쇄 간격"
 
@@ -1498,7 +1622,8 @@ msgid "Multiple Thickness"
 msgstr "다중 두께"
 
 #: ../templates/plate/edit.html:40 ../templates/profile/edit.html:33
-#: ../templates/setup/custom-inputs.html:45
+#: ../templates/setup/consumables.html:38
+#: ../templates/setup/custom-inputs.html:56
 msgid "Name"
 msgstr "이름"
 
@@ -1507,6 +1632,10 @@ msgid "Name / Color"
 msgstr "이름 / 색상"
 
 #: ../templates/setup/custom-inputs.html:6
+msgid "Name <sup>without space, only characters</sup>"
+msgstr ""
+
+#: ../templates/setup/consumables.html:6
 msgid "Name without space, only characters"
 msgstr "공백 없이 문자만 있는 이름"
 
@@ -1522,11 +1651,11 @@ msgstr "NanoDLP 네트워크 포트, 원격 슬라이서"
 msgid "Network"
 msgstr "네트워크"
 
-#: ../templates/menu.html:56
+#: ../templates/menu.html:57
 msgid "New Version Available"
 msgstr "새 버전 가능"
 
-#: ../templates/setup/setup.html:685
+#: ../templates/setup/setup.html:715
 msgid "Nextion Display Port Address"
 msgstr "Nextion 디스플레이 포트 주소"
 
@@ -1534,19 +1663,19 @@ msgstr "Nextion 디스플레이 포트 주소"
 msgid "Nextion, AMLCD"
 msgstr "Nextion, AMLCD"
 
-#: ../templates/setup/setup.html:190
+#: ../templates/setup/setup.html:205
 msgid "No"
 msgstr "아니오"
 
-#: ../templates/setup/wireless.html:44
+#: ../templates/setup/wireless.html:60
 msgid "No Encryption"
 msgstr "비밀번호화 없음"
 
-#: ../templates/plate/advanced-plates.html:124 ../templates/plate/list.html:224
+#: ../templates/plate/advanced-plates.html:124 ../templates/plate/list.html:228
 msgid "No Plates"
 msgstr "플레이트 없음"
 
-#: ../templates/profile/profiles.html:49
+#: ../templates/profile/profiles.html:50
 msgid "No Profile"
 msgstr "프로필 없음"
 
@@ -1554,19 +1683,15 @@ msgstr "프로필 없음"
 msgid "No Result"
 msgstr "결과 없음"
 
-#: ../templates/setup/wireless.html:54
-msgid "No wireless connection found"
-msgstr "무선 연결을 찾을 수 없음"
-
-#: ../templates/setup/setup.html:430
+#: ../templates/setup/setup.html:451
 msgid "Non-Standard Monochrome"
 msgstr "비표준 모노크롬"
 
 #: ../templates/setup/setup.html:83
-msgid "Non-Stop LCD Printer"
-msgstr "논스톱 LCD 프린터"
+msgid "Non-Stop Printer"
+msgstr ""
 
-#: ../templates/setup/setup.html:429
+#: ../templates/setup/setup.html:450
 msgid "Normal"
 msgstr "일반"
 
@@ -1574,21 +1699,11 @@ msgstr "일반"
 msgid "Normal Layer"
 msgstr "일반 레이어"
 
-#: ../templates/profile/edit.html:153
+#: ../templates/profile/edit.html:161 ../templates/profile/simple.html:58
 msgid "Normal Layer Cure Time"
 msgstr "일반 레이어 경화 시간"
 
-#: ../templates/profile/simple.html:58
-msgid ""
-"Normal Layer Cure Time\n"
-"                        <span class=\"label label-success val\">{{profile.CureTime}}</span>\n"
-"                        <span class=\"label label-default\" translate=\"\">Second</span>"
-msgstr ""
-"일반 레이어 경화 시간\n"
-"                        <span class=\"label label-success val\">{{profile.CureTime}}</span>\n"
-"                        <span class=\"label label-default\" translate=\"\">초</span>"
-
-#: ../templates/profile/edit.html:145
+#: ../templates/profile/edit.html:153
 msgid "Normal Layer Thickness"
 msgstr "일반 레이어 두께"
 
@@ -1596,25 +1711,33 @@ msgstr "일반 레이어 두께"
 msgid "Normal layers count, cure time, lift, erode"
 msgstr "일반 레이어 개수, 경화 시간, 리프트, 침식"
 
-#: ../templates/printer.html:71
+#: ../templates/printer.html:86
 msgid "Not enough free disk space. Try removing some plates or expand disk space."
 msgstr "사용 가능한 디스크 공간이 부족합니다. 플레이트를 제거하거나 디스크 공간을 확장해 보세요."
 
-#: ../templates/setup/custom-inputs.html:13
+#: ../templates/setup/custom-inputs.html:23
 msgid "Note Text"
 msgstr "메모 텍스트"
 
-#: ../templates/base.html:29
+#: ../templates/base.html:32
 msgid "Nothing on Build Platform"
 msgstr "빌드 플랫폼에 아무것도 없음"
 
-#: ../templates/setup/custom-inputs.html:23
+#: ../templates/setup/custom-inputs.html:33
 msgid "Number"
 msgstr "숫자"
 
-#: ../templates/profile/edit.html:58
-msgid "Number of Burin-in Layers"
-msgstr "초기 레이어 개수"
+#: ../templates/profile/edit.html:66
+msgid "Number of Burn-in Layers"
+msgstr ""
+
+#: ../templates/setup/consumables.html:22
+msgid "Number of Complete Prints"
+msgstr ""
+
+#: ../templates/setup/consumables.html:20
+msgid "Number of Layers"
+msgstr ""
 
 #: ../templates/plate/edit.html:81 ../templates/plate/extrude.html:43
 msgid "Number of Low Quality Layers"
@@ -1628,32 +1751,40 @@ msgstr "높이에 있는 점 개수"
 msgid "Number of Points in Width"
 msgstr "너비에 있는 점 개수"
 
-#: ../templates/profile/edit.html:276 ../templates/profile/edit.html:328
-#: ../templates/profile/edit.html:362
+#: ../templates/setup/consumables.html:21
+msgid "Number of Prints"
+msgstr ""
+
+#: ../templates/profile/edit.html:325 ../templates/profile/edit.html:377
+#: ../templates/profile/edit.html:411
 msgid "Off"
 msgstr "끄기"
+
+#: ../templates/setup/tools.html:88
+msgid "Offline Upgrade"
+msgstr ""
 
 #: ../templates/plate/edit.html:72
 msgid "Offset Lowest Point for Slicing"
 msgstr "슬라이싱을 위한 오프셋 최저점"
 
-#: ../templates/setup/setup.html:664
+#: ../templates/setup/setup.html:694
 msgid "Once Per 10 Layers"
 msgstr "10 레이어당 한 번"
 
-#: ../templates/setup/setup.html:658
+#: ../templates/setup/setup.html:688
 msgid "Once Per 2 Layers"
 msgstr "2 레이어당 한 번"
 
-#: ../templates/setup/setup.html:660
+#: ../templates/setup/setup.html:690
 msgid "Once Per 3 Layers"
 msgstr "3 레이어당 한 번"
 
-#: ../templates/setup/setup.html:662
+#: ../templates/setup/setup.html:692
 msgid "Once Per 5 Layers"
 msgstr "5 레이어당 한 번"
 
-#: ../templates/setup/setup.html:657
+#: ../templates/setup/setup.html:687
 msgid "Once Per Layer"
 msgstr "레이어당 한 번"
 
@@ -1669,11 +1800,11 @@ msgstr "온라인 문서"
 msgid "Only Display Point"
 msgstr "디스플레이 포인트만"
 
-#: ../templates/setup/setup.html:673
+#: ../templates/setup/setup.html:703
 msgid "Only Last Image"
 msgstr "마지막 이미지만"
 
-#: ../templates/setup/setup.html:656
+#: ../templates/setup/setup.html:686
 msgid "Only Manually"
 msgstr "수동으로만"
 
@@ -1681,17 +1812,21 @@ msgstr "수동으로만"
 msgid "Only Support"
 msgstr "서포트만"
 
-#: ../templates/base.html:28
+#: ../templates/base.html:31
 msgid "Only Supports There"
 msgstr "그곳만 지원"
 
-#: ../templates/setup/setup.html:134
+#: ../templates/setup/setup.html:149
 msgid "Open Before Each Layer"
 msgstr "각 레이어 전 열음"
 
-#: ../templates/setup/setup.html:136
+#: ../templates/setup/setup.html:151
 msgid "Open Before Print"
 msgstr "인쇄 전 열음"
+
+#: ../templates/profile/edit.html:46
+msgid "Optimum Temperature"
+msgstr ""
 
 #: ../templates/plate/edit.html:76 ../templates/plate/edit.html:81
 msgid "Optional"
@@ -1705,11 +1840,11 @@ msgstr "선택사항, 글로벌 마스크 재정의"
 msgid "Orange"
 msgstr "주황색"
 
-#: ../templates/setup/setup.html:786
+#: ../templates/base.html:53
 msgid "Other Settings"
 msgstr "다른 설정"
 
-#: ../templates/profile/edit.html:390
+#: ../templates/profile/edit.html:439
 msgid "Outer Wall Thickness"
 msgstr "외벽 두께"
 
@@ -1721,27 +1856,27 @@ msgstr "레이어의 오버행 영역:"
 msgid "Override Machine Settings"
 msgstr "기계 설정 재정의"
 
-#: ../templates/profile/edit.html:481
+#: ../templates/profile/edit.html:530
 msgid "Override Print Stop Code"
 msgstr "인쇄 중지"
 
-#: ../templates/profile/edit.html:474
+#: ../templates/profile/edit.html:523
 msgid "Override Resume Print Code"
 msgstr "인쇄 재시작 코드 재정의"
 
-#: ../templates/profile/edit.html:467
+#: ../templates/profile/edit.html:516
 msgid "Override Start of Print Code"
 msgstr "인쇄 시작 코드 재정의"
 
-#: ../templates/profile/edit.html:487
+#: ../templates/profile/edit.html:536
 msgid "Override X Resolution"
 msgstr "X 해상도 재정의"
 
-#: ../templates/profile/edit.html:495
+#: ../templates/profile/edit.html:544
 msgid "Override Y Resolution"
 msgstr "Y 해상도 재정의"
 
-#: ../templates/plate/pcb.html:9 ../templates/plate/plates.html:44
+#: ../templates/plate/pcb.html:9
 msgid "PCB Print"
 msgstr "PCB 인쇄"
 
@@ -1749,15 +1884,11 @@ msgstr "PCB 인쇄"
 msgid "PNG/JPEG File"
 msgstr "PNG/JPEG 파일"
 
-#: ../templates/plate/plates.html:43
-msgid "Paint"
-msgstr "인쇄"
-
 #: ../templates/plate/history.html:8
 msgid "Part Missing"
 msgstr "부분 누락"
 
-#: ../templates/setup/wireless.html:27
+#: ../templates/setup/wireless.html:43
 msgid "Password"
 msgstr "비밀번호"
 
@@ -1781,8 +1912,8 @@ msgstr "대시보드 비밀번호"
 msgid "Per Litre"
 msgstr "Per Litre"
 
-#: ../templates/plate/edit.html:91 ../templates/profile/edit.html:503
-#: ../templates/setup/setup.html:512 ../templates/setup/setup.html:571
+#: ../templates/plate/edit.html:91 ../templates/profile/edit.html:552
+#: ../templates/setup/setup.html:533 ../templates/setup/setup.html:602
 msgid "Percentage"
 msgstr "Percentage"
 
@@ -1855,7 +1986,7 @@ msgid "Pillars:"
 msgstr "기둥:"
 
 #: ../templates/calibration/mask-generator.html:58
-#: ../templates/setup/setup.html:458 ../templates/setup/setup.html:465
+#: ../templates/setup/setup.html:479 ../templates/setup/setup.html:486
 msgid "Pixel"
 msgstr "픽셀"
 
@@ -1863,22 +1994,25 @@ msgstr "픽셀"
 msgid "Pixel Check"
 msgstr "픽셀 확인"
 
-#: ../templates/profile/edit.html:273
+#: ../templates/profile/edit.html:322
 msgid "Pixel Dimming Type"
 msgstr "픽셀 조광 유형"
 
-#: ../templates/profile/edit.html:391 ../templates/profile/edit.html:401
-#: ../templates/profile/edit.html:411
+#: ../templates/profile/edit.html:440 ../templates/profile/edit.html:450
+#: ../templates/profile/edit.html:460
 msgid "Pixels"
 msgstr "픽셀"
 
-#: ../templates/setup/custom-inputs.html:16
+#: ../templates/setup/custom-inputs.html:13
+msgid "Place"
+msgstr ""
+
+#: ../templates/setup/custom-inputs.html:26
 msgid "Placeholder Text"
 msgstr "텍스트"
 
 #: ../templates/calibration/z-calibration.html:95
-#: ../templates/plate/advanced-plates.html:21 ../templates/plate/list.html:13
-#: ../templates/plate/preview.html:6
+#: ../templates/plate/advanced-plates.html:21 ../templates/plate/preview.html:6
 msgid "Plate"
 msgstr "플레이트"
 
@@ -1899,28 +2033,23 @@ msgstr "플레이트 이름"
 msgid "Plate Size"
 msgstr "플레이트 크기"
 
-#: ../templates/plate/list.html:54
+#: ../templates/plate/list.html:56
 msgid "Plate contains overhang areas."
 msgstr "플레이트가 오버행 면적을 가지고 있습니다."
 
-#: ../templates/plate/advanced-plates.html:39 ../templates/plate/list.html:32
+#: ../templates/plate/advanced-plates.html:39
 msgid "Plate generated using old profile data."
 msgstr "이전 프로필 데이터를 사용하여 생성된 플레이트."
-
-#: ../templates/index.html:142 ../templates/menu.html:12
-#: ../templates/plate/plates.html:5
-msgid "Plates"
-msgstr "플레이트"
 
 #: ../templates/calibration/z-calibration.html:5
 msgid "Platform Information"
 msgstr "플렛폼 정보"
 
-#: ../templates/setup/setup.html:581
+#: ../templates/setup/setup.html:612
 msgid "Platform Stop Position"
 msgstr "플랫폼 중지 위치"
 
-#: ../templates/setup/setup.html:725
+#: ../templates/setup/setup.html:755
 msgid "Play Sound After Print Stop"
 msgstr "인쇄 중지 후 사운드 재생"
 
@@ -1940,23 +2069,23 @@ msgstr "포인트 너비"
 msgid "Position / Condition / Confirmation"
 msgstr "위치 / 조건 / 확인"
 
-#: ../templates/setup/tools.html:26
+#: ../templates/setup/tools.html:28
 msgid "Power Off"
 msgstr "전원 끄기"
 
-#: ../templates/printer.html:67
+#: ../templates/printer.html:82
 msgid "Power issue detected. It is serious issue that may cause random problems during printing."
 msgstr "전원 문제가 감지되었습니다. 인쇄 중 심각한 문제가 발생할 수 있습니다."
 
-#: ../templates/setup/setup.html:548
+#: ../templates/setup/setup.html:569
 msgid "Power-Up on Start / Power-Down on Last Layer"
 msgstr "시작 시 전원 켜기 / 마지막 레이어에서 전원 끄기"
 
-#: ../templates/setup/setup.html:547
+#: ../templates/setup/setup.html:568
 msgid "Power-Up on Start / Power-Down on Shutdown"
 msgstr "시작 시 전원 켜기 / 종료 시 전원 끄기"
 
-#: ../templates/setup/setup.html:546
+#: ../templates/setup/setup.html:567
 msgid "Power-Up on Start / Power-Down on Stop"
 msgstr "시작 시 전원 켜기 / 중지 시 전원 끄기"
 
@@ -1965,11 +2094,12 @@ msgid "Prepare models for print, erode, dimming, 3D AA, AA, resolution, dimming,
 msgstr "인쇄, 침식, 조광, 3D AA, AA, 해상도, 비우기, 마스크를 위한 모델 준비"
 
 #: ../templates/calibration/mask-generator.html:36
-#: ../templates/plate/advanced-plates.html:22
+#: ../templates/plate/advanced-plates.html:22 ../templates/plate/list.html:162
+#: ../templates/plate/plates.html:66
 msgid "Preview"
 msgstr "미리보기"
 
-#: ../templates/plate/list.html:214
+#: ../templates/plate/list.html:218
 msgid "Print After Sliced"
 msgstr "슬라이스 후 인쇄"
 
@@ -1981,11 +2111,12 @@ msgstr "인쇄 히스토리"
 msgid "Print Quality"
 msgstr "인쇄 퀄리티"
 
-#: ../templates/setup/setup.html:329
+#: ../templates/setup/setup.html:344
 msgid "Print Stop Code"
 msgstr "인쇄 중지 코드"
 
-#: ../templates/plate/advanced-plates.html:51 ../templates/plate/list.html:119
+#: ../templates/plate/advanced-plates.html:51 ../templates/plate/list.html:121
+#: ../templates/setup/consumables.html:19
 msgid "Print Time"
 msgstr "인쇄 시간"
 
@@ -2010,19 +2141,19 @@ msgstr "프린터 종류, GPIO"
 msgid "Printing"
 msgstr "인쇄 중"
 
-#: ../templates/printer.html:35
+#: ../templates/printer.html:34
 msgid "Proc"
 msgstr "Proc"
 
-#: ../templates/base.html:41
+#: ../templates/base.html:44 ../templates/setup/custom-inputs.html:16
 msgid "Profile"
 msgstr "프로필"
 
-#: ../templates/plate/advanced-plates.html:42 ../templates/plate/list.html:40
+#: ../templates/plate/advanced-plates.html:42 ../templates/plate/list.html:42
 msgid "Profile not found."
 msgstr "프로필을 찾을 수 없습니다."
 
-#: ../templates/index.html:127
+#: ../templates/index-progress.html:130
 msgid ""
 "Projector\n"
 "\t\t\t\t\tOff"
@@ -2031,8 +2162,8 @@ msgstr ""
 "\t\t\t\t\t끄기"
 
 #: ../templates/setup/setup.html:81
-msgid "Projector / LCD"
-msgstr "프로젝터 / LCD"
+msgid "Projector / UV LCD"
+msgstr ""
 
 #: ../templates/calibration/mask-generator.html:101
 #: ../templates/calibration/projector-calibration.html:103
@@ -2052,20 +2183,20 @@ msgstr "프로젝터 보정"
 msgid "Projector Mask"
 msgstr "프로젝터 마스크"
 
-#: ../templates/setup/setup.html:523
+#: ../templates/setup/setup.html:544
 msgid "Projector USB/Serial Port Address"
 msgstr "프로젝터 USB/시리얼 포트 주소"
 
 #: ../templates/calibration/z-calibration.html:16
-#: ../templates/setup/setup.html:642
+#: ../templates/setup/setup.html:672
 msgid "Pulse"
 msgstr "Pulse"
 
-#: ../templates/setup/wireless.html:28
+#: ../templates/setup/wireless.html:44
 msgid "Quality"
 msgstr "퀄리티"
 
-#: ../templates/setup/setup.html:505
+#: ../templates/setup/setup.html:526
 msgid "Query Lamp Hours"
 msgstr "쿼리 램프 시간"
 
@@ -2073,13 +2204,13 @@ msgstr "쿼리 램프 시간"
 msgid "RAMPS / Controller"
 msgstr "RAMPS / 컨트롤러"
 
-#: ../templates/menu.html:23
-msgid "RAMPS Terminal"
-msgstr "RAMPS 터미널"
-
-#: ../templates/menu.html:37
+#: ../templates/menu.html:38
 msgid "RAMPS: Reconnect"
 msgstr "RAMPS: 재연결"
+
+#: ../templates/plate/list.html:32
+msgid "Re-slicing required."
+msgstr ""
 
 #: ../templates/calibration/z-calibration.html:52
 msgid "Record Current Height as Axis Height"
@@ -2093,24 +2224,28 @@ msgstr "직사각형:"
 msgid "Red"
 msgstr "레드"
 
-#: ../templates/plate/advanced-plates.html:100 ../templates/plate/list.html:177
-#: ../templates/plate/list.html:62
+#: ../templates/plate/advanced-plates.html:100 ../templates/plate/list.html:180
+#: ../templates/plate/list.html:64
 msgid "Regenerate"
 msgstr "재생성"
 
-#: ../templates/plate/list.html:181
+#: ../templates/plate/list.html:184
 msgid "Regenerate Web"
 msgstr "웹 재생성"
 
-#: ../templates/setup/setup.html:269
+#: ../templates/plate/plates.html:65
+msgid "Regenerate calibration plate"
+msgstr ""
+
+#: ../templates/setup/setup.html:284
 msgid "Relative"
 msgstr "상대적인"
 
-#: ../templates/setup/tools.html:34
+#: ../templates/setup/tools.html:36
 msgid "Reload NanoDLP"
 msgstr "NanoDLP 재시작"
 
-#: ../templates/index.html:50
+#: ../templates/index-progress.html:48
 msgid "Remaining"
 msgstr "남은 시간"
 
@@ -2118,9 +2253,13 @@ msgstr "남은 시간"
 msgid "Remote Access to the printer"
 msgstr "프린터에 대한 원격 액세스"
 
-#: ../templates/setup/setup.html:735
+#: ../templates/setup/setup.html:765
 msgid "Remote Slicer"
 msgstr "원격 슬라이서"
+
+#: ../templates/plate/edit.html:128
+msgid "Remote slicing enabled."
+msgstr ""
 
 #: ../templates/plate/cover.html:23
 msgid "Remove"
@@ -2129,6 +2268,10 @@ msgstr "제거"
 #: ../templates/setup/mask.html:12
 msgid "Remove Mask"
 msgstr "마스크 제거"
+
+#: ../templates/plate/list.html:165
+msgid "Repair"
+msgstr ""
 
 #: ../templates/setup/support.html:7
 msgid "Report a Bug"
@@ -2142,43 +2285,43 @@ msgstr "그리드 재설정"
 msgid "Reset Grid Values"
 msgstr "그리드 값 재설정"
 
-#: ../templates/setup/setup.html:185
+#: ../templates/setup/setup.html:200
 msgid "Reset Position on Limit"
 msgstr "리미트 포지션 재설정"
 
-#: ../templates/analytics.html:170
+#: ../templates/analytics.html:185
 msgid "Reset Stats"
 msgstr "통계 초기화"
 
-#: ../templates/setup/tools.html:56
+#: ../templates/setup/tools.html:64
 msgid "Reset Usage Statistics"
 msgstr "레진 사용량 통계"
 
-#: ../templates/profile/edit.html:24
+#: ../templates/printer.html:58 ../templates/profile/edit.html:24
 msgid "Resin"
 msgstr "레진"
 
-#: ../templates/plate/advanced-plates.html:59 ../templates/plate/list.html:91
+#: ../templates/plate/advanced-plates.html:59 ../templates/plate/list.html:93
 msgid "Resin Cost"
 msgstr "레진 가격"
 
-#: ../templates/setup/setup.html:589
+#: ../templates/setup/setup.html:620
 msgid "Resin Depth"
 msgstr "레진 깊이"
+
+#: ../templates/profile/edit.html:250
+msgid "Resin Level Detection"
+msgstr ""
 
 #: ../templates/profile/edit.html:38
 msgid "Resin Price"
 msgstr "레진 가격"
 
-#: ../templates/menu.html:13
+#: ../templates/menu.html:13 ../templates/profile/profiles.html:4
 msgid "Resin Profiles"
 msgstr "레진 프로필"
 
-#: ../templates/profile/profiles.html:4
-msgid "Resin Settings"
-msgstr "레진 설정"
-
-#: ../templates/plate/advanced-plates.html:55 ../templates/plate/list.html:87
+#: ../templates/plate/advanced-plates.html:55 ../templates/plate/list.html:89
 msgid "Resin Usage"
 msgstr "레진 사용량"
 
@@ -2198,11 +2341,11 @@ msgstr "해상도, 코드, 마스크"
 msgid "Resources"
 msgstr "리소스"
 
-#: ../templates/setup/tools.html:30
+#: ../templates/setup/tools.html:32
 msgid "Restart Printer"
 msgstr "프린터 재시작"
 
-#: ../templates/setup/setup.html:293 ../templates/setup/setup.html:719
+#: ../templates/setup/setup.html:308 ../templates/setup/setup.html:749
 msgid "Restart Required"
 msgstr "재시작 필요"
 
@@ -2210,11 +2353,11 @@ msgstr "재시작 필요"
 msgid "Restore Backup"
 msgstr "백업 복구"
 
-#: ../templates/setup/restore.html:5 ../templates/setup/tools.html:17
+#: ../templates/setup/restore.html:5 ../templates/setup/tools.html:19
 msgid "Restore Backup File"
 msgstr "백업 파일 복구"
 
-#: ../templates/setup/tools.html:11
+#: ../templates/setup/tools.html:13
 msgid "Restore Default Settings"
 msgstr "기본 설정 복구"
 
@@ -2222,23 +2365,27 @@ msgstr "기본 설정 복구"
 msgid "Restore Machine Settings"
 msgstr "기계 설정 복구"
 
-#: ../templates/setup/setup.html:321
+#: ../templates/setup/setup.html:336
 msgid "Resume Print Code"
 msgstr "인쇄 재시작 코드"
 
-#: ../templates/plate/edit.html:100 ../templates/profile/edit.html:447
+#: ../templates/plate/list.html:143
+msgid "Resume from the middle"
+msgstr ""
+
+#: ../templates/plate/edit.html:100 ../templates/profile/edit.html:496
 msgid "Rotate 90°"
 msgstr "90° 회전"
 
-#: ../templates/plate/edit.html:96 ../templates/profile/edit.html:443
+#: ../templates/plate/edit.html:96 ../templates/profile/edit.html:492
 msgid "Rotate Layers"
 msgstr "레이어 회전"
 
-#: ../templates/setup/setup.html:99
+#: ../templates/setup/setup.html:100
 msgid "Russian"
 msgstr "러시아어"
 
-#: ../templates/setup/wireless.html:25
+#: ../templates/setup/wireless.html:41
 msgid "SSID"
 msgstr "SSID"
 
@@ -2250,11 +2397,12 @@ msgstr "STL, OBJ, SLC, NSLICE, SVG, NanoDLP 혹은 Zip (PNG 파일)"
 msgid "Same as Profile"
 msgstr "프로필과 동일"
 
-#: ../templates/profile/edit.html:537 ../templates/profile/simple.html:104
-#: ../templates/setup/editor.html:11 ../templates/setup/editor.html:23
-#: ../templates/setup/editor.html:35 ../templates/setup/password.html:35
-#: ../templates/setup/password.html:48 ../templates/setup/password.html:62
-#: ../templates/setup/setup.html:780
+#: ../templates/profile/edit.html:588 ../templates/profile/simple.html:104
+#: ../templates/setup/editor.html:13 ../templates/setup/editor.html:27
+#: ../templates/setup/editor.html:41 ../templates/setup/editor.html:55
+#: ../templates/setup/editor.html:66 ../templates/setup/editor.html:80
+#: ../templates/setup/password.html:35 ../templates/setup/password.html:48
+#: ../templates/setup/password.html:62 ../templates/setup/setup.html:815
 msgid "Save"
 msgstr "저장"
 
@@ -2270,16 +2418,20 @@ msgstr "Z축 보정 저장"
 msgid "Search Plates"
 msgstr "플레이트 검색"
 
+#: ../templates/setup/wireless.html:70
+msgid "Searching wireless connections..."
+msgstr ""
+
 #: ../templates/calibration/mask-generator.html:31
-#: ../templates/profile/edit.html:154 ../templates/profile/edit.html:162
-#: ../templates/profile/edit.html:170 ../templates/profile/edit.html:186
-#: ../templates/profile/edit.html:222 ../templates/profile/edit.html:428
-#: ../templates/profile/edit.html:66 ../templates/profile/edit.html:74
-#: ../templates/profile/edit.html:82 ../templates/profile/profiles.html:13
+#: ../templates/profile/edit.html:162 ../templates/profile/edit.html:190
+#: ../templates/profile/edit.html:198 ../templates/profile/edit.html:214
+#: ../templates/profile/edit.html:271 ../templates/profile/edit.html:477
+#: ../templates/profile/edit.html:74 ../templates/profile/edit.html:82
+#: ../templates/profile/edit.html:90 ../templates/profile/profiles.html:14
 #: ../templates/profile/simple.html:26 ../templates/profile/simple.html:37
 #: ../templates/profile/simple.html:60 ../templates/profile/simple.html:72
 #: ../templates/profile/simple.html:84 ../templates/profile/simple.html:96
-#: ../templates/setup/setup.html:497
+#: ../templates/setup/setup.html:518
 msgid "Second"
 msgstr "초"
 
@@ -2291,11 +2443,11 @@ msgstr "선택한 커버"
 msgid "Send Gcode"
 msgstr "G코드 전송"
 
-#: ../templates/index.html:12
+#: ../templates/index-progress.html:10
 msgid "Send Report"
 msgstr "보고서 전송"
 
-#: ../templates/profile/edit.html:212
+#: ../templates/profile/edit.html:240
 msgid "Separation Detection"
 msgstr "분리 감지"
 
@@ -2303,39 +2455,47 @@ msgstr "분리 감지"
 msgid "Serial Terminal"
 msgstr "시리얼 터미널"
 
-#: ../templates/setup/setup.html:368
+#: ../templates/setup/setup.html:389
 msgid "Servo Motor"
 msgstr "서보 모터"
 
-#: ../templates/setup/setup.html:393
+#: ../templates/setup/setup.html:414
 msgid "Servo Pulse Width - Close"
 msgstr "서보 펄스 폭 - 닫기"
 
-#: ../templates/setup/setup.html:384
+#: ../templates/setup/setup.html:405
 msgid "Servo Pulse Width - Open"
 msgstr "서보 펄스 폭 - 열기"
 
-#: ../templates/setup/setup.html:402
+#: ../templates/setup/setup.html:423
 msgid "Servo Signal Length"
 msgstr "서보 신호 길이"
+
+#: ../templates/profile/profiles.html:31
+msgid "Set default resin profile"
+msgstr ""
 
 #: ../templates/setup/tools.html:6
 msgid "Settings"
 msgstr "설정"
 
-#: ../templates/setup/setup.html:276
+#: ../templates/setup/custom-inputs.html:15
+msgid "Setup"
+msgstr ""
+
+#: ../templates/setup/setup.html:291
 msgid "Shield Axis Direction"
 msgstr "쉴드 축 방향"
 
-#: ../templates/setup/setup.html:118
+#: ../templates/setup/setup.html:133
 msgid "Shield Use"
 msgstr "쉴드 사용"
 
-#: ../templates/setup/setup.html:308
+#: ../templates/setup/setup.html:323
 msgid "Shutdown Code"
 msgstr "종료 코드"
 
-#: ../templates/setup/setup.html:130 ../templates/setup/setup.html:64
+#: ../templates/setup/setup.html:145 ../templates/setup/setup.html:64
 msgid "Shutter"
 msgstr "셔터"
 
@@ -2344,11 +2504,11 @@ msgstr "셔터"
 msgid "Shutter Close"
 msgstr "셔터 닫기"
 
-#: ../templates/setup/setup.html:354
+#: ../templates/setup/setup.html:375
 msgid "Shutter Close Code"
 msgstr "셔터 닫기 코드"
 
-#: ../templates/setup/setup.html:376
+#: ../templates/setup/setup.html:397
 msgid "Shutter GPIO"
 msgstr "셔터 GPIO"
 
@@ -2357,11 +2517,11 @@ msgstr "셔터 GPIO"
 msgid "Shutter Open"
 msgstr "셔텨 열기"
 
-#: ../templates/setup/setup.html:344
+#: ../templates/setup/setup.html:365
 msgid "Shutter Open Code"
 msgstr "셔터 열기 코드"
 
-#: ../templates/setup/setup.html:364
+#: ../templates/setup/setup.html:385
 msgid "Shutter Type"
 msgstr "셔터 유형"
 
@@ -2369,7 +2529,7 @@ msgstr "셔터 유형"
 msgid "Shutter types, gcodes, GPIO"
 msgstr "셔터 유형, G코드, GPIO"
 
-#: ../templates/profile/edit.html:300
+#: ../templates/profile/edit.html:349
 msgid "Skip Dimming for Early Layers"
 msgstr "초기 계층의 조광 건너뛰기"
 
@@ -2389,7 +2549,7 @@ msgstr "슬라이싱"
 msgid "Slicing on browser"
 msgstr "브라우저에서 슬라이싱"
 
-#: ../templates/plate/list.html:72
+#: ../templates/plate/list.html:74
 msgid "Slicing..."
 msgstr "슬라이싱 중..."
 
@@ -2397,7 +2557,7 @@ msgstr "슬라이싱 중..."
 msgid "Slicing... (You can start printing)"
 msgstr "슬라이싱 중... (인쇄를 시작할 수 있음)"
 
-#: ../templates/profile/edit.html:238
+#: ../templates/profile/edit.html:287
 msgid "Slow Section Height"
 msgstr "느린 섹션 높이"
 
@@ -2405,7 +2565,7 @@ msgstr "느린 섹션 높이"
 msgid "Smallest Area"
 msgstr "최소 면적"
 
-#: ../templates/base.html:27
+#: ../templates/base.html:30
 msgid "Some Parts Are Missing"
 msgstr "일부분이 누락됨"
 
@@ -2413,11 +2573,11 @@ msgstr "일부분이 누락됨"
 msgid "Some critical settings such as type of the shield and etc, will not take effect in the middle of printing. To change those settings without restart, stop printing and submit this page again."
 msgstr "쉴드 유형 등과 같은 일부 중요 설정은 인쇄 도중에 적용되지 않습니다. 다시 시작하지 않고 이러한 설정을 변경하려면 인쇄를 중지하고 이 페이지를 다시 제출하십시오."
 
-#: ../templates/plate/list.html:44
+#: ../templates/plate/list.html:46
 msgid "Source file contains faulty triangles."
 msgstr "원본 파일에 결함이 있는 삼각형이 있습니다."
 
-#: ../templates/setup/setup.html:97
+#: ../templates/setup/setup.html:98
 msgid "Spanish"
 msgstr "스페인어"
 
@@ -2425,32 +2585,44 @@ msgstr "스페인어"
 msgid "Special"
 msgstr "특별한"
 
-#: ../templates/profile/edit.html:246
+#: ../templates/profile/edit.html:295
 msgid "Speed in Slow Section"
 msgstr "느린 섹션 속도"
 
-#: ../templates/index.html:122
+#: ../templates/plate/list.html:149
+msgid "Start"
+msgstr ""
+
+#: ../templates/index-progress.html:125
 msgid "Start Display"
 msgstr "디스플레이 시작"
 
-#: ../templates/setup/setup.html:314
+#: ../templates/analytics.html:188
+msgid "Start of Print - Auto Update"
+msgstr ""
+
+#: ../templates/setup/setup.html:329
 msgid "Start of Print Code"
 msgstr "인쇄 시작 코드"
+
+#: ../templates/plate/plates.html:58
+msgid "Start the print"
+msgstr ""
 
 #: ../templates/menu.html:26
 msgid "Status"
 msgstr "상태"
 
-#: ../templates/setup/setup.html:142
+#: ../templates/setup/setup.html:157
 msgid "Step GPIO for Z-Axis"
 msgstr "Z축 스템 GPIO"
 
-#: ../templates/setup/setup.html:703
+#: ../templates/setup/setup.html:733
 msgid "Stepper Driver Fault Detection GPIO"
 msgstr "스테퍼 드라이버 오류 감지 GPIO"
 
 #: ../templates/plate/advanced-plates.html:64 ../templates/plate/edit.html:76
-#: ../templates/plate/list.html:96
+#: ../templates/plate/list.html:98
 msgid "Stop Layers"
 msgstr "레이어 중지"
 
@@ -2458,20 +2630,28 @@ msgstr "레이어 중지"
 msgid "Stop Layers - Comma Seperated"
 msgstr "레이어 중지 - 쉼표 구분"
 
-#: ../templates/setup/setup.html:697
+#: ../templates/plate/list.html:155
+msgid "Stop the job"
+msgstr ""
+
+#: ../templates/setup/setup.html:727
 msgid "Stop/Shutdown Physical GPIO"
 msgstr "중지/종료 Physical GPIO"
 
-#: ../templates/setup/setup.html:670
+#: ../templates/setup/setup.html:700
 msgid "Storage Mode"
 msgstr "저장 모드"
 
-#: ../templates/printer.html:68
+#: ../templates/printer.html:83
 msgid "Storage corruption detected. Storage should get repaired."
 msgstr "저장소 손상이 감지되었습니다. 저장소를 수리해야 합니다."
 
-#: ../templates/plate/edit.html:109 ../templates/setup/custom-inputs.html:59
-#: ../templates/setup/setup.html:800
+#: ../templates/printer.html:87
+msgid "Storage does not work as expected."
+msgstr ""
+
+#: ../templates/plate/edit.html:109 ../templates/setup/consumables.html:52
+#: ../templates/setup/custom-inputs.html:70
 msgid "Submit"
 msgstr "제출"
 
@@ -2479,7 +2659,7 @@ msgstr "제출"
 msgid "Success"
 msgstr "성공"
 
-#: ../templates/base.html:21
+#: ../templates/base.html:24
 msgid "Successful Print"
 msgstr "성공적인 인쇄"
 
@@ -2503,27 +2683,27 @@ msgstr "{{version}} 으로 변경"
 msgid "System"
 msgstr "시스템"
 
-#: ../templates/setup/setup.html:719
+#: ../templates/setup/setup.html:749
 msgid "TCP Port to Listen"
 msgstr "수신할 TCP 포트"
 
-#: ../templates/index.html:133
+#: ../templates/index-progress.html:136
 msgid "Take Photo"
 msgstr "사진 찍기"
 
-#: ../templates/printer.html:37
+#: ../templates/printer.html:36
 msgid "Temp"
 msgstr "온도"
 
-#: ../templates/setup/wireless.html:64
+#: ../templates/setup/wireless.html:80
 msgid "Terminate WiFi Connections"
 msgstr "와이파이 연결 종료"
 
-#: ../templates/setup/tools.html:36
+#: ../templates/setup/tools.html:38
 msgid "Terminate nanoDLP"
 msgstr "NanoDLP 종료"
 
-#: ../templates/setup/custom-inputs.html:22
+#: ../templates/setup/custom-inputs.html:32
 msgid "Text"
 msgstr "텍스트"
 
@@ -2535,7 +2715,7 @@ msgstr "PCB 스키마가 자동으로 반전됩니다."
 msgid "The plate is not processed yet."
 msgstr "플레이트가 아직 처리되지 않았습니다."
 
-#: ../templates/plate/list.html:67
+#: ../templates/plate/list.html:69
 msgid "The plate is not sliced yet."
 msgstr "플레이가 아직 슬라이스되지 않았습니다"
 
@@ -2547,7 +2727,7 @@ msgstr "이 프로세스는 인터넷 연결 품질에 따라 몇 초에서 몇 
 msgid "The upgrade process would not change your configurations."
 msgstr "업그레이드는 구성을 변경하지 않습니다."
 
-#: ../templates/setup/setup.html:105
+#: ../templates/setup/setup.html:120
 msgid "Theme"
 msgstr "테마"
 
@@ -2555,7 +2735,7 @@ msgstr "테마"
 msgid "Theme, language, sound"
 msgstr "테마, 언어, 소리"
 
-#: ../templates/plate/list.html:60
+#: ../templates/plate/list.html:62
 msgid "This plate is corrupt."
 msgstr "이 플레이트는 손상되었습니다."
 
@@ -2575,20 +2755,20 @@ msgstr ""
 msgid "This process could take up to a minute to complete, depending on the depth."
 msgstr "이 프로세스는 깊이에 따라 완료하는 데 최대 1분이 소요될 수 있습니다."
 
-#: ../templates/setup/setup.html:367
+#: ../templates/setup/setup.html:388
 msgid "Through Shield"
 msgstr "실드를 통해"
 
-#: ../templates/printer.html:79
+#: ../templates/printer.html:95
 msgid "Time"
 msgstr "시간"
 
-#: ../templates/profile/profiles.html:11
+#: ../templates/profile/profiles.html:12 ../templates/setup/consumables.html:10
 #: ../templates/setup/custom-inputs.html:9
 msgid "Title"
 msgstr "제목"
 
-#: ../templates/index.html:73
+#: ../templates/index-progress.html:76
 msgid "To Layer"
 msgstr "레이어로"
 
@@ -2608,6 +2788,10 @@ msgstr "제조업체 잠금을 제거하려면 올바른 비밀번호를 입력�
 msgid "To remove the password protection, remove the username from the input and submit."
 msgstr "비밀번호 보호를 제거하려면 입력에서 사용자 이름을 제거한 후 제출합니다."
 
+#: ../templates/plate/edit.html:117
+msgid "To speedup slicing you can use, NanoDLP remote slicer feature or SLC format."
+msgstr ""
+
 #: ../templates/menu.html:3
 msgid "Toggle Navigation"
 msgstr "네비게이션 전환"
@@ -2616,11 +2800,11 @@ msgstr "네비게이션 전환"
 msgid "Toggle Overhang Areas"
 msgstr "오버행 영역 전환"
 
-#: ../templates/menu.html:28 ../templates/setup/tools.html:43
+#: ../templates/menu.html:28 ../templates/setup/tools.html:51
 msgid "Tools"
 msgstr "도구"
 
-#: ../templates/profile/edit.html:370
+#: ../templates/profile/edit.html:419
 msgid "Top Cap Wall"
 msgstr "상단 캡 벽"
 
@@ -2648,52 +2832,48 @@ msgstr "총 인쇄 시간"
 msgid "Total Solid Area"
 msgstr "총 입체 면적"
 
-#: ../templates/profile/edit.html:316
+#: ../templates/profile/edit.html:365
 msgid "Transitional Layer"
 msgstr "전환 레이어"
 
-#: ../templates/setup/setup.html:369
+#: ../templates/setup/setup.html:390
 msgid "True/False Signal"
 msgstr "참/거짓 신호"
 
-#: ../templates/setup/setup.html:98
+#: ../templates/setup/setup.html:99
 msgid "Turkish"
 msgstr "터키어"
 
-#: ../templates/setup/setup.html:489
+#: ../templates/setup/setup.html:510
 msgid "USB / Serial Port - ASCII (\\n)"
 msgstr "USB / 시리얼 포트 - ASCII (\\n)"
 
-#: ../templates/setup/setup.html:488
+#: ../templates/setup/setup.html:509
 msgid "USB / Serial Port - ASCII (\\r)"
 msgstr "USB / 시리얼 포트 - ASCII (\\r)"
 
-#: ../templates/setup/setup.html:487
+#: ../templates/setup/setup.html:508
 msgid "USB / Serial Port - ASCII (\\r\\n)"
 msgstr "USB / 시리얼 포트 - ASCII (\\r\\n)"
 
-#: ../templates/setup/setup.html:490
+#: ../templates/setup/setup.html:511
 msgid "USB / Serial Port - Binary"
 msgstr "USB / 시리얼 포트 - 바이너리"
 
-#: ../templates/setup/setup.html:122
+#: ../templates/setup/setup.html:137
 msgid "USB/Serial"
 msgstr "USB/시리얼"
 
-#: ../templates/setup/setup.html:248
+#: ../templates/setup/setup.html:263
 msgid "USB/Serial Port Address"
 msgstr "USB/시리얼 포트 주소"
-
-#: ../templates/setup/setup.html:84
-msgid "UV LCD Printer"
-msgstr "UV LCD 프린터"
 
 #: ../templates/calibration/mask-generator.html:99
 #: ../templates/calibration/projector-calibration.html:100
 msgid "UV LED / Projector"
 msgstr "UV LED / 프로젝터"
 
-#: ../templates/setup/custom-inputs.html:26
+#: ../templates/setup/custom-inputs.html:37
 msgid "Unit Text"
 msgstr "단위 텍스트"
 
@@ -2705,11 +2885,19 @@ msgstr "램프 시간 업데이트"
 msgid "Update Mask File"
 msgstr "마스크 파일 업데이트"
 
+#: ../templates/setup/tools.html:92
+msgid "Upgrade"
+msgstr ""
+
+#: ../templates/setup/tools.html:47
+msgid "Upgrade DSI interface"
+msgstr ""
+
 #: ../templates/setup/upgrade.html:6
 msgid "Upgrade from build #{{vers.Current}}"
 msgstr "빌드 #{{vers.Current}}에서 업그레이드"
 
-#: ../templates/setup/tools.html:52
+#: ../templates/setup/tools.html:60
 msgid "Upgrade nanoDLP"
 msgstr "NanoDLP 업그레이드"
 
@@ -2721,23 +2909,23 @@ msgstr "베타 버전으로 업그레이드"
 msgid "Upgrade to the latest stable version"
 msgstr "최신 안정 버전으로 업그레이드"
 
-#: ../templates/setup/restore.html:8 ../templates/setup/tools.html:69
+#: ../templates/setup/restore.html:8 ../templates/setup/tools.html:100
 msgid "Upload"
 msgstr "업로드"
 
-#: ../templates/setup/tools.html:65
+#: ../templates/setup/tools.html:96
 msgid "Upload AVR Firmware"
 msgstr "AVR 펌웨어 업로드"
 
-#: ../templates/plate/plates.html:42
-msgid "Upload Image"
-msgstr "이미지 업로드"
-
-#: ../templates/printer.html:50
+#: ../templates/printer.html:49
 msgid "Uptime"
 msgstr "업타임"
 
-#: ../templates/profile/edit.html:513
+#: ../templates/plate/plates.html:42
+msgid "Use a single layer to generate a job"
+msgstr ""
+
+#: ../templates/profile/edit.html:562
 msgid "Use, If Available"
 msgstr "사용 가능한 경우 사용"
 
@@ -2749,89 +2937,64 @@ msgstr "관리자 사용자 이름"
 msgid "Username for Dashboard"
 msgstr "대시보드 사용자 이름"
 
-#: ../templates/setup/custom-inputs.html:20
+#: ../templates/setup/custom-inputs.html:30
 msgid "Value Type"
 msgstr "값 유형"
 
-#: ../templates/setup/setup.html:418
+#: ../templates/setup/setup.html:439
 msgid "Vertical Resolution"
 msgstr "수직 해상도"
 
-#: ../templates/setup/setup.html:477
+#: ../templates/setup/setup.html:498
 msgid "Vertically"
 msgstr "수직"
 
-#: ../templates/setup/wireless.html:45
+#: ../templates/setup/setup.html:111
+msgid "View Mode"
+msgstr ""
+
+#: ../templates/setup/wireless.html:61
 msgid "WEP"
 msgstr "WEP"
 
-#: ../templates/setup/wireless.html:46
+#: ../templates/setup/wireless.html:62
 msgid "WPA"
 msgstr "WPA"
 
-#: ../templates/index.html:77
+#: ../templates/index-progress.html:80
 msgid "Wait After"
 msgstr "대기 후"
 
-#: ../templates/plate/preview.html:101
+#: ../templates/plate/preview.html:101 ../templates/profile/simple.html:70
 msgid "Wait After Cure"
 msgstr "경화 후 대기"
 
-#: ../templates/profile/simple.html:70
-msgid ""
-"Wait After Cure\n"
-"                        <span class=\"label label-success val\">{{profile.WaitAfterPrint}}</span>\n"
-"                        <span class=\"label label-default\" translate=\"\">Second</span>"
-msgstr ""
-"경화 후 대기\n"
-"                        <span class=\"label label-success val\">{{profile.WaitAfterPrint}}</span>\n"
-"                        <span class=\"label label-default\" translate=\"\">초</span>"
-
-#: ../templates/plate/preview.html:105 ../templates/profile/edit.html:221
+#: ../templates/plate/preview.html:105 ../templates/profile/edit.html:270
+#: ../templates/profile/simple.html:94
 msgid "Wait After Lift"
 msgstr "리프트 후 대기"
 
-#: ../templates/profile/simple.html:94
-msgid ""
-"Wait After Lift\n"
-"                        <span class=\"label label-success val\">{{profile.TopWait}}</span>\n"
-"                        <span class=\"label label-default\" translate=\"\">Second</span>"
-msgstr ""
-"리프트 후 대기\n"
-"                        <span class=\"label label-success val\">{{profile.TopWait}}</span>\n"
-"                        <span class=\"label label-default\" translate=\"\">초</span>"
-
-#: ../templates/profile/edit.html:169
+#: ../templates/profile/edit.html:197
 msgid "Wait After Print"
 msgstr "인쇄 전 대기"
 
-#: ../templates/index.html:75
+#: ../templates/index-progress.html:78
 msgid "Wait Before"
 msgstr "대기 전"
 
-#: ../templates/plate/preview.html:95
+#: ../templates/plate/preview.html:95 ../templates/profile/simple.html:24
 msgid "Wait Before Cure"
 msgstr "경화 전 대기"
 
-#: ../templates/profile/simple.html:24
-msgid ""
-"Wait Before Cure\n"
-"                        <span class=\"label label-success val\">{{profile.WaitBeforePrint}}</span>\n"
-"                        <span class=\"label label-default\" translate=\"\">Second</span>"
-msgstr ""
-"경화 전 대기\n"
-"                        <span class=\"label label-success val\">{{profile.WaitBeforePrint}}</span>\n"
-"                        <span class=\"label label-default\" translate=\"\">초</span>"
-
-#: ../templates/profile/edit.html:161
+#: ../templates/profile/edit.html:189
 msgid "Wait Before Print"
 msgstr "인쇄 전 대기"
 
-#: ../templates/setup/setup.html:286
+#: ../templates/setup/setup.html:301
 msgid "Wait GPIO"
 msgstr "대기 GPIO"
 
-#: ../templates/profile/edit.html:292
+#: ../templates/profile/edit.html:341
 msgid "Wall Around Dimming"
 msgstr "조광 주변의 벽"
 
@@ -2843,23 +3006,27 @@ msgstr "최신 beta 버전의 새로운 기능"
 msgid "What's new on the latest stable"
 msgstr "최신 stable 버전의 새로운 기능"
 
-#: ../templates/menu.html:48
+#: ../templates/menu.html:49
 msgid "Wi-Fi"
 msgstr "와이파이"
 
-#: ../templates/setup/setup.html:435
+#: ../templates/setup/setup.html:105
+msgid "WiFi Country"
+msgstr ""
+
+#: ../templates/setup/setup.html:456
 msgid "X/Y Resolution"
 msgstr "X/Y 해상도"
 
-#: ../templates/setup/setup.html:443
+#: ../templates/setup/setup.html:464
 msgid "Y Resolution"
 msgstr "Y 해상도"
 
-#: ../templates/setup/setup.html:189
+#: ../templates/setup/setup.html:204
 msgid "Yes"
 msgstr "예"
 
-#: ../templates/setup/custom-inputs.html:39
+#: ../templates/setup/custom-inputs.html:50
 msgid "You can add additional inputs to the setup page and they will be accessible as Gcode keywords. eg. [[_ResinPumpAmount]]"
 msgstr "설정 페이지에 입력을 추가할 수 있으며, Gcode 키워드로 액세스할 수 있습니다. 예. [[_ResinPumpAmount]]"
 
@@ -2875,7 +3042,7 @@ msgstr "PDMS의 손상 및 레진 낭비를 방지하기 위해 플레이트의 
 msgid "Z Axis Control"
 msgstr "Z축 제어"
 
-#: ../templates/profile/edit.html:502
+#: ../templates/profile/edit.html:551
 msgid "Z Model Size Modifier"
 msgstr "Z 모델 크기 제어"
 
@@ -2883,7 +3050,7 @@ msgstr "Z 모델 크기 제어"
 msgid "Z-Axis Calibration"
 msgstr "Z축 보정"
 
-#: ../templates/setup/setup.html:641
+#: ../templates/setup/setup.html:671
 msgid "Z-Axis Height"
 msgstr "Z축 높이"
 
@@ -2891,15 +3058,15 @@ msgstr "Z축 높이"
 msgid "Zero Level"
 msgstr "제로 레벨"
 
-#: ../templates/setup/setup.html:279
+#: ../templates/setup/setup.html:294
 msgid "Zero at Bottom"
 msgstr "하단에서 시작"
 
-#: ../templates/setup/setup.html:280
+#: ../templates/setup/setup.html:295
 msgid "Zero at Top"
 msgstr "상단에서 시작"
 
-#: ../templates/plate/list.html:110
+#: ../templates/plate/list.html:112
 msgid "days ago"
 msgstr "일 전"
 
@@ -2907,21 +3074,21 @@ msgstr "일 전"
 msgid "height:thickness,mm:micron"
 msgstr "높이:두께,mm:micron"
 
-#: ../templates/plate/list.html:112
+#: ../templates/plate/list.html:114
 msgid "hours ago"
 msgstr "시간 전"
 
-#: ../templates/setup/setup.html:123
+#: ../templates/setup/setup.html:138
 msgid "i2c"
 msgstr "i2c"
 
-#: ../templates/setup/setup.html:293
+#: ../templates/setup/setup.html:308
 msgid "i2c Address"
 msgstr "i2c 주소"
 
 #: ../templates/calibration/mask-generator.html:23
 #: ../templates/plate/edit.html:72 ../templates/plate/list.html:29
-#: ../templates/plate/plates.html:75 ../templates/setup/setup.html:644
+#: ../templates/plate/plates.html:75 ../templates/setup/setup.html:674
 msgid "mm"
 msgstr "mm"
 
@@ -2929,31 +3096,31 @@ msgstr "mm"
 msgid "mm/min"
 msgstr "mm/분"
 
-#: ../templates/profile/edit.html:204 ../templates/profile/edit.html:230
+#: ../templates/profile/edit.html:232 ../templates/profile/edit.html:279
 msgid "mm/min (Direct Control: μm/Second)"
 msgstr "mm/분 (직접 제어: μm/초)"
 
-#: ../templates/setup/setup.html:384 ../templates/setup/setup.html:393
+#: ../templates/setup/setup.html:405 ../templates/setup/setup.html:414
 msgid "ms"
 msgstr "ms"
 
-#: ../templates/plate/list.html:153
+#: ../templates/plate/list.html:156
 msgid "of"
 msgstr "of"
 
-#: ../templates/plate/list.html:29 ../templates/profile/edit.html:146
-#: ../templates/setup/setup.html:435
+#: ../templates/plate/list.html:29 ../templates/profile/edit.html:154
+#: ../templates/setup/setup.html:456
 msgid "μm"
 msgstr "μm"
 
-#: ../templates/profile/edit.html:247 ../templates/setup/setup.html:598
+#: ../templates/profile/edit.html:296 ../templates/setup/setup.html:629
 msgid "μm/Second"
 msgstr "μm/초"
 
-#: ../templates/base.html:63
+#: ../templates/base.html:95
 msgid "∑"
 msgstr "∑"
 
-#: ../templates/base.html:62
+#: ../templates/base.html:94
 msgid "ⓘ"
 msgstr "ⓘ"

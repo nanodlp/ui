@@ -2,13 +2,13 @@
 {% block content %}
 <div class="row">
 	<div class="col-md-6">
-		<h2><span translate>Plates</span>
-			<a class="btn btn-default" href="/plate/add" role="button"><span
-					class="glyphicon glyphicon-plus"></span></a>
-			<a class="btn btn-default"
+		<h2><span translate>Jobs</span>
+			<a class="btn btn-default tip" href="/plate/add" role="button"><span
+					class="glyphicon glyphicon-plus"></span><translate class="hide">Add a new job</translate></a>
+			<a class="btn btn-default tip svg"
 				href="/static/editor/?ApplicationMode=embedded"
-				role="button"><span class="glyphicon glyphicon-plus"></span>
-				<translate>3D Editor</translate>
+				role="button">{{ icon(threed_icon) }}
+				<translate class="hide">Add a new job using 3D editor</translate>
 			</a>
 		</h2>
 	</div>
@@ -37,33 +37,33 @@
 	<tr>
 		<td></td>
 		<td translate>Plate Generator</td>
-		<td colspan="2" translate>Create 3D shapes by repeating an image frame</td>
-		<td colspan="2">
-			<a class="btn btn-info" href="/plate/layer-generator" translate>Upload Image</a>
-			<a class="btn btn-info" href="/plate/paint" translate>Paint</a>
-			<a class="btn btn-info" href="/plate/pcb-generator" translate>PCB Print</a>
+		<td colspan="3" translate>Create 3D shapes by repeating an image frame</td>
+		<td colspan="1">
+			<a class="btn btn-default svg tip" href="/plate/layer-generator">{{ icon(images_icon) }}<translate class="hide">Use a single layer to generate a job</translate></a>
+			<a class="btn btn-default svg tip" href="/plate/paint">{{ icon(paint_icon) }}<translate class="hide">Create a job using paint</translate></a>
+			<a class="btn btn-default svg tip" href="/plate/pcb-generator">{{ icon(cpu_icon) }}<translate class="hide">Create a PCB job</translate></a>
 		</td>
 	</tr>
 
 	<tr>
 		<td></td>
 		<td><span translate>Calibration Plate</span>{{helpModal("calibration-plate")}}</td>
-		<td colspan="2"><span translate>Rect:</span> {{generator.BlockWidth}}*{{generator.BlockHeight}}*{{generator.Depth}}
+		<td colspan="3"><span translate>Rect:</span> {{generator.BlockWidth}}*{{generator.BlockHeight}}*{{generator.Depth}}
 			<br>
 			<span translate>Pillars:</span> {{generator.PillarSize}}*{{generator.Depth}}
 		</td>
-		<td colspan="2">
+		<td colspan="1">
 			{% if 0 != status.PlateID or status.Printing == false %}
 			<a class="btn btn-success ask" href="/printer/start/0" data-ask="calibrate-confirm"><span
-					class="glyphicon glyphicon-play"></span></a>
+					class="glyphicon glyphicon-play tip"></span><translate class="hide">Start the print</translate></a>
 			{% else %}
 			<div class="input-append">
 				<a class="btn btn-danger ask" href="/printer/stop" title="stop" data-ask="stop-confirm"><span
 						class="glyphicon glyphicon-stop"></span></a>
 			</div>
 			{% endif %}
-			<a class="btn btn-primary" href="/plate/generator" title="Generate Calibration Plate" translate>Generate</a>
-			<a class="btn btn-success" href="/plate/preview/0"><span class="glyphicon glyphicon-eye-open"></span></a>
+			<a class="btn btn-default tip" href="/plate/generator" title="Generate Calibration Plate"><span class="glyphicon glyphicon-refresh"></span><translate class="hide">Regenerate calibration plate</translate></a>
+			<a class="btn btn-default tip" href="/plate/preview/0"><span class="glyphicon glyphicon-eye-open"></span><translate class="hide">Preview</translate></a>
 		</td>
 	</tr>
 

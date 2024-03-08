@@ -45,8 +45,17 @@ $(function(){
 	settings_init();	
 	profile_settings_init();	
 	$('.conditional').conditionize();
-	changelog_init();	
+	changelog_init();
+	wireless_init();	
 });
+
+function wireless_init() {
+	if ($('#wifi').length > 0) {
+		$.get("/wifi/details", function (data) {			
+			$('#wifi').html(data.split("<!-- wifi_split -->")[1]);
+		});
+	}
+}
 
 function changelog_init() {
 	var t = $("#changelog-display");

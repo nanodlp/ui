@@ -47,7 +47,7 @@
             layers is still missing.</div>
         {% endif %}
         {% if faulty||risky %}
-        <div class="alert alert-danger" role="alert">
+        <div class="alert alert-danger faulty-box" role="alert">
             {% if faulty %}
             <translate>Faulty layers:</translate>
             {% for fault in faulties %}

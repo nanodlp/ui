@@ -10,7 +10,7 @@
 	<thead>
 		<tr>
 			<th><translate>ID</translate> <span class="glyphicon glyphicon-sort-by-attributes"></span></th>
-			<th><translate>Plate</translate> <span class="glyphicon glyphicon-sort-by-attributes"></span></th>
+			<th><translate>Job</translate> <span class="glyphicon glyphicon-sort-by-attributes"></span></th>
 			<th></th>
 			<th><translate>Details</translate> <span class="glyphicon glyphicon-sort-by-attributes"></span></th>
 			<th><translate>Date</translate> <span class="glyphicon glyphicon-sort-by-attributes"></span></th>
@@ -137,35 +137,36 @@
 					<span class="input-group-btn">
 					<button class="btn btn-default layer-id" disabled>/ {{row.LayersCount}}</div>
 					<translate class="hide">Layer ID</translate>
-					<button type="submit" class="btn btn-warning resume req-processed"
+					<button type="submit" class="btn btn-warning resume req-processed tip"
 						data-confirm='Are you sure you want to resume plate {{row.Path}} from layer [LayerID]?'
 						value="Submit"><span class="glyphicon glyphicon-play"></span><span class="glyphicon glyphicon-pause"></span>
+						<translate class="hide">Resume from the middle</translate>
 					</button>
 					</span>
 				</span>
 			</form>
-			<a class="btn btn-success ask req-processed" href="/printer/start/{{ row.PlateID }}"
-				data-ask="start-confirm"><span class="glyphicon glyphicon-play"></span>
+			<a class="btn btn-success ask req-processed tip" href="/printer/start/{{ row.PlateID }}"
+				data-ask="start-confirm"><span class="glyphicon glyphicon-play"><translate class="hide">Start</translate></span>
 			</a>
 			{% else %}
 			{% if row.PlateID == status.PlateID %}
 			<div class="input-append">
-				<a class="btn btn-danger ask" href="/printer/stop" title="stop" data-ask="stop-confirm"><span
-						class="glyphicon glyphicon-stop"></span></a>
+				<a class="btn btn-danger ask tip" href="/printer/stop" title="stop" data-ask="stop-confirm"><span
+						class="glyphicon glyphicon-stop"></span><translate class="hide">Stop the job</translate></a>
 				<span class="add-on"><span translate>Layer</span> {{ status.ResumeID }} <span translate>of</span>
 					{{row.LayersCount}}</span>
 			</div>
 			{% endif %}
 			{% endif %}
-			<a class="btn btn-success" href="/plate/preview/{{ row.PlateID }}"><span
-					class="glyphicon glyphicon-eye-open"></span></a>		
+			<a class="btn btn-default tip" href="/plate/preview/{{ row.PlateID }}"><span
+					class="glyphicon glyphicon-eye-open"><translate class="hide">Preview</translate></span></a>		
 			{% if row.Type=="stl" && !row.Repaired %}
-			<a class="btn btn-success repair" href="/plate/repair/{{ row.PlateID }}"><span
-					class="glyphicon glyphicon-plus"></span></a>		
+			<a class="btn btn-default repair tip" href="/plate/repair/{{ row.PlateID }}"><span
+					class="glyphicon glyphicon-plus"></span><translate class="hide">Repair</translate></a>		
 			{% endif %}
 			<div class="btn-group">
-				<button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					<span class="glyphicon glyphicon-option-vertical"></span> <span class="caret"></span>
+				<button type="button" class="btn btn-default tip dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					<span class="glyphicon glyphicon-option-vertical"></span> <translate class="hide">More</translate></a>
 				</button>
 				<ul class="dropdown-menu">					
 					<li><a href="/plate/edit/{{ row.PlateID }}"><span

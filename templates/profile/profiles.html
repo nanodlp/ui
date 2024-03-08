@@ -1,9 +1,10 @@
 {% extends "../base.html" %}
 {% block content %}
 <h2>
-    <translate>Resin Settings</translate> <a class="btn btn-success" href="/profile/add" role="button"><span
-            class="glyphicon glyphicon-plus"></span></a> <a class="btn btn-default" href="/import"><span
-            class="glyphicon glyphicon-import"></span></a>
+    <translate>Resin Profiles</translate> <a class="btn btn-default tip" href="/profile/add" role="button"><span
+            class="glyphicon glyphicon-plus"></span><translate class="hide">Add a new resin profile</translate></a> 
+            <a class="btn btn-default tip" href="/import"><span
+            class="glyphicon glyphicon-import"></span><translate class="hide">Import a resin profile</translate></a>
 </h2>
 <table class="table table-striped table-bordered model-list">
     <thead>
@@ -20,25 +21,25 @@
     {% for profile in profiles %}
     <tr>
         <td>{{profile.Title}}</td>
-        <td>{{profile.Depth}}</td>
-        <td>{{profile.CureTime}}</td>
+        <td>{{profile.Depth|floatformat}}</td>
+        <td>{{profile.CureTime|floatformat}}</td>
         <td>
             {% if defaultProfile==profile.ProfileID %}
             <span class="glyphicon glyphicon-ok text-success"></span>
             {% else %}
-            <a class="btn btn-default" href="/profile/default/{{profile.ProfileID}}"><span
-                    class="glyphicon glyphicon-plus"></span></a>
+            <a class="btn btn-default tip" href="/profile/default/{{profile.ProfileID}}"><span
+                    class="glyphicon glyphicon-ok"></span><translate class="hide">Set default resin profile</translate></a>
             {% endif %}
         </td>
         <td>
-            <a class="btn btn-primary" href="/profile/edit/{{profile.ProfileID}}"><span
-                    class="glyphicon glyphicon-pencil"></span></a>
-            <a class="btn btn-danger ask" data-ask="delete-confirm" href="/profile/delete/{{profile.ProfileID}}"><span
-                    class="glyphicon glyphicon-trash"></span></a>
-            <a class="btn btn-info" href="/profile/clone/{{profile.ProfileID}}"><span
-                    class="glyphicon glyphicon-duplicate"></span></a>
-            <a class="btn btn-success" href="/profile/export/{{profile.ProfileID}}"><span
-                    class="glyphicon glyphicon-export"></span></a>
+            <a class="btn btn-primary tip" href="/profile/edit/{{profile.ProfileID}}"><span
+                    class="glyphicon glyphicon-pencil"></span><translate class="hide">Edit</translate></a>
+            <a class="btn btn-danger ask tip" data-ask="delete-confirm" href="/profile/delete/{{profile.ProfileID}}"><span
+                    class="glyphicon glyphicon-trash"></span><translate class="hide">Delete</translate></a>
+            <a class="btn btn-default tip" href="/profile/clone/{{profile.ProfileID}}"><span
+                    class="glyphicon glyphicon-duplicate"></span><translate class="hide">Clone</translate></a>
+            <a class="btn btn-default tip" href="/profile/export/{{profile.ProfileID}}"><span
+                    class="glyphicon glyphicon-export"></span><translate class="hide">Export</translate></a>
             <translate class="hide" id="delete-confirm">Are you sure you want to delete this profile?</translate>
         </td>
     </tr>

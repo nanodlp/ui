@@ -1,0 +1,12 @@
+<style>
+    .default{
+        aspect-ratio: calc(({{ width }} / {{ height }}));
+        width:100%;
+    }
+    .active {
+        max-width:100%;
+        max-height:100%;
+        width:auto;
+    }
+</style>
+<img src="{{ image }}" onclick="this.classList.toggle('active');" class="default active">

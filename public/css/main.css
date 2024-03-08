@@ -23,6 +23,10 @@ table {
 	width: 92px;
 }
 
+.btn-default{
+	border-color: rgba(0, 0, 0, .1)
+}
+
 .alert .btn{
 	margin-bottom: 0;
 }
@@ -584,6 +588,9 @@ dl {
 	width: 25px;
 	height: 25px;
 }
+#plates .svg{
+	padding:5px 10px 5px 10px;
+}
 .glyphicon-ring {
 	width: 44px;
 	height: 44px;
@@ -689,3 +696,9 @@ dl {
 	  width: 100%;
 	}
 }
+
+.faulty-box{
+	max-height: 60px;
+    overflow-y: scroll;
+}
+

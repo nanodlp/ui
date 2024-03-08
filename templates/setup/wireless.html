@@ -11,12 +11,14 @@
 	</td>
 	<td>{% if WifiType!="" %}<input name="WifiPass" value="" placeholder="Wireless Password">{% endif %}</td>
 	<td>
-		{{Quality}}/70
+		{{Quality}}/100
 	</td>
 	<td><input type="submit" value="Connect" class="btn btn-success"></td>
 </tr>
 </form>
 {% endmacro %}
+<span id="wifi">
+	<!-- wifi_split -->
 <div class="row layer_details">
 	<div class="col-md-6">
 		<span class="glyphicon glyphicon-info-sign text-success"></span>
@@ -61,11 +63,11 @@
 						</select>
 					</td>
 					<td><input name="WifiPass" value="" placeholder="Wireless Password"></td>
-					<td>-/70</td>
+					<td>-/100</td>
 					<td><input type="submit" value="Connect" class="btn btn-success"></td>
 				</form>
 			{% else %}
-				<tr><td colspan="5" translate>No wireless connection found</td></tr>
+				<tr><td colspan="5" translate class="alert alert-info">Searching wireless connections...</td></tr>
 			{% endif %}
 		</table>
 		<br>
@@ -86,4 +88,6 @@
 <br>
 <br>
 <br>
+<!-- wifi_split -->
+</span>
 {% endblock %}
