@@ -29,7 +29,6 @@ function replace_lang(lang){
 function update_tooltip_title(){
 	$(".tip").each(function(k,i){
 		var t = $(i)
-		console.log(",",t);
 		t.attr("title",t.find("translate").html());
 	});
 }

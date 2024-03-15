@@ -1,11 +1,11 @@
 {{ printHistory(PrintResult) }}
-<translate class="hide" id="deleteall-confirm">Are you sure you want to delete all plates?</translate>
-<translate class="hide" id="delete-confirm">Are you sure you want to delete this plate?</translate>
+<translate class="hide" id="deleteall-confirm">Are you sure you want to delete all the jobs?</translate>
+<translate class="hide" id="delete-confirm">Are you sure you want to delete this job?</translate>
 <translate class="hide" id="regenerate-confirm">Are you sure you want to regenerate the layers of this plate?
 </translate>
 <translate class="hide" id="stop-confirm">Are you sure you want to stop printing?</translate>
-<translate class="hide" id="start-confirm">Are you sure you want to print plate from the start?</translate>
-<translate class="hide" id="calibrate-confirm">Are you sure you want to print the calibration plate?</translate>
+<translate class="hide" id="start-confirm">Are you sure you want to print job from the start?</translate>
+<translate class="hide" id="calibrate-confirm">Are you sure you want to print the calibration job?</translate>
 <table class="table table-striped model-list" id="plates">
 	<thead>
 		<tr>
@@ -46,15 +46,14 @@
 			<div class="notice"><span class="glyphicon glyphicon-alert"></span> &nbsp; <a
 					href="/plate/preview/{{ row.PlateID }}" translate>Source file contains faulty triangles.</a>
 					{% if !row.Repaired %}
-					<a class="ask req-no-slicing btn btn-default btn-sm repair" href="/plate/repair-regenerate/{{ row.PlateID }}"
-					data-ask="regenerate-confirm"><span class="glyphicon glyphicon-plus"></span>	<span class="glyphicon glyphicon-refresh"></span>
-					</a>
+					<a class="ask req-no-slicing btn btn-default btn-sm repair svg tip" href="/plate/repair-regenerate/{{ row.PlateID }}"
+					data-ask="regenerate-confirm">{{ icon(repair_icon) }}<translate class="hide">Repair and regenerate</translate></a>
 					{% endif %}
 			</div>
 			{% endif %}
 			{% if row.Risky %}
 			<div class="notice"><span class="glyphicon glyphicon-alert"></span> &nbsp; <a
-					href="/plate/preview/{{ row.PlateID }}" translate>Plate contains overhang areas.</a></div>
+					href="/plate/preview/{{ row.PlateID }}" translate>The objects contain overhang areas.</a></div>
 			{% endif %}
 			<br>
 			{% if row.Corrupted==true %}
@@ -161,8 +160,7 @@
 			<a class="btn btn-default tip" href="/plate/preview/{{ row.PlateID }}"><span
 					class="glyphicon glyphicon-eye-open"><translate class="hide">Preview</translate></span></a>		
 			{% if row.Type=="stl" && !row.Repaired %}
-			<a class="btn btn-default repair tip" href="/plate/repair/{{ row.PlateID }}"><span
-					class="glyphicon glyphicon-plus"></span><translate class="hide">Repair</translate></a>		
+			<a class="btn btn-default repair tip svg" href="/plate/repair/{{ row.PlateID }}">{{ icon(repair_icon) }}<translate class="hide">Repair</translate></a>
 			{% endif %}
 			<div class="btn-group">
 				<button type="button" class="btn btn-default tip dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

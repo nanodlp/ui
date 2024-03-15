@@ -169,8 +169,10 @@
                     found = true;
                 }
             }
-            if (!found&&(s.scale=="s"||s.scale=="px"||s.scale=="mm"||s.scale=="°C"||s.scale=="Pressure")){
+            if (!found&&(s.scale=="px"||s.scale=="Pressure")){
                 axes.push({label:s.scale,labelSize: 15,gap:0,size:40, scale:s.scale, values: (self, ticks) => ticks.map(rawValue => rawValue.toFixed(0)),side:3,grid:{show:false}});
+            } else if (!found&&(s.scale=="s"||s.scale=="mm"||s.scale=="°C")){
+                axes.push({label:s.scale,labelSize: 15,gap:0,size:40, scale:s.scale, values: (self, ticks) => ticks.map(rawValue => rawValue.toFixed(1)),side:3,grid:{show:false}});
             }
         }
         for (var j=parseInt(axes.length/2)+1; j<axes.length;j++){

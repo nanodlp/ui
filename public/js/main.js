@@ -220,12 +220,49 @@ function ajax_post_init(){
 	});
 }
 
+function file_size_limit_apply(){
+	$(".upload-disable").find('button[type="submit"]').prop('disabled', false);
+	$("#largeFile").addClass("hide");
+	var file=$("#ZipFile")[0].files[0];
+	var file_size=file.size/1024/1024;
+	var file_ext=file.name.split('.').pop().toLowerCase();
+	var available_mem=$("#ZipFile").data("size");
+	var remote_slicing=$("#ZipFile").data("remote")==="True";
+	if (remote_slicing) return;
+	if (available_mem==0) return;
+	if (file_ext!=="stl"&&file_ext!=="obj") return;
+	if (file_size>available_mem){
+		$(".upload-disable").find('button[type="submit"]').prop('disabled', true);
+		$("#largeFile").removeClass("hide");
+	}
+}
+
 function post_init(){
 	$('.upload-disable').submit(function(e) {
-		var form = $(this);
-		var submitButton = form.find('button[type="submit"]');
-		submitButton.prop('disabled', true);
-		$(".upload-progress-bar").show();
+		e.preventDefault();
+		$(".progress").removeClass("hide");
+		setInterval(update_upload_progress,1000)
+		$(this).find('button[type="submit"]').prop('disabled', true).addClass("animated");
+		var formData = new FormData(this);
+        $.ajax({
+            url: $(this).attr('action'),
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            complete: function(response) {
+                window.location.replace("/plates");
+            }
+        });
+	});
+	$('#ZipFile').change(function() {
+		file_size_limit_apply();
+	});
+}
+
+function update_upload_progress(){
+	$.get("/api/v1/progress/copy",function(d){
+		$(".progress-bar-main").css("width",d+"%");
 	});
 }
 
