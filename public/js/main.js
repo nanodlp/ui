@@ -261,8 +261,11 @@ function post_init(){
 }
 
 function update_upload_progress(){
-	$.get("/api/v1/progress/copy",function(d){
-		$(".progress-bar-main").css("width",d+"%");
+	$.get("/api/v1/progress/details/copy",function(d){
+		$(".progress-bar-main").css("width",d["Percentage"]+"%");
+		if (d["Percentage"]>10){
+			$(".progress-bar-main").html(d["Text"]);
+		}		
 	});
 }
 
