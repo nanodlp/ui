@@ -454,23 +454,23 @@
 			<div class="col-md-4 i_display i_slicing i_option i_lock">
 				<label for="XYRes">
 					<translate>X/Y Resolution</translate> <span class="label label-default"
-						translate>μm</span>{{helpModal("xy-resolution")}}{{regenerateRequired()}}
+						translate>μm</span>{{regenerateRequired()}}
 				</label>
-				<input class="form-control" value="{%if XYRes>1 %}{{XYRes}}{% else %}50{% endif %}" name="XYRes" id="XYRes" step="0.001" type="number" min="1"
+				<input class="form-control" value="{%if XYRes>1 %}{{XYRes|floatformat}}{% else %}50{% endif %}" name="XYRes" id="XYRes" step="0.001" type="number" min="1"
 					required>
 			</div>
 			<div class="col-md-4 i_display i_slicing i_option i_lock">
 				<label for="YRes">
 					<translate>Y Resolution</translate> <span
-						class="label label-default translate">μm</span>{{helpModal("y-resolution,xy-resolution")}}{{regenerateRequired()}}
+						class="label label-default translate">μm</span>{{regenerateRequired()}}
 				</label>
-				<input class="form-control" value="{{YRes}}" name="YRes" id="YRes" step="0.001" type="number">
+				<input class="form-control" value="{{YRes|floatformat}}" name="YRes" id="YRes" step="0.001" type="number">
 			</div>
 			<div class="col-md-4 i_quality i_slicing i_option i_lock">
 				<label for="BarrelFactor">
 					<translate>Lens Barrel Factor</translate> {{helpPage("https://docs.nano3dtech.com/manual/barrel/")}}{{regenerateRequired()}}
 				</label>
-				<input class="form-control" value="{{ConfigSlicerOptions.BarrelFactor}}" name="BarrelFactor" id="BarrelFactor" step="0.001"
+				<input class="form-control" value="{{ConfigSlicerOptions.BarrelFactor|floatformat}}" name="BarrelFactor" id="BarrelFactor" step="0.001"
 					type="number">
 
 			</div>
@@ -518,7 +518,7 @@
 					<translate>Display Warm-up Time</translate> <span class="label label-default"
 						translate>Second</span>
 				</label>
-				<input class="form-control" value="{{ProjectorWarmup}}" name="ProjectorWarmup" id="ProjectorWarmup"
+				<input class="form-control" value="{{ProjectorWarmup|floatformat}}" name="ProjectorWarmup" id="ProjectorWarmup"
 					type="number">
 			</div>
 			<div class="col-md-4 ProjectorType_toggle i_display i_quality i_option i_lock">
@@ -533,7 +533,7 @@
 					<translate>Lamp Brightness</translate> <span class="label label-default"
 						translate>Percentage</span> {{helpPage("https://docs.nano3dtech.com/manual/hardware/#lamp")}}
 				</label>
-				<input class="form-control" value="{{ProjectorLampEffect}}" name="ProjectorLampEffect"
+				<input class="form-control" value="{{ProjectorLampEffect|floatformat}}" name="ProjectorLampEffect"
 					id="ProjectorLampEffect" step="0.01" type="number">
 			</div>
 			<div class="col-md-4 ProjectorType_toggle i_display i_option i_lock">
@@ -610,9 +610,9 @@
 			<div class="col-md-4 i_axis i_option i_lock">
 				<label for="StopPositionMm">
 					<translate>Platform Stop Position</translate> <span class="label label-default"
-						translate>Millimeter</span>{{helpModal("wait-position")}}
+						translate>Millimeter</span>
 				</label>
-				<input class="form-control" value="{{StopPositionMm}}" name="StopPositionMm" id="StopPositionMm"
+				<input class="form-control" value="{{StopPositionMm|floatformat}}" name="StopPositionMm" id="StopPositionMm"
 					type="number" step="0.001">
 			</div>
 			<div class="col-md-4 i_axis i_option i_lock">
@@ -620,7 +620,7 @@
 					<translate>Resin Depth</translate> <span class="label label-default"
 						translate>Millimeter</span>
 				</label>
-				<input class="form-control" value="{{ResinDistanceMm}}" name="ResinDistanceMm" id="ResinDistanceMm"
+				<input class="form-control" value="{{ResinDistanceMm|floatformat}}" name="ResinDistanceMm" id="ResinDistanceMm"
 					type="number" step="0.001">
 			</div>
 
@@ -648,7 +648,7 @@
 				<label for="MotorDegree">
 					<translate>Motor Step Angle</translate>
 				</label>
-				<input class="form-control" value="{{MotorDegree}}" name="MotorDegree" id="MotorDegree" type="number"
+				<input class="form-control" value="{{MotorDegree|floatformat}}" name="MotorDegree" id="MotorDegree" type="number"
 					step="0.01">
 
 			</div>
@@ -656,14 +656,14 @@
 				<label for="MicroStep">
 					<translate>Microstep</translate> {{helpPage("https://docs.nano3dtech.com/manual/direct/#microstepping")}}
 				</label>
-				<input class="form-control" value="{{MicroStep}}" name="MicroStep" type="number" id="MicroStep">
+				<input class="form-control" value="{{MicroStep|floatformat}}" name="MicroStep" type="number" id="MicroStep">
 			</div>
 			<div class="col-md-4 i_axis i_option i_lock">
 				<label for="LeadscrewPitch">
 					<translate>Leadscrew Pitch</translate> <span class="label label-default"
 						translate>Millimeter</span> {{helpPage("https://docs.nano3dtech.com/manual/direct/#pitch")}}
 				</label>
-				<input class="form-control" value="{{LeadscrewPitch}}" name="LeadscrewPitch" id="LeadscrewPitch"
+				<input class="form-control" value="{{LeadscrewPitch|floatformat}}" name="LeadscrewPitch" id="LeadscrewPitch"
 					step="0.0001" type="number">
 			</div>
 			<div class="col-md-4 i_axis i_option i_lock">
@@ -672,9 +672,8 @@
 					<span class="label label-default" translate>Pulse</span>
 					<span id="axis_in_mm">-</span> 
 					<span class="label label-default" translate>mm</span> 
-					{{helpModal("zaxis-height")}}
 				</label>
-				<input class="form-control" value="{{ZAxisHeight}}" name="ZAxisHeight" id="ZAxisHeight" type="number">
+				<input class="form-control" value="{{ZAxisHeight|floatformat}}" name="ZAxisHeight" id="ZAxisHeight" type="number">
 			</div>
 
 			<div class="col-md-4 i_camera i_option i_lock">

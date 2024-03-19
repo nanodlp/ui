@@ -51,7 +51,7 @@
 				<br>
 			</div>
 			<div class="col-md-4 collapse advanced">
-				<label for="AutoCenter"><translate>Centering</translate>{{helpModal("auto-center")}}</label>
+				<label for="AutoCenter"><translate>Centering</translate></label>
 				<select name="AutoCenter" id="AutoCenter" class="form-control">
 					<option value="0" {% if plate.AutoCenter==0 %}selected{% endif %} translate>Center Pieces</option>
 					<option value="1" {% if plate.AutoCenter==1 %}selected{% endif %} translate>Center Origin</option>
@@ -73,12 +73,12 @@
 					<input name="Offset" class="form-control" id="Offset" type="number" step="0.01" value="{{ plate.Offset }}">
 			</div>
 			<div class="col-md-4 collapse advanced">
-				<label for="StopLayers"><translate>Stop Layers</translate> <span class="label label-default" translate>Optional</span>{{helpModal("stop-layers")}}</label>
+				<label for="StopLayers"><translate>Stop Layers</translate> <span class="label label-default" translate>Optional</span>{{helpPage("https://docs.nano3dtech.com/manual/job/")}}</label>
 				<input value="{{plate.StopLayers}}" class="form-control" name="StopLayers" id="StopLayers" pattern="[\d,]*">
 				<br>
 			</div>
 			<div class="col-md-4 collapse advanced">
-				<label for="LowQualityLayerNumber"><translate>Number of Low Quality Layers</translate> <span class="label label-default" translate>Optional</span>{{helpModal("low-quality-layers")}}</label>
+				<label for="LowQualityLayerNumber"><translate>Number of Low Quality Layers</translate> <span class="label label-default" translate>Optional</span>{{helpPage("https://docs.nano3dtech.com/manual/job/")}}</label>
 				<input class="form-control" value="{{plate.LowQualityLayerNumber}}" name="LowQualityLayerNumber" id="LowQualityLayerNumber" type="number">
 				<br>
 			</div>

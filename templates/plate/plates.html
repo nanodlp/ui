@@ -28,7 +28,7 @@
 <div class="row">
 	<div class="col-md-12">
 		{% if freeSpace < 1000 && freeSpace>0 %}
-		<div class="alert alert-danger" translate>Free space available on your disk is low. Please remove some plates or expand the partition.
+		<div class="alert alert-danger" translate>Free space available on your disk is low. Please, remove unused jobs or expand the partition.
 		</div>
 		{% endif %}
 	</div>
@@ -36,7 +36,7 @@
 	{% include "list.html" %}
 	<tr>
 		<td></td>
-		<td translate>Plate Generator</td>
+		<td translate>Job Generator</td>
 		<td colspan="3" translate>Create 3D shapes by repeating an image frame</td>
 		<td colspan="1">
 			<a class="btn btn-default svg tip" href="/plate/layer-generator">{{ icon(images_icon) }}<translate class="hide">Use a single layer to generate a job</translate></a>
@@ -47,7 +47,7 @@
 
 	<tr>
 		<td></td>
-		<td><span translate>Calibration Plate</span>{{helpModal("calibration-plate")}}</td>
+		<td><span translate>Calibration Job</span>{{helpPage("https://docs.nano3dtech.com/manual/calibration-job/")}}</td>
 		<td colspan="3"><span translate>Rect:</span> {{generator.BlockWidth}}*{{generator.BlockHeight}}*{{generator.Depth}}
 			<br>
 			<span translate>Pillars:</span> {{generator.PillarSize}}*{{generator.Depth}}
@@ -62,7 +62,7 @@
 						class="glyphicon glyphicon-stop"></span></a>
 			</div>
 			{% endif %}
-			<a class="btn btn-default tip" href="/plate/generator" title="Generate Calibration Plate"><span class="glyphicon glyphicon-refresh"></span><translate class="hide">Regenerate calibration plate</translate></a>
+			<a class="btn btn-default tip" href="/plate/generator" title="Generate Calibration Job"><span class="glyphicon glyphicon-refresh"></span><translate class="hide">Regenerate calibration job</translate></a>
 			<a class="btn btn-default tip" href="/plate/preview/0"><span class="glyphicon glyphicon-eye-open"></span><translate class="hide">Preview</translate></a>
 		</td>
 	</tr>

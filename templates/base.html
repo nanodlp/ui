@@ -83,7 +83,19 @@
 			<span id="cbutton{{button.ID}}" style="{% if button.Condition=='hidden' %}display:none{%endif%}">
 				{{button.HTML|safe}}
 				{% if button.HTML=="" %}
-					<a href="/button/press/{{button.ID}}" class="{{button.Color}} {{button.Condition}}" {% if button.ConfirmText!="" %} onclick="return confirm('{{button.ConfirmText}}');" {% endif %}>{{button.Name}}</a>
+					<a href="/button/press/{{button.ID}}" class="
+					{% if button.Color=='toggle' %}
+						{% if !button.State %}btn btn-success{% else %}btn btn-danger{% endif %}
+					{% else %}
+					{{button.Color}} 
+					{% endif %}
+					{{button.Condition}}" {% if button.ConfirmText!="" %} onclick="return confirm('{{button.ConfirmText}}');" {% endif %}>
+					{% if button.Color=='toggle' %}
+						{% if !button.State %}{{button.Name}}{% else %}{{button.NameActive}}{% endif %}
+					{% else %}
+					{{button.Name}} 
+					{% endif %}
+					</a>
 				{% endif %}
 			</span> &nbsp;
 			{% endif %}
@@ -157,6 +169,7 @@
 	<link href='/static/css/main.css?{{version}}' rel="stylesheet">
 	<title>{% if title %}{{ title }}{% endif %}</title>
 	{% block head %} {% endblock %}
+	<script src='/static/boot3/js/jquery.min.js'></script>
 </head>
 
 <body data-lang="{{lang}}">
@@ -171,7 +184,6 @@
 	<!-- /container -->
 	<!-- Electron  -->
 	<script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
-	<script src='/static/boot3/js/jquery.min.js'></script>
 	<script src='/static/boot3/js/bootstrap.min.js'></script>
 	<script src='/static/js/jquery.imgareaselect.dev.js'></script>
 	<script src='/static/js/favico-0.3.10.min.js'></script>

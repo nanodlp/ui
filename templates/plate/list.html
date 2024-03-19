@@ -1,7 +1,7 @@
 {{ printHistory(PrintResult) }}
 <translate class="hide" id="deleteall-confirm">Are you sure you want to delete all the jobs?</translate>
 <translate class="hide" id="delete-confirm">Are you sure you want to delete this job?</translate>
-<translate class="hide" id="regenerate-confirm">Are you sure you want to regenerate the layers of this plate?
+<translate class="hide" id="regenerate-confirm">Are you sure you want to RE-SLICE the layers of this plate?
 </translate>
 <translate class="hide" id="stop-confirm">Are you sure you want to stop printing?</translate>
 <translate class="hide" id="start-confirm">Are you sure you want to print job from the start?</translate>
@@ -47,7 +47,7 @@
 					href="/plate/preview/{{ row.PlateID }}" translate>Source file contains faulty triangles.</a>
 					{% if !row.Repaired %}
 					<a class="ask req-no-slicing btn btn-default btn-sm repair svg tip" href="/plate/repair-regenerate/{{ row.PlateID }}"
-					data-ask="regenerate-confirm">{{ icon(repair_icon) }}<translate class="hide">Repair and regenerate</translate></a>
+					data-ask="regenerate-confirm">{{ icon(repair_icon) }}<translate class="hide">Repair and re-slice</translate></a>
 					{% endif %}
 			</div>
 			{% endif %}
@@ -58,9 +58,9 @@
 			<br>
 			{% if row.Corrupted==true %}
 			<div class="alert alert-danger"><span class="glyphicon glyphicon-alert"></span> &nbsp; 
-				<translate>This plate is corrupt.</translate>
+				<translate>This job is corrupt.</translate>
 				<a class="ask req-no-slicing btn btn-default" href="/plate/regenerate/{{ row.PlateID }}"
-				data-ask="regenerate-confirm"><span class="glyphicon glyphicon-refresh"></span> &nbsp; <translate>Regenerate</translate>
+				data-ask="regenerate-confirm"><span class="glyphicon glyphicon-refresh"></span> &nbsp; <translate>Re-slice</translate>
 				</a>
 			</div>
 			{% endif %}
@@ -175,11 +175,11 @@
 					{% endif %}-->
 					{% if (row.Processed==true && row.Type && (( row.PlateID != status.PlateID or status.Printing == false))) or (row.Type && !autoSlice) %}
 					<li><a class="ask req-no-slicing" href="/plate/regenerate/{{ row.PlateID }}"
-						data-ask="regenerate-confirm"><span class="glyphicon glyphicon-refresh"></span> &nbsp; <translate>Regenerate</translate>
+						data-ask="regenerate-confirm"><span class="glyphicon glyphicon-refresh"></span> &nbsp; <translate>Re-slice</translate>
 					</a></li>
 					{% if row.Type=="stl" %}
 					<li><a class="ask req-no-slicing" href="/plate/regenerate-wasm/{{ row.PlateID }}"
-						data-ask="regenerate-confirm"><span class="glyphicon glyphicon-refresh"></span> &nbsp; <translate>Regenerate Web</translate>
+						data-ask="regenerate-confirm"><span class="glyphicon glyphicon-refresh"></span> &nbsp; <translate>Re-slice Web</translate>
 					</a></li>
 					{% endif %}
 					{% endif %}
@@ -224,7 +224,7 @@
 	<tr>
 		<td colspan="999">
 			<div class="text-center" translate>
-				No Plates
+				No Jobs
 			</div>
 		</td>
 	</tr>

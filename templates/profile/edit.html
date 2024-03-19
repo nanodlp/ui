@@ -11,7 +11,7 @@
 				{{ setting_cat("<translate>Basic Details</translate>","<translate>Resin name, price, description</translate>",gear_icon,"i_basic") }}
 				{{ setting_cat("<translate>Slicer Options</translate>","<translate>Prepare models for print, erode, dimming, 3D AA, AA, resolution, dimming, hollowing, mask</translate>", glob_icon, "i_slicing") }}
 				{{ setting_cat("<translate>Before Layer</translate>","<translate>Move to layer, movement speed, slow section, sending code</translate>",axis_icon,"i_movetolayer") }}
-				{{ setting_cat("<translate>Burn-in Layer</translate>","<translate>Burin-in layers count, cure time, lift, erode</translate>",burnin_icon,"i_burnin") }}
+				{{ setting_cat("<translate>Burn-in Layer</translate>","<translate>Burn-in layers count, cure time, lift, erode</translate>",burnin_icon,"i_burnin") }}
 				{{ setting_cat("<translate>Normal Layer</translate>","<translate>Normal layers count, cure time, lift, erode</translate>",normal_icon,"i_normal") }}
 				{{ setting_cat("<translate>After Layer</translate>","<translate>Lift after print, wait after lift, sending code</translate>",axis_icon,"i_moveafterprint") }}
 				{{ setting_cat("<translate>Override Machine Settings</translate>","<translate>Resolution, codes, mask</translate>",pen_icon,"i_override") }}
@@ -71,17 +71,17 @@
 			<div class="col-md-4 i_burnin i_option {{isHidden(basic.SupportCureTime)}}">
 				<label for="SupportCureTime">
 					<translate>Burn-in Cure Time</translate>
-					<span class="label label-default" translate>Second</span> {{helpModal("transitional-curetime")}}
+					<span class="label label-default" translate>Second</span>
 				</label>
-				<input class="form-control" value="{{profile.SupportCureTime}}" name="SupportCureTime"
-					id="SupportCureTime" step="0.0001" type="number" required>
+				<input class="form-control" value="{{profile.SupportCureTime|floatformat}}" name="SupportCureTime"
+					id="SupportCureTime" step="0.01" type="number" required>
 			</div>
 			<div class="col-md-4 i_burnin i_option {{isHidden(basic.SupportWaitBeforePrint)}}">
 				<label for="SupportWaitBeforePrint">
 					<translate>Burn-in Wait Before Print</translate>
 					<span class="label label-default" translate>Second</span>
 				</label>
-				<input class="form-control" value="{{profile.SupportWaitBeforePrint}}" name="SupportWaitBeforePrint"
+				<input class="form-control" value="{{profile.SupportWaitBeforePrint|floatformat}}" name="SupportWaitBeforePrint"
 					step="0.01" id="SupportWaitBeforePrint" type="number" required>
 			</div>
 			<div class="col-md-4 i_burnin i_option conditional {{isHidden(basic.SupportWaitAfterPrint)}}" data-condition="#PrinterType != 2 && ['i_burnin'].includes(#scategory)">
@@ -89,7 +89,7 @@
 					<translate>Burn-in Wait After Print</translate>
 					<span class="label label-default" translate>Second</span>
 				</label>
-				<input class="form-control" value="{{profile.SupportWaitAfterPrint}}" name="SupportWaitAfterPrint"
+				<input class="form-control" value="{{profile.SupportWaitAfterPrint|floatformat}}" name="SupportWaitAfterPrint"
 					step="0.01" id="SupportWaitAfterPrint" type="number" required>
 			</div>
 			<div class="col-md-4 i_slicing i_option {{isHidden(basic.AdaptSlicing)}}">
@@ -145,7 +145,7 @@
 					<translate>Burn-in Erode / Dilate Areas</translate>
 					<span class="label label-default" translate>MM</span> {{helpPage("https://docs.nano3dtech.com/manual/erode/")}} {{regenerateRequired()}}
 				</label>
-				<input class="form-control" value="{{profile.SupportOffset}}" name="SupportOffset" id="SupportOffset"
+				<input class="form-control" value="{{profile.SupportOffset|floatformat}}" name="SupportOffset" id="SupportOffset"
 					step="0.001" type="number">
 			</div>
 			<div class="col-md-4 i_normal i_option {{isHidden(basic.Depth)}}">
@@ -153,7 +153,7 @@
 					<translate>Normal Layer Thickness</translate>
 					<span class="label label-default" translate>μm</span> {{regenerateRequired()}}
 				</label>
-				<input class="form-control" value="{{profile.Depth}}" name="Depth" id="Depth" step="0.001" type="number"
+				<input class="form-control" value="{{profile.Depth|floatformat}}" name="Depth" id="Depth" step="0.001" type="number"
 					required>
 			</div>
 			<div class="col-md-4 i_normal i_option {{isHidden(basic.CureTime)}}">
@@ -161,7 +161,7 @@
 					<translate>Normal Layer Cure Time</translate>
 					<span class="label label-default" translate>Second</span>
 				</label>
-				<input class="form-control" value="{{profile.CureTime}}" name="CureTime" id="CureTime" step="0.0001"
+				<input class="form-control" value="{{profile.CureTime|floatformat}}" name="CureTime" id="CureTime" step="0.0001"
 					type="number" required>
 			</div>
 			<div class="col-md-4 i_normal i_option {{isHidden(basic.DynamicWait)}}">
@@ -189,15 +189,15 @@
 					<translate>Wait Before Print</translate>
 					<span class="label label-default" translate>Second</span>
 				</label>
-				<input class="form-control" value="{{profile.WaitBeforePrint}}" name="WaitBeforePrint"
+				<input class="form-control" value="{{profile.WaitBeforePrint|floatformat}}" name="WaitBeforePrint"
 					id="WaitBeforePrint" step="0.01" type="number" required>
 			</div>
-			<div class="col-md-4 i_normal i_option conditional {{isHidden(basic.WaitAfterPrint)}}" data-condition="#PrinterType != 2 && ['i_normal'].includes(#scategory)">
+			<div class="col-md-4 i_normal i_option conditional {{isHidden(basic.WaitAfterPrint|floatformat)}}" data-condition="#PrinterType != 2 && ['i_normal'].includes(#scategory)">
 				<label for="WaitAfterPrint">
 					<translate>Wait After Print</translate>
 					<span class="label label-default" translate>Second</span>
 				</label>
-				<input class="form-control" value="{{profile.WaitAfterPrint}}" name="WaitAfterPrint" id="WaitAfterPrint"
+				<input class="form-control" value="{{profile.WaitAfterPrint|floatformat}}" name="WaitAfterPrint" id="WaitAfterPrint"
 					step="0.01" type="number" required>
 			</div>
 			<div class="col-md-4 i_slicing i_option {{isHidden(basic.Offset)}}">
@@ -205,7 +205,7 @@
 					<translate>Erode / Dilate Areas</translate>
 					<span class="label label-default" translate>MM</span> {{helpPage("https://docs.nano3dtech.com/manual/erode/")}} {{regenerateRequired()}}
 				</label>
-				<input class="form-control" value="{{profile.Offset}}" name="Offset" id="Offset" step="0.001"
+				<input class="form-control" value="{{profile.Offset|floatformat}}" name="Offset" id="Offset" step="0.001"
 					type="number">
 			</div>
 			<div class="col-md-4 i_normal i_option {{isHidden(basic.DynamicCureTime)}}">
@@ -270,7 +270,7 @@
 					<translate>Wait After Lift</translate>
 					<span class="label label-default" translate>Second</span>
 				</label>
-				<input class="form-control" value="{{profile.TopWait}}" name="TopWait" id="TopWait" step="0.01"
+				<input class="form-control" value="{{profile.TopWait|floatformat}}" name="TopWait" id="TopWait" step="0.01"
 					type="number" required>
 			</div>			
 			<div class="col-md-4 i_movetolayer i_moveafterprint i_option {{isHidden(basic.ZStepWait)}}">
@@ -468,7 +468,7 @@
 					<translate>Burn-in Lift After Print</translate>
 					<span class="label label-default" translate>Millimeter</span>
 				</label>
-				<input class="form-control" value="{{profile.SupportWaitHeight}}" name="SupportWaitHeight" step="0.001"
+				<input class="form-control" value="{{profile.SupportWaitHeight|floatformat}}" name="SupportWaitHeight" step="0.001"
 					id="SupportWaitHeight" type="number" required>
 			</div>
 			<div class="col-md-4 i_moveafterprint i_option conditional {{isHidden(basic.SupportTopWait)}}" data-condition="#PrinterType != 2 && ['i_burnin'].includes(#scategory)">
@@ -476,7 +476,7 @@
 					<translate>Burn-in Wait After Lift</translate>
 					<span class="label label-default" translate>Second</span>
 				</label>
-				<input class="form-control" value="{{profile.SupportTopWait}}" name="SupportTopWait" step="0.01"
+				<input class="form-control" value="{{profile.SupportTopWait|floatformat}}" name="SupportTopWait" step="0.01"
 					id="SupportTopWait" type="number" required>
 			</div>
 			<div class="col-md-4 i_moveafterprint i_option conditional {{isHidden(basic.WaitHeight)}}" data-condition="#PrinterType != 2 && ['i_moveafterprint'].includes(#scategory)">
@@ -484,7 +484,7 @@
 					<translate>Lift After Print</translate>
 					<span class="label label-default">Millimeter</span>
 				</label>
-				<input class="form-control" value="{{profile.WaitHeight}}" name="WaitHeight" id="WaitHeight"
+				<input class="form-control" value="{{profile.WaitHeight|floatformat}}" name="WaitHeight" id="WaitHeight"
 					step="0.001" type="number" required>
 			</div>
 			<div class="col-md-4 i_slicing i_option {{isHidden(basic.ImageRotate)}}">
@@ -501,7 +501,7 @@
 					<translate>Multi Print Gap</translate> <span class="label label-default" translate>MM</span>
 					{{helpPage("https://docs.nano3dtech.com/manual/multicure/")}} {{regenerateRequired()}}
 				</label>
-				<input class="form-control" value="{{profile.MultiCureGap}}" name="MultiCureGap" id="MultiCureGap"
+				<input class="form-control" value="{{profile.MultiCureGap|floatformat}}" name="MultiCureGap" id="MultiCureGap"
 					step="1" type="number">
 			</div>
 			<div class="col-md-4 conditional i_normal i_option {{isHidden(basic.LaserCode)}}"
@@ -536,7 +536,7 @@
 					<translate>Override X Resolution</translate>
 					<span class="label label-default" translate>Micron</span> {{calcModal("resolution")}} {{regenerateRequired()}}
 				</label>
-				<input class="form-control" value="{{profile.XYRes}}" name="XYRes" id="XYRes" step="0.001"
+				<input class="form-control" value="{{profile.XYRes|floatformat}}" name="XYRes" id="XYRes" step="0.001"
 					type="number">
 			</div>
 			<div class="col-md-4 i_override i_option {{isHidden(basic.YRes)}}">
@@ -544,14 +544,14 @@
 					<translate>Override Y Resolution</translate> 
 					<span class="label label-default" translate>Micron</span> {{calcModal("resolution")}} {{regenerateRequired()}}
 				</label>
-				<input class="form-control" value="{{profile.YRes}}" name="YRes" id="YRes" step="0.001" type="number">
+				<input class="form-control" value="{{profile.YRes|floatformat}}" name="YRes" id="YRes" step="0.001" type="number">
 			</div>
 			<div class="col-md-4 i_override i_option {{isHidden(basic.ZResPerc)}}">
 				<label for="ZResPerc">
 					<translate>Z Model Size Modifier</translate>
 					<span class="label label-default" translate>Percentage</span>{{regenerateRequired()}}
 				</label>
-				<input class="form-control" value="{{profile.ZResPerc}}" name="ZResPerc" id="ZResPerc" step="0.001"
+				<input class="form-control" value="{{profile.ZResPerc|floatformat}}" name="ZResPerc" id="ZResPerc" step="0.001"
 					type="number">
 			</div>
 			<div class="col-md-4 i_slicing i_override i_option {{isHidden(basic.IgnoreMask)}}">
