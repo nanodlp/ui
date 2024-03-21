@@ -1,0 +1,191 @@
+{% extends "base.html" %}
+{% block head %}
+<link rel="stylesheet" href="https://leeoniya.github.io/uPlot/dist/uPlot.min.css">
+<script src="https://leeoniya.github.io/uPlot/dist/uPlot.iife.min.js"></script>
+<style>
+    .u-legend.u-inline .u-value {
+        width: 150px;
+        text-align: left;
+    }
+    #uplot{
+        background-color: #BBB;
+    }
+    .u-label,.u-value,.u-title{
+        color:#000;
+    }
+    .u-legend.u-inline .u-value{
+        width: 100px;
+    }
+    .u-series{
+        font-size: small;
+    }
+    .uplot{
+        width:100%;
+    }
+</style>
+{% endblock %}
+{% block content %}
+<script>
+    var dplot,plot;
+    let ColourValues = [ 
+        "FF0000", "00FF00", "0000FF", "FFFF00", "FF00FF", "00FFFF", "000000", 
+        "800000", "008000", "000080", "808000", "800080", "008080", "808080", 
+        "C00000", "00C000", "0000C0", "C0C000", "C000C0", "00C0C0", "C0C0C0", 
+        "400000", "004000", "000040", "404000", "400040", "004040", "404040", 
+        "200000", "002000", "000020", "202000", "200020", "002020", "202020", 
+        "600000", "006000", "000060", "606000", "600060", "006060", "606060", 
+        "A00000", "00A000", "0000A0", "A0A000", "A000A0", "00A0A0", "A0A0A0", 
+        "E00000", "00E000", "0000E0", "E0E000", "E000E0", "00E0E0", "E0E0E0", 
+    ];    
+    $(document).ready(function(){
+        getData(false);
+        $("#download-csv").click(function(){
+            getData(true);
+        });	
+        $("#file").change(function(){
+            getData(false);
+        });	
+	});    
+    function renderChart(data,series) {
+        // Remove null indicators
+        for (var i=data.length-1; i>0;i--){
+            var c = data[i].length;
+            for (var j=0; j<c;j++){
+                if (data[i][j]!=null){
+                    break;
+                }
+                if (j+1==c){
+                    data.splice(i,1);
+                    series.splice(i,1);
+                }
+            }
+        }
+        var plotHeight=$( window ).height()-300;
+        if (plotHeight<400) plotHeight=400;
+        let opts = {
+            title: "{{Name}}",
+            id: "chart1",
+            class: "my-chart",
+            width: $("#uplot").innerWidth(),
+            height: plotHeight,
+            series: series,
+            axes: prepareAxis(series),        
+        };
+        if ($("#uplot").html()!=""){
+            plot.setData(data);
+            return;
+        }
+        $("#uplot").html("");
+        plot = new uPlot(opts, data, $("#uplot")[0]);
+    }
+    function getData(exp){
+        var series = getSeries();
+        var t,p;
+        var i = 0;
+        let o = [];
+        var file = $("#file").val();
+        if (file=="") return
+        var aggregate = $("#aggregate").val();
+        $.getJSON("/analytic/file/"+file,function(d){
+            if (JSON.stringify(dplot)==JSON.stringify(d)&&!exp){
+                return
+            }
+            dplot=d;
+            for (j=0;j<series.length;j++){
+                o[j]=[];
+            }
+            $.each(d,function(k,v){
+                t = aggregateFunc(v["ID"],aggregate);
+                if (t!=p){
+                    for (j=0;j<series.length;j++){
+                        o[j][i]=null;
+                    }
+                    o[0][i]=t;
+                    p=t;
+                    i++;
+                }
+                o[v["T"]+1][i-1]=v["V"];
+            });
+            if (exp) return downloadCSV(series,o);
+            renderChart(o,series);
+        });
+    }
+    function downloadCSV(s,o){
+        const a = document.createElement("a");
+        document.body.appendChild(a);
+        a.style = "display: none";
+        var v ="",p="";
+        for (j=0;j<s.length;j++){
+            if (j==0){
+                p+="Timestamp,";
+            } else {
+                p+=s[j].label+",";
+            }
+        }
+        p+="\n\r";
+        var iT=o.length;
+        var jT=o[0].length
+        for (j=0;j<jT;j++){
+            for (i=0;i<iT;i++){
+                if (o[i][j]===null) p+=",";
+                else p+=o[i][j]+",";
+            }
+            p+="\n\r";
+        }
+        const blob = new Blob([p], {type: "octet/stream"}),
+            url = window.URL.createObjectURL(blob);
+        a.href = url;
+        a.download = "nanodlp.csv";
+        a.click();
+        window.URL.revokeObjectURL(url);
+    }
+    function getSeries(){
+        var series = [{}];
+        $("#uplot").data("axes").forEach((element,key) => {
+            series.push({show: true,spanGaps: true,label: element.Name,scale: element.Type ,value: (self, rawValue) => (rawValue!=null?rawValue.toFixed(element.Decimal)+element.Type:""),stroke: "#"+ColourValues[key]+"88",width: 1,});
+        });
+        return series;
+    }
+    function aggregateFunc(v,ag){
+        var val = parseFloat(v/1000000000);
+        if (ag==0) return val;
+        return Math.round(val/ag)*ag;
+    }                
+    function prepareAxis(series){
+        var axes = [{}];
+        for (var i=1; i<series.length;i++){
+            var found = false;
+            var s = series[i];
+            for (var j=1; j<axes.length;j++){
+                if (s.scale==axes[j].scale){
+                    found = true;
+                }
+            }
+            if (!found&&(s.scale=="px"||s.scale=="Pressure")){
+                axes.push({label:s.scale,labelSize: 15,gap:0,size:40, scale:s.scale, values: (self, ticks) => ticks.map(rawValue => rawValue.toFixed(0)),side:3,grid:{show:false}});
+            } else if (!found&&(s.scale=="s"||s.scale=="mm"||s.scale=="°C")){
+                axes.push({label:s.scale,labelSize: 15,gap:0,size:40, scale:s.scale, values: (self, ticks) => ticks.map(rawValue => rawValue.toFixed(1)),side:3,grid:{show:false}});
+            }
+        }
+        for (var j=parseInt(axes.length/2)+1; j<axes.length;j++){
+            axes[j].side=1;
+        }
+        axes[1].grid.show=true;
+        return axes;
+    }
+</script>
+<div id="uplot" data-axes='{{axes|safe}}'></div>
+<br>
+<select id="file" class="form-control form-inline" style="display:inline;width: auto;">
+    <option value="" translate>No File Selected</option>
+    {% for file in files %}
+    <option value="{{path}}{{file}}" translate>{{file}}</option>
+    {% endfor %}
+</select>
+<br>
+<input id="aggregate" class="form-control form-inline" style="display:inline;width: auto;" placeholder="Aggregate - Second">
+<button class="btn btn-success" id="download-csv" href="#" translate>Download CSV</button>
+<br>
+<br>
+<br>
+{% endblock %}
