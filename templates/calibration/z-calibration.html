@@ -36,7 +36,7 @@
 			</table>
 			{% if ZAxisPin %}
 				<br>
-				<a href="/z-axis/touch-limit" type="button" class="btn btn-primary" translate>Calibrate Zero Position ⇧</a>
+				<a href="/z-axis/touch-limit" type="button" class="btn btn-default" translate>Calibrate Zero Position ⇧</a>
 				<br>
 				<br>
 				<legend translate>Save Z Axis Calibration</legend>
@@ -45,11 +45,11 @@
 				<br>
 				<br>
 				{% if ZAxisEnable>0 %}
-					<a href="/z-axis/enable/1" type="button" class="btn btn-success" translate>Enable Motor</a> &nbsp;
-					<a href="/z-axis/enable/0" type="button" class="btn btn-warning" translate>Disable Motor</a>
+					<a href="/z-axis/enable/1" type="button" class="btn btn-default" translate>Enable Motor</a> &nbsp;
+					<a href="/z-axis/enable/0" type="button" class="btn btn-default" translate>Disable Motor</a>
 				{% endif %}
 			{% else %}
-				<a href="/z-axis/record-height" type="button" class="btn btn-primary" translate>Record Current Height as Axis Height</a>
+				<a href="/z-axis/record-height" type="button" class="btn btn-default" translate>Record Current Height as Axis Height</a>
 			{% endif %}
 		</div>
 		<!--ajax_result-->
@@ -61,29 +61,29 @@
 		<div class="row calibration">
 			<div class="col-xs-6 right_link">
 				<a href="/z-axis/bottom" type="button" class="btn btn-danger btn-sm" translate>Floor ⇩</a>
-				<a href="/z-axis/move/down/micron/200000" type="button" class="btn btn-warning btn-sm">200mm ⇩</a>
-				<a href="/z-axis/move/down/micron/100000" type="button" class="btn btn-warning btn-sm">100mm ⇩</a>
-				<a href="/z-axis/move/down/micron/50000" type="button" class="btn btn-warning btn-sm">50mm ⇩</a>
-				<a href="/z-axis/move/down/micron/10000" type="button" class="btn btn-warning btn-sm">10mm ⇩</a>
-				<a href="/z-axis/move/down/micron/1000" type="button" class="btn btn-warning btn-sm">1mm ⇩</a>
-				<a href="/z-axis/move/down/micron/500" type="button" class="btn btn-warning btn-sm">0.5mm ⇩</a>
-				<a href="/z-axis/move/down/micron/100" type="button" class="btn btn-warning btn-sm">0.1mm ⇩</a>
-				<a href="/z-axis/move/down/pulse/100" type="button" class="btn btn-warning btn-sm side_left" translate>100 Pulse ⇩</a>
-				<a href="/z-axis/move/down/pulse/10" type="button" class="btn btn-warning btn-sm side_left" translate>10 Pulse ⇩</a>
-				<a href="/z-axis/move/down/pulse/1" type="button" class="btn btn-warning btn-sm side_left" translate>1 Pulse ⇩</a>
+				<a href="/z-axis/move/down/micron/200000" type="button" class="btn btn-default btn-sm">200mm ⇩</a>
+				<a href="/z-axis/move/down/micron/100000" type="button" class="btn btn-default btn-sm">100mm ⇩</a>
+				<a href="/z-axis/move/down/micron/50000" type="button" class="btn btn-default btn-sm">50mm ⇩</a>
+				<a href="/z-axis/move/down/micron/10000" type="button" class="btn btn-default btn-sm">10mm ⇩</a>
+				<a href="/z-axis/move/down/micron/1000" type="button" class="btn btn-default btn-sm">1mm ⇩</a>
+				<a href="/z-axis/move/down/micron/500" type="button" class="btn btn-default btn-sm">0.5mm ⇩</a>
+				<a href="/z-axis/move/down/micron/100" type="button" class="btn btn-default btn-sm">0.1mm ⇩</a>
+				<a href="/z-axis/move/down/pulse/100" type="button" class="btn btn-default btn-sm side_left" translate>100 Pulse ⇩</a>
+				<a href="/z-axis/move/down/pulse/10" type="button" class="btn btn-default btn-sm side_left" translate>10 Pulse ⇩</a>
+				<a href="/z-axis/move/down/pulse/1" type="button" class="btn btn-default btn-sm side_left" translate>1 Pulse ⇩</a>
 			</div>
 			<div class="col-xs-6 left_link">
-				<a href="/z-axis/top" type="button" class="btn btn-primary btn-sm" translate>Top ⇧</a>
-				<a href="/z-axis/move/up/micron/200000" type="button" class="btn btn-success btn-sm">200mm ⇧</a>
-				<a href="/z-axis/move/up/micron/100000" type="button" class="btn btn-success btn-sm">100mm ⇧</a>
-				<a href="/z-axis/move/up/micron/50000" type="button" class="btn btn-success btn-sm">50mm ⇧</a>
-				<a href="/z-axis/move/up/micron/10000" type="button" class="btn btn-success btn-sm">10mm ⇧</a>
-				<a href="/z-axis/move/up/micron/1000" type="button" class="btn btn-success btn-sm">1mm ⇧</a>
-				<a href="/z-axis/move/up/micron/500" type="button" class="btn btn-success btn-sm">0.5mm ⇧</a>
-				<a href="/z-axis/move/up/micron/100" type="button" class="btn btn-success btn-sm">0.1mm ⇧</a>
-				<a href="/z-axis/move/up/pulse/100" type="button" class="btn btn-success btn-sm side_right" translate>100 Pulse ⇧</a>
-				<a href="/z-axis/move/up/pulse/10" type="button" class="btn btn-success btn-sm side_right" translate>10 Pulse ⇧</a>
-				<a href="/z-axis/move/up/pulse/1" type="button" class="btn btn-success btn-sm side_right" translate>1 Pulse ⇧</a>
+				<a href="/z-axis/top" type="button" class="btn btn-default btn-sm" translate>Top ⇧</a>
+				<a href="/z-axis/move/up/micron/200000" type="button" class="btn btn-default btn-sm">200mm ⇧</a>
+				<a href="/z-axis/move/up/micron/100000" type="button" class="btn btn-default btn-sm">100mm ⇧</a>
+				<a href="/z-axis/move/up/micron/50000" type="button" class="btn btn-default btn-sm">50mm ⇧</a>
+				<a href="/z-axis/move/up/micron/10000" type="button" class="btn btn-default btn-sm">10mm ⇧</a>
+				<a href="/z-axis/move/up/micron/1000" type="button" class="btn btn-default btn-sm">1mm ⇧</a>
+				<a href="/z-axis/move/up/micron/500" type="button" class="btn btn-default btn-sm">0.5mm ⇧</a>
+				<a href="/z-axis/move/up/micron/100" type="button" class="btn btn-default btn-sm">0.1mm ⇧</a>
+				<a href="/z-axis/move/up/pulse/100" type="button" class="btn btn-default btn-sm side_right" translate>100 Pulse ⇧</a>
+				<a href="/z-axis/move/up/pulse/10" type="button" class="btn btn-default btn-sm side_right" translate>10 Pulse ⇧</a>
+				<a href="/z-axis/move/up/pulse/1" type="button" class="btn btn-default btn-sm side_right" translate>1 Pulse ⇧</a>
 			</div>
 		</div>
 		{% if ZAxisPin %}
@@ -106,7 +106,7 @@
 					<br>
 					<br>
 					<div class="controls">
-						<button value="down" class="btn btn-danger" translate>Move to Layer</button>
+						<button value="down" class="btn btn-default" translate>Move to Layer</button>
 					</div>
 				</div>
 

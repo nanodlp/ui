@@ -1,93 +1,83 @@
 {% extends "../base.html" %}
 {% block content %}
 {% macro wirelessView(WifiSSID,WifiType,Quality) %}
-<form action="/wifi/connect" method="post">
 <tr>
+	<td>{{WifiSSID}}</td>
+	<td>{{WifiType}}</td>
+	<td><progress max="100" value="{{Quality}}">{{Quality}}%</progress></td>
 	<td>
-		<input name="WifiSSID" value="{{WifiSSID}}" class="WifiSSID" type="hidden">{{WifiSSID}}
+		<form action="/wifi/connect" method="post" class="form-inline">
+			<input name="WifiSSID" value="{{WifiSSID}}" class="WifiSSID" type="hidden">
+			<input name="WifiType" value="{{WifiType}}" class="WifiType" type="hidden">
+			{% if WifiType!="" %}<input name="WifiPass" class="form-control" value="" placeholder="Wireless Password">{% endif %}
+			<input type="submit" value="Connect" class="btn btn-success">
+		</form>
 	</td>
-	<td>
-		<input name="WifiType" value="{{WifiType}}" class="WifiType" type="hidden">{{WifiType}}
-	</td>
-	<td>{% if WifiType!="" %}<input name="WifiPass" value="" placeholder="Wireless Password">{% endif %}</td>
-	<td>
-		{{Quality}}/100
-	</td>
-	<td><input type="submit" value="Connect" class="btn btn-success"></td>
 </tr>
-</form>
 {% endmacro %}
 <span id="wifi">
 	<!-- wifi_split -->
-<div class="row layer_details">
-	<div class="col-md-6">
-		<span class="glyphicon glyphicon-info-sign text-success"></span>
-		<translate class="key">Hostname</translate>
-		<div class="val">{{Hostname}}</div>
-		<br>
+	<div class="row layer_details">
+		<div class="col-md-6">
+			<span class="glyphicon glyphicon-info-sign text-success"></span>
+			<translate class="key">Hostname</translate>
+			<div class="val">{{Hostname}}</div>
+			<br>
+		</div>
+		<div class="col-md-6">
+			<span class="glyphicon glyphicon-info-sign text-success"></span>
+			<translate class="key">IP:PORT</translate>
+			<div class="val">{{IP}}:{{Port}}</div>
+			<br>
+		</div>
 	</div>
-	<div class="col-md-6">
-		<span class="glyphicon glyphicon-info-sign text-success"></span>
-		<translate class="key">IP:PORT</translate>
-		<div class="val">{{IP}}:{{Port}}</div>
-		<br>
-	</div>
-</div>
-<div class="row">
-	<div class="col-md-12 edit-table edit-page">
-		<div class="alert alert-warning" role="alert" translate>Changing the WiFi settings during printing could cause interruption.</div>
-		<table>
-			<tr class="thead">
-				<th translate>SSID</th>
-				<th translate>Authentication</th>
-				<th translate>Password</th>
-				<th translate>Quality</th>
-				<th translate>Connect</th>
-			</tr>
-			{% if networks %}
+	<div class="row">
+		<div class="col-md-12 edit-table">
+			<h3 translate>Wireless Connections</h3>
+			<table class="table-striped">
+				<tr class="thead">
+					<th translate>SSID</th>
+					<th translate>Authentication</th>
+					<th translate>Quality</th>
+					<th translate>Connect</th>
+				</tr>
+				{% if networks %}
 				{% for network in networks %}
-					{% if network.ESSID!="" %}
-						{{ wirelessView(network.ESSID,network.SecurityProtocol,network.QualityLevel) }}
-					{% endif %}
+				{% if network.ESSID!="" %}
+				{{ wirelessView(network.ESSID,network.SecurityProtocol,network.QualityLevel) }}
+				{% endif %}
 				{% endfor %}
-				<form action="/wifi/connect" method="post">
+				{% else %}
 				<tr>
-					<td>
-						<input name="WifiSSID" class="WifiSSID" placeholder="Enter Hidden SSID">
-					</td>
-					<td>
-						<select name="WifiType">
-							<option value="" {% if WifiType=="" %}selected{% endif %} translate>No Encryption</option>
+					<td colspan="5" translate class="alert alert-info">Searching wireless connections...</td>
+				</tr>
+				{% endif %}				
+			</table>
+			<br>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<h3 translate>Manually Add</h3>
+			<form action="/wifi/connect" method="post" class="form-inline">
+						<input name="WifiSSID" class="WifiSSID form-control" placeholder="Enter Hidden SSID">
+						<select name="WifiType" class="form-control">
+							<option value="" {% if WifiType=="" %}selected{% endif %} translate>No Encryption
+							</option>
 							<option value="WEP" {% if WifiType=="WEP" %}selected{% endif %} translate>WEP</option>
 							<option value="WPA" {% if WifiType=="WPA" %}selected{% endif %} translate>WPA</option>
 						</select>
-					</td>
-					<td><input name="WifiPass" value="" placeholder="Wireless Password"></td>
-					<td>-/100</td>
-					<td><input type="submit" value="Connect" class="btn btn-success"></td>
-				</form>
-			{% else %}
-				<tr><td colspan="5" translate class="alert alert-info">Searching wireless connections...</td></tr>
-			{% endif %}
-		</table>
-		<br>
+					<input name="WifiPass" value="" placeholder="Wireless Password" class="form-control">
+					<input type="submit" value="Connect" class="btn btn-success">
+			</form>			
+			<h3 translate>Disconnect</h3>
+			<form action="/wifi/connect" method="post">
+				<input name="WifiSSID" type="hidden">
+				<button type="submit" class="btn btn-warning" translate>Terminate WiFi Connections</button>
+			</form>
+		</div>
 	</div>
-</div>
-<div class="row">
-	<div class="col-md-12">
-		<form action="/wifi/connect" method="post">
-			<input name="WifiSSID" type="hidden">
-			<button type="submit" class="btn-warning" translate>Terminate WiFi Connections</button>
-		</form>
-	</div>
-</div>
-<input name="IP" value="{{IP}}:{{Port}}" class="IP" type="hidden">
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<!-- wifi_split -->
+	<input name="IP" value="{{IP}}:{{Port}}" class="IP" type="hidden">
+	<!-- wifi_split -->
 </span>
 {% endblock %}

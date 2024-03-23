@@ -14,12 +14,18 @@
 				<li translate>You can do manual upgrade by using SSH terminal.</li>
 				</dt>
 			</div>
-			<div id="changelog-display" data-beta="{{vers.Beta}}" data-current="{{vers.Current}}" data-stable="{{vers.Stable}}" data-changelog="{{changelog}}">
+		</div>
+	</div>
+	<div id="changelog-display" data-beta="{{vers.Beta}}" data-current="{{vers.Current}}" data-stable="{{vers.Stable}}" data-changelog="{{changelog}}">
+		<div class="row">
+			<div class="col-md-6">
 				<h4><translate>What's new on the latest stable</translate> ({{vers.Stable}})</h4>
 				<dt id="stable"></dt>
 				<br>
 				<a href="/printer/upgrade/go/stable" class="btn btn-success" translate>Upgrade to the latest stable version</a>
 				<br>
+			</div>
+			<div class="col-md-6">
 				<h4><translate>What's new on the latest beta</translate> ({{vers.Beta}})</h4>
 				<dt id="beta"></dt>
 				<br>
@@ -28,13 +34,24 @@
 				<br>
 				<br>
 			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">	
+			<h3 translate>Offline Upgrade</h3>
+            <form action="/printer/upgrade/go" method="post" class="edit-page" enctype="multipart/form-data">
+                <input class="form-control" name="Upgrade" id="Upgrade" type="file" accept=".gz">
+                <br>
+                <button type="submit" class="btn btn-default" name="file" value="add" translate>Upgrade</button>
+            </form>
+
 			{% if rpi %}
 			<h4><translate>Downgrade / Upgrade to other builds</translate></h4>
-			{% for version in versions %}
-				<a href="/printer/upgrade/go/{{version}}" class="btn btn-warning" translate>Switch to {{version}}</a>
-				<br>
-				<br>
-			{% endfor %}
+				{% for version in versions %}
+					<a href="/printer/upgrade/go/{{version}}" class="btn btn-warning" translate>Switch to {{version}}</a>
+					<br>
+					<br>
+				{% endfor %}
 			{% endif %}
 		</div>
 	</div>

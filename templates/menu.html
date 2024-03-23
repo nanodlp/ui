@@ -16,18 +16,16 @@
                 <span class="glyphicon glyphicon-wrench"></span>&nbsp; <translate>System</translate> <span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
+                {% if !manHighLock %}
+                <li class="{% if viewMode == 0 %}hidden{% endif %}"><a href="/setup"><span class="glyphicon glyphicon-wrench"></span>&nbsp; <translate>Machine Settings</translate></a></li>
+                {% endif %}
                 <li><a href="/z-calibration"><span class="glyphicon glyphicon-resize-vertical"></span>&nbsp; <translate>Z Axis Control</translate></a></li>
                 <li><a href="/projector-calibration"><span class="glyphicon glyphicon-picture"></span>&nbsp; <translate>Display Calibration</translate></a></li>
+                <li role="separator" class="divider"></li>
                 {% if !manHighLock %}
-                <li class="{% if viewMode == 0 %}hidden{% endif %}"><a href="/setup"><span class="glyphicon glyphicon-wrench"></span>&nbsp; <translate>Machine Settings</translate></a></li>                
-                <li><a href="/term"><span class="glyphicon glyphicon-phone"></span>&nbsp; <translate>Gcode Terminal</translate></a></li>
-                <li class="{% if viewMode == 0 %}hidden{% endif %}"><a href="/add-protection"><span class="glyphicon glyphicon-lock"></span>&nbsp; <translate>Password Protection</translate></a></li>
-                <li class="{% if viewMode == 0 %}hidden{% endif %}"><a href="/setup/custom-buttons"><span class="glyphicon glyphicon-pencil"></span>&nbsp; <translate>Custom Buttons</translate></a></li>
-                <li><a href="/printer"><span class="glyphicon glyphicon-phone"></span>&nbsp; <translate>Status</translate></a></li>
-                <li><a href="/plates/history"><span class="glyphicon glyphicon-list-alt"></span>&nbsp; <translate>Print History</translate></a></li>
-                <li><a href="/tools"><span class="glyphicon glyphicon-cog"></span>&nbsp; <translate>Tools</translate></a></li>
-                <li><a href="/support"><span class="glyphicon glyphicon-question-sign"></span>&nbsp; <translate>Support</translate></a></li>
+                <li class="{% if viewMode == 0 %}hidden{% endif %}"><a href="/tools"><span class="glyphicon glyphicon-cog"></span>&nbsp; <translate>Tools</translate></a></li>
                 {% endif %}
+                <li><a href="/support"><span class="glyphicon glyphicon-question-sign"></span>&nbsp; <translate>Support</translate></a></li>
                 <li><a href="#" id="expertModeCheckbox"><span class="glyphicon glyphicon-dashboard"></span>&nbsp; {% if viewMode == 1 %}<translate>Basic Mode</translate>{% else %}<translate>Expert Mode</translate>{% endif %}</a> </li>
             </ul>            
         </li>        
@@ -44,9 +42,9 @@
         {% if os=="linux" %}
         <li>
             {% if wifi!="" %}
-                <a href="/wifi"><span class="label label-success">{{wifi}} &nbsp;<span class="glyphicon glyphicon-signal"></span></span></a>
+                <a href="/wifi"><span class="label">{{wifi}} &nbsp;<span class="glyphicon glyphicon-signal"></span></span></a>
             {% else %}
-                <a href="/wifi"><span class="label text-info"><translate>Wi-Fi</translate> &nbsp;<span class="glyphicon glyphicon-signal"></span></span></a>
+                <a href="/wifi"><span class="label"><translate>Wi-Fi</translate> &nbsp;<span class="glyphicon glyphicon-signal"></span></span></a>
             {% endif %}
         </li>
         {% endif %}

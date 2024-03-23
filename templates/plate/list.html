@@ -38,7 +38,7 @@
 			</div>
 			{% endif %}
 			{% else %}
-			<div class="alert alert-warning"><span class="glyphicon glyphicon-alert"></span>
+			<div class="label label-danger"><span class="glyphicon glyphicon-alert"></span> &nbsp; 
 				<translate>Profile not found.</translate>
 			</div>
 			{% endif %}
@@ -126,7 +126,7 @@
 				<dd>{{row.supportCureTime}}s / {% if !row.cureTimes %}{{row.cureTime}}{% else %}{{row.cureTimes}}{% endif %}s</dd>
 			</dl>
 		</td>
-		<td>
+		<td>			
 		{% if status.Printing == false %}
 			<form action="/printer/start/{{ row.PlateID }}" method="post">
 				<span class="input-append input-group">
@@ -134,19 +134,23 @@
 						value="{% if row.PlateID == status.PlateID && status.ResumeID<row.LayersCount %}{{status.ResumeID}}{% endif %}"
 						type="number" min="0" size="3" max="{{row.LayersCount}}">
 					<span class="input-group-btn">
-					<button class="btn btn-default layer-id" disabled>/ {{row.LayersCount}}</div>
+					<button class="btn btn-default layer-id" disabled>/ {{row.LayersCount}}</button>
 					<translate class="hide">Layer ID</translate>
+					{% if !row.profileError %}
 					<button type="submit" class="btn btn-warning resume req-processed tip"
 						data-confirm='Are you sure you want to resume plate {{row.Path}} from layer [LayerID]?'
 						value="Submit"><span class="glyphicon glyphicon-play"></span><span class="glyphicon glyphicon-pause"></span>
 						<translate class="hide">Resume from the middle</translate>
 					</button>
+					{% endif %}
 					</span>
 				</span>
 			</form>
+			{% if !row.profileError %}
 			<a class="btn btn-success ask req-processed tip" href="/printer/start/{{ row.PlateID }}"
 				data-ask="start-confirm"><span class="glyphicon glyphicon-play"><translate class="hide">Start</translate></span>
 			</a>
+			{% endif %}
 			{% else %}
 			{% if row.PlateID == status.PlateID %}
 			<div class="input-append">
@@ -190,7 +194,7 @@
 				  </a>
 				  </li>
 				  {% endif %}				  
-				  <li class="req-processed"><a href="/analytic/{{ row.PlateID }}"><span class="glyphicon glyphicon-stats"></span> &nbsp; <translate>Analytic</translate></a></li>
+				  <li class="req-processed"><a href="/analytic/plate/{{ row.PlateID }}"><span class="glyphicon glyphicon-stats"></span> &nbsp; <translate>Analytic</translate></a></li>
 				  <li class="req-processed"><a href="/plate/download/{{ row.PlateID }}/analytic"><span class="glyphicon glyphicon-download-alt"></span> &nbsp; <translate>Analytic Data</translate></a></li>
 				  <li class="req-processed"><a href="/plate/download/{{ row.PlateID }}/nanodlp"><span class="glyphicon glyphicon-download-alt"></span> &nbsp; <translate>Download NanoDLP</translate></a></li>
 				  <li class="req-processed"><a href="/plate/download/{{ row.PlateID }}/cbddlp"><span class="glyphicon glyphicon-download-alt"></span> &nbsp; <translate>Download CBDDLP</translate></a></li>

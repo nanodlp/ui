@@ -1,23 +1,22 @@
 {% extends "../base.html" %}
 {% block content %}
 <div class="row">
+	<div class="col-md-12">
+		<h2 translate>Display Calibration</h2>
+		<br>
+	</div>
 	<div class="col-md-3">
-		<div class="box">
-			<img src="/static/general/boundaries.png" style="width: 240px;">
-			<div class="caption">
-				<h3>
-					<translate>Size</translate> {{helpPage("https://docs.nano3dtech.com/manual/display-calibration/#boundary")}}
-				</h3>
-				<p>
-					<a href="/projector/generate/boundaries" class="btn btn-info svg">{{ icon(computer_icon) }}</a>
-					<a href="/projector/generate/boundaries-red" class="btn btn-info svg" style="color:red">{{ icon(computer_icon) }}</a>
-					<a href="/projector/blank" class="btn btn-info svg" style="color:black">{{ icon(filldisplay_icon) }}</a>
-				</p>
-			</div>
-		</div>
+		<img src="/static/general/boundaries.png" style="width: 240px;">
+		<h3>
+			<translate>Size</translate> {{helpPage("https://docs.nano3dtech.com/manual/display-calibration/#boundary")}}
+		</h3>
+		<p>
+			<a href="/projector/generate/boundaries" class="btn btn-info svg">{{ icon(computer_icon) }}</a>
+			<a href="/projector/generate/boundaries-red" class="btn btn-info svg" style="color:red">{{ icon(computer_icon) }}</a>
+			<a href="/projector/blank" class="btn btn-info svg" style="color:black">{{ icon(filldisplay_icon) }}</a>
+		</p>
 	</div>
 	<div class="col-md-3 {% if viewMode == 0 %}hidden{% endif %}" >
-		<div class="box">
 			<img src="/static/general/calibration-red.png" style="width: 240px;">
 			<div class="caption">
 				<h3>
@@ -28,98 +27,74 @@
 					<a href="/projector/generate/vr" class="btn btn-info svg">{{ icon(vr_icon) }}</a>
 					<a href="/projector/blank" class="btn btn-info svg" style="color:black">{{ icon(filldisplay_icon) }}</a>
 			</div>
-		</div>
 	</div>
 	<div class="col-md-3">
-		<div class="box">
-			<img src="/static/general/calibration.png" style="width: 240px;">
-			<div class="caption">
-				<h3>
-					<translate>Grid</translate> {{helpPage("https://docs.nano3dtech.com/manual/display-calibration/#focus")}}
-				</h3>
-				<p>
-					<a href="/projector/generate/calibration" class="btn btn-info svg">{{ icon(computer_icon) }}</a>
-					<a href="/projector/generate/calibration-red" class="btn btn-info svg" style="color:red">{{ icon(computer_icon) }}</a>
-					<a href="/projector/blank" class="btn btn-info svg" style="color:black">{{ icon(filldisplay_icon) }}</a>
-			</div>
-		</div>
+		<img src="/static/general/calibration.png" style="width: 240px;">
+		<h3>
+			<translate>Grid</translate> {{helpPage("https://docs.nano3dtech.com/manual/display-calibration/#focus")}}
+		</h3>
+		<p>
+			<a href="/projector/generate/calibration" class="btn btn-info svg">{{ icon(computer_icon) }}</a>
+			<a href="/projector/generate/calibration-red" class="btn btn-info svg" style="color:red">{{ icon(computer_icon) }}</a>
+			<a href="/projector/blank" class="btn btn-info svg" style="color:black">{{ icon(filldisplay_icon) }}</a>
 	</div>
 	<div class="col-md-3">
-		<div class="box">
-			<img src="/static/general/white.png" style="width: 240px;">
-			<div class="caption">
-				<h3>
-					<translate>Full White</translate> {{helpPage("https://docs.nano3dtech.com/manual/display-calibration/#white")}}
-				</h3>
-				<p>
-					<a href="/projector/generate/white" class="btn btn-info svg">{{ icon(computer_icon) }}</a>
-					{% if mask %}
-					<a href="/projector/display/plates***mask.png" class="btn btn-primary" translate>Mask</a>
-					{% endif %}
-					<a href="/projector/blank" class="btn btn-info svg" style="color:black">{{ icon(filldisplay_icon) }}</a>
-				</p>
-			</div>
-		</div>
+		<img src="/static/general/white.png" style="width: 240px;">
+		<h3>
+			<translate>Full White</translate> {{helpPage("https://docs.nano3dtech.com/manual/display-calibration/#white")}}
+		</h3>
+		<p>
+			<a href="/projector/generate/white" class="btn btn-info svg">{{ icon(computer_icon) }}</a>
+			{% if mask %}
+			<a href="/projector/display/plates***mask.png" class="btn btn-primary" translate>Mask</a>
+			{% endif %}
+			<a href="/projector/blank" class="btn btn-info svg" style="color:black">{{ icon(filldisplay_icon) }}</a>
+		</p>
 	</div>
 </div>
+<br>
+<br>
 <div class="row">
-	<div class="col-md-6 {% if viewMode == 0 %}hidden{% endif %}">
-		<br>
-		<br>
-		<div class="box edit-page">
-			<div class="caption">
-				<h3>
-					<translate>Barrel Distortion</translate> {{helpPage("https://docs.nano3dtech.com/manual/barrel/")}}
-				</h3>
-			</div>
-			<form method="post" action="/projector/generate/barrel" class="ajax-post">
-				<label>
-					<translate>Barrel Factor</translate>
-					<input name="BarrelFactor" value="{{barrelFactor}}" class="form-control" type="number" step="0.001">
-				</label>
-				<br><br>
-				<label>
-					<translate>Barrel's Center X</translate>
-					<input name="BarrelX" value="{{barrelX}}" class="form-control" type="number">
-				</label>
-				<label>
-					<translate>Barrel's Center Y</translate>
-					<input name="BarrelY" value="{{barrelY}}" class="form-control" type="number">
-				</label>
-				<br>
-				<br>
-				<p><button type="submit" class="btn btn-primary" translate>Display</button> <a href="/projector/blank"
-						class="btn" translate>Close</a></p>
-
-		</div>
+	<div class="col-md-4 {% if viewMode == 0 %}hidden{% endif %} edit-page">
+		<h3 translate>UV LED / Projector</h3>
+		<a href="/projector/on" class="btn btn-default" translate>Turn On</a>
+		<a href="/projector/off" class="btn btn-default" translate>Turn Off</a>
+		<a href="/shutter/open" class="btn btn-default" translate>Shutter Open</a>
+		<a href="/shutter/close" class="btn btn-default" translate>Shutter Close</a>
 	</div>
-	<div class="col-md-3 {% if viewMode == 0 %}hidden{% endif %}">
-		<br>
-		<br>
-		<div class="box">
-			<h3 translate>UV LED / Projector</h3>
-			<br>
-			<a href="/projector/on" class="btn btn-primary" translate>Projector / UV Turn On</a><br><br>
-			<a href="/projector/off" class="btn btn-primary" translate>Projector / UV Turn Off</a><br><br>
-			<a href="/shutter/open" class="btn btn-primary" translate>Shutter Open</a><br><br>
-			<a href="/shutter/close" class="btn btn-primary" translate>Shutter Close</a><br><br>
-		</div>
+	<div class="col-md-4 {% if viewMode == 0 %}hidden{% endif %} edit-page">
+		<h3 translate>Mask and Lamp</h3>
+		<a href="/mask/add" class="btn btn-default" translate>Edit Mask</a>
+		<a href="/mask/form" class="btn btn-default" translate>Mask Generator</a>
+		<a href="/projector/lamp" class="btn btn-default" translate>Update Lamp Hours [Usage: {{lampHours}}h]</a>
 	</div>
-	<div class="col-md-3 {% if viewMode == 0 %}hidden{% endif %}">
-		<br>
-		<br>
-		<div class="box">
-			<h3 translate>Mask and Lamp</h3>
+	<div class="col-md-4 {% if viewMode == 0 %}hidden{% endif %} edit-page">
+		<h3><translate>Barrel Distortion</translate> {{helpPage("https://docs.nano3dtech.com/manual/barrel/")}}</h3>
+		<form method="post" action="/projector/generate/barrel" class="ajax-post">
+			<label>
+				<translate>Barrel Factor</translate>
+				<input name="BarrelFactor" value="{{barrelFactor}}" class="form-control" type="number" step="0.001">
+			</label>
+			<br><br>
+			<label>
+				<translate>Barrel's Center X</translate>
+				<input name="BarrelX" value="{{barrelX}}" class="form-control" type="number">
+			</label>
+			<label>
+				<translate>Barrel's Center Y</translate>
+				<input name="BarrelY" value="{{barrelY}}" class="form-control" type="number">
+			</label>
 			<br>
-			<a href="/mask/add" class="btn btn-success" translate>Edit Mask</a><br><br>
-			<a href="/mask/form" class="btn btn-success" translate>Mask Generator</a><br><br>
-			<a href="/projector/lamp" class="btn btn-primary" translate>Update Lamp Hours</a>
-			&nbsp; &nbsp; {{lampHours}}<translate>Hours</translate><br><br>
 			<br>
-			{{ buttonsView(buttons,"/projector-calibration") }}
-		</div>
+			<p>
+				<button type="submit" class="btn btn-default" translate>Display</button> 
+				<a href="/projector/blank" class="btn btn-default" translate>Close</a>
+			</p>
+		</form>
+		<br>
 	</div>
 </div>
+{{ buttonsView(buttons,"/projector-calibration") }}
 {% if width==1920 && height==1080 && build=="microlay" %}
 <div class="row">
 	<div class="col-md-3">
