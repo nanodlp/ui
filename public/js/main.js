@@ -7,22 +7,20 @@ $(function(){
 	notification_close();
 	setTimeout(function(){display_notification();}, 2000);
 	if($('#buzzer').length>0){
-		display_console_log();
-		setInterval(function(){display_console_log();}, 3000);
 		update_status();
-		update_stat();
 		setInterval(function(){update_status();}, 1500);
-		setInterval(function(){update_stat();}, 5000);
 		$(window).focus(function() {
 			update_status();
 		});
 		dashboard_init();
 	} else {
-		// Log as status
-		display_console_log();
-		setInterval(function () { display_console_log(); }, 5000);
 		update_status();
 		setInterval(function () { update_status(); }, 4000);
+	}
+	// /printer route for logger
+	if($('#console').length>0){
+		display_console_log();
+		setInterval(function () { display_console_log(); }, 3000);
 	}
 	sortable_table_init();	
 	terminal_init();
@@ -581,10 +579,13 @@ function update_status(){
 				$(".printing-obj").slideDown();
 			}
 			layer_progress(data['PrevLayerTime'],data['LayerStartTime']);
+			update_stat();
 		}
 		if ($("#stat").length>0){
 			change_stats(data,['proc','disk','mem','uptime','proc_numb','temp', 'resin']);
 		}
+		var log=$.parseJSON(data["log"]);
+		last_value('msg',log['msg']);
 		update_timeline();
 		current_status_display();
 	}).fail(function() {
@@ -596,9 +597,9 @@ function update_status(){
 	});
 }
 
-function update_stat(){
+async function update_stat(){
 	$.ajax({
-		url:'stat',
+		url:'/stat',
 		dataType: 'json',
 		type: 'GET',
 		timeout: 1200

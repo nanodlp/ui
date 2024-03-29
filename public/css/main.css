@@ -674,3 +674,7 @@ dl {
 .form-inline .btn{
 	margin-bottom: 0;
 }
+
+.force-stop{
+	margin-top:-18px;
+}

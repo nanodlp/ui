@@ -4,6 +4,7 @@
 <translate class="hide" id="regenerate-confirm">Are you sure you want to RE-SLICE the layers of this plate?
 </translate>
 <translate class="hide" id="stop-confirm">Are you sure you want to stop printing?</translate>
+<translate class="hide" id="force-stop-confirm">Are you sure you want to force stop printing? Warning, Force Stop will reset the printer. Printing progress will be lost.</translate>
 <translate class="hide" id="start-confirm">Are you sure you want to print job from the start?</translate>
 <translate class="hide" id="calibrate-confirm">Are you sure you want to print the calibration job?</translate>
 <table class="table table-striped model-list" id="plates">
@@ -43,8 +44,9 @@
 			</div>
 			{% endif %}
 			{% if row.IsFaulty %}
-			<div class="notice"><span class="glyphicon glyphicon-alert"></span> &nbsp; <a
-					href="/plate/preview/{{ row.PlateID }}" translate>Source file contains faulty triangles.</a>
+			<div class="notice">
+				<span class="glyphicon glyphicon-alert"></span> &nbsp; 
+				<a href="/plate/preview/{{ row.PlateID }}" translate>Source file contains faulty structure.</a>
 					{% if !row.Repaired %}
 					<a class="ask req-no-slicing btn btn-default btn-sm repair svg tip" href="/plate/repair-regenerate/{{ row.PlateID }}"
 					data-ask="regenerate-confirm">{{ icon(repair_icon) }}<translate class="hide">Repair and re-slice</translate></a>
@@ -53,7 +55,7 @@
 			{% endif %}
 			{% if row.Risky %}
 			<div class="notice"><span class="glyphicon glyphicon-alert"></span> &nbsp; <a
-					href="/plate/preview/{{ row.PlateID }}" translate>The objects contain overhang areas.</a></div>
+					href="/plate/preview/{{ row.PlateID }}" translate>The object(s) contain overhang areas.</a></div>
 			{% endif %}
 			<br>
 			{% if row.Corrupted==true %}
@@ -65,7 +67,7 @@
 			</div>
 			{% endif %}
 			<div class="alert alert-danger req-not-processed"><span class="glyphicon glyphicon-exclamation-sign"></span> &nbsp; 
-				<translate>The plate is not sliced yet.</translate>
+				<translate>The job is not sliced yet.</translate>
 			</div>
 			<div class="plate" data-plate="{{row.PlateID}}" data-total="{{row.LayersCount}}">
 				<div class="details hide">
@@ -154,8 +156,14 @@
 			{% else %}
 			{% if row.PlateID == status.PlateID %}
 			<div class="input-append">
-				<a class="btn btn-danger ask tip" href="/printer/stop" title="stop" data-ask="stop-confirm"><span
-						class="glyphicon glyphicon-stop"></span><translate class="hide">Stop the job</translate></a>
+				{% if status.Halted %}
+					<a class="ask btn-danger btn" href="/printer/force-stop" data-ask="force-stop-confirm" translate>Force Stop</a>
+				{% else %}
+					<a class="btn btn-danger ask tip" href="/printer/stop" title="stop" data-ask="stop-confirm">
+						<span class="glyphicon glyphicon-stop"></span>
+						<translate class="hide">Stop the job</translate>
+					</a>
+				{% endif %}				
 				<span class="add-on"><span translate>Layer</span> {{ status.ResumeID }} <span translate>of</span>
 					{{row.LayersCount}}</span>
 			</div>
@@ -179,11 +187,11 @@
 					{% endif %}-->
 					{% if (row.Processed==true && row.Type && (( row.PlateID != status.PlateID or status.Printing == false))) or (row.Type && !autoSlice) %}
 					<li><a class="ask req-no-slicing" href="/plate/regenerate/{{ row.PlateID }}"
-						data-ask="regenerate-confirm"><span class="glyphicon glyphicon-refresh"></span> &nbsp; <translate>Re-slice</translate>
+						data-ask="regenerate-confirm"><span class="glyphicon glyphicon-align-justify"></span> &nbsp; <translate>Re-slice</translate>
 					</a></li>
 					{% if row.Type=="stl" %}
 					<li><a class="ask req-no-slicing" href="/plate/regenerate-wasm/{{ row.PlateID }}"
-						data-ask="regenerate-confirm"><span class="glyphicon glyphicon-refresh"></span> &nbsp; <translate>Re-slice Web</translate>
+						data-ask="regenerate-confirm"><span class="glyphicon glyphicon-align-justify"></span> &nbsp; <translate>Re-slice Web</translate>
 					</a></li>
 					{% endif %}
 					{% endif %}

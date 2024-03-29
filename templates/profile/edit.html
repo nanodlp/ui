@@ -226,14 +226,23 @@
 				<textarea class="form-control" name="ShieldBeforeLayer"
 					id="ShieldBeforeLayer">{{profile.ShieldBeforeLayer}}</textarea>
 			</div>
-			<div class="col-md-4 i_movetolayer i_moveafterprint i_option {{isHidden(basic.DynamicSpeed)}}">
+			<div class="col-md-4 i_moveafterprint i_option {{isHidden(basic.DynamicSpeed)}}">
 				<label for="DynamicSpeed">
-					<translate>Dynamic Speed</translate>
+					<translate>Dynamic Lift Speed</translate>
 					<span class="label label-default"
 						translate>mm/min (Direct Control: μm/Second)</span>  {{helpPage("https://docs.nano3dtech.com/manual/code/#dynamic-fields")}}
 					{{formulaModal()}}
 				</label>
 				<textarea class="form-control" name="DynamicSpeed" id="DynamicSpeed">{{profile.DynamicSpeed}}</textarea>
+			</div>
+			<div class="col-md-4 i_movetolayer i_option {{isHidden(basic.DynamicRetractSpeed)}}">
+				<label for="DynamicRetractSpeed">
+					<translate>Dynamic Retract Speed</translate>
+					<span class="label label-default"
+						translate>mm/min</span>  {{helpPage("https://docs.nano3dtech.com/manual/code/#dynamic-fields")}}
+					{{formulaModal()}}
+				</label>
+				<textarea class="form-control" name="DynamicRetractSpeed" id="DynamicRetractSpeed">{{profile.DynamicRetractSpeed}}</textarea>
 			</div>
 			<div class="col-md-4 i_moveafterprint i_option {{isHidden(basic.SeparationDetection)}}">
 				<label for="SeparationDetection">
@@ -282,6 +291,24 @@
 					value="{% if profile.ZStepWait==0 %}1{% else %}{{profile.ZStepWait}}{% endif %}" name="ZStepWait"
 					id="ZStepWait" type="number" min="1" required>
 			</div>
+			<div class="col-md-4 i_moveafterprint i_option {{isHidden(basic.LiftSpeed)}}">
+				<label for="LiftSpeed">
+					<translate>Lift Speed</translate>
+					<span class="label label-default" translate>mm/min </span> {{helpPage("https://docs.nano3dtech.com/manual/speed/")}}
+				</label>
+				<input class="form-control"
+					value="{% if profile.LiftSpeed==0 %}1{% else %}{{profile.LiftSpeed}}{% endif %}" name="LiftSpeed"
+					id="LiftSpeed" type="number" min="1">
+			</div>
+			<div class="col-md-4 i_movetolayer i_option {{isHidden(basic.RetractSpeed)}}">
+				<label for="RetractSpeed">
+					<translate>Retract Speed</translate>
+					<span class="label label-default" translate>mm/min </span> {{helpPage("https://docs.nano3dtech.com/manual/speed/")}}
+				</label>
+				<input class="form-control"
+					value="{% if profile.RetractSpeed==0 %}1{% else %}{{profile.RetractSpeed}}{% endif %}" name="RetractSpeed"
+					id="RetractSpeed" type="number" min="1">
+			</div>			
 			<div class="col-md-4 i_movetolayer i_option conditional {{isHidden(basic.SlowSectionHeight)}}" data-condition="#DirectControl>0">
 				<label for="SlowSectionHeight">
 					<translate>Slow Section Height</translate>

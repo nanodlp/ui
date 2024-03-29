@@ -91,8 +91,12 @@
 						<span class="val last_path pause-obj"></span>
 						<div class="controls">	
 							<div class="printing-obj">
-								<a class="ask printing-obj" href="/printer/stop" data-ask="stop-confirm"><span class="glyphicon glyphicon-stop text-danger"></span></a>
-								<a class="ask pause-obj" href="/printer/stop" data-ask="stop-confirm"><span class="glyphicon glyphicon-stop text-danger"></span></a>
+								{% if status.Halted %}
+									<a class="ask printing-obj btn-danger btn force-stop" href="/printer/force-stop" data-ask="force-stop-confirm" translate>Force Stop</a>
+								{% else %}
+									<a class="ask printing-obj" href="/printer/stop" data-ask="stop-confirm"><span class="glyphicon glyphicon-stop text-danger"></span></a>
+									<a class="ask pause-obj" href="/printer/stop" data-ask="stop-confirm"><span class="glyphicon glyphicon-stop text-danger"></span></a>
+								{% endif %}
 								<a class="pause-obj" href="/printer/unpause"><span class="glyphicon glyphicon-play text-success"></span></a>
 								<a class="printing-obj" href="/printer/pause"><span class="glyphicon glyphicon-pause text-warning"></span></a>
 								<a class="ask resume-obj" href="/printer/resume" data-ask="resume-confirm"><span class="glyphicon glyphicon-play text-warning"></span></a>
@@ -137,7 +141,8 @@
 		</div>
 	</div>
 </div>
-<translate class="hide" id="stop-confirm">Are you sure you want to stop printing? It will stop after the current layer is completed. If you want to abort the current layer, go to the `Setup` page, click on `Tools` tab and click the `Force Stop` button.</translate>
+<translate class="hide" id="force-stop-confirm">Are you sure you want to force stop printing? Warning, Force Stop will reset the printer. Printing progress will be lost.</translate>
+<translate class="hide" id="stop-confirm">Are you sure you want to stop printing? It will stop after the current layer is completed. If you want to abort the current layer, confirm stop then click on Force Stop button.</translate>
 <translate class="hide" id="poweroff-confirm">Are you sure you want to power off the printer?</translate>
 <translate class="hide" id="projectoroff-confirm">Are you sure you want to power off the projector?</translate>
 <translate class="hide" id="display-confirm">Are you sure you want to start the display? It will automatically select the second display.</translate>
