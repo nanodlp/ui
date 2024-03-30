@@ -1,0 +1,24 @@
+.u-legend.u-inline .u-value {
+    width: 150px;
+    text-align: left;
+}
+
+#uplot {
+    background-color: #BBB;
+}
+
+.u-label, .u-value, .u-title {
+    color: #000;
+}
+
+.u-legend.u-inline .u-value {
+    width: 100px;
+}
+
+.u-series {
+    font-size: small;
+}
+
+.uplot {
+    width: 100%;
+}
