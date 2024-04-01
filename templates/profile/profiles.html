@@ -1,11 +1,15 @@
 {% extends "../base.html" %}
 {% block content %}
 <h2>
-    <translate>Resin Profiles</translate> 
+    <translate>Resin Profiles</translate>
     {% if !profiles %}
-    <a class="btn btn-default tip" href="/profile/add" role="button"><span class="glyphicon glyphicon-plus"></span><translate class="hide">Add a new resin profile</translate></a> 
+    <a class="btn btn-default tip" href="/profile/add" role="button"><span class="glyphicon glyphicon-plus"></span>
+        <translate class="hide">Add a new resin profile</translate>
+    </a>
     {% endif %}
-    <a class="btn btn-default tip" href="/import"><span class="glyphicon glyphicon-import"></span><translate class="hide">Import a resin profile</translate></a>
+    <a class="btn btn-default tip" href="/import"><span class="glyphicon glyphicon-import"></span>
+        <translate class="hide">Import a resin profile</translate>
+    </a>
 </h2>
 <table class="table table-striped table-bordered model-list">
     <thead>
@@ -29,18 +33,31 @@
             <span class="glyphicon glyphicon-ok text-success"></span>
             {% else %}
             <a class="btn btn-default tip" href="/profile/default/{{profile.ProfileID}}"><span
-                    class="glyphicon glyphicon-ok"></span><translate class="hide">Set default resin profile</translate></a>
+                    class="glyphicon glyphicon-ok"></span>
+                <translate class="hide">Set default resin profile</translate>
+            </a>
             {% endif %}
         </td>
         <td>
             <a class="btn btn-default tip" href="/profile/edit/{{profile.ProfileID}}"><span
-                    class="glyphicon glyphicon-pencil"></span><translate class="hide">Edit</translate></a>
-            <a class="btn btn-danger ask tip" data-ask="delete-confirm" href="/profile/delete/{{profile.ProfileID}}"><span
-                    class="glyphicon glyphicon-trash"></span><translate class="hide">Delete</translate></a>
+                    class="glyphicon glyphicon-pencil"></span>
+                <translate class="hide">Edit</translate>
+            </a>
+            <a class="btn btn-danger ask tip" data-ask="delete-confirm"
+                href="/profile/delete/{{profile.ProfileID}}"><span class="glyphicon glyphicon-trash"></span>
+                <translate class="hide">Delete</translate>
+            </a>
             <a class="btn btn-default tip" href="/profile/clone/{{profile.ProfileID}}"><span
-                    class="glyphicon glyphicon-duplicate"></span><translate class="hide">Clone</translate></a>
+                    class="glyphicon glyphicon-duplicate"></span>
+                <translate class="hide">Clone</translate>
+            </a>
+            <a class="btn btn-default tip svg" href="/profile/compare/{{profile.ProfileID}}">{{ icon(compare_icon) }}
+                <translate class="hide">Compare</translate>
+            </a>
             <a class="btn btn-default tip" href="/profile/export/{{profile.ProfileID}}"><span
-                    class="glyphicon glyphicon-export"></span><translate class="hide">Export</translate></a>
+                    class="glyphicon glyphicon-export"></span>
+                <translate class="hide">Export</translate>
+            </a>
             <translate class="hide" id="delete-confirm">Are you sure you want to delete this profile?</translate>
         </td>
     </tr>

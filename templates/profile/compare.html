@@ -1,0 +1,66 @@
+{% extends "../base.html" %}
+{% block content %}
+<script>
+    $(document).ready(function () {
+        $(".profile-selector").change(function () {
+            compare_profiles();
+        });
+        var profiles = "{{profileIDs}}".split(",");
+        $(".profile-selector:eq(0) option[value='" + profiles[0] + "']").prop("selected", true);
+        $(".profile-selector:eq(1) option[value='" + profiles[1] + "']").prop("selected", true);
+        compare_profiles();
+    });
+    function convertToString(obj) {
+        if (Array.isArray(obj)) {
+            return obj.map(convertToString).join(', ');
+        } else if (typeof obj === 'object' && obj !== null) {
+            const entries = Object.entries(obj);
+            return entries.map(([key, value]) => `${key}: ${convertToString(value)}`).join(', ');
+        }
+        return obj;
+    }
+    function compare_profiles() {
+        $.getJSON("/profile/json/" + $(".profile-selector:eq(0)").val(), function (profile1) {
+            $.getJSON("/profile/json/" + $(".profile-selector:eq(1)").val(), function (profile2) {
+                $("#profile-compare thead th:eq(1)").html(profile1.Title);
+                $("#profile-compare thead th:eq(2)").html(profile2.Title);
+                $("#profile-compare tbody").html("");
+                var keys = Object.keys(profile1);
+                keys.forEach(key => {
+                    if (key == "Title" || key == "ProfileID") return;
+                    var v1 = convertToString(profile1[key]);
+                    var v2 = convertToString(profile2[key]);
+                    if (key == "Updated") {
+                        v1 = new Date(v1 * 1000).toLocaleString();
+                        v2 = new Date(v2 * 1000).toLocaleString();
+                    }
+                    if (v1 !== v2) {
+                        $("#profile-compare tbody").append("<tr><td>" + key + "</td><td>" + v1 + "</td><td>" + v2 + "</td></tr>");
+                    }
+                });
+            });
+        });
+    }
+</script>
+<h2>
+    <translate>Compare Profiles</translate>
+</h2>
+<table class="table">
+    <tr>
+        <td>{{ selectProfile(profiles,0) }}</td>
+        <td>{{ selectProfile(profiles,0) }}</td>
+    </tr>
+</table>
+<table class="table table-striped table-bordered" id="profile-compare">
+    <thead>
+        <tr>
+            <th translate>Parameter</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+
+    </tbody>
+</table>
+{% endblock %}

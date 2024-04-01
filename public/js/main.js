@@ -59,6 +59,7 @@ function changelog_init() {
 	var t = $("#changelog-display");
 	if (t.length==0) return;
 	var d=t.data("changelog");
+	if (d === undefined) return;
 	var cur=t.data("current");
 	var beta=t.data("beta");
 	var stable=t.data("stable");

@@ -47,8 +47,8 @@
 			<div class="notice">
 				<span class="glyphicon glyphicon-alert"></span> &nbsp; 
 				<a href="/plate/preview/{{ row.PlateID }}" translate>Source file contains faulty structure.</a>
-					{% if !row.Repaired %}
-					<a class="ask req-no-slicing btn btn-default btn-sm repair svg tip" href="/plate/repair-regenerate/{{ row.PlateID }}"
+					{% if !row.Repaired %} &nbsp; 
+					<a class="ask req-no-slicing btn btn-default repair svg tip" href="/plate/repair-regenerate/{{ row.PlateID }}"
 					data-ask="regenerate-confirm">{{ icon(repair_icon) }}<translate class="hide">Repair and re-slice</translate></a>
 					{% endif %}
 			</div>
@@ -205,6 +205,7 @@
 				  <li class="req-processed"><a href="/analytic/plate/{{ row.PlateID }}"><span class="glyphicon glyphicon-stats"></span> &nbsp; <translate>Analytic</translate></a></li>
 				  <li class="req-processed"><a href="/plate/download/{{ row.PlateID }}/analytic"><span class="glyphicon glyphicon-download-alt"></span> &nbsp; <translate>Analytic Data</translate></a></li>
 				  <li class="req-processed"><a href="/plate/download/{{ row.PlateID }}/nanodlp"><span class="glyphicon glyphicon-download-alt"></span> &nbsp; <translate>Download NanoDLP</translate></a></li>
+				  <li role="separator" class="divider"></li>
 				  <li class="req-processed"><a href="/plate/download/{{ row.PlateID }}/cbddlp"><span class="glyphicon glyphicon-download-alt"></span> &nbsp; <translate>Download CBDDLP</translate></a></li>
 				  <li class="req-processed"><a href="/plate/download/{{ row.PlateID }}/photon"><span class="glyphicon glyphicon-download-alt"></span> &nbsp; <translate>Download Photon</translate></a></li>
 				  <li class="req-processed"><a href="/plate/download/{{ row.PlateID }}/ctb"><span class="glyphicon glyphicon-download-alt"></span> &nbsp; <translate>Download CTB</translate></a></li>
