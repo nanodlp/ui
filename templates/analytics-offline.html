@@ -29,15 +29,16 @@
 <div id="uplot" data-axes='{{axes|safe}}'></div>
 <br>
 <select id="file" class="form-control form-inline" style="display:inline;width: auto;">
-    <option value="" translate>No File Selected</option>
+    {% if files|length == 0 %}
+    <option value="" translate>No File Available</option>
+    {% endif %}
     {% for file in files %}
     <option value="{{path}}{{file}}" translate>{{file}}</option>
     {% endfor %}
 </select>
 <br>
+<br>
 <input id="aggregate" class="form-control form-inline" style="display:inline;width: auto;" placeholder="Aggregate - Second">
-<button class="btn btn-success" id="download-csv" href="#" translate>Download CSV</button>
-<br>
-<br>
-<br>
+<button class="btn btn-default" id="download-csv" href="#" translate>Download CSV</button>
+<a href="/plate/download/{{ plateID }}/analytic" class="btn btn-default" translate>Export All Data</a>
 {% endblock %}

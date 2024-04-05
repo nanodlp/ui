@@ -5,7 +5,7 @@ $(function(){
 	// Run for index page
 	display_notification();
 	notification_close();
-	setTimeout(function(){display_notification();}, 2000);
+	setInterval(function(){display_notification();}, 8000);
 	if($('#buzzer').length>0){
 		update_status();
 		setInterval(function(){update_status();}, 1500);
@@ -639,7 +639,13 @@ function change_stats(data,keys){
 }
 
 display_notification.prev_data='';
-function display_notification(){	
+display_notification.modal='';
+display_notification.notification='';
+function display_notification(){
+	if (display_notification.notification==""){
+		display_notification.notification=$("#notification-template").html();
+		display_notification.modal=$("#modal-template").html();
+	}
 	$.ajax({
 		url:'/notification',
 		type: 'GET',
@@ -648,20 +654,24 @@ function display_notification(){
 		var msg="";
 		if (data===null) return;
 		$.each(data,function(k,v){
-			msg+='<div data-notification="'+v["Timestamp"]+'" class="container notification-service alert alert-'+v["Type"]+'">'+v["Text"]
-				+'<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>'
-				+'</div>';			
+			if (v["Type"]=="modal"){
+				var el = display_notification.modal;
+			} else {
+				var el = display_notification.notification;
+			}
+			msg += el.replace("[[Text]]", v["Text"]).replace("[[Type]]", v["Type"]).replace("[[Timestamp]]", v["Timestamp"]);
 		});
 		if (msg==display_notification.prev_data) return;
 		display_notification.prev_data=msg;
 		$(".notification-service").remove();
 		$(".navbar").after(msg);
+		$('.modal-notification').modal('show')
 	});
 }
 
 function notification_close(){
 	$("body").delegate('.notification-service button','click', function (e) {
-		$.get("/notification/disable/"+$(this).parent().data("notification"));
+		$.get("/notification/disable/"+$(this).parents(".notification-service").data("notification"));
 	});
 }
 

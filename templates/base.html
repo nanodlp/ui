@@ -231,6 +231,34 @@
 					<span class="val last_action"></span>
 		</a>
 	</div>
+	<div class="hide" id="modal-template">
+		<div class="modal modal-notification notification-service" tabindex="-1" role="dialog" data-notification="[[Timestamp]]">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h5 class="modal-title" translate>Notification</h5>
+				</div>
+				<div class="modal-body">
+					<p>[[Text]]</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-warning" data-dismiss="modal">Dismiss</button>
+				</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="hide" id="notification-template">
+		<div class="container notification-service alert alert-[[Type]]" data-notification="[[Timestamp]]">
+			[[Text]]
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+		</div>
+	</div>
 </body>
 
 </html>
