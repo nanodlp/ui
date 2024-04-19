@@ -30,7 +30,10 @@
         <td>{{profile.CureTime|floatformat}}</td>
         <td>
             {% if defaultProfile==profile.ProfileID %}
-            <span class="glyphicon glyphicon-ok text-success"></span>
+            <a class="btn btn-success tip" href="#" disabled><span
+                class="glyphicon glyphicon-ok"></span>
+                <translate class="hide">Set default resin profile</translate>
+            </a>
             {% else %}
             <a class="btn btn-default tip" href="/profile/default/{{profile.ProfileID}}"><span
                     class="glyphicon glyphicon-ok"></span>
