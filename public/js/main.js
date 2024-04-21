@@ -738,7 +738,7 @@ function layer_progress(layerTime, startTime) {
 }
 
 function update_timeline() {
-	var current_layer_id = last_value('layer') ?? 0;
+	let current_layer_id = last_value('layer');
 	if (!current_layer_id) current_layer_id = 0;
 	last_value('last_location', 'Not Printing');
 	last_value('last_height', '-');
@@ -747,20 +747,20 @@ function update_timeline() {
 	last_value('last_eta', '-');
 	last_value('last_plate', '-');
 	last_value('last_path', '-');
-	var current_percentage = Math.ceil(current_layer_id * 100 / last_value('layers_count'));
+	let current_percentage = Math.ceil(current_layer_id * 100 / last_value('layers_count'));
 	if (update_status.running) {
-		var plate_height = last_value('plate_height');
-		var current_height = plate_height / last_value('layers_count') * current_layer_id;
+		let plate_height = last_value('plate_height');
+		let current_height = plate_height / last_value('layers_count') * current_layer_id;
 		last_value('last_location', current_layer_id + " of " + last_value('layers_count'));
 		last_value('last_height', Math.round(current_height * 10) / 10 + " of " + plate_height + "mm");
-		var remaining_time = Math.round((last_value('layers_count') - current_layer_id) * last_value('layer_time') / 60);
-		var total_time = Math.round(last_value('layers_count') * last_value('layer_time') / 60);
-		var est = new Date();
+		let remaining_time = Math.round((last_value('layers_count') - current_layer_id) * last_value('layer_time') / 60);
+		let total_time = Math.round(last_value('layers_count') * last_value('layer_time') / 60);
+		let est = new Date();
 		est.setMinutes(est.getMinutes() + remaining_time);
 		last_value('last_remaining', format_date(remaining_time) + " of " + format_date(total_time));
 		last_value('last_eta', ("0" + est.getHours()).slice(-2) + ":" + ("0" + est.getMinutes()).slice(-2));
-		var min = Math.floor((Date.now() / 1000 - last_value("started")) / 60);
-		var hour = Math.floor(min / 60);
+		let min = Math.floor((Date.now() / 1000 - last_value("started")) / 60);
+		let hour = Math.floor(min / 60);
 		min = min - hour * 60;
 		last_value('last_elapsed', ("0" + hour).slice(-2) + ":" + ("0" + min).slice(-2));
 		if (percentage != current_percentage) {
