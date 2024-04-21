@@ -1,7 +1,14 @@
 build
+distro
+db
 public/status.json
 db/*
 public/plates/*
 webserver*
 *.log
 *.sh
+nanodlp
+nanodlp.exe
+nanodlp.exe.bak
+setup
+.idea/
