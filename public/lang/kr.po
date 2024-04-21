@@ -378,7 +378,7 @@ msgid "Build"
 msgstr "빌드"
 
 #: ../templates/profile/edit.html:14
-msgid "Burin-in layers count, cure time, lift, erode"
+msgid "Burn-in layers count, cure time, lift, erode"
 msgstr "경화 레이어 수, 경화 시간, 리프트, 침식"
 
 #: ../templates/profile/edit.html:73
