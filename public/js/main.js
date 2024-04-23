@@ -723,52 +723,55 @@ function display_console_log(){
 	});
 }
 
-function layer_progress(layer_time,start_time){	
-	if ($(".progress-bar-layer").data("layer-id")==last_value('layer')||layer_time==0) return;
-	layer_time/=1000000;
-	start_time/=1000000;
-	$(".progress-bar-layer").data("layer-id",last_value('layer'));
-	$(".progress-bar-layer").stop(true,false).fadeOut(400,function(){
-		var d = new Date().getTime();
-		var spent_time=d-start_time-500;
-		$(".progress-bar-layer").css("width",0).show().animate({"width":"100%"},layer_time-spent_time);
+function layer_progress(layerTime, startTime) {
+	const progressBarElem = $(".progress-bar-layer");
+	if (progressBarElem.data("layer-id") == last_value('layer') || layerTime == 0) return;
+	const layerTimeInMs = layerTime / 1000000;
+	const startTimeInMs = startTime / 1000000
+
+	progressBarElem.data("layer-id", last_value('layer'));
+	progressBarElem.stop(true, false).fadeOut(400, function () {
+		const date = new Date().getTime();
+		const spentTime = date - startTimeInMs - 500;
+		progressBarElem.css("width", 0).show().animate({"width": "100%"}, layerTimeInMs - spentTime);
 	});
 }
 
-function update_timeline(){
-	var current_layer_id = last_value('layer');
+function update_timeline() {
+	let current_layer_id = last_value('layer');
 	if (!current_layer_id) current_layer_id = 0;
-	last_value('last_location','Not Printing');
-	last_value('last_height','-');
-	last_value('last_remaining','-');
-	last_value('last_elapsed','-');
-	last_value('last_eta','-');
-	last_value('last_plate','-');
-	last_value('last_path','-');
-	var current_percentage = Math.ceil(current_layer_id * 100 / last_value('layers_count'));
-	if (update_status.running){
-		var plate_height=last_value('plate_height');
-		var current_height=plate_height/last_value('layers_count')*current_layer_id;
-		last_value('last_location', current_layer_id + " of " +last_value('layers_count'));
-		last_value('last_height', Math.round(current_height*10)/10+" of "+plate_height+"mm");
-		var remaining_time = Math.round((last_value('layers_count')-current_layer_id)*last_value('layer_time')/60);
-		var total_time = Math.round(last_value('layers_count')*last_value('layer_time')/60);
-		var est = new Date();
+	last_value('last_location', 'Not Printing');
+	last_value('last_height', '-');
+	last_value('last_remaining', '-');
+	last_value('last_elapsed', '-');
+	last_value('last_eta', '-');
+	last_value('last_plate', '-');
+	last_value('last_path', '-');
+	let current_percentage = Math.ceil(current_layer_id * 100 / last_value('layers_count'));
+	if (update_status.running) {
+		let plate_height = last_value('plate_height');
+		let current_height = plate_height / last_value('layers_count') * current_layer_id;
+		last_value('last_location', current_layer_id + " of " + last_value('layers_count'));
+		last_value('last_height', Math.round(current_height * 10) / 10 + " of " + plate_height + "mm");
+		let remaining_time = Math.round((last_value('layers_count') - current_layer_id) * last_value('layer_time') / 60);
+		let total_time = Math.round(last_value('layers_count') * last_value('layer_time') / 60);
+		let est = new Date();
 		est.setMinutes(est.getMinutes() + remaining_time);
 		last_value('last_remaining', format_date(remaining_time) + " of " + format_date(total_time));
-		last_value('last_eta',  ("0" + est.getHours()).slice(-2) + ":" + ("0" + est.getMinutes()).slice(-2));
-		var min= Math.floor((Date.now()/1000-last_value("started"))/60);
-		var hour = Math.floor(min / 60);
-		min = min-hour*60;
-		last_value('last_elapsed', ("0"+hour).slice(-2)+":"+("0"+min).slice(-2));
-		if (percentage!=current_percentage) {
+		last_value('last_eta', ("0" + est.getHours()).slice(-2) + ":" + ("0" + est.getMinutes()).slice(-2));
+		let min = Math.floor((Date.now() / 1000 - last_value("started")) / 60);
+		let hour = Math.floor(min / 60);
+		min = min - hour * 60;
+		last_value('last_elapsed', ("0" + hour).slice(-2) + ":" + ("0" + min).slice(-2));
+		if (percentage != current_percentage) {
 			favicon.badge(current_percentage);
-			percentage=current_percentage;
+			percentage = current_percentage;
+			$('.print-progress-text').text(current_percentage + "%")
 		}
 	} else {
 		favicon.reset();
 	}
-	$(".progress-bar-main").css("width",percentage+"%");
+	$(".progress-bar-main").css("width", percentage + "%");
 }
 
 function format_date(mins) {
