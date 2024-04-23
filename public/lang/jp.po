@@ -378,7 +378,7 @@ msgid "Build"
 msgstr "セットアップ"
 
 #: ../templates/profile/edit.html:14
-msgid "Burin-in layers count, cure time, lift, erode"
+msgid "Burn-in layers count, cure time, lift, erode"
 msgstr "初期レイヤーの厚さ、レイヤー数、硬化時間、リフト、領域補正"
 
 #: ../templates/profile/edit.html:73

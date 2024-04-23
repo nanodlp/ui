@@ -378,7 +378,7 @@ msgid "Build"
 msgstr "Versione"
 
 #: ../templates/profile/edit.html:14
-msgid "Burin-in layers count, cure time, lift, erode"
+msgid "Burn-in layers count, cure time, lift, erode"
 msgstr ""
 
 #: ../templates/profile/edit.html:73
