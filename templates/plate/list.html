@@ -270,12 +270,21 @@
 				</ul>
 			</div>
 			{% if status.Printing == false %}
-			<span class="start-after-slice">
-				<a class="btn btn-success ask" href="/printer/start-after-slice/{{ row.PlateID }}"
-					data-ask="start-confirm"><span class="glyphicon glyphicon-play"></span>
-					<translate>Print After Sliced</translate>
-				</a>
-			</span>
+				{% if printAfterSlice == row.PlateID %}
+				<span class="start-after-slice">
+					<a class="btn btn-warning ask" href="/printer/start-after-slice/{{ row.PlateID }}"
+						data-ask="start-confirm"><span class="glyphicon glyphicon-stop"></span>
+						<translate>Cancel Scheduled Print</translate>
+					</a>
+				</span>
+				{% else %}
+				<span class="start-after-slice">
+					<a class="btn btn-default ask" href="/printer/start-after-slice/{{ row.PlateID }}"
+						data-ask="start-confirm"><span class="glyphicon glyphicon-play"></span>
+						<translate>Print After Sliced</translate>
+					</a>
+				</span>
+				{% endif %}
 			{% endif %}
 		</td>
 	</tr>
