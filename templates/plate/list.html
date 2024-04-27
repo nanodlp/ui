@@ -1,3 +1,49 @@
+{% set repair_icon = '<path d="M.102 2.223A3.004 3.004 0 0 0 3.78 5.897l6.341 6.252A3.003 3.003 0 0 0 13 16a3 3 0 1 0-.851-5.878L5.897 3.781A3.004 3.004 0 0 0 2.223.1l2.141 2.142L4 4l-1.757.364zm13.37 9.019.528.026.287.445.445.287.026.529L15 13l-.242.471-.026.529-.445.287-.287.445-.529.026L13 15l-.471-.242-.529-.026-.287-.445-.445-.287-.026-.529L11 13l.242-.471.026-.529.445-.287.287-.445.529-.026L13 11z"/>' %}
+{% macro icon(ic) %}
+<svg viewBox="0 0 16 16" class="bi" fill="currentColor" xmlns="http://www.w3.org/2000/svg">{{ic|safe}}</svg>
+{% endmacro %}
+{% macro printHistory(PrintResult) %}
+{% if PrintResult.Path %}
+<div class="row">
+	<div class="col-md-12">
+		<div class="panel panel-{{ PrintResult.StatusTag }}">
+			<div class="panel-heading">
+				<h3 class="panel-title">
+					<span class="glyphicon glyphicon-question-sign" style="display: inline-block;"></span>
+					{{PrintResult.Path}}
+				</h3>
+			</div>
+			<div class="panel-body">
+				<img src="/print/preview/{{PrintResult.PrintID}}" style="float: right;max-width:300px;">
+				<span class="glyphicon glyphicon-tint"></span> {{PrintResult.ProfileName}} ({{PrintResult.TotalSolidArea}}ml)<br>
+				<span class="glyphicon glyphicon-usd"></span> {{PrintResult.Price}}<br>
+				<span class="glyphicon glyphicon-menu-hamburger"></span> {{PrintResult.LayersCount}}<br>
+				<span class="glyphicon glyphicon-minus"></span> {{PrintResult.LayerThickness}}<br>
+				<span class="glyphicon glyphicon-time"></span> {{PrintResult.PrintTime}}<br>
+				<span class="glyphicon glyphicon-time"></span> {{PrintResult.supportCureTime}}s / {% if !PrintResult.cureTimes %}{{PrintResult.cureTime}}{% else %}{{PrintResult.cureTimes}}{% endif %}s<br>
+				<span class="glyphicon glyphicon-time"></span> {{PrintResult.Date}}<br>
+			</div>
+			{% if PrintResult.Status == 0 %}
+			<div class="panel-footer">
+				<a class="btn btn-success" href="/plate/result/{% if PrintResult %}{{PrintResult.PlateID}}{% else %}0{%endif%}/{{PrintResult.PrintID}}/2"><span class="glyphicon glyphicon-ok-sign"></span> <translate>Successful Print</translate></a>
+				<div class="btn-group">
+					<button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					<span class="glyphicon glyphicon-remove-sign"></span> <translate>Failed Print</translate> <span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu">
+						<li><a href="/plate/result/{{PrintResult.PlateID}}/{{PrintResult.PrintID}}/3" translate>Some Parts Are Missing</a></li>
+						<li><a href="/plate/result/{{PrintResult.PlateID}}/{{PrintResult.PrintID}}/4" translate>Only Supports There</a></li>
+						<li><a href="/plate/result/{{PrintResult.PlateID}}/{{PrintResult.PrintID}}/5" translate>Nothing on Build Platform</a></li>
+					</ul>
+				</div>
+				<a class="btn btn-warning" href="/plate/result/{{PrintResult.PlateID}}/{{PrintResult.PrintID}}/1"><span class="glyphicon glyphicon-minus-sign"></span> <translate>Ignore</translate></a>
+			</div>
+			{% endif %}
+		</div>
+	</div>
+</div>
+{% endif %}
+{% endmacro %}
 {{ printHistory(PrintResult) }}
 <translate class="hide" id="deleteall-confirm">Are you sure you want to delete all the jobs?</translate>
 <translate class="hide" id="delete-confirm">Are you sure you want to delete this job?</translate>

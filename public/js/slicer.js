@@ -34,6 +34,9 @@ function slicer_progress() {
 }
 
 function update_slicer_progress(data) {
+	if (data["running"] == 0&&running==1) {
+		update_plates_list();
+	}
 	running = data["running"];
 	if (data["running"] == 0) {
 		$(".plate .details").addClass("hide");
