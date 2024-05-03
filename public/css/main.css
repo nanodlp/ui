@@ -549,8 +549,7 @@ dl {
 	margin-bottom: 0;
 }
 .dashboard img{
-	max-width: 100%;
-    height: auto;
+	height: 100%;
 }
 
 .dashboard .cont h3.panel-title{
