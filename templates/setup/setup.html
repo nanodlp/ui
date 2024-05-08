@@ -78,10 +78,8 @@
 					<translate>Printer Type</translate> {{helpPage("https://docs.nano3dtech.com/manual/settings/#printer-type")}}
 				</label>
 				<select class="form-control" name="PrinterType" id="PrinterType">
-					<option value="0" {% if PrinterType==0 %}selected{% endif %} translate>Projector / UV LCD</option>
+					<option value="0" {% if PrinterType==0 %}selected{% endif %} translate>Projector / LCD</option>
 					<option value="1" {% if PrinterType==1 %}selected{% endif %} translate>Laser</option>
-					<option value="2" {% if PrinterType==2 %}selected{% endif %} translate>Non-Stop Printer</option>
-					<option value="3" {% if PrinterType==3 %}selected{% endif %} translate>High Resolution Printer</option>
 				</select>
 			</div>
 			<div class="col-md-4 i_basic i_appearance i_option">
@@ -344,6 +342,14 @@
 					<translate>Print Stop Code</translate> {{formulaModal()}}
 				</label>
 				<textarea class="form-control" name="ShieldFinish" id="ShieldFinish">{{ShieldFinish}}</textarea>
+			</div>
+			<div class="col-md-4 i_code i_option i_lock">
+				<label for="CureGcode">
+					<translate>Code for Curing</translate> {{helpPage("https://docs.nano3dtech.com/manual/code/#code-for-curing")}} {{formulaModal()}}
+				</label>
+				<textarea class="form-control" name="CureGcode"
+					id="CureGcode">{{CureGcode}}</textarea>
+
 			</div>
 			<div class="col-md-4 i_code i_axis i_option i_lock">
 				<label for="ManualMoveGcode">
@@ -795,7 +801,6 @@
 		<input type="hidden" name="TopGcode" value="{{TopGcode}}">
 		<input type="hidden" name="CalibrationGcode" value="{{CalibrationGcode}}">
 		<input type="hidden" name="UpgradeGcode" value="{{UpgradeGcode}}">
-		<input type="hidden" name="MultiCureGcode" value="{{MultiCureGcode}}">
 		<input type="hidden" name="BottomGcode" value="{{BottomGcode}}">
 		<input type="hidden" name="PressureType" value="{{PressureType}}">
 		<input type="hidden" name="PressureAddress" value="{{PressureAddress}}">
