@@ -1,0 +1,13 @@
+{% extends "../base.html" %}
+{% block content %}
+	<div class="row">
+		<div class="col-md-12">	
+			<h3 translate>Custom Print Finish Sound (ogg format)</h3>
+            <form action="/setup/custom-sound" method="post" class="edit-page" enctype="multipart/form-data">
+                <input class="form-control" name="Sound" id="Sound" type="file" accept=".ogg">
+                <br>
+                <button type="submit" class="btn btn-default" name="file" value="add" translate>Upload</button>
+            </form>
+		</div>
+	</div>
+{% endblock %}
