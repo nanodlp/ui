@@ -228,10 +228,10 @@
 				<ul class="dropdown-menu">					
 					<li><a href="/plate/edit/{{ row.PlateID }}"><span
 						class="glyphicon glyphicon-pencil"></span> &nbsp; <translate>Edit</translate></a></li>
-					<!--{% if row.Type=="stl" && row.Size < 300 %}
-					<li><a href="/static/?src=/static/plates/{{ row.PlateID }}/plate.stl&dst=/plate/add-support&width={{width}}&height={{height}}"><span class="glyphicon glyphicon-pencil"></span> &nbsp; <translate>3D Edit</translate>
+					{% if row.Type=="stl" && row.Size < 500000000 %}
+					<li><a href="/static/editor/?ApplicationMode=embedded&src=/static/plates/{{ row.PlateID }}/plate.stl"><span class="glyphicon glyphicon-pencil"></span> &nbsp; <translate>3D Edit</translate>
 					</a></li>
-					{% endif %}-->
+					{% endif %}
 					{% if (row.Processed==true && row.Type && (( row.PlateID != status.PlateID or status.Printing == false))) or (row.Type && !autoSlice) %}
 					<li><a class="ask req-no-slicing" href="/plate/regenerate/{{ row.PlateID }}"
 						data-ask="regenerate-confirm"><span class="glyphicon glyphicon-align-justify"></span> &nbsp; <translate>Re-slice</translate>

@@ -11,3 +11,5 @@ nanodlp
 nanodlp.exe
 nanodlp.exe.bak
 .idea/
+templates/nextion
+public/editor
