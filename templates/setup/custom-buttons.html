@@ -9,8 +9,8 @@
 	});
 	function update_input(){
 		$("tr").each(function(){
-			if ($(this).find(".color").val()!=="toggle") {
-				$(this).find(".toggle").hide();				
+			if ($(this).find(".color").val()!=="toggle"&&$(this).find(".color").val()!=="toggle2") {
+				$(this).find(".toggle").hide();
 			} else {
 				$(this).find(".toggle").show();				
 			}
@@ -29,6 +29,7 @@
 			<option value="btn btn-danger" {% if color=="btn btn-danger" %}selected{% endif %} translate>Red</option>
 			<option value="btn btn-default" {% if color=="btn btn-default" %}selected{% endif %} translate>Default</option>
 			<option value="toggle" {% if color=="toggle" %}selected{% endif %} translate>Green => Red</option>
+			<option value="toggle2" {% if color=="toggle2" %}selected{% endif %} translate>Red => Green</option>
 		</select>
 	</td>
 	<td>

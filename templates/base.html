@@ -88,10 +88,14 @@
 					{% if button.Color=='toggle' %}
 						{% if !button.State %}btn btn-success{% else %}btn btn-danger{% endif %}
 					{% else %}
-					{{button.Color}} 
+						{% if button.Color=='toggle2' %}
+							{% if !button.State %}btn btn-danger{% else %}btn btn-success{% endif %}
+						{% else %}
+							{{button.Color}} 
+						{% endif %}
 					{% endif %}
 					{{button.Condition}}" {% if button.ConfirmText!="" %} onclick="return confirm('{{button.ConfirmText}}');" {% endif %}>
-					{% if button.Color=='toggle' %}
+					{% if button.Color=='toggle' || button.Color=='toggle2' %}
 						{% if !button.State %}{{button.Name}}{% else %}{{button.NameActive}}{% endif %}
 					{% else %}
 					{{button.Name}} 
