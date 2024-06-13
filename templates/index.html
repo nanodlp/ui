@@ -6,13 +6,15 @@
 		{% if !manHighLock %}<div class="nanodlp-content"></div>{% endif %}
 		<div class="col-md-12">
 			<h2><span translate>Jobs</span>
-				<a class="btn btn-default" href="/plate/add" role="button"><span
-						class="glyphicon glyphicon-plus"></span></a>
+				<a class="btn btn-default" href="/plate/add" role="button">
+					<span class="glyphicon glyphicon-plus"></span>
+				</a>
+				<a class="btn btn-default tip svg" href="/static/editor/?ApplicationMode=embedded" role="button">{{ icon(threed_icon) }}
+					<translate class="hide">Add a new job using 3D editor</translate>
+				</a>
 			</h2>
 			<div id="plates-list">{% include "plate/list.html" %}</table></div>
 		</div>
 	</div>
 </div>
-
-<br>
 {% endblock %}

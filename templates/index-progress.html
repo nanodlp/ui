@@ -107,8 +107,8 @@
 							<a class="pause-obj" href="/printer/unpause"><span class="glyphicon glyphicon-play text-success"></span></a>
 							<a class="ask resume-obj" href="/printer/resume" data-ask="resume-confirm"><span class="glyphicon glyphicon-play text-warning"></span></a>
 							{% if arch=="arm" %}
-							<a class="idle-obj ajax" href="/printer/off" name="type" data-ajax="/" data-confirm="poweroff-confirm"><span class="glyphicon glyphicon-off text-danger"></span></a>
-							<a class="idle-obj ajax" href="/printer/restart" name="type" data-ajax="/" data-confirm="restart-confirm"><span class="glyphicon glyphicon-repeat text-danger"></a>
+							<a class="ask idle-obj" href="/printer/off" name="type" data-ask="poweroff-confirm"><span class="glyphicon glyphicon-off text-danger"></span></a>
+							<a class="ask idle-obj" href="/printer/restart" name="type" data-ask="restart-confirm"><span class="glyphicon glyphicon-repeat text-danger"></a>
 							{% endif %}
 
 						</div>
