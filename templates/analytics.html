@@ -25,10 +25,16 @@
         }
     }
 
+    var reqRunning;
     function getData(exp) {
+        if (reqRunning===true) return;
+        reqRunning = true;
         const range = $("#range").val();
         $.getJSON("/analytic/data/" + range, function (response) {
-            return buildChartFromData("Sensor reading", response, exp)
+            if (response==null) return;
+            return buildChartFromData("Sensor reading", response, exp);
+        }).always(function () {
+            reqRunning = false;
         });
     }
 </script>

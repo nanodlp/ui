@@ -229,7 +229,7 @@
 					<li><a href="/plate/edit/{{ row.PlateID }}"><span
 						class="glyphicon glyphicon-pencil"></span> &nbsp; <translate>Edit</translate></a></li>
 					{% if row.Type=="stl" && row.Size < 500000000 %}
-					<li><a href="/static/editor/?ApplicationMode=embedded&src=/static/plates/{{ row.PlateID }}/plate.stl"><span class="glyphicon glyphicon-pencil"></span> &nbsp; <translate>3D Edit</translate>
+					<li><a target="_blank" href="/static/editor/?ApplicationMode=embedded&src=/static/plates/{{ row.PlateID }}/plate.stl"><span class="glyphicon glyphicon-pencil"></span> &nbsp; <translate>3D Edit</translate>
 					</a></li>
 					{% endif %}
 					{% if (row.Processed==true && row.Type && (( row.PlateID != status.PlateID or status.Printing == false))) or (row.Type && !autoSlice) %}

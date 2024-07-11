@@ -16,7 +16,6 @@ function isNotAllNull(subArray) {
 }
 
 function renderChart(name, dataRows, series) {
-
     // Filter data and series if they are entirely null
     const filteredData = dataRows.filter(isNotAllNull);
     const filteredSeries = series.filter((_, index) => isNotAllNull(dataRows[index]));
@@ -32,12 +31,30 @@ function renderChart(name, dataRows, series) {
         series: filteredSeries,
         axes: prepareAxis(filteredSeries),
     };
-    if ($("#uplot").html() != "") {
+    if ($("#uplot").html() != "") { // Run once
         plot.setData(filteredData);
         return;
     }
+    opts = applyLegend(opts);
     $("#uplot").html("");
     plot = new uPlot(opts, filteredData, $("#uplot")[0]);
+    saveLegend();
+}
+
+function applyLegend(opts) {
+    const storedString = localStorage.getItem("legends"); 
+    if (!storedString) return;
+    const series = JSON.parse(storedString);
+    series.forEach((element,index) => {
+        if (element.show === false) opts.series[index].show = false;
+    });
+    return opts
+}
+
+function saveLegend() {
+    $(".u-legend .u-series").click(function () {
+        localStorage.setItem("legends", JSON.stringify(plot.series));
+    });
 }
 
 function prepareAxis(series) {
