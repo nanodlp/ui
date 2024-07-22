@@ -414,20 +414,20 @@
 				<input class="form-control" value="{{profile.ElephantAmount}}" name="ElephantAmount" id="ElephantAmount" step="0.1"
 					min="0" max="100" type="number">
 			</div>
-			<div class="col-md-4 conditional i_slicing i_burnin i_option {{isHidden(basic.ElephantWall)}}"
+			<div class="col-md-4 conditional i_slicing i_burnin i_option {{isHidden(basic.ElephantBorder)}}"
 				data-condition="#ElephantType > 0 && ['i_slicing','i_burnin'].includes(#scategory)">
-				<label for="ElephantWall">
-					<translate>Elephant Foot Wall Thickness</translate>{{regenerateRequired()}}
+				<label for="ElephantBorder">
+					<translate>Elephant Foot Wall Thickness</translate> <span class="label label-default" translate>MM</span> {{regenerateRequired()}}
 				</label>
-				<input class="form-control" value="{{profile.ElephantWall}}" name="ElephantWall" id="ElephantWall" step="1"
+				<input class="form-control" value="{{profile.ElephantBorder}}" name="ElephantBorder" id="ElephantBorder" step="0.01"
 					type="number">
 			</div>
-			<div class="col-md-4 conditional i_slicing i_burnin i_option {{isHidden(basic.ElephantLayers)}}"
+			<div class="col-md-4 conditional i_slicing i_burnin i_option {{isHidden(basic.ElephantThickness)}}"
 				data-condition="#ElephantType > 0 && ['i_slicing','i_burnin'].includes(#scategory)">
-				<label for="ElephantLayers">
-					<translate>Elephant Foot Compensation Layers</translate>{{regenerateRequired()}}
+				<label for="ElephantThickness">
+					<translate>Elephant Foot Compensation Thickness</translate> <span class="label label-default" translate>MM</span>{{regenerateRequired()}}
 				</label>
-				<input class="form-control" value="{{profile.ElephantLayers}}" name="ElephantLayers" id="ElephantLayers" step="1"
+				<input class="form-control" value="{{profile.ElephantThickness}}" name="ElephantThickness" id="ElephantThickness" step="1"
 					type="number">
 			</div>
 			<div class="col-md-4 i_slicing i_option {{isHidden(basic.HatchingType)}}">
@@ -440,54 +440,51 @@
 					<option value="2" {% if profile.HatchingType==2 %}selected{% endif %} translate>Hollowing</option>
 				</select>				
 			</div>
-			<div class="col-md-4 i_slicing i_option conditional {{isHidden(basic.HatchingTopCap)}}"
+			<div class="col-md-4 i_slicing i_option conditional {{isHidden(basic.HatchingTop)}}"
 				data-condition="#HatchingType > 0 && ['i_slicing'].includes(#scategory)">
-				<label for="HatchingTopCap">
+				<label for="HatchingTop">
 					<translate>Top Cap Wall</translate>
-					<span class="label label-default"
-						translate>Layers</span> {{helpPage("https://docs.nano3dtech.com/manual/hollowing/")}}{{regenerateRequired()}}
+					<span class="label label-default" translate>MM</span> {{helpPage("https://docs.nano3dtech.com/manual/hollowing/")}}{{regenerateRequired()}}
 				</label>
-				<input class="form-control" value="{{profile.HatchingTopCap}}" name="HatchingTopCap" id="HatchingTopCap"
-					step="1" max="10" type="number">
+				<input class="form-control" value="{{profile.HatchingTop}}" name="HatchingTop" id="HatchingTop"
+					step="0.05" max="10" type="number">
 			</div>
-			<div class="col-md-4 i_slicing i_option conditional {{isHidden(basic.HatchingBottomCap)}}"
+			<div class="col-md-4 i_slicing i_option conditional {{isHidden(basic.HatchingBottom)}}"
 				data-condition="#HatchingType > 0 && ['i_slicing'].includes(#scategory)">
-				<label for="HatchingBottomCap">
+				<label for="HatchingBottom">
 					<translate>Bottom Cap Wall</translate>
-					<span class="label label-default"
-						translate>Layers</span> {{helpPage("https://docs.nano3dtech.com/manual/hollowing/")}}{{regenerateRequired()}}
+					<span class="label label-default" translate>MM</span> {{helpPage("https://docs.nano3dtech.com/manual/hollowing/")}}{{regenerateRequired()}}
 				</label>
-				<input class="form-control" value="{{profile.HatchingBottomCap}}" name="HatchingBottomCap"
-					id="HatchingBottomCap" step="1" max="10" type="number">
+				<input class="form-control" value="{{profile.HatchingBottom}}" name="HatchingBottom"
+					id="HatchingBottom" step="0.05" max="10" type="number">
 			</div>
-			<div class="col-md-4 i_slicing i_option conditional {{isHidden(basic.HatchingOuterWall)}}"
+			<div class="col-md-4 i_slicing i_option conditional {{isHidden(basic.HatchingOuter)}}"
 				data-condition="#HatchingType > 0 && ['i_slicing'].includes(#scategory)">
-				<label for="HatchingOuterWall">
+				<label for="HatchingOuter">
 					<translate>Outer Wall Thickness</translate>
-					<span class="label label-default"
-						translate>Pixels</span> {{helpPage("https://docs.nano3dtech.com/manual/hollowing/")}}{{regenerateRequired()}}
+					<span class="label label-default" translate>MM</span> {{helpPage("https://docs.nano3dtech.com/manual/hollowing/")}}{{regenerateRequired()}}
 				</label>
-				<input class="form-control" value="{{profile.HatchingOuterWall}}" name="HatchingOuterWall"
-					id="HatchingOuterWall" step="1" type="number">
+				<input class="form-control" value="{{profile.HatchingOuter}}" name="HatchingOuter"
+					id="HatchingOuter" step="0.01" type="number">
 			</div>
-			<div class="col-md-4 i_slicing i_option conditional {{isHidden(basic.HatchingWall)}}"
+			<div class="col-md-4 i_slicing i_option conditional {{isHidden(basic.HatchingBorder)}}"
 				data-condition="#HatchingType > 0 && ['i_slicing'].includes(#scategory)">
-				<label for="HatchingWall">
+				<label for="HatchingBorder">
 					<translate>Infill Pattern Wall Size</translate>
-					<span class="label label-default" translate>Pixels</span>
+					<span class="label label-default" translate>MM</span>
 					{{helpPage("https://docs.nano3dtech.com/manual/hollowing/")}}{{regenerateRequired()}}
 				</label>
-				<input class="form-control" value="{{profile.HatchingWall}}" name="HatchingWall" id="HatchingWall"
-					step="1" type="number">
+				<input class="form-control" value="{{profile.HatchingBorder}}" name="HatchingBorder" id="HatchingBorder"
+					step="0.01" type="number">
 			</div>
-			<div class="col-md-4 i_slicing i_option conditional {{isHidden(basic.HatchingGap)}}"
+			<div class="col-md-4 i_slicing i_option conditional {{isHidden(basic.HatchingSpace)}}"
 				data-condition="#HatchingType > 0 && ['i_slicing'].includes(#scategory)">
-				<label for="HatchingGap">
+				<label for="HatchingSpace">
 					<translate>Infill Pattern Cell Width</translate>
-					<span class="label label-default" translate>Pixels</span>
+					<span class="label label-default" translate>MM</span>
 					{{helpPage("https://docs.nano3dtech.com/manual/hollowing/")}}{{regenerateRequired()}}
 				</label>
-				<input class="form-control" value="{{profile.HatchingGap}}" name="HatchingGap" id="HatchingGap" step="1"
+				<input class="form-control" value="{{profile.HatchingSpace}}" name="HatchingSpace" id="HatchingSpace" step="0.01"
 					type="number">
 			</div>
 			<div class="col-md-4 i_moveafterprint i_option conditional {{isHidden(basic.SupportWaitHeight)}}" data-condition="#PrinterType != 2 && ['i_moveafterprint'].includes(#scategory)">
