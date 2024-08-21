@@ -677,3 +677,8 @@ dl {
 .force-stop{
 	margin-top:-18px;
 }
+
+.cancel-slicing{
+	float: right;
+	font-size: small;
+}

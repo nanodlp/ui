@@ -454,7 +454,8 @@
 				</label>
 				<select class="form-control" name="DisplayController" id="DisplayController">
 					<option value="0" {% if ConfigSlicerOptions.DisplayController==0 %}selected{% endif %} translate>Normal</option>
-					<option value="1" {% if ConfigSlicerOptions.DisplayController==1 %}selected{% endif %} translate>Non-Standard Monochrome</option>
+					<option value="1" {% if ConfigSlicerOptions.DisplayController==1 %}selected{% endif %} translate>Monochrome</option>
+					<option value="2" {% if ConfigSlicerOptions.DisplayController==2 %}selected{% endif %} translate>Monochrome Rock Pi</option>
 				</select>
 			</div>
 			<div class="col-md-4 i_display i_slicing i_option i_lock">

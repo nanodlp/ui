@@ -30,7 +30,7 @@ $(function(){
 	preview_init();
 	editable_table_init();
 	help_init();
-	resume_init();
+	jobs_action_init();
 	search_init();
 	plate_init();
 	repair_init();
@@ -338,10 +338,12 @@ function repair_init(){
 	});
 }
 
-function resume_init(){
+function jobs_action_init(){
 	$("body").delegate(".resume","click",function(e){
 		var t=$(this);
 		return confirm(t.data("confirm").replace("[LayerID]",t.parents("form").find("input").val()));
+	}).delegate(".cancel-slicing","click",function(e){
+		$.get("/slicer/cancel");
 	});
 }
 

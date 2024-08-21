@@ -70,7 +70,7 @@
 	<tr {% if forloop.Counter==1 %}id="latest"{% endif %} class="{% if row.Processed %}plate-processed{% endif %}" data-profile="{{row.profileID}}">
 		<td>{{row.PlateID}}</td>
 		<td>
-			<b>{{row.Path}}</b>
+			<b class="tip">{{row.Path}}<translate class="hide">Uploaded on: {{row.UploadedOn}}</translate></b>
 			<br><br>
 			{% if !row.profileError %}
 			<span class="glyphicon glyphicon-tint"></span> &nbsp; <a href="/profile/edit/{{row.profileID}}">{{row.ProfileName}}</a><br>
@@ -120,6 +120,7 @@
 				<div class="details hide">
 					<div class="alert alert-danger"><span class="glyphicon glyphicon-refresh"></span>
 						<translate>Slicing...</translate>
+						<button class="cancel-slicing close btn-danger">x</button>
 						<div class="progress progress-striped active">
 							<div style="width: 0%" class="progress-bar progress-bar-success"></div>
 						</div>
