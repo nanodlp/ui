@@ -42,6 +42,7 @@
             {% endif %}
         </td>
         <td>
+            {% if !profile.ManufacturerLock %}
             <a class="btn btn-default tip" href="/profile/edit/{{profile.ProfileID}}"><span
                     class="glyphicon glyphicon-pencil"></span>
                 <translate class="hide">Edit</translate>
@@ -50,6 +51,7 @@
                 href="/profile/delete/{{profile.ProfileID}}"><span class="glyphicon glyphicon-trash"></span>
                 <translate class="hide">Delete</translate>
             </a>
+            {% endif %}
             <a class="btn btn-default tip" href="/profile/clone/{{profile.ProfileID}}"><span
                     class="glyphicon glyphicon-duplicate"></span>
                 <translate class="hide">Clone</translate>

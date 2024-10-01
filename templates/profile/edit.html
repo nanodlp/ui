@@ -264,6 +264,16 @@
 				<textarea class="form-control" name="ResinLevelDetection"
 					id="ResinLevelDetection">{{profile.ResinLevelDetection}}</textarea>
 			</div>
+			<div class="col-md-4 i_moveafterprint i_option {{isHidden(basic.AutoLevelDetection)}}">
+				<label for="AutoLevelDetection">
+					<translate>Auto Leveling</translate>
+					<span class="label label-danger" translate>Experimental</span>
+					{{helpPage("https://docs.nano3dtech.com/manual/code/#dynamic-fields")}}
+					{{formulaModal()}}
+				</label>
+				<textarea class="form-control" name="AutoLevelDetection"
+					id="AutoLevelDetection">{{profile.AutoLevelDetection}}</textarea>
+			</div>
 			<div class="col-md-4 i_moveafterprint i_option {{isHidden(basic.CrashDetection)}}">
 				<label for="CrashDetection">
 					<translate>Crash Detection</translate>
@@ -608,6 +618,7 @@
 		<input type="hidden" value="{{profile.XYResPerc}}" name="XYResPerc" id="XYResPerc">
 		<input type="hidden" name="UpdateCustomInput" value="true">
 		<input type="hidden" name="Type" value="{{profile.Type}}">
+		<input type="hidden" name="ManufacturerLock" value="{{profile.ManufacturerLock}}">
 		{{ customInputs(inputs,profile.CustomValues,1)}}
 		<button type="submit" class="btn btn-success" translate>Save</button> &nbsp; 
 	</form>	

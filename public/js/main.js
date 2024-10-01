@@ -381,7 +381,14 @@ function comparer(index) {
         return $.isNumeric(valA) && $.isNumeric(valB) ? valA - valB : valA.toString().localeCompare(valB)
     }
 }
-function getCellValue(row, index){ return $(row).children('td').eq(index).text() }
+
+function getCellValue(row, index){ 
+	var td = $(row).children('td').eq(index);
+	if (td.find(".sort").length>0){
+		return td.find(".sort").text();
+	}
+	return td.text();
+}
 
 function editable_table_init(){
 	$(".edit-table").delegate(".name","change",function(){

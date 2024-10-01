@@ -175,6 +175,7 @@
 				</dt>
 				<dd>{{row.supportCureTime}}s / {% if !row.cureTimes %}{{row.cureTime}}{% else %}{{row.cureTimes}}{% endif %}s</dd>
 			</dl>
+			<div class="hide sort">{{row.LastPrint}}</div>
 		</td>
 		<td>			
 		{% if status.Printing == false %}
