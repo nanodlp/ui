@@ -440,7 +440,7 @@
 				<input class="form-control" value="{{profile.ElephantThickness}}" name="ElephantThickness" id="ElephantThickness" step="1"
 					type="number">
 			</div>
-			<div class="col-md-4 i_slicing i_option {{isHidden(basic.HatchingType)}}">
+			<!--<div class="col-md-4 i_slicing i_option {{isHidden(basic.HatchingType)}}">
 				<label for="HatchingType">
 					<translate>Hollowing / Infill Type</translate> {{helpPage("https://docs.nano3dtech.com/manual/hollowing/")}}{{regenerateRequired()}}
 				</label>
@@ -496,7 +496,7 @@
 				</label>
 				<input class="form-control" value="{{profile.HatchingSpace}}" name="HatchingSpace" id="HatchingSpace" step="0.01"
 					type="number">
-			</div>
+			</div>-->
 			<div class="col-md-4 i_moveafterprint i_option conditional {{isHidden(basic.SupportWaitHeight)}}" data-condition="#PrinterType != 2 && ['i_moveafterprint'].includes(#scategory)">
 				<label for="SupportWaitHeight">
 					<translate>Burn-in Lift After Print</translate>

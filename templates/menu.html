@@ -41,10 +41,14 @@
         {% endif %}
         {% if os=="linux" %}
         <li>
-            {% if wifi!="" %}
-                <a href="/wifi"><span class="label">{{wifi}} &nbsp;<span class="glyphicon glyphicon-signal"></span></span></a>
+            {% if network==1 %}
+                <a href="#"><span class="label"><translate>Wired</translate> &nbsp;<span class="glyphicon glyphicon-transfer"></span></span></a>
             {% else %}
-                <a href="/wifi"><span class="label"><translate>Wi-Fi</translate> &nbsp;<span class="glyphicon glyphicon-signal"></span></span></a>
+                {% if wifi!="" %}
+                    <a href="/wifi"><span class="label">{{wifi}} &nbsp;<span class="glyphicon glyphicon-signal"></span></span></a>
+                {% else %}
+                    <a href="/wifi"><span class="label"><translate>Wi-Fi</translate> &nbsp;<span class="glyphicon glyphicon-signal"></span></span></a>
+                {% endif %}
             {% endif %}
         </li>
         {% endif %}
