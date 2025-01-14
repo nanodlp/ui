@@ -47,33 +47,28 @@
 		{% endif %}
 		<div class="row">
 			<div class="col-md-6 setup-categories setup">
-				{{ setting_cat("<translate>Basic Settings</translate>","<translate>Printer name, type, language</translate>",gear_icon,"i_basic") }}
-				{{ setting_cat("<translate>Display Engine</translate>","<translate>Display resolution, connection, lamps</translate>",computer_icon,"i_display") }}
-				{{ setting_cat("<translate>Axis / Movement</translate>","<translate>Axis details, speed, gcodes</translate>",axis_icon,"i_axis") }}
-				{{ setting_cat("<translate>RAMPS / Controller</translate>","<translate>Controller settings</translate>",diagram_icon,"i_ramps") }}
-				{{ setting_cat("<translate>Code / Gcode</translate>","<translate>Bootup, start, resume, stop print, before, after layer</translate>",code_icon,"i_code") }}
-				{{ setting_cat("<translate>Hardware</translate>","<translate>Printer type, GPIO</translate>",cpu_icon,"i_hardware") }}
-				{{ setting_cat("<translate>HMI</translate>","<translate>Nextion, AMLCD</translate>",keyboard_icon,"i_hmi") }}
+				{{ setting_cat("<translate>Interface and Appearance</translate>","<translate>Printer name, HMI, theme, language, sound</translate>",font_icon,"i_appearance") }}
+				{{ setting_cat("<translate>Display</translate>","<translate>Display resolution, connection, lamp</translate>",computer_icon,"i_display") }}
+				{{ setting_cat("<translate>Movement</translate>","<translate>Positioning, speed, g-codes</translate>",axis_icon,"i_axis") }}
+				{{ setting_cat("<translate>Dynamic G-Code</translate>","<translate>Boot-up, start, resume, stop print, before, after layer</translate>",code_icon,"i_code") }}
 			</div>
 			<div class="col-md-6 setup-categories">
-				{{ setting_cat("<translate>Print Quality</translate>","<translate>Lamps, light output, barrel correction</translate>",glob_icon,"i_quality") }}
-				{{ setting_cat("<translate>Slicing</translate>","<translate>Resolution, 3D preview, remote slicer</translate>",layers_icon,"i_slicing") }}
-				{{ setting_cat("<translate>Network</translate>","<translate>NanoDLP network port, remote slicer</translate>",wifi_icon,"i_network") }}
+				{{ setting_cat("<translate>Slicing and Print Quality</translate>","<translate>Resolution, remote slicer, light output, barrel correction</translate>",layers_icon,"i_slicing") }}
+				{{ setting_cat("<translate>Hardware</translate>","<translate>Printer type, controller, GPIO, shutter</translate>",cpu_icon,"i_hardware") }}
+				{{ setting_cat("<translate>Network</translate>","<translate>Network port, remote slicer, WiFi</translate>",wifi_icon,"i_network") }}
 				{{ setting_cat("<translate>Camera</translate>","<translate>Camera settings, storage</translate>",cam_icon,"i_camera") }}
-				{{ setting_cat("<translate>Appearance</translate>","<translate>Theme, language, sound</translate>",font_icon,"i_appearance") }}
-				{{ setting_cat("<translate>Shutter</translate>","<translate>Shutter types, gcodes, GPIO</translate>",shutter_icon,"i_shutter") }}
 			</div>
 			<div class="col-md-12 selected-cat">	
 			</div>
 		</div>
 		<div class="row flex-row">
-			<div class="col-md-4 i_basic i_option">
+			<div class="col-md-4 i_appearance i_option">
 				<label for="Name">
 					<translate>Printer Name</translate>
 				</label>
 				<input class="form-control" value="{{Name}}" name="Name" id="Name">
 			</div>
-			<div class="col-md-4 i_basic i_hardware i_option i_lock">
+			<div class="col-md-4 i_hardware i_option i_lock">
 				<label for="PrinterType">
 					<translate>Printer Type</translate> {{helpPage("https://docs.nano3dtech.com/manual/settings/#printer-type")}}
 				</label>
@@ -82,7 +77,7 @@
 					<option value="1" {% if PrinterType==1 %}selected{% endif %} translate>Laser</option>
 				</select>
 			</div>
-			<div class="col-md-4 i_basic i_appearance i_option">
+			<div class="col-md-4 i_appearance i_option">
 				<label for="Lang">
 					<translate>Language</translate>
 				</label>
@@ -98,13 +93,13 @@
 					<option value="ru" {% if Lang=="ru" %}selected{% endif %} translate>Russian</option>
 				</select>
 			</div>
-			<div class="col-md-4 i_basic i_option">
+			<div class="col-md-4 i_network i_option">
 				<label for="WiFiCountry">
 					<translate>WiFi Country</translate>
 				</label>
 				<input class="form-control" value="{{WiFiCountry}}" name="WiFiCountry" id="WiFiCountry" pattern="[A-Za-z]{2}|^$">
 			</div>
-			<div class="col-md-4 i_basic i_appearance i_option">
+			<div class="col-md-4 i_appearance i_option">
 				<label for="ViewMode">
 					<translate>View Mode</translate>
 				</label>
@@ -126,7 +121,7 @@
 				</select>
 
 			</div>
-			<div class="col-md-4 i_ramps i_hardware i_option i_lock">
+			<div class="col-md-4 i_hardware i_option i_lock">
 				<label for="ShieldType">
 					<translate>Shield Use</translate> {{helpPage("https://docs.nano3dtech.com/manual/shield/#hardware-choices")}}
 				</label>
@@ -138,7 +133,7 @@
 				</select>
 
 			</div>
-			<div class="col-md-4 i_shutter i_option i_lock">
+			<div class="col-md-4 i_hardware i_option i_lock">
 				<label for="ShutterMode">
 					<translate>Shutter</translate>
 				</label>
@@ -242,8 +237,8 @@
 				</label>
 				<textarea class="form-control" name="SpeedFormula" id="SpeedFormula">{{SpeedFormula}}</textarea>
 			</div>
-			<div class="col-md-4 conditional i_ramps i_option i_lock"
-				data-condition="['1','2'].includes(#ShieldType) && #scategory=='i_ramps'">
+			<div class="col-md-4 conditional i_hardware i_option i_lock"
+				data-condition="['1','2'].includes(#ShieldType) && #scategory=='i_hardware'">
 				<label for="ShieldEncoding">
 					<translate>Data Encoding</translate> {{helpPage("https://docs.nano3dtech.com/manual/shield/#encoding")}}
 				</label>
@@ -255,8 +250,8 @@
 				</select>
 
 			</div>
-			<div class="col-md-4 conditional i_ramps i_option i_lock"
-				data-condition="['1'].includes(#ShieldType) && #scategory=='i_ramps'">
+			<div class="col-md-4 conditional i_hardware i_option i_lock"
+				data-condition="['1'].includes(#ShieldType) && #scategory=='i_hardware'">
 				<label for="ShieldUSBAddress">
 					<translate>USB/Serial Port Address</translate> {{helpPage("https://docs.nano3dtech.com/manual/shield/")}}
 				</label>
@@ -269,12 +264,12 @@
 				</datalist>
 
 			</div>
-			<div class="col-md-4 conditional i_ramps i_option i_lock"
-				data-condition="['1'].includes(#ShieldType) && #scategory=='i_ramps'">
+			<div class="col-md-4 conditional i_hardware i_option i_lock"
+				data-condition="['1'].includes(#ShieldType) && #scategory=='i_hardware'">
 				{{ speed_select("ShieldSpeed","Baud Rate",ShieldSpeed) }}
 
 			</div>
-			<div class="col-md-4 i_axis i_ramps i_option i_lock">
+			<div class="col-md-4 i_axis i_hardware i_option i_lock">
 				<label for="ShieldPositioning">
 					<translate>Movement Positioning</translate>
 				</label>
@@ -284,7 +279,7 @@
 				</select>
 
 			</div>
-			<div class="col-md-4 i_axis i_ramps i_option i_lock">
+			<div class="col-md-4 i_axis i_hardware i_option i_lock">
 				<label for="ShieldAxisMode">
 					<translate>Shield Axis Direction</translate>
 				</label>
@@ -300,8 +295,8 @@
 				</label>
 				{{ gpio_select("WaitPin",WaitPin) }}
 			</div>
-			<div class="col-md-4 conditional i_ramps i_option i_lock"
-				data-condition="#arch=='arm' && ['2'].includes(#ShieldType) && #scategory=='i_ramps'">
+			<div class="col-md-4 conditional i_hardware i_option i_lock"
+				data-condition="#arch=='arm' && ['2'].includes(#ShieldType) && #scategory=='i_hardware'">
 				<label for="ShieldI2CAddress">
 					<translate>i2c Address</translate> <span class="label label-warning" translate>Restart Required</span>
 				</label>
@@ -365,8 +360,8 @@
 				</label>
 				<textarea class="form-control" name="BoardParser" id="BoardParser">{{BoardParser}}</textarea>
 			</div>
-			<div class="col-md-4 conditional i_shutter i_code i_option i_lock"
-				data-condition="['1','0'].includes(#ShutterMode) && ['i_shutter','i_code'].includes(#scategory)">
+			<div class="col-md-4 conditional i_hardware i_code i_option i_lock"
+				data-condition="['1','0'].includes(#ShutterMode) && ['i_hardware','i_code'].includes(#scategory)">
 				<label for="ShutterOpenGcode">
 					<translate>Shutter Open Code</translate>
 					{{helpPage("https://docs.nano3dtech.com/manual/code/#aync-codes")}} {{formulaModal()}} {{caution()}}
@@ -375,8 +370,8 @@
 					id="ShutterOpenGcode">{{ShutterOpenGcode}}</textarea>
 
 			</div>
-			<div class="col-md-4 conditional i_shutter i_code i_option i_lock"
-				data-condition="['1','0'].includes(#ShutterMode) && ['i_shutter','i_code'].includes(#scategory)">
+			<div class="col-md-4 conditional i_hardware i_code i_option i_lock"
+				data-condition="['1','0'].includes(#ShutterMode) && ['i_hardware','i_code'].includes(#scategory)">
 				<label for="ShutterCloseGcode">
 					<translate>Shutter Close Code</translate> {{helpPage("https://docs.nano3dtech.com/manual/code/#aync-codes")}} {{formulaModal()}} {{caution()}}
 				</label>
@@ -385,8 +380,8 @@
 
 			</div>
 
-			<div class="col-md-4 conditional i_shutter i_option i_lock"
-				data-condition="#arch=='arm' && ['1','0'].includes(#ShutterMode) && ['i_shutter'].includes(#scategory)">
+			<div class="col-md-4 conditional i_hardware i_option i_lock"
+				data-condition="#arch=='arm' && ['1','0'].includes(#ShutterMode) && ['i_hardware'].includes(#scategory)">
 				<label for="ShutterType">
 					<translate>Shutter Type</translate> {{helpPage("https://docs.nano3dtech.com/manual/hardware/#shutter")}}
 				</label>
@@ -397,16 +392,16 @@
 				</select>
 
 			</div>
-			<div class="col-md-4 conditional ShutterType_toggle i_shutter i_option i_lock"
-				data-condition="#arch=='arm' && ['1','0'].includes(#ShutterMode) && ['i_shutter'].includes(#scategory)">
+			<div class="col-md-4 conditional ShutterType_toggle i_hardware i_option i_lock"
+				data-condition="#arch=='arm' && ['1','0'].includes(#ShutterMode) && ['i_hardware'].includes(#scategory)">
 				<label for="ShutterPin">
 					<translate>Shutter GPIO</translate> {{helpPage("https://docs.nano3dtech.com/manual/hardware/#gpio")}}
 				</label>
 				{{ gpio_select("ShutterPin",ShutterPin) }}
 
 			</div>
-			<div class="col-md-4 conditional ShutterType_toggle i_shutter i_option i_lock"
-				data-condition="#arch=='arm' && ['1','0'].includes(#ShutterMode) && ['i_shutter'].includes(#scategory)">
+			<div class="col-md-4 conditional ShutterType_toggle i_hardware i_option i_lock"
+				data-condition="#arch=='arm' && ['1','0'].includes(#ShutterMode) && ['i_hardware'].includes(#scategory)">
 				<label for="ShutterOpen">
 					<translate>Servo Pulse Width - Open</translate> <span class="label label-default"
 						translate>ms</span> {{helpPage("https://docs.nano3dtech.com/manual/hardware/#servo")}}
@@ -414,8 +409,8 @@
 				<input class="form-control" value="{%if ShutterOpen>499 %}{{ShutterOpen}}{% else %}500{% endif %}" name="ShutterOpen" id="ShutterOpen" type="number"
 					min="500" max="2500">
 			</div>
-			<div class="col-md-4 conditional ShutterType_toggle i_shutter i_option i_lock"
-				data-condition="#arch=='arm' && ['1','0'].includes(#ShutterMode) && ['i_shutter'].includes(#scategory)">
+			<div class="col-md-4 conditional ShutterType_toggle i_hardware i_option i_lock"
+				data-condition="#arch=='arm' && ['1','0'].includes(#ShutterMode) && ['i_hardware'].includes(#scategory)">
 				<label for="ShutterClose">
 					<translate>Servo Pulse Width - Close</translate> <span class="label label-default"
 						translate>ms</span> {{helpPage("https://docs.nano3dtech.com/manual/hardware/#servo")}}
@@ -423,8 +418,8 @@
 				<input class="form-control" value="{%if ShutterClose>499 %}{{ShutterClose}}{% else %}500{% endif %}" name="ShutterClose" id="ShutterClose" type="number"
 					min="500" max="2500">
 			</div>
-			<div class="col-md-4 conditional ShutterType_toggle i_shutter i_option i_lock"
-				data-condition="#arch=='arm' && ['1','0'].includes(#ShutterMode) && ['i_shutter'].includes(#scategory)">
+			<div class="col-md-4 conditional ShutterType_toggle i_hardware i_option i_lock"
+				data-condition="#arch=='arm' && ['1','0'].includes(#ShutterMode) && ['i_hardware'].includes(#scategory)">
 				<label for="ShutterSignalLength">
 					<translate>Servo Signal Length</translate> <span class="label label-default"
 						translate>Millisecond</span> {{helpPage("https://docs.nano3dtech.com/manual/hardware/#servo")}}
@@ -474,7 +469,7 @@
 				</label>
 				<input class="form-control" value="{{YRes|floatformat}}" name="YRes" id="YRes" step="0.001" type="number">
 			</div>
-			<div class="col-md-4 i_quality i_slicing i_option i_lock">
+			<div class="col-md-4 i_slicing i_option i_lock">
 				<label for="BarrelFactor">
 					<translate>Lens Barrel Factor</translate> {{helpPage("https://docs.nano3dtech.com/manual/barrel/")}}{{regenerateRequired()}}
 				</label>
@@ -482,14 +477,14 @@
 					type="number">
 
 			</div>
-			<div class="col-md-4 i_quality i_slicing i_option i_lock">
+			<div class="col-md-4 i_slicing i_option i_lock">
 				<label for="BarrelX">
 					<translate>Center of Barrel - X</translate> <span class="label label-default"
 						translate>Pixel</span>{{regenerateRequired()}}
 				</label>
 				<input class="form-control" value="{{ConfigSlicerOptions.BarrelX}}" name="BarrelX" id="BarrelX" type="number">
 			</div>
-			<div class="col-md-4 i_quality i_slicing i_option i_lock">
+			<div class="col-md-4 i_slicing i_option i_lock">
 				<label for="BarrelY">
 					<translate>Center of Barrel - Y</translate> <span class="label label-default"
 						translate>Pixel</span>{{regenerateRequired()}}
@@ -529,14 +524,14 @@
 				<input class="form-control" value="{{ProjectorWarmup|floatformat}}" name="ProjectorWarmup" id="ProjectorWarmup"
 					type="number">
 			</div>
-			<div class="col-md-4 ProjectorType_toggle i_display i_quality i_option i_lock">
+			<div class="col-md-4 ProjectorType_toggle i_display i_slicing i_option i_lock">
 				<label for="ProjectorLampQuery">
 					<translate>Query Lamp Hours</translate> {{helpPage("https://docs.nano3dtech.com/manual/hardware/#lamp")}}
 				</label>
 				<input class="form-control" value="{{ProjectorLampQuery}}" name="ProjectorLampQuery"
 					id="ProjectorLampQuery">
 			</div>
-			<div class="col-md-4 ProjectorType_toggle i_display i_quality i_option i_lock">
+			<div class="col-md-4 ProjectorType_toggle i_display i_slicing i_option i_lock">
 				<label for="ProjectorLampEffect">
 					<translate>Lamp Brightness</translate> <span class="label label-default"
 						translate>Percentage</span> {{helpPage("https://docs.nano3dtech.com/manual/hardware/#lamp")}}
@@ -605,7 +600,7 @@
 					{% endfor %}
 				</datalist>
 			</div>
-			<div class="col-md-4 i_display i_quality i_code i_option i_lock">
+			<div class="col-md-4 i_display i_slicing i_code i_option i_lock">
 				<label for="LightOutputFormula">
 					<translate>Light Output Formula</translate> <span class="label label-default"
 						translate>Percentage</span>  {{helpPage("https://docs.nano3dtech.com/manual/code/#light-output")}} {{formulaModal()}}
@@ -640,19 +635,19 @@
 				<input class="form-control" value="{{MaxSpeed}}" name="MaxSpeed" id="MaxSpeed" type="number"
 					step="0.001">
 			</div>
-			<div class="col-md-4 i_axis i_option i_lock">
+			<div class="col-md-4 i_axis i_option i_lock conditional" data-condition="#ZAxisPin > 0 && #arch=='arm' && #scategory=='i_axis'">
 				<label for="MinSpeed">
 					<translate>Min Speed</translate> {{helpPage("https://docs.nano3dtech.com/manual/speed/")}}
 				</label>
 				<input class="form-control" value="{{MinSpeed}}" name="MinSpeed" id="MinSpeed" type="number">
 			</div>
-			<div class="col-md-4 i_axis i_option i_lock">
+			<div class="col-md-4 i_axis i_option i_lock conditional" data-condition="#ZAxisPin > 0 && #arch=='arm' && #scategory=='i_axis'">
 				<label for="StartupSpeed">
 					<translate>Motor Startup Speed</translate> {{helpPage("https://docs.nano3dtech.com/manual/speed/")}}
 				</label>
 				<input class="form-control" value="{{StartupSpeed}}" name="StartupSpeed" id="StartupSpeed" type="number">
 			</div>
-			<div class="col-md-4 i_axis i_option i_lock">
+			<div class="col-md-4 i_axis i_option i_lock conditional" data-condition="#ZAxisPin > 0 && #arch=='arm' && #scategory=='i_axis'">
 				<label for="MotorDegree">
 					<translate>Motor Step Angle</translate>
 				</label>
@@ -660,13 +655,13 @@
 					step="0.01">
 
 			</div>
-			<div class="col-md-4 i_axis i_option i_lock">
+			<div class="col-md-4 i_axis i_option i_lock conditional" data-condition="#ZAxisPin > 0 && #arch=='arm' && #scategory=='i_axis'">
 				<label for="MicroStep">
 					<translate>Microstep</translate> {{helpPage("https://docs.nano3dtech.com/manual/direct/#microstepping")}}
 				</label>
 				<input class="form-control" value="{{MicroStep|floatformat}}" name="MicroStep" type="number" id="MicroStep">
 			</div>
-			<div class="col-md-4 i_axis i_option i_lock">
+			<div class="col-md-4 i_axis i_option i_lock conditional" data-condition="#ZAxisPin > 0 && #arch=='arm' && #scategory=='i_axis'">
 				<label for="LeadscrewPitch">
 					<translate>Leadscrew Pitch</translate> <span class="label label-default"
 						translate>Millimeter</span> {{helpPage("https://docs.nano3dtech.com/manual/direct/#pitch")}}
@@ -717,7 +712,7 @@
 				</label>
 				<input class="form-control" value="{{CameraCommand}}" name="CameraCommand" id="CameraCommand">
 			</div>
-			<div class="col-md-4 i_hmi i_option i_lock">
+			<div class="col-md-4 i_appearance i_option i_lock">
 				<label for="USBDisplayAddress">
 					<translate>Nextion Display Port Address</translate> {{helpPage("https://docs.nano3dtech.com/manual/hardware/#projector")}}
 				</label>
