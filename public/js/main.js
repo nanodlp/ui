@@ -759,7 +759,7 @@ function update_timeline() {
 		let plate_height = last_value('plate_height');
 		let current_height = plate_height / last_value('layers_count') * current_layer_id;
 		last_value('last_location', current_layer_id + " of " + last_value('layers_count'));
-		last_value('last_height', Math.round(current_height * 10) / 10 + " of " + plate_height + "mm");
+		last_value('last_height', Math.round(current_height * 100) / 100 + " of " + plate_height + "mm");
 		let remaining_time = Math.round((last_value('layers_count') - current_layer_id) * last_value('layer_time') / 60);
 		let total_time = Math.round(last_value('layers_count') * last_value('layer_time') / 60);
 		let est = new Date();
