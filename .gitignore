@@ -2,6 +2,7 @@ build
 distro
 db
 public/status.json
+public/calibration/*
 db/*
 public/plates/*
 webserver*

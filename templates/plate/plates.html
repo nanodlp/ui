@@ -1,15 +1,21 @@
 {% extends "../base.html" %}
 {% block content %}
+{% if restore %}
+<div class="row">
+	<div class="col-md-12">
+		<div class="alert alert-warning"><span
+			class="glyphicon glyphicon-exclamation-sign"></span><translate> Deleted jobs will be removed within 30 days</translate></div>
+	</div>
+</div>
+{% endif %}
 <div class="row">
 	<div class="col-md-6">
-		<h2><span translate>Jobs</span>
-			<a class="btn btn-default tip" href="/plate/add" role="button"><span
-					class="glyphicon glyphicon-plus"></span><translate class="hide">Add a new job</translate></a>
-			<a class="btn btn-default tip svg" target="_blank"
-				href="/static/editor/?ApplicationMode=embedded"
-				role="button">{{ icon(threed_icon) }}
-				<translate class="hide">Add a new job using 3D editor</translate>
-			</a>
+		<h2>
+		{% if !restore %}<span translate>Jobs</span> <a class="btn btn-default tip" href="/plate/add" role="button"><span
+			class="glyphicon glyphicon-plus"></span><translate class="hide">Add a new job</translate></a>
+			<a class="btn btn-default tip svg" target="_blank" href="/static/editor/?ApplicationMode=embedded" role="button">{{ icon(threed_icon) }}
+			<translate class="hide">Add a new job using 3D editor</translate></a>
+		{% else %}<span translate>Deleted Jobs</span>{% endif %}
 		</h2>
 	</div>
 	<div class="col-md-3">
@@ -35,6 +41,7 @@
 </div>
 <div id="plates-list">
 	{% include "list.html" %}
+	{% if !restore %}
 	<tr>
 		<td></td>
 		<td translate>Job Generator</td>
@@ -67,9 +74,13 @@
 			<a class="btn btn-default tip" href="/plate/preview/0"><span class="glyphicon glyphicon-eye-open"></span><translate class="hide">Preview</translate></a>
 		</td>
 	</tr>
+	{% endif %}
 	</table>
 </div>
+{% if !restore %}
 <a class="btn btn-default ask" href="/plates/delete" data-ask="deleteall-confirm">Delete All Jobs</a>
+<a class="btn btn-default" href="/plates/restore" >Restore Deleted Jobs</a>
+{% endif %}
 <br>
 <br>
 <div><span class="glyphicon glyphicon-resize-small"></span>

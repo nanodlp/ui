@@ -34,7 +34,7 @@ function slicer_progress() {
 }
 
 function update_slicer_progress(data) {
-	if (data["running"] == 0&&running==1) {
+	if ((data["running"] == 0&&running==1) || (data["running"] == 0 && $(".job-not-processed").length>0)) {
 		update_plates_list();
 	}
 	running = data["running"];

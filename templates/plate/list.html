@@ -67,7 +67,7 @@
 	</thead>
 	{% if plates %}
 	{% for row in plates %}{% if row.PlateID != 0 %}
-	<tr {% if forloop.Counter==1 %}id="latest"{% endif %} class="{% if row.Processed %}plate-processed{% endif %}" data-profile="{{row.profileID}}">
+	<tr {% if forloop.Counter==1 %}id="latest"{% endif %} class="{% if row.Processed %}plate-processed{% else %}job-not-processed{% endif %}" data-profile="{{row.profileID}}">
 		<td>{{row.PlateID}}</td>
 		<td>
 			<b class="tip">{{row.Path}}<translate class="hide">Uploaded on: {{row.UploadedOn}}</translate></b>
@@ -129,7 +129,7 @@
 			</div>
 		</td>
 		<td>
-			<img src="static/plates/{{row.PlateID}}/3d.png?{{row.Updated}}" loading="lazy"
+			<img src="/static/plates/{{row.PlateID}}/3d.png?{{row.Updated}}" loading="lazy"
 				class="threed {% if !row.Preview %}hide retry{% endif %}">
 		</td>
 		<td>	
@@ -246,11 +246,12 @@
 					{% endif %}
 				  <li class="req-processed"><a href="/plate/cover/{{ row.PlateID }}"><span class="glyphicon glyphicon-plus"></span> &nbsp; <translate>Blackout</translate></a></li>
 				  {% if row.PlateID != status.PlateID or status.Printing == false %}
-				  <li>
-				  <a class="ask" href="/plate/delete/{{ row.PlateID }}" data-ask="delete-confirm"><span class="glyphicon glyphicon-trash"></span> &nbsp; <translate>Delete</translate>
-				  </a>
-				  </li>
+				  <li><a class="ask" href="/plate/delete/{{ row.PlateID }}" data-ask="delete-confirm"><span class="glyphicon glyphicon-trash"></span> &nbsp; <translate>Delete</translate></a></li>
 				  {% endif %}				  
+				  {% if row.Deleted %}
+				  <li><a class="ask" href="/plate/restore/{{ row.PlateID }}"><span class="glyphicon glyphicon-trash"></span> &nbsp; <translate>Restore</translate></a></li>
+				  {% endif %}
+				  <li><a href="/plate/clone/{{row.PlateID}}"><span class="glyphicon glyphicon-duplicate"></span> &nbsp; <translate>Clone</translate></a></li>
 				  <li class="req-processed"><a href="/analytic/plate/{{ row.PlateID }}"><span class="glyphicon glyphicon-stats"></span> &nbsp; <translate>Analytic</translate></a></li>
 				  <li class="req-processed"><a href="/plate/download/{{ row.PlateID }}/nanodlp"><span class="glyphicon glyphicon-download-alt"></span> &nbsp; <translate>Download NanoDLP</translate></a></li>
 				  <li role="separator" class="divider"></li>
