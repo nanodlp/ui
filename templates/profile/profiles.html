@@ -47,10 +47,6 @@
                     class="glyphicon glyphicon-pencil"></span>
                 <translate class="hide">Edit</translate>
             </a>
-            <a class="btn btn-danger ask tip" data-ask="delete-confirm"
-                href="/profile/delete/{{profile.ProfileID}}"><span class="glyphicon glyphicon-trash"></span>
-                <translate class="hide">Delete</translate>
-            </a>
             {% endif %}
             <a class="btn btn-default tip" href="/profile/clone/{{profile.ProfileID}}"><span
                     class="glyphicon glyphicon-duplicate"></span>
@@ -63,6 +59,12 @@
                     class="glyphicon glyphicon-export"></span>
                 <translate class="hide">Export</translate>
             </a>
+            {% if !profile.ManufacturerLock %}
+            <a class="btn btn-danger ask tip" data-ask="delete-confirm"
+                href="/profile/delete/{{profile.ProfileID}}"><span class="glyphicon glyphicon-trash"></span>
+                <translate class="hide">Delete</translate>
+            </a>
+            {% endif %}
             <translate class="hide" id="delete-confirm">Are you sure you want to delete this profile?</translate>
         </td>
     </tr>

@@ -3125,6 +3125,18 @@ msgstr "Controllo Asse Z"
 msgid "Z Model Size Modifier"
 msgstr "Mod. Dimens. del Modello Z"
 
+#: ../templates/profile/edit.html:590
+msgid "X Scale Compensation"
+msgstr "Compensazione Scala X"
+
+#: ../templates/profile/edit.html:597
+msgid "Y Scale Compensation"
+msgstr "Compensazione Scala Y"
+
+#: ../templates/profile/edit.html:604
+msgid "Z Scale Compensation"
+msgstr "Compensazione Scala Z"
+
 #: ../templates/setup/custom-buttons.html:38
 msgid "Z-Axis Calibration"
 msgstr "Calibrazione Asse Z"

@@ -15,19 +15,52 @@
 			class="glyphicon glyphicon-plus"></span><translate class="hide">Add a new job</translate></a>
 			<a class="btn btn-default tip svg" target="_blank" href="/static/editor/?ApplicationMode=embedded" role="button">{{ icon(threed_icon) }}
 			<translate class="hide">Add a new job using 3D editor</translate></a>
+			<div class="btn-group">
+				<button type="button" class="btn btn-default tip dropdown-toggle svg" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="" data-original-title="More">
+					{{ icon(list_icon) }} <translate class="hide">More options</translate>
+				</button>
+				<ul class="dropdown-menu">
+					<li><a href="/plate/generator"><span class="glyphicon glyphicon-refresh"></span> &nbsp; <translate>Generate calibration job</translate></a></li>
+					<li><a href="/plate/preview/0"><span class="glyphicon glyphicon-eye-open"></span> &nbsp; <translate>Preview calibration job</translate></a></li>
+					<li><a href="/printer/start/0" class="ask" data-ask="calibrate-confirm"><span class="glyphicon glyphicon-play"></span> &nbsp; <translate>Start the calibration print</translate></a></li>
+					<li role="separator" class="divider"></li>
+					<li><a href="/plate/calibration-advanced"><span class="glyphicon glyphicon-wrench"></span> &nbsp; <translate>Advanced calibration</translate></a></li>
+					<li role="separator" class="divider"></li>
+					<li><a href="/plates/delete" class="ask" data-ask="deleteall-confirm"><span class="glyphicon glyphicon-trash"></span> &nbsp; <translate>Move all jobs to trash</translate></a></li>
+					<li><a href="/plates/restore"><span class="glyphicon glyphicon-trash"></span> &nbsp; <translate>View trash</translate></a></li>
+					<li role="separator" class="divider"></li>
+					<li><a href="/plate/layer-generator"><span class="glyphicon glyphicon-picture"></span> &nbsp; <translate>Use a single layer to generate a job</translate></a></li>
+					<li><a href="/plate/paint"><span class="glyphicon glyphicon-adjust"></span> &nbsp; <translate>Create a job using paint</translate></a></li>
+					<li><a href="/plate/paint"><span class="glyphicon glyphicon-th"></span> &nbsp; <translate>Create a PCB job</translate></a></li>
+				</ul>
+			</div>
 		{% else %}<span translate>Deleted Jobs</span>{% endif %}
 		</h2>
 	</div>
 	<div class="col-md-3">
-		<select id="plates-profile-search" class="form-control">
-			<option value="" translate>All Profiles</option>
-			{% for row in profiles %}
-				<option value="{{row.ProfileID}}">{{row.Title}}</option>
-			{% endfor %}
-		</select>
+		<div class="input-group">
+			<select id="plates-profile-search" class="form-control">
+				<option value="" translate>Filter by Resin Profile</option>
+				{% for row in profiles %}
+					<option value="{{row.ProfileID}}">{{row.Title}}</option>
+				{% endfor %}
+			</select>
+			<span class="input-group-btn">
+				<button class="btn btn-default hide" type="button" id="clear-profile-filter" title="Clear filter">
+					<span class="glyphicon glyphicon-remove"></span>
+				</button>
+			</span>
+		</div>
 	</div>
 	<div class="col-md-3">
-		<input id="search" placeholder="Search Jobs" class="form-control compact-input">
+		<div class="input-group">
+			<input id="search" placeholder="Search Jobs" class="form-control compact-input">
+			<span class="input-group-btn">
+				<button class="btn btn-default hide" type="button" id="clear-search" title="Clear search">
+					<span class="glyphicon glyphicon-remove"></span>
+				</button>
+			</span>
+		</div>
 		<translate class="hide">Search Jobs</translate>
 	</div>
 </div>
@@ -41,52 +74,14 @@
 </div>
 <div id="plates-list">
 	{% include "list.html" %}
-	{% if !restore %}
-	<tr>
-		<td></td>
-		<td translate>Job Generator</td>
-		<td colspan="3" translate>Create 3D shapes by repeating an image frame</td>
-		<td colspan="1">
-			<a class="btn btn-default svg tip" href="/plate/layer-generator">{{ icon(images_icon) }}<translate class="hide">Use a single layer to generate a job</translate></a>
-			<a class="btn btn-default svg tip" href="/plate/paint">{{ icon(paint_icon) }}<translate class="hide">Create a job using paint</translate></a>
-			<a class="btn btn-default svg tip" href="/plate/pcb-generator">{{ icon(cpu_icon) }}<translate class="hide">Create a PCB job</translate></a>
-		</td>
-	</tr>
-
-	<tr>
-		<td></td>
-		<td><span translate>Calibration Job</span>{{helpPage("https://docs.nano3dtech.com/manual/calibration-job/")}}</td>
-		<td colspan="3"><span translate>Rect:</span> {{generator.BlockWidth}}*{{generator.BlockHeight}}*{{generator.Depth}}
-			<br>
-			<span translate>Pillars:</span> {{generator.PillarSize}}*{{generator.Depth}}
-		</td>
-		<td colspan="1">
-			{% if 0 != status.PlateID or status.Printing == false %}
-			<a class="btn btn-success ask" href="/printer/start/0" data-ask="calibrate-confirm"><span
-					class="glyphicon glyphicon-play tip"></span><translate class="hide">Start the print</translate></a>
-			{% else %}
-			<div class="input-append">
-				<a class="btn btn-danger ask" href="/printer/stop" title="stop" data-ask="stop-confirm"><span
-						class="glyphicon glyphicon-stop"></span></a>
-			</div>
-			{% endif %}
-			<a class="btn btn-default tip" href="/plate/generator" title="Generate Calibration Job"><span class="glyphicon glyphicon-refresh"></span><translate class="hide">Regenerate calibration job</translate></a>
-			<a class="btn btn-default tip" href="/plate/preview/0"><span class="glyphicon glyphicon-eye-open"></span><translate class="hide">Preview</translate></a>
-		</td>
-	</tr>
-	{% endif %}
 	</table>
 </div>
-{% if !restore %}
-<a class="btn btn-default ask" href="/plates/delete" data-ask="deleteall-confirm">Delete All Jobs</a>
-<a class="btn btn-default" href="/plates/restore" >Restore Deleted Jobs</a>
-{% endif %}
 <br>
 <br>
-<div><span class="glyphicon glyphicon-resize-small"></span>
+<!--<div><span class="glyphicon glyphicon-resize-small"></span>
 	<translate>Plate Size</translate>: {{width|floatformat}}x{{height|floatformat}}<translate>mm</translate>
-</div>
-{% if freeSpace > 0 %}
+</div>-->
+{% if freeSpace > 0 and freeSpace < 2000 %}
 <span class="glyphicon glyphicon-hdd"></span>
 <translate>Free Disk Space</translate>: {{freeSpace}}MB
 <br>

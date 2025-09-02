@@ -52,7 +52,7 @@
 			</div>
 			<div class="col-md-4 collapse advanced">
 				<label for="AutoCenter"><translate>Centering</translate></label>
-				<select name="AutoCenter" id="AutoCenter" class="form-control">
+				<select name="AutoCenter" id="AutoCenter" class="form-control" data-new="{{ not plate.PlateID }}">
 					<option value="0" {% if plate.AutoCenter==0 %}selected{% endif %} translate>Center Pieces</option>
 					<option value="1" {% if plate.AutoCenter==1 %}selected{% endif %} translate>Center Origin</option>
 					<option value="2" {% if plate.AutoCenter==2 %}selected{% endif %} translate>Disable</option>
@@ -94,7 +94,7 @@
 			{% endif %}
 			<div class="col-md-4 collapse advanced">
 				<label for="ImageRotate" translate>Rotate Layers</label>
-				<select class="form-control" name="ImageRotate" id="ImageRotate">
+                <select class="form-control" name="ImageRotate" id="ImageRotate" data-new="{{ not plate.PlateID }}">
 					<option value="0" {% if plate.ImageRotate==0 %}selected{% endif %} translate>Same as Profile</option>
 					<option value="1" {% if plate.ImageRotate==1 %}selected{% endif %} translate>Do not Rotate</option>
 					<option value="2" {% if plate.ImageRotate==2 %}selected{% endif %} translate>Rotate 90°</option>

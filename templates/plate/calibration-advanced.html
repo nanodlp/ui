@@ -1,0 +1,72 @@
+{% extends "../base.html" %}
+{% block content %}
+<div class="starter-template">
+  <legend><translate>Advanced Calibration</translate></legend>
+  <form id="adv-calib" action="/plate/calibration-advanced" method="post" enctype="multipart/form-data" class="edit-page">
+    <div class="row">
+      <div class="col-md-3">
+        {{ selectProfile(profiles,defaultProfile) }}
+      </div>
+      <div class="col-md-3">
+        <label for="curetimes"><translate>Comma Separated Cure Times</translate></label>
+        <input name="curetimes" id="curetimes" placeholder="e.g. 3,4,5" pattern="[\d,\.]*" class="form-control" required>
+      </div>
+      <div class="col-md-3">
+        <label for="mode"><translate>Cure Time Mode</translate></label>
+        <select name="mode" id="mode" class="form-control">
+          <option value="accumulative" selected translate>Accumulative</option>
+          <option value="separate" translate>Separate (per object)</option>
+        </select>
+      </div>
+      <div class="col-md-3">
+        <label for="sourceType"><translate>Source Type</translate></label>
+        <select name="sourceType" id="sourceType" class="form-control">
+          <option value="pack" selected translate>Existing Calibration Pack</option>
+          <option value="stl" translate>Upload STL (duplicated)</option>
+        </select>
+      </div>
+    </div>
+    <br>
+    <div class="row" id="pack-row">
+      <div class="col-md-6">
+        <label for="calibrationFile"><translate>Calibration Pack Base Name</translate></label>
+        <select name="calibrationFile" id="calibrationFile" class="form-control">
+          {% for p in packs %}
+          <option value="{{p}}">{{p}}</option>
+          {% endfor %}
+        </select>
+        <span class="help-block" translate>Detected packs are listed; files should exist under /public/calibration as &lt;base&gt;-1.stl, &lt;base&gt;-2.stl, ...</span>
+      </div>
+    </div>
+    <div class="row hide" id="stl-row">
+      <div class="col-md-6">
+        <label for="STLFile"><translate>STL File</translate></label>
+        <input name="STLFile" id="STLFile" type="file" accept=".stl" class="form-control">
+      </div>
+    </div>
+    <br>
+    <button type="submit" class="btn btn-success" id="submit-btn" translate>Generate</button>
+  </form>
+</div>
+<script>
+(function(){
+  var sel = document.getElementById('sourceType');
+  var pack = document.getElementById('pack-row');
+  var stl = document.getElementById('stl-row');
+  var form = document.getElementById('adv-calib');
+  var submitBtn = document.getElementById('submit-btn');
+  function update(){
+    if (!sel) return;
+    if (sel.value === 'stl') { pack.classList.add('hide'); stl.classList.remove('hide'); }
+    else { stl.classList.add('hide'); pack.classList.remove('hide'); }
+  }
+  if (sel) { sel.addEventListener('change', update); update(); }
+  if (form && submitBtn) {
+    form.addEventListener('submit', function(){
+      submitBtn.disabled = true;
+      submitBtn.innerText = 'Processing...';
+    });
+  }
+})();
+</script>
+{% endblock %}

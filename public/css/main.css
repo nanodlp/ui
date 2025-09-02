@@ -217,6 +217,10 @@ img#blackout_overlay {
 }
 
 /*  Plates Page */
+#plates-list table .label{
+	padding: 5px;
+	margin-left: -4px;
+}
 #plates {
 	font-size: 11px;
 }
@@ -461,13 +465,29 @@ input:focus {
 }
 
 #search, #plates-profile-search {
-	margin: 21px 0 15px;
+	opacity: 70%;
 }
 
-#search {
-	width: 200px;
-	float: right;
+/* Input group styling for filter and search */
+.input-group {
+	margin: 21px 0 15px;
+	width: 100%;
 }
+
+.input-group .form-control {
+	opacity: 70%;
+}
+
+.input-group-btn .btn {
+	opacity: 70%;
+	border-left: none;
+}
+
+/* Clear button styling */
+#clear-profile-filter, #clear-search {
+	color: #999;
+}
+
 
 .notice {
 	color: orange;

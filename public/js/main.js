@@ -278,6 +278,9 @@ function plates_init(){
 	$("body").on("change keypress keyup",".resume-id",function(){
 		if ($(this).val()>0) $(this).parents("form").find(".resume").removeClass("hide");
 		else $(this).parents("form").find(".resume").addClass("hide");
+	}).on("click",".print-from-middle",function(e){
+		e.preventDefault();
+		$(this).parents("td").find("form").removeClass("hide").find("input").focus();
 	});
 	update_plates_resume();
 }
@@ -323,6 +326,77 @@ function plate_init(){
 			$("#Path").val(filename.split(".")[0]);
 		}
 	});
+
+    // Remember last AutoCenter selection for new uploads
+    var autoCenterEl = $("#AutoCenter");
+    if (autoCenterEl.length) {
+        // Save on change
+        $("html").delegate('#AutoCenter','change',function(){
+            try { localStorage.setItem('upload-autocenter', $(this).val()); } catch(e) {}
+        });
+
+        // Restore only for new plate uploads (no PlateID)
+        // Detect "new" robustly: accept presence, true/1 strings, or boolean true
+        var newFlagData = autoCenterEl.data('new');
+        var newFlagAttr = autoCenterEl.attr('data-new');
+        var isNew = false;
+        if (typeof newFlagData !== 'undefined') {
+            isNew = (newFlagData === true) || (newFlagData === 1) || (newFlagData === '1') || (newFlagData === 'true') || (newFlagData === 'True');
+        } else if (typeof newFlagAttr !== 'undefined') {
+            // Attribute exists: empty means truthy for our purpose
+            isNew = (newFlagAttr === '' || newFlagAttr === '1' || newFlagAttr === 'true' || newFlagAttr === 'True');
+        }
+        // Also consider page as new upload if there is no hidden USBFile (edit mode adds one)
+        var hasHiddenUSBFile = $("input[name='USBFile'][type='hidden']").length > 0;
+        var isNewPage = isNew || (!hasHiddenUSBFile && $("#ZipFile").length > 0);
+        // Only apply on new page OR when current value is still the default (0)
+        var shouldApply = isNewPage || (autoCenterEl.val() === '0');
+        if (shouldApply) {
+            try {
+                var saved = localStorage.getItem('upload-autocenter');
+                if (saved !== null && saved !== '') {
+                    // Apply saved value if different from server default
+                    if (autoCenterEl.val() != saved) {
+                        autoCenterEl.val(saved);
+                        // Keep Advanced options collapsed by default; do not auto-expand
+                    }
+                }
+            } catch(e) {}
+        }
+    }
+
+    // Remember last ImageRotate selection for new uploads
+    var imageRotateEl = $("#ImageRotate");
+    if (imageRotateEl.length) {
+        // Save on change
+        $("html").delegate('#ImageRotate','change',function(){
+            try { localStorage.setItem('upload-image-rotate', $(this).val()); } catch(e) {}
+        });
+
+        // Restore only for new plate uploads (no PlateID)
+        var rotateNewFlagData = imageRotateEl.data('new');
+        var rotateNewFlagAttr = imageRotateEl.attr('data-new');
+        var rotateIsNew = false;
+        if (typeof rotateNewFlagData !== 'undefined') {
+            rotateIsNew = (rotateNewFlagData === true) || (rotateNewFlagData === 1) || (rotateNewFlagData === '1') || (rotateNewFlagData === 'true') || (rotateNewFlagData === 'True');
+        } else if (typeof rotateNewFlagAttr !== 'undefined') {
+            rotateIsNew = (rotateNewFlagAttr === '' || rotateNewFlagAttr === '1' || rotateNewFlagAttr === 'true' || rotateNewFlagAttr === 'True');
+        }
+        var rotateHasHiddenUSBFile = $("input[name='USBFile'][type='hidden']").length > 0;
+        var rotateIsNewPage = rotateIsNew || (!rotateHasHiddenUSBFile && $("#ZipFile").length > 0);
+        var rotateShouldApply = rotateIsNewPage || (imageRotateEl.val() === '0');
+        if (rotateShouldApply) {
+            try {
+                var savedRotate = localStorage.getItem('upload-image-rotate');
+                if (savedRotate !== null && savedRotate !== '') {
+                    if (imageRotateEl.val() != savedRotate) {
+                        imageRotateEl.val(savedRotate);
+                        // Keep Advanced options collapsed by default; do not auto-expand
+                    }
+                }
+            } catch(e) {}
+        }
+    }
 }
 
 function repair_init(){
@@ -539,6 +613,7 @@ function blackout_table_render(){
 update_status.running = 0;
 update_status.problem = 0;
 update_status.once = false;
+update_status.play_once = false;
 function update_status(){
 	$.ajax({
 		url:'/status',
@@ -553,6 +628,10 @@ function update_status(){
 		}
 		if (update_status.running != data['Printing'] && update_status.once && $("#plates-list").length>0){
 			update_plates_list();
+		}
+		if (update_status.play_once!=data.play&&data.play!=""){
+			new Audio(data.play).play()
+			update_status.play_once=data.play
 		}
 		update_status.once = true
 		update_status.running = data['Printing'];
@@ -861,7 +940,7 @@ function last_value(key,val){
 	return last_value.values[key];
 }
 
-var last_platform_photo_key='';
+var last_platform_photo_key=''; 
 function update_platform_photo(camera_frequency){
 	if (camera_frequency==0) return;
 	var key = last_value('layer');
@@ -903,31 +982,137 @@ function terminal_fetch(){
 }
 
 function search_init(){
+	// Restore filter value from localStorage on page load
+	var savedFilter = localStorage.getItem('plates-profile-filter');
+	if (savedFilter) {
+		$('#plates-profile-search').val(savedFilter);
+	}
+	
+	// Restore search value from localStorage on page load
+	var savedSearch = localStorage.getItem('plates-search-text');
+	if (savedSearch) {
+		$('#search').val(savedSearch);
+	}
+	
+	// Apply both filters if they exist
+	if (savedFilter || savedSearch) {
+		// Use setTimeout to ensure DOM is fully loaded
+		setTimeout(function() {
+			applyAllFilters(savedFilter, savedSearch);
+		}, 100);
+	}
+	
 	$("html").delegate('#plates-profile-search','change',function(e){
 		var v = $('#plates-profile-search').val();
-		if (v==""){
-			$("#plates tr").show()
-			return
+		// Store the filter value in localStorage
+		if (v) {
+			localStorage.setItem('plates-profile-filter', v);
+		} else {
+			localStorage.removeItem('plates-profile-filter');
 		}
-		$("#plates tr:not(:first)").each(function(){
-			if ($(this).data("profile")!=v){
-				$(this).hide();
-			} else {
-				$(this).show();
-			}
-		});
+		applyAllFilters(v, $('#search').val());
 	});
+	
+	// Clear filter button handler
+	$("html").delegate('#clear-profile-filter','click',function(e){
+		$('#plates-profile-search').val('');
+		localStorage.removeItem('plates-profile-filter');
+		applyAllFilters('', $('#search').val());
+	});
+	
+	// Clear search button handler
+	$("html").delegate('#clear-search','click',function(e){
+		$('#search').val('');
+		localStorage.removeItem('plates-search-text');
+		applyAllFilters($('#plates-profile-search').val(), '');
+	});
+	
+	// Clear all filters button handler
+	$("html").delegate('#clear-all-filters','click',function(e){
+		$('#plates-profile-search').val('');
+		$('#search').val('');
+		localStorage.removeItem('plates-profile-filter');
+		localStorage.removeItem('plates-search-text');
+		applyAllFilters('', '');
+	});
+	
 	$("html").delegate('#search','change keyup',function(e){
 		var needle = $(this).val().toLowerCase();
-		$("table tr").removeClass("hide");
-		$("table tr").each(function(){
-			var t = $(this);
-			if (t.text().toLowerCase().indexOf(needle)===-1){
-				t.addClass("hide");
-			}
-		});
+		// Store the search value in localStorage
+		if (needle) {
+			localStorage.setItem('plates-search-text', needle);
+		} else {
+			localStorage.removeItem('plates-search-text');
+		}
+		applyAllFilters($('#plates-profile-search').val(), needle);
 	});
 }
+
+// Helper function to apply both profile filter and search filter together
+function applyAllFilters(profileFilter, searchText) {
+	// First show all rows
+	$("#plates tr").show();
+	$("#clear-profile-filter").addClass("hide");
+	$("#clear-search").addClass("hide");
+	// Apply profile filter
+	if (profileFilter && profileFilter !== "") {
+		$("#clear-profile-filter").removeClass("hide");
+		$("#plates tr:not(:first)").each(function(){
+			if ($(this).data("profile") != profileFilter) {
+				$(this).hide();
+			}
+		});
+	}
+	
+	// Apply search filter (only to visible rows)
+	if (searchText && searchText !== "") {
+		$("#clear-search").removeClass("hide");
+		$("#plates tr:not(:first):visible").each(function(){
+			var t = $(this);
+			if (t.text().toLowerCase().indexOf(searchText) === -1) {
+				t.hide();
+			}
+		});
+	}
+}
+
+// Helper function to apply profile filter
+function applyProfileFilter(filterValue) {
+	if (filterValue == "") {
+		$("#plates tr").show();
+		return;
+	}
+	$("#plates tr:not(:first)").each(function(){
+		if ($(this).data("profile") != filterValue) {
+			$(this).hide();
+		} else {
+			$(this).show();
+		}
+	});
+}
+
+// Helper function to apply search filter
+function applySearchFilter(searchText) {
+	$("table tr").removeClass("hide");
+	$("table tr").each(function(){
+		var t = $(this);
+		if (t.text().toLowerCase().indexOf(searchText)===-1){
+			t.addClass("hide");
+		}
+	});
+}
+
+// Initialize filters when document is ready
+$(document).ready(function() {
+	// Small delay to ensure all elements are loaded
+	setTimeout(function() {
+		var savedFilter = localStorage.getItem('plates-profile-filter');
+		var savedSearch = localStorage.getItem('plates-search-text');
+		if (savedFilter || savedSearch) {
+			applyAllFilters(savedFilter, savedSearch);
+		}
+	}, 200);
+});
 
 $('#expertModeCheckbox').click(function(e) {
 	e.preventDefault();
@@ -939,5 +1124,14 @@ function update_plates_list(){
 	$.get("/plates/list",function(d){
 		$("#plates-list").html(d+"</table>");
 		update_plates_resume();
+		
+		// Reapply filters after list update
+		var currentFilter = $('#plates-profile-search').val();
+		var currentSearch = $('#search').val();
+		if (currentFilter || currentSearch) {
+			setTimeout(function() {
+				applyAllFilters(currentFilter, currentSearch);
+			}, 100);
+		}
 	});
 }

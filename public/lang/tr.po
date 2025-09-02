@@ -3125,6 +3125,18 @@ msgstr ""
 msgid "Z Model Size Modifier"
 msgstr ""
 
+#: ../templates/profile/edit.html:590
+msgid "X Scale Compensation"
+msgstr ""
+
+#: ../templates/profile/edit.html:597
+msgid "Y Scale Compensation"
+msgstr ""
+
+#: ../templates/profile/edit.html:604
+msgid "Z Scale Compensation"
+msgstr ""
+
 #: ../templates/setup/custom-buttons.html:38
 msgid "Z-Axis Calibration"
 msgstr ""

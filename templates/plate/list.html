@@ -60,7 +60,7 @@
 			<th><translate>ID</translate> <span class="glyphicon glyphicon-sort-by-attributes"></span></th>
 			<th><translate>Job</translate> <span class="glyphicon glyphicon-sort-by-attributes"></span></th>
 			<th></th>
-			<th><translate>Details</translate> <span class="glyphicon glyphicon-sort-by-attributes"></span></th>
+			<th><translate>Print Metrics</translate> <span class="glyphicon glyphicon-sort-by-attributes"></span></th>
 			<th><translate>Date</translate> <span class="glyphicon glyphicon-sort-by-attributes"></span></th>
 			<th><translate>Action</translate> <span class="glyphicon glyphicon-sort-by-attributes"></span></th>
 		</tr>
@@ -90,6 +90,11 @@
 				<translate>Profile not found.</translate>
 			</div>
 			{% endif %}
+			{% if row.IsOverride %}
+			<div class="label label-warning"><span class="glyphicon glyphicon-alert"></span> &nbsp; 
+				<translate>Local print configuration will be used.</translate>
+			</div>
+			{% endif %}
 			{% if row.IsFaulty %}
 			<div class="notice">
 				<span class="glyphicon glyphicon-alert"></span> &nbsp; 
@@ -98,6 +103,11 @@
 					<a class="ask req-no-slicing btn btn-default repair svg tip" href="/plate/repair-regenerate/{{ row.PlateID }}"
 					data-ask="regenerate-confirm">{{ icon(repair_icon) }}<translate class="hide">Repair and re-slice</translate></a>
 					{% endif %}
+			</div>
+			{% endif %}
+			{% if row.IsOverhang %}
+			<div class="label label-danger"><span class="glyphicon glyphicon-alert"></span> &nbsp; 
+				<translate>Early layers seems empty, print will fails.</translate>
 			</div>
 			{% endif %}
 			{% if row.Risky %}
@@ -141,7 +151,11 @@
 				<dt><span class="glyphicon glyphicon-usd"></span>&nbsp;
 					<translate>Resin Cost</translate>
 				</dt>
-				<dd>{{row.Price}}</dd>				
+				<dd>{{row.Price}}</dd>						
+				<dt><span class="glyphicon glyphicon-menu-hamburger"></span>&nbsp; 
+					<translate>Layer Count</translate>
+				</dt>
+				<dd>{{row.LayersCount}}</dd>				
 				{% if row.StopLayers %}
 				<dt><span class="glyphicon glyphicon-stop"></span>&nbsp;
 					<translate>Stop Layers</translate>
@@ -179,7 +193,8 @@
 		</td>
 		<td>			
 		{% if status.Printing == false %}
-			<form action="/printer/start/{{ row.PlateID }}" method="post">
+			{% if !row.profileError %}
+			<form action="/printer/start/{{ row.PlateID }}" method="post" class="{% if row.PlateID == status.PlateID && status.ResumeID<row.LayersCount %}{% else %}hide{% endif %}">
 				<span class="input-append input-group">
 					<input name="LayerID" class="form-control compact-input appendedtext resume-id"
 						value="{% if row.PlateID == status.PlateID && status.ResumeID<row.LayersCount %}{{status.ResumeID}}{% endif %}"
@@ -197,7 +212,6 @@
 					</span>
 				</span>
 			</form>
-			{% if !row.profileError %}
 			<a class="btn btn-success ask req-processed tip" href="/printer/start/{{ row.PlateID }}"
 				data-ask="start-confirm"><span class="glyphicon glyphicon-play"><translate class="hide">Start</translate></span>
 			</a>
@@ -228,6 +242,8 @@
 					<span class="glyphicon glyphicon-option-vertical"></span> <translate class="hide">More</translate></a>
 				</button>
 				<ul class="dropdown-menu">					
+					<li><a href="#" class="print-from-middle"><span
+						class="glyphicon glyphicon-play"></span> &nbsp; <translate>Print from Middle</translate></a></li>
 					<li><a href="/plate/edit/{{ row.PlateID }}"><span
 						class="glyphicon glyphicon-pencil"></span> &nbsp; <translate>Edit</translate></a></li>
 					{% if row.Type=="stl" && row.Size < 500000000 %}
