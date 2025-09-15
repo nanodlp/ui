@@ -51,40 +51,69 @@
 {% endmacro %}
 {% macro customInputs(inputs,values,place) %}
 {% if inputs %}
-	<h3 translate>Other Settings</h3>
-	<div class="row custom">
-		{% for input in inputs %}
-		{% if input.Place == place %}
-		<div class="col-md-4">
-			<label for="{{input.Name}}">{{input.Title}}{% if input.Unit!="" %} <span
-					class="label label-default">{{input.Unit}}</span>{% endif %}</label>
-			{% if input.Type==2 %}
-			<select name="{{input.Name}}" id="{{input.Name}}" class="form-control">
-				<option value="0" {% for key, value in values %}{% if key==input.Name && value=="0" %}selected{% endif %}{% endfor %}>Enabled</option>
-				<option value="1" {% for key, value in values %}{% if key==input.Name and value=="1" %}selected{% endif %}{% endfor %}>Disabled</option>
-			</select>
-			{% else %}
-			<input class="form-control" type="{% if input.Type==1 %}{{input.Type}}{% endif %}"
-				value="{% for key, value in values %}{% if key==input.Name %}{{value}}{% endif %}{% endfor %}"
-				name="{{input.Name}}" id="{{input.Name}}" {% if input.Type==1 %} min="{{input.Min}}"
-				max="{{input.Max}}" {% endif %}>
+	<div class="i_custom i_option tip" style="display: none;">
+		<div class="row custom">
+			{% for input in inputs %}
+			{% if input.Place == place %}
+			<div class="col-md-4">
+				<label for="{{input.Name}}">{{input.Title}}{% if input.Unit!="" %} <span
+						class="label label-default">{{input.Unit}}</span>{% endif %}</label>
+				{% if input.Type==2 %}
+				<select name="{{input.Name}}" id="{{input.Name}}" class="form-control">
+					<option value="0" {% for key, value in values %}{% if key==input.Name && value=="0" %}selected{% endif %}{% endfor %}>Enabled</option>
+					<option value="1" {% for key, value in values %}{% if key==input.Name and value=="1" %}selected{% endif %}{% endfor %}>Disabled</option>
+				</select>
+				{% else %}
+				<input class="form-control" type="{% if input.Type==1 %}{{input.Type}}{% endif %}"
+					value="{% for key, value in values %}{% if key==input.Name %}{{value}}{% endif %}{% endfor %}"
+					name="{{input.Name}}" id="{{input.Name}}" {% if input.Type==1 %} min="{{input.Min}}"
+					max="{{input.Max}}" {% endif %}>
+				{% endif %}
+				</div>
 			{% endif %}
-			</div>
-		{% endif %}
-		{% endfor %}
+			{% endfor %}
+		</div>
+		<br>
 	</div>
-	<br>
 {% endif %}	
 {% endmacro %}
 {% macro buttonsView(buttons,page) %} 
-	{% if buttons %}
-	<span class="custom-buttons">
-		{% for button in buttons %} 
+	{% if buttons || cast==false || projectorPowerCycle==1 || autoShutdown %}
+	<div class="custom-buttons-container">
+		<div class="custom-buttons-header">
+			<span class="custom-buttons-title">Quick Actions</span>
+		</div>
+		<div class="custom-buttons-group">
+			{% if autoShutdown %}
+			<div class="custom-button-item printing-obj">				
+				<a class="btn btn-success custom-button" href="/printer/auto-shutdown/disable" alt="Disable shutdown after job completion"
+				translate>Disable Auto Shutdown</a>
+			</div>
+			{% else %}
+			<div class="custom-button-item printing-obj">				
+				<a class="btn btn-warning custom-button" href="/printer/auto-shutdown/enable" alt="Enable shutdown after job completion" translate>Enable Auto Shutdown</a>
+			</div>
+			{% endif %}
+			{% if cast==false %}
+			<div class="custom-button-item idle-obj">
+				<a class="btn btn-success ask custom-button" href="/printer/cast" data-ask="display-confirm" translate>Start Display</a>
+			</div>
+			{% endif %}
+
+			{% if projectorPowerCycle==1 %}
+			<div class="custom-button-item idle-obj">
+				<a class="ajax btn btn-warning idle-obj custom-button" href="/projector/off" name="type" data-confirm="projectoroff-confirm" translate>Projector Off</a>
+			</div>
+			{% endif %}
+			<div class="custom-button-item hide">
+				<a class="btn btn-success custom-button" id="camera" href="/camera/take" translate>Take Photo</a>
+			</div>
+			{% for button in buttons %} 
 			{% if button.Position==page %}
-			<span id="cbutton{{button.ID}}" style="{% if button.Condition=='hidden' %}display:none{%endif%}">
+			<div id="cbutton{{button.ID}}" class="custom-button-item" style="{% if button.Condition=='hidden' %}display:none{%endif%}">
 				{{button.HTML|safe}}
 				{% if button.HTML=="" %}
-					<a href="/button/press/{{button.ID}}" class="
+					<a href="/button/press/{{button.ID}}" class="custom-button
 					{% if button.Color=='toggle' %}
 						{% if !button.State %}btn btn-success{% else %}btn btn-danger{% endif %}
 					{% else %}
@@ -102,10 +131,11 @@
 					{% endif %}
 					</a>
 				{% endif %}
-			</span> &nbsp;
+			</div>
 			{% endif %}
-		{% endfor %}
-	</span>
+			{% endfor %}
+		</div>
+	</div>
 	{% endif %} 
 {% endmacro %}
 {% macro helpModal(helpFiles,title) %} {% if helpFiles %}<a href="#" class="help hh" data-files="{{helpFiles}}" translate>ⓘ</a>{% endif %} {% endmacro %}
@@ -182,14 +212,48 @@
 <body data-lang="{{lang}}">
 	<!-- Fixed navbar -->
 	<nav class="navbar navbar-default">
-		<div class="container">{% include "menu.html" %}</div>
+		{% include "menu.html" %}
 	</nav>
 
-	<div class="container">
-		{% block content %} {% endblock %}
-		<br>
-		<br>
-		<br>
+	<div class="container-fluid">
+		<div class="row">
+			<!-- Left Sidebar -->
+			<div class="col-md-2 sidebar">
+				<nav class="sidebar-nav">
+					<ul class="nav nav-pills nav-stacked">
+						<li><a href="/"><span class="glyphicon glyphicon-dashboard"></span>&nbsp; <translate>Dashboard</translate></a></li>
+						<li><a href="/plates"><span class="glyphicon glyphicon-tasks"></span>&nbsp; <translate>Jobs</translate></a></li>
+						<li><a href="/profiles"><span class="glyphicon glyphicon-tint"></span>&nbsp; <translate>Resin Profiles</translate></a></li>
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+								<span class="glyphicon glyphicon-wrench"></span>&nbsp; <translate>System</translate> <span class="caret"></span>
+							</a>
+							<ul class="dropdown-menu">
+								{% if !manHighLock %}
+								<li class="{% if viewMode == 0 %}hidden{% endif %}"><a href="/setup"><span class="glyphicon glyphicon-wrench"></span>&nbsp; <translate>Machine Settings</translate></a></li>
+								{% endif %}
+								<li><a href="/z-calibration"><span class="glyphicon glyphicon-resize-vertical"></span>&nbsp; <translate>Z Axis Control</translate></a></li>
+								<li><a href="/projector-calibration"><span class="glyphicon glyphicon-picture"></span>&nbsp; <translate>Display Calibration</translate></a></li>
+								<li role="separator" class="divider"></li>
+								{% if !manHighLock %}
+								<li class="{% if viewMode == 0 %}hidden{% endif %}"><a href="/tools"><span class="glyphicon glyphicon-cog"></span>&nbsp; <translate>Tools</translate></a></li>
+								{% endif %}
+								<li><a href="/support"><span class="glyphicon glyphicon-question-sign"></span>&nbsp; <translate>Help</translate></a></li>
+								<li><a href="#" id="expertModeCheckbox"><span class="glyphicon glyphicon-dashboard"></span>&nbsp; {% if viewMode == 1 %}<translate>Basic Mode</translate>{% else %}<translate>Expert Mode</translate>{% endif %}</a> </li>
+							</ul>            
+						</li>
+					</ul>
+				</nav>
+			</div>
+			
+			<!-- Main Content Area -->
+			<div class="col-md-10 main-content">
+				{% block content %} {% endblock %}
+				<br>
+				<br>
+				<br>
+			</div>
+		</div>
 	</div>
 	<!-- /container -->
 	<!-- Electron  -->
@@ -204,7 +268,6 @@
 	<script src='/static/js/slicer.js'></script>
 	<script src='/static/js/preview.js'></script>
 	<script src='/static/js/po.js'></script>
-	<script>if (window.module) module = window.module;</script>
 	{% block js %} {% endblock %} {% block tail %} {% endblock %}
 	<div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 		<div class="modal-dialog" role="document">

@@ -8,28 +8,6 @@
     <a href="/" class="navbar-brand"><img src="/static/logo.png" alt="NanoDLP"></a>
 </div>
 <div id="navbar" class="navbar-collapse collapse">
-    <ul class="nav navbar-nav">        
-        <li><a href="/plates"><span class="glyphicon glyphicon-tasks"></span>&nbsp; <translate>Jobs</translate></a></li>
-        <li><a href="/profiles"><span class="glyphicon glyphicon-tint"></span>&nbsp; <translate>Resin Profiles</translate></a></li>
-        <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                <span class="glyphicon glyphicon-wrench"></span>&nbsp; <translate>System</translate> <span class="caret"></span>
-            </a>
-            <ul class="dropdown-menu">
-                {% if !manHighLock %}
-                <li class="{% if viewMode == 0 %}hidden{% endif %}"><a href="/setup"><span class="glyphicon glyphicon-wrench"></span>&nbsp; <translate>Machine Settings</translate></a></li>
-                {% endif %}
-                <li><a href="/z-calibration"><span class="glyphicon glyphicon-resize-vertical"></span>&nbsp; <translate>Z Axis Control</translate></a></li>
-                <li><a href="/projector-calibration"><span class="glyphicon glyphicon-picture"></span>&nbsp; <translate>Display Calibration</translate></a></li>
-                <li role="separator" class="divider"></li>
-                {% if !manHighLock %}
-                <li class="{% if viewMode == 0 %}hidden{% endif %}"><a href="/tools"><span class="glyphicon glyphicon-cog"></span>&nbsp; <translate>Tools</translate></a></li>
-                {% endif %}
-                <li><a href="/support"><span class="glyphicon glyphicon-question-sign"></span>&nbsp; <translate>Help</translate></a></li>
-                <li><a href="#" id="expertModeCheckbox"><span class="glyphicon glyphicon-dashboard"></span>&nbsp; {% if viewMode == 1 %}<translate>Basic Mode</translate>{% else %}<translate>Expert Mode</translate>{% endif %}</a> </li>
-            </ul>            
-        </li>        
-    </ul>
     <ul class="nav navbar-nav navbar-right">
         {% if rampsReconnect %}
         <li>
@@ -68,7 +46,6 @@
                     <small>{% if printerName!="" %}{{printerName}} - {% endif %}<translate>Build</translate> {{version}}</small>
                 </a>
             {% endif %}
-
         </li>
     </ul>
 </div>

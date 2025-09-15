@@ -648,6 +648,9 @@ function update_status(){
 			$('.resume-obj').hide();
 			if (data['PlateID'] && data['LayerID']>1 && data['LayersCount'] > 1 + data['LayerID']) {
 				$('.resume-obj').show();
+				$(".dashboard").slideDown();
+			} else {
+				$(".dashboard").slideUp();
 			}
 		} else {
 			last_value('layer',data['LayerID']);
@@ -947,7 +950,7 @@ function update_platform_photo(camera_frequency){
 	if (update_status.running==0){
 		key = Math.floor(Date.now() / 1000);		
 	}
-	$("#camera").show();
+	$("#camera").parent().removeClass("hide");
 	$("#photo_wrapper").slideDown();
 	$("#photo_wrapper div").html('<img src="/static/shot.jpg?'+key+'">');
 	$('img').error(function(){
@@ -1112,6 +1115,29 @@ $(document).ready(function() {
 			applyAllFilters(savedFilter, savedSearch);
 		}
 	}, 200);
+	// Mobile sidebar toggle
+	$('.navbar-toggle').click(function() {
+		$('.sidebar').toggleClass('open');
+	});
+	
+	// Close sidebar when clicking outside on mobile
+	$(document).click(function(e) {
+		if ($(window).width() <= 991) {
+			if (!$(e.target).closest('.sidebar, .navbar-toggle').length) {
+				$('.sidebar').removeClass('open');
+			}
+		}
+	});
+	
+	// Set active menu item based on current page
+	var currentPath = window.location.pathname;
+	
+	// Handle root path "/" for Dashboard
+	if (currentPath === '/' || currentPath === '') {
+		$('.sidebar-nav a[href="/"]').parent().addClass('active');
+	} else {
+		$('.sidebar-nav a[href="' + currentPath + '"]').parent().addClass('active');
+	}	
 });
 
 $('#expertModeCheckbox').click(function(e) {

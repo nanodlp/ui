@@ -14,22 +14,8 @@ function slicer_progress() {
 		type: 'GET',
 		timeout: 1000
 	}).done(function (data) {
-		// Remote slicing
-		if (data["url"] !== "") {
-			$.ajax({
-				url: data["url"] + '/slicer',
-				dataType: 'json',
-				type: 'GET',
-				timeout: 1000
-			}).done(function (d) {
-				data["layerID"] = d["layerID"];
-				data["percentage"] = d["percentage"];
-				data["running"] = 1;
-				update_slicer_progress(data);
-			});
-		} else {
-			update_slicer_progress(data);
-		}
+		// Backend now handles remote slicing status internally
+		update_slicer_progress(data);
 	});
 }
 

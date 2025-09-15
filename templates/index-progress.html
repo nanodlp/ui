@@ -115,31 +115,7 @@
 					</h3>
 				</div>				
 			</div>
-			<span class="printing-obj">
-				{% if autoShutdown %}
-				<a class="btn btn-success" href="/printer/auto-shutdown/disable" alt="Disable shutdown after job completion"
-				translate>Disable Auto Shutdown</a>
-				{% else %}
-				<a class="btn btn-warning" href="/printer/auto-shutdown/enable" alt="Enable shutdown after job completion" translate>Enable
-					Auto Shutdown</a>
-				{% endif %}
-				&nbsp; 
-			</span>
-
-			<span class="idle-obj">
-				{% if cast==false %}
-				<a class="btn btn-success ask" href="/printer/cast" data-ask="display-confirm" translate>Start Display</a>
-				&nbsp; 
-				{% endif %}
-
-				{% if projectorPowerCycle==1 %}
-				<a class="ajax btn btn-warning idle-obj" href="/projector/off" name="type" data-confirm="projectoroff-confirm" translate>Projector
-					Off</a>
-				&nbsp; 
-				{% endif %}
-			</span>
 			{{ buttonsView(buttons,"/") }}
-			<a class="btn btn-success" id="camera" href="/camera/take" translate>Take Photo</a>
 		</div>
 	</div>
 </div>

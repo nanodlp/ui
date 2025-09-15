@@ -5,7 +5,7 @@
 		update_input();
 		$('.color').change(function() {
 			update_input();
-		});
+		});	
 	});
 	function update_input(){
 		$("tr").each(function(){
@@ -20,8 +20,8 @@
 {% macro buttonView(name,nameActive,position,color,gcode,gcodeActive,confirmText,cond,html) %}
 <tr>
 	<td>
-		<input name="Name" value="{{name}}" class="form-control name">
-		<input name="NameActive" value="{{nameActive}}" class="form-control toggle">
+		<input name="Name" value="{{name}}" class="form-control name" placeholder="Button Name">
+		<input name="NameActive" value="{{nameActive}}" class="form-control toggle" placeholder="Active State Name">
 		<select name="Color" class="form-control color">
 			<option value="btn btn-success" {% if color=="btn btn-success" %}selected{% endif %} translate>Green</option>
 			<option value="btn btn-info" {% if color=="btn btn-info" %}selected{% endif %} translate>Blue</option>
@@ -47,10 +47,10 @@
 		<input name="ConfirmText" value="{{confirmText}}" placeholder="Optional confirmation dialog text" class="form-control">
 	</td>
 	<td>
-		<textarea name="Gcode" class="form-control" style="height:80px">{{gcode}}</textarea>
-		<textarea name="GcodeActive" class="form-control toggle" style="height:80px">{{gcodeActive}}</textarea>
+		<textarea name="Gcode" class="form-control" style="height:80px" placeholder="G-code to execute">{{gcode}}</textarea>
+		<textarea name="GcodeActive" class="form-control toggle" style="height:80px" placeholder="G-code for active state">{{gcodeActive}}</textarea>
 	</td>
-	<td><textarea name="HTML" class="form-control">{{html}}</textarea></td>
+	<td><textarea name="HTML" class="form-control" placeholder="Custom HTML (optional)">{{html}}</textarea></td>
 	<td class="action"><a href="#" class="up">&#x2B06;</a><br><a href="#" class="down">&#x2B07;</a><br><a href="#" class="remove">&#x2716;</a></td>
 </tr>
 {% endmacro %}
