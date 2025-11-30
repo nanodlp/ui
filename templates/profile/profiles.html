@@ -2,11 +2,9 @@
 {% block content %}
 <h2>
     <translate>Resin Profiles</translate>
-    {% if !profiles %}
     <a class="btn btn-default tip" href="/profile/add" role="button"><span class="glyphicon glyphicon-plus"></span>
         <translate class="hide">Add a new resin profile</translate>
     </a>
-    {% endif %}
     <a class="btn btn-default tip" href="/import"><span class="glyphicon glyphicon-import"></span>
         <translate class="hide">Import a resin profile</translate>
     </a>
@@ -14,6 +12,7 @@
 <table class="table table-striped table-bordered model-list">
     <thead>
         <tr>
+            <th translate>ID</th>
             <th translate>Title</th>
             <th><span translate>Layer Thickness</span> <sup translate>Micron</sup></th>
             <th><span translate>Cure Time</span> <sup translate>Second</sup></th>
@@ -25,6 +24,7 @@
     {% if profiles %}
     {% for profile in profiles %}
     <tr>
+        <td>{{profile.ProfileID}}</td>
         <td>{{profile.Title}}</td>
         <td>{{profile.Depth|floatformat}}</td>
         <td>{{profile.CureTime|floatformat}}</td>

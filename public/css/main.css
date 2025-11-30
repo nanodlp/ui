@@ -1118,3 +1118,46 @@ dl {
 .main-content h2{
 	margin-top: 0;
 }
+
+/* Visual indicators for recently printed plates */
+.recent-print-24h {
+    background-color: rgba(76, 175, 80, 0.1) !important;
+    border-left: 4px solid #4CAF50 !important;
+}
+
+.recent-print-7d {
+    background-color: rgba(255, 235, 59, 0.1) !important;
+    border-left: 4px solid #FFEB3B !important;
+}
+
+/* Table row enhancements for sorting */
+.table.model-list tbody tr {
+    transition: all 0.2s ease;
+}
+
+.table.model-list tbody tr:hover {
+    background-color: rgba(0,123,255,0.05);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Print recency badge */
+.print-recency-badge {
+    display: inline-block;
+    padding: 2px 6px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-left: 8px;
+}
+
+.print-recency-badge.recent-24h {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.print-recency-badge.recent-7d {
+    background-color: #FF9800;
+    color: white;
+}

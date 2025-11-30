@@ -1,7 +1,7 @@
 {
   "name": "NanoSupport",
   "build": "NanoSupport",
-  "release_date": "Wed Oct 08 2025",
+  "release_date": "Thu Nov 06 2025",
   "logo": "./app/logo.png",
   "discription": "NanoSupport is a 3D print software, a curious endeavour to make it easier to work with NanoDLP.",
   "version": "3.8.5"

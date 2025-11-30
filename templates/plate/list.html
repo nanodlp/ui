@@ -67,7 +67,7 @@
 	</thead>
 	{% if plates %}
 	{% for row in plates %}{% if row.PlateID != 0 %}
-	<tr {% if forloop.Counter==1 %}id="latest"{% endif %} class="{% if row.Processed %}plate-processed{% else %}job-not-processed{% endif %}" data-profile="{{row.profileID}}">
+	<tr {% if forloop.Counter==1 %}id="latest"{% endif %} class="{% if row.Processed %}plate-processed{% else %}job-not-processed{% endif %} {% if row.PrintRecencyClass %}{{row.PrintRecencyClass}}{% endif %}" data-profile="{{row.profileID}}">
 		<td>{{row.PlateID}}</td>
 		<td>
 			<b class="tip">{{row.Path}}<translate class="hide">Uploaded on: {{row.UploadedOn}}</translate></b>
@@ -137,6 +137,11 @@
 					</div>
 				</div>
 			</div>
+			{% if row.PrintRecencyClass %}
+				<span class="print-recency-badge {{row.PrintRecencyClass}}">
+					{% if row.PrintRecencyClass == 'recent-print-24h' %}Recent{% else %}This Week{% endif %}
+				</span>
+			{% endif %}			
 		</td>
 		<td>
 			<img src="/static/plates/{{row.PlateID}}/3d.png?{{row.Updated}}" loading="lazy"
@@ -187,7 +192,7 @@
 				<dt><span class="glyphicon glyphicon-time"></span>&nbsp;
 					<translate>Cure Time</translate>
 				</dt>
-				<dd>{{row.supportCureTime}}s / {% if !row.cureTimes %}{{row.cureTime}}{% else %}{{row.cureTimes}}{% endif %}s</dd>
+				<dd class="tip">{{row.supportCureTime}}s / {% if !row.cureTimes %}{{row.cureTime}}{% else %}{{row.cureTimes}}{% endif %}s<translate class="hide">Burn-in / Normal, Support Over Cure</translate></dd>
 			</dl>
 			<div class="hide sort">{{row.LastPrint}}</div>
 		</td>
@@ -247,7 +252,7 @@
 					<li><a href="/plate/edit/{{ row.PlateID }}"><span
 						class="glyphicon glyphicon-pencil"></span> &nbsp; <translate>Edit</translate></a></li>
 					{% if row.Type=="stl" && row.Size < 500000000 %}
-					<li><a target="_blank" href="/static/editor/?ApplicationMode=embedded&src=/static/plates/{{ row.PlateID }}/plate.stl"><span class="glyphicon glyphicon-pencil"></span> &nbsp; <translate>3D Edit</translate>
+					<li><a target="_blank" href="/static/editor/?ApplicationMode=embedded&redirect=/plates&src=/static/plates/{{ row.PlateID }}/plate.stl"><span class="glyphicon glyphicon-pencil"></span> &nbsp; <translate>3D Edit</translate>
 					</a></li>
 					{% endif %}
 					{% if (row.Processed==true && row.Type && (( row.PlateID != status.PlateID or status.Printing == false))) or (row.Type && !autoSlice) %}

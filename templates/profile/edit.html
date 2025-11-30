@@ -100,16 +100,7 @@
 				</label>
 				<input class="form-control" value="{{profile.SupportWaitAfterPrint|floatformat}}" name="SupportWaitAfterPrint"
 					step="0.01" id="SupportWaitAfterPrint" type="number" required> <translate class="hide">Wait time after completing burn-in layers</translate>
-			</div>
-			<div class="col-md-4 i_burnin i_option conditional {{isHidden(basic.SupportWaitAfterPrint)}} tip" data-condition="#PrinterType != 2 && ['i_burnin'].includes(#scategory)">
-				<label for="SupportOverCure">
-					<translate>Over Cure Support</translate>
-					<span class="label label-default" translate>Second</span>
-				</label>
-				<input class="form-control" value="{{profile.SupportOverCure|floatformat}}" name="SupportOverCure"
-					step="0.01" id="SupportOverCure" type="number" required> <translate class="hide">Additional exposure time for support structures to ensure higher print success rate and ability to use lighter supports</translate>
-			</div>
-			
+			</div>		
 			<div class="col-md-4 i_option i_burnin conditional {{isHidden(basic.TransitionalLayer)}} tip" data-condition="#PrinterType != 2 && ['i_burnin'].includes(#scategory)">
 				<label for="TransitionalLayer">
 					<translate>Transitional Layer</translate>
@@ -258,6 +249,26 @@
 				<input class="form-control" value="{{profile.CureTime|floatformat}}" name="CureTime" id="CureTime" step="0.0001"
 					type="number" required> <translate class="hide">Normal layer cure time in seconds</translate>
 			</div>
+			<div class="col-md-4 i_normal i_option conditional {{isHidden(basic.SupportWaitAfterPrint)}} tip" data-condition="#PrinterType != 2 && ['i_normal'].includes(#scategory)">
+				<label for="SupportOverCure">
+					<translate>Over Cure Support Time</translate>
+					<span class="label label-default" translate>Second</span>
+				</label>
+				<input class="form-control" value="{{profile.SupportOverCure|floatformat}}" name="SupportOverCure"
+					step="0.01" id="SupportOverCure" type="number" required> <translate class="hide">Additional exposure time for support structures to ensure higher print success rate and ability to use lighter supports</translate>
+				<translate class="hide"> Extra cure time for supports to improve strength and removal</translate>					
+			</div>			
+			<div class="col-md-4 i_normal i_option {{isHidden(basic.DynamicCureTime)}} tip">
+				<label for="DynamicCureTime">
+					<translate>Dynamic Cure Time</translate>
+					<span class="label label-default"
+						translate>Second</span> {{helpPage("https://docs.nano3dtech.com/manual/code/#dynamic-fields")}}
+					{{formulaModal()}}
+				</label>
+				<textarea class="form-control" name="DynamicCureTime"
+					id="DynamicCureTime">{{profile.DynamicCureTime}}</textarea>
+				<translate class="hide">Dynamic cure time formula using layer variables</translate>
+			</div>
 			<div class="col-md-4 i_normal i_option {{isHidden(basic.DynamicWait)}} tip">
 				<label for="DynamicWait">
 					<translate>Dynamic Wait</translate>
@@ -330,17 +341,6 @@
 				</label>
 				<input class="form-control" value="{{profile.ErodeStartHeight|floatformat}}" name="ErodeStartHeight" id="ErodeStartHeight"
 					step="0.001" type="number" min="0"> <translate class="hide">Z height to start erode/dilate operations in millimeters</translate>
-			</div>
-			<div class="col-md-4 i_normal i_option {{isHidden(basic.DynamicCureTime)}} tip">
-				<label for="DynamicCureTime">
-					<translate>Dynamic Cure Time</translate>
-					<span class="label label-default"
-						translate>Second</span> {{helpPage("https://docs.nano3dtech.com/manual/code/#dynamic-fields")}}
-					{{formulaModal()}}
-				</label>
-				<textarea class="form-control" name="DynamicCureTime"
-					id="DynamicCureTime">{{profile.DynamicCureTime}}</textarea>
-				<translate class="hide">Dynamic cure time formula using layer variables</translate>
 			</div>
 			<div class="col-md-4 i_movetolayer i_option {{isHidden(basic.ShieldBeforeLayer)}} tip">
 				<label for="ShieldBeforeLayer">
